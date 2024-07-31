@@ -6,7 +6,7 @@
 #    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/01 06:44:33 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/01 07:14:30 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ CF_GENERATE_DEBUG_INFO = -g
 CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF)/includes \
 	 -I$(LIBMLX_DIR)/includes
 CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
+CF_FRAMEWORK = -framework OpenGL -framework IOKit
 # macOS
 CF_FRAMEWORK = -framework OpenGL -framework AppKit
 
