@@ -1,9 +1,12 @@
-DIR="minilibx-linux"
-RESOURCE_MLX="../resource/minilibx-linux.tgz"
+#!/bin/bash
 
-if [ ! -d "${DIR}" ]; then
-	echo "Extract files from {RESOURCE_MLX}...";
-	tar -xzf ${RESOURCE_MLX};
+# Extract target
+DST="minilibx-linux"
+SRC="../resource/minilibx-linux.tgz"
+
+if [ ! -d "${DST}" ]; then
+	echo "Extract files from ${SRC}...";
+	tar -xzf ${DST};
 else
-	echo "${DIR} exists. No action needed.";
+	echo "${DST} exists. No action needed.";
 fi
