@@ -32,6 +32,9 @@ check_and_install "xorg"
 # Install libxext-dev
 check_and_install "libxext-dev"
 
+# Install zlib1g-dev
+check_and_install "zlib1g-dev"
+
 # Install libbsd-dev
 check_and_install "libbsd-dev"
 

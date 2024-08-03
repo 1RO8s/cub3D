@@ -24,7 +24,8 @@ DEP_DIR = .deps
 LIB_DIR = lib
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFTPRINTF_DIR = $(LIB_DIR)/ft_printf
-LIBMLX_DIR = $(LIB_DIR)/libmlx
+LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
+# option selected OS
 
 # Source files
 SRCS = \
@@ -46,7 +47,7 @@ DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBMLX = $(LIBMLX_DIR)/libmlx.a
-LIBS = $(LIBFT) $(LIBMLX)
+LIBS = $(LIBFT) $(LIBFTPRINTF) #$(LIBMLX)
 
 # Build target
 NAME = $(notdir $(CURDIR))
@@ -57,15 +58,18 @@ vpath %.c $(SRCS_DIR)
 # Compiler
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+CF_OPTIMIZE = -03
 CF_ASAN = -g -fsanitize=address
 #CF_THSAN = -g -fsanitize=thread
 CF_GENERATE_DEBUG_INFO = -g
-CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF)/includes \
-	 -I$(LIBMLX_DIR)/includes
+CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
+	 -I$(LIBMLX_DIR)
 CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
-CF_FRAMEWORK = -framework OpenGL -framework IOKit
+CF_FRAMEWORK = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
+# To link internal Linux API
+#$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 # macOS
-CF_FRAMEWORK = -framework OpenGL -framework AppKit
+#CF_FRAMEWORK = -framework OpenGL -framework AppKit
 
 # Makefile Option
 MAKEFLAGS += --no-print-directory
@@ -74,7 +78,7 @@ MAKEFLAGS += --no-print-directory
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(DEP_DIR)
-	$(CC) $(CFLAGS) $(CF_INC) $(CF_DEP) -c $< -o $@
+	$(CC) $(CFLAGS) $(CF_INC) $(CF_OPTIMIZE) $(CF_DEP) -c $< -o $@
 
 $(DEP_DIR)/%.d: %.c
 	@mkdir -p $(DEP_DIR)
@@ -101,7 +105,7 @@ display_art:
 
 # Target
 $(NAME): $(LIBS) $(DEPS) $(OBJS)
-	$(CC) $(CFLAGS) $(CF_FRAMEWORK) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(CF_FRAMEWORK) -o $(NAME)
 	@echo "${GREEN}Successfully created execute: $@${NC}"
 
 # Address sanitizer mode make rule

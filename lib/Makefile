@@ -33,7 +33,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBMLX = $(LIBMLX_DIR)/libmlx.a
 #LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
-LIBS = $(LIBMLX) $(LIBFT) #$(LIBFTPRINTF)
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 
 OS := $(shell uname)
 
@@ -52,6 +52,7 @@ $(LIBMLX): #echo_build_env extract_mlx install_dependencies
 	make extract_mlx
 	make install_dependencies
 	make -C $(LIBMLX_DIR)
+# Fix order
 
 .PHONY: extract_mlx
 echo_build_env:
@@ -72,10 +73,13 @@ install_dependencies:
 $(LIBFT): 
 	make -C $(LIBFT_DIR)
 
+# Build ft_printf
+$(LIBFTPRINTF): 
+	make -C $(LIBFTPRINTF_DIR)
+
+# Update submodules
 .PHONY: submodules
-
 SUBMODULE_DIR := $(LIBFT_DIR)
-
 submodules:
 	@command -v git >/dev/null 2>&1 \
 		|| { echo >&2 "git is not installed. Aborting."; exit 1; }
