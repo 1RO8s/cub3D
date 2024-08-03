@@ -13,10 +13,13 @@
 # Build Libraries
 #  MiniLibX, Libft, ft_printf
 
+## Makefile Option
+MAKEFLAGS += --no-print-directory
+
 # Directories
 LIBFT_DIR = libft
 LIBFTPRINTF_DIR = ft_printf
-LIBMLX_DIR = libmlx
+LIBMLX_DIR = minilibx-linux
 LIBMLXOPENGL_DIR = libmlxopengl
 RESOURCE_DIR = ../resource
 
@@ -30,7 +33,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBMLX = $(LIBMLX_DIR)/libmlx.a
 #LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
-LIBS = $(LIBMLX) #$(LIBFT) #$(LIBFTPRINTF)
+LIBS = $(LIBMLX) $(LIBFT) #$(LIBFTPRINTF)
 
 OS := $(shell uname)
 
@@ -44,7 +47,11 @@ endif
 all: submodules $(LIBS)
 
 # Build MiniLibX
-$(LIBMLX): echo_build_env extract_mlx install_dependencies
+$(LIBMLX): #echo_build_env extract_mlx install_dependencies
+	make echo_build_env
+	make extract_mlx
+	make install_dependencies
+	make -C $(LIBMLX_DIR)
 
 .PHONY: extract_mlx
 echo_build_env:
@@ -63,6 +70,7 @@ install_dependencies:
 
 # Build Libft
 $(LIBFT): 
+	make -C $(LIBFT_DIR)
 
 .PHONY: submodules
 
