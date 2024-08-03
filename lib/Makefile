@@ -41,20 +41,39 @@ ifeq ($(OS), Linux)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 endif
 
-all: $(LIBS)
-	@echo "Resource file selected: $(RESOURCE_MLX)"
-	@echo "Compiling for OS: $(OS)"
+all: submodules $(LIBS)
 
-$(LIBMLX): extract_mlx
+# Build MiniLibX
+$(LIBMLX): echo_build_env extract_mlx install_dependencies
+
+.PHONY: extract_mlx
+echo_build_env:
+	@echo "MiniLibX Compiling for OS: $(OS)"
+	@echo "Resource file selected: $(RESOURCE_MLX)"
 
 SETUP_MLX = ./setup_mlx.sh
+
+.PHONY: extract_mlx
 extract_mlx:
 	@$(SETUP_MLX)
-	@if [ $$? -eq 0 ]; then \
-		echo "$(GREEN)setup_mlx.sh executed successfully.$(NC)"; \
-	else \
-		echo "$(RED)setup_mlx.sh exection failed.$(NC)"; \
-		exit 1; \
+
+.PHONY: install_dependencies
+install_dependencies:
+	@./install_dependency.sh
+
+# Build Libft
+$(LIBFT): 
+
+.PHONY: submodules
+
+SUBMODULE_DIR := $(LIBFT_DIR)
+
+submodules:
+	@command -v git >/dev/null 2>&1 \
+		|| { echo >&2 "git is not installed. Aborting."; exit 1; }
+	@if [ ! -d "$(SUBMODULE_DIR)" ]; then \
+	    git submodule init; \
+	    git submodule update --recursive; \
 	fi
 
 
