@@ -16,11 +16,13 @@
 #include <errno.h>
 #include <string.h>
 
+#include "unistd.h"
+
 static void	error_message(int error_code)
 {
 	static char	*msg[ERR_NUM] = {MSG_MLX, MSG_WIN, MSG_MAP};
 
-	ft_fprintf(stderr, msg[error_code]);
+	ft_dprintf(STDERR_FILENO, msg[error_code]);
 }
 
 void	error_fdf(int error_code)
@@ -36,7 +38,7 @@ void	ft_errno_exit(char *cause)
 
 	error_number = errno;
 	error_message = strerror(error_number);
-	ft_fprintf(stderr, "%s: %s: %s\n", NAME, cause, error_message);
+	ft_dprintf(STDERR_FILENO, "%s: %s: %s\n", NAME, cause, error_message);
 	exit (1);
 }
 

@@ -58,7 +58,7 @@ vpath %.c $(SRCS_DIR)
 # Compiler
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CF_OPTIMIZE = -03
+CF_OPTIMIZE = -O3
 CF_ASAN = -g -fsanitize=address
 #CF_THSAN = -g -fsanitize=thread
 CF_GENERATE_DEBUG_INFO = -g
