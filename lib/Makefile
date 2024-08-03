@@ -10,6 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Build Libraries
+#  MiniLibX, Libft, ft_printf
+
 # Directories
 LIBFT_DIR = libft
 LIBFTPRINTF_DIR = ft_printf
@@ -27,7 +30,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBMLX = $(LIBMLX_DIR)/libmlx.a
 #LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
-LIBS = $(LIBFT) $(LIBMLX)
+LIBS = $(LIBMLX) #$(LIBFT) #$(LIBFTPRINTF)
 
 OS := $(shell uname)
 
@@ -38,9 +41,28 @@ ifeq ($(OS), Linux)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 endif
 
-all:
+all: $(LIBS)
 	@echo "Resource file selected: $(RESOURCE_MLX)"
 	@echo "Compiling for OS: $(OS)"
+
+$(LIBMLX): extract_mlx
+
+SETUP_MLX = ./setup_mlx.sh
+extract_mlx:
+	@$(SETUP_MLX)
+	@if [ $$? -eq 0 ]; then \
+		echo "$(GREEN)setup_mlx.sh executed successfully.$(NC)"; \
+	else \
+		echo "$(RED)setup_mlx.sh exection failed.$(NC)"; \
+		exit 1; \
+	fi
+
+
+# Color Definitions
+RED=\033[0;31m
+GREEN=\033[0;32m
+YELLOW=\033[0;33m
+NC=\033[0m # No Color
 
 ## Build target
 #NAME = $(notdir $(CURDIR))

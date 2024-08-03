@@ -10,3 +10,5 @@ if [ ! -d "${DST}" ]; then
 else
 	echo "${DST} exists. No action needed.";
 fi
+
+exit $?
