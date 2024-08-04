@@ -6,7 +6,7 @@ SRC="../resource/minilibx-linux.tgz"
 
 if [ ! -d "${DST}" ]; then
 	echo "Extract files from ${SRC}...";
-	tar -xzf ${DST};
+	tar -xzf ${SRC};
 else
 	echo "${DST} exists. No action needed.";
 fi

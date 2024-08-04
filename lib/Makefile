@@ -6,7 +6,7 @@
 #    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/01 07:28:26 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/05 02:17:11 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,10 +83,7 @@ SUBMODULE_DIR := $(LIBFT_DIR)
 submodules:
 	@command -v git >/dev/null 2>&1 \
 		|| { echo >&2 "git is not installed. Aborting."; exit 1; }
-	@if [ ! -d "$(SUBMODULE_DIR)" ]; then \
-	    git submodule init; \
-	    git submodule update --recursive; \
-	fi
+	@./initialize_submodules.sh
 
 
 # Color Definitions
