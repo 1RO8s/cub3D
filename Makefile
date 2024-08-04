@@ -6,18 +6,19 @@
 #    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/01 07:14:30 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/05 03:50:48 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Directories
-SRCS_DIR = ./srcs \
-		   ./srcs/initialize \
-		   ./srcs/render \
-		   ./srcs/my_mlx_utils \
-		   ./srcs/xxx \
-		   ./srcs/yyy \
-		   ./srcs/zzz
+SRCS_DIR = ./srcs
+#		   ./srcs/initialize \
+#		   ./srcs/render \
+#		   ./srcs/my_mlx_utils \
+#		   ./srcs/xxx \
+#		   ./srcs/yyy \
+#		   ./srcs/zzz
+
 OBJ_DIR = objs
 INC_DIR = includes
 DEP_DIR = .deps
@@ -29,14 +30,16 @@ LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 
 # Source files
 SRCS = \
-	   main.c \
-	   draw.c \
-	   draw_line.c \
-	   my_mlx.c \
-	   read_map.c \
-	   set_points.c \
-	   error.c \
-	   init.c
+       main.c
+
+#	   main.c \
+#	   draw.c \
+#	   draw_line.c \
+#	   my_mlx.c \
+#	   read_map.c \
+#	   set_points.c \
+#	   error.c \
+#	   init.c
 
 
 # Object files and dependency files
@@ -128,13 +131,15 @@ check: fclean
 clean:
 	@echo "${RED}Cleaning object files of '${NAME}'...${NC}"
 	rm -rf $(OBJ_DIR) $(DEP_DIR)
-	make -C $(LIBDEBUG_DIR) clean
+	make -C $(LIBFT_DIR) clean
+	make -C $(LIBFTPRINTF_DIR) clean
 .PHONY: clean
 
 # Clean and remove library target
 fclean: clean
 	@echo "${RED}Removing archive file...${NC}"
-	rm -f $(LIBDEBUG)
+	rm -f $(LIBFT)
+	rm -f $(LIBFTPRINTF)
 	rm -f $(NAME)
 	@echo "${GREEN}Archive file removed.${NC}"
 .PHONY: fclean
