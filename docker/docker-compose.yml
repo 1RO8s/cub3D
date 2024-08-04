@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  cub3d:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=host.docker.internal:0
+    container_name: cub3d
+    stdin_open: true
+    tty: true
