@@ -1,0 +1,27 @@
+# Ignore everything by default
+*
+
+# Allow directories to be included so we can selectively whitelist files
+!*/
+
+# Whitelist important files
+!Makefile
+!*.c
+!*.h
+!*.cpp
+!*.sh
+!*.md
+!*.txt
+!*.pdf
+!*.zip
+!*.tgz
+!*.dox
+!Dockerfile
+!doxygen-awesome-css
+!Doxyfile
+!.gitignore
+!*.yml
+
+# Ignore specific directories
+lib/minilibx-linux/
+lib/minilibx_opengl_20191021/
