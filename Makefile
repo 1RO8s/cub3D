@@ -3,12 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/05 03:50:48 by kamitsui         ###   ########.fr        #
+#    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
+#    Updated: 2024/08/06 05:57:37 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# Build Cub3D : Top level build
 
 # Directories
 SRCS_DIR = ./srcs
@@ -25,22 +27,11 @@ DEP_DIR = .deps
 LIB_DIR = lib
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFTPRINTF_DIR = $(LIB_DIR)/ft_printf
-LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 # option selected OS
 
 # Source files
 SRCS = \
        main.c
-
-#	   main.c \
-#	   draw.c \
-#	   draw_line.c \
-#	   my_mlx.c \
-#	   read_map.c \
-#	   set_points.c \
-#	   error.c \
-#	   init.c
-
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -49,11 +40,10 @@ DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-LIBMLX = $(LIBMLX_DIR)/libmlx.a
-LIBS = $(LIBFT) $(LIBFTPRINTF) #$(LIBMLX)
+LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX)
 
 # Build target
-NAME = $(notdir $(CURDIR))
+NAME = cub3D
 
 # vpath for serching source files in multiple directories
 vpath %.c $(SRCS_DIR)
@@ -68,11 +58,21 @@ CF_GENERATE_DEBUG_INFO = -g
 CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
 	 -I$(LIBMLX_DIR)
 CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
-CF_FRAMEWORK = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
+
+OS := $(shell uname)
+
+# Choose compile flag for using API
+# To link internal macOS API
+ifeq ($(OS), Darwin)
+LIBMLX_DIR = $(HOME)/lib/minilibx/minilibx_macos
+LIBMLX := $(LIBMLX_DIR)/libmlx.a
+CF_API = -framework OpenGL -framework AppKit
+endif
 # To link internal Linux API
-#$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-# macOS
-#CF_FRAMEWORK = -framework OpenGL -framework AppKit
+ifeq ($(OS), Linux)
+LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
+CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
+endif
 
 # Makefile Option
 MAKEFLAGS += --no-print-directory
@@ -108,7 +108,7 @@ display_art:
 
 # Target
 $(NAME): $(LIBS) $(DEPS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(CF_FRAMEWORK) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(CF_API) -o $(NAME)
 	@echo "${GREEN}Successfully created execute: $@${NC}"
 
 # Address sanitizer mode make rule

@@ -6,11 +6,11 @@
 #    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/05 02:17:11 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/06 04:59:31 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Build Libraries
+# Build Libraries : nest of Cub3D
 #  MiniLibX, Libft, ft_printf
 
 ## Makefile Option
@@ -19,7 +19,8 @@ MAKEFLAGS += --no-print-directory
 # Directories
 LIBFT_DIR = libft
 LIBFTPRINTF_DIR = ft_printf
-LIBMLX_DIR = minilibx-linux
+LIBMLX_LINUX_DIR = minilibx-linux
+LIBMLX_MAC_DIR = minilibx_mms_20200219
 LIBMLXOPENGL_DIR = libmlxopengl
 RESOURCE_DIR = ../resource
 
@@ -33,41 +34,40 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBMLX = $(LIBMLX_DIR)/libmlx.a
 #LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 
 OS := $(shell uname)
 
+## Fix the below : Un nessesary for macOS ??
+# For MacOS
 ifeq ($(OS), Darwin)
 RESOURCE_MLX := $(RESOURCE_MLX_MAC)
+LIBMLX_DIR = $(LIBMLX_MAC_DIR)
+GET_READY_MLX = extract_mlx
+LIBS = $(LIBFT) $(LIBFTPRINTF)
 endif
+# For Linux
 ifeq ($(OS), Linux)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
+LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
+GET_READY_MLX = extract_mlx install_dependencies
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 endif
 
 all: submodules $(LIBS)
 
 # Build MiniLibX
-$(LIBMLX): #echo_build_env extract_mlx install_dependencies
-	make echo_build_env
-	make extract_mlx
-	make install_dependencies
+$(LIBMLX): $(GET_READY_MLX)
 	make -C $(LIBMLX_DIR)
-# Fix order
 
-.PHONY: extract_mlx
-echo_build_env:
-	@echo "MiniLibX Compiling for OS: $(OS)"
-	@echo "Resource file selected: $(RESOURCE_MLX)"
-
-SETUP_MLX = ./setup_mlx.sh
-
-.PHONY: extract_mlx
+# Extract from resource (minilibx-linux.tgz minilibx_opengl.tgz)
 extract_mlx:
-	@$(SETUP_MLX)
+	@./extract_mlx.sh $(RESOURCE_MLX)
+.PHONY: extract_mlx
 
-.PHONY: install_dependencies
+# Check dependencies installed
 install_dependencies:
 	@./install_dependency.sh
+.PHONY: install_dependencies
 
 # Build Libft
 $(LIBFT): 
@@ -78,13 +78,31 @@ $(LIBFTPRINTF):
 	make -C $(LIBFTPRINTF_DIR)
 
 # Update submodules
-.PHONY: submodules
 SUBMODULE_DIR := $(LIBFT_DIR)
 submodules:
 	@command -v git >/dev/null 2>&1 \
 		|| { echo >&2 "git is not installed. Aborting."; exit 1; }
 	@./initialize_submodules.sh
+.PHONY: submodules
 
+## Clean target
+clean:
+	@echo "${RED}Cleaning object files of Libraries...${NC}"
+	make -C $(LIBFT_DIR) clean
+	make -C $(LIBFTPRINTF_DIR) clean
+	make -C $(LIBMLX_DIR) clean
+.PHONY: clean
+
+# Clean and remove library target
+fclean: clean
+	@echo "${RED}Removing archive file...${NC}"
+	rm -f $(NAME)
+	@echo "${GREEN}All archive file removed.${NC}"
+.PHONY: fclean
+
+## Rebuild target
+re: fclean all
+.PHONY: re
 
 # Color Definitions
 RED=\033[0;31m
