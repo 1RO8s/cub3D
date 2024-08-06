@@ -1,11 +1,10 @@
 # cub3D
 
-### if update submodules
-fetch all submodules
+### build & run
 ```sh
-# Case of update libft
-cd lib/libft
-git fetch
-git main
-git ../..
+make
+
+# current usage ( without use map data )
+./cub3D
+# display on Quartz static view
 ```

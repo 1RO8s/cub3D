@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/06 05:57:37 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/06 21:58:01 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,12 @@ OS := $(shell uname)
 # Choose compile flag for using API
 # To link internal macOS API
 ifeq ($(OS), Darwin)
-LIBMLX_DIR = $(HOME)/lib/minilibx/minilibx_macos
-LIBMLX := $(LIBMLX_DIR)/libmlx.a
-CF_API = -framework OpenGL -framework AppKit
+LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
+CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
+CF_API = -L./lib/minilibx-linux -lmlx -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
+#LIBMLX_DIR = $(HOME)/lib/minilibx/minilibx_macos
+#LIBMLX := $(LIBMLX_DIR)/libmlx.a
+#CF_API = -framework OpenGL -framework AppKit
 endif
 # To link internal Linux API
 ifeq ($(OS), Linux)

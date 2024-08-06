@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/06 04:59:31 by kamitsui         ###   ########.fr        #
+#    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
+#    Updated: 2024/08/06 22:03:05 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,13 @@ OS := $(shell uname)
 ## Fix the below : Un nessesary for macOS ??
 # For MacOS
 ifeq ($(OS), Darwin)
-RESOURCE_MLX := $(RESOURCE_MLX_MAC)
-LIBMLX_DIR = $(LIBMLX_MAC_DIR)
+RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
+LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
+#RESOURCE_MLX := $(RESOURCE_MLX_MAC)
+#LIBMLX_DIR = $(LIBMLX_MAC_DIR)
 GET_READY_MLX = extract_mlx
-LIBS = $(LIBFT) $(LIBFTPRINTF)
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
+#LIBS = $(LIBFT) $(LIBFTPRINTF)
 endif
 # For Linux
 ifeq ($(OS), Linux)
