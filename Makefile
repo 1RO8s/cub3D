@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/05 03:50:48 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/08 03:01:29 by hnagasak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 
 # Source files
 SRCS = \
-       main.c
+       main.c arg_check.c debug.c
 
 #	   main.c \
 #	   draw.c \
@@ -68,11 +68,11 @@ CF_GENERATE_DEBUG_INFO = -g
 CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
 	 -I$(LIBMLX_DIR)
 CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
-CF_FRAMEWORK = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
+# CF_FRAMEWORK = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
 # To link internal Linux API
 #$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 # macOS
-#CF_FRAMEWORK = -framework OpenGL -framework AppKit
+CF_FRAMEWORK = -L./lib/minilibx-linux -lmlx -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
 
 # Makefile Option
 MAKEFLAGS += --no-print-directory

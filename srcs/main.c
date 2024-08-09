@@ -2,29 +2,30 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "cub.h"
 
-#define MAP_WIDTH 25
-#define MAP_HEIGHT 9
-#define TILE_SIZE 30
-#define SCREEN_WIDTH 1900
-#define SCREEN_HEIGHT 1000
-#define FOV 60
+// #define MAP_WIDTH 25
+// #define MAP_HEIGHT 9
+// #define TILE_SIZE 30
+// #define SCREEN_WIDTH 1900
+// #define SCREEN_HEIGHT 1000
+// #define FOV 60
 
-typedef struct {
-    int x, y;
-} t_player;
+// typedef struct {
+//     int x, y;
+// } t_player;
 
-typedef struct {
-    void *mlx;
-    void *win;
-    void *img;
-    char *addr;
-    int bpp;
-    int line_length;
-    int endian;
-    t_player player;
-    char *map[MAP_HEIGHT];
-} t_game;
+// typedef struct {
+//     void *mlx;
+//     void *win;
+//     void *img;
+//     char *addr;
+//     int bpp;
+//     int line_length;
+//     int endian;
+//     t_player player;
+//     char *map[MAP_HEIGHT];
+// } t_game;
 
 void my_mlx_pixel_put(t_game *game, int x, int y, int color) {
     char *dst;
@@ -121,8 +122,33 @@ void draw_walls(t_game *game) {
     }
 }
 
-int main(void) {
+int	main(int argc, char *argv[]){
     t_game game;
+
+		if (arg_check(argc, argv))
+			return (1);
+		game.cubfile = read_cubfile(argv[1]);
+		if (game.cubfile == NULL)
+		{
+			printf("Error: file read failed\n");
+			return (1);
+		}
+
+		if(is_invalid_map(&game))
+		{
+			printf("Error: invalid map\n");
+			return (1);
+		}
+		game.cubfile = ft_free(game.cubfile);
+		print_map_info(&game);
+		ft_free(game.north);
+		ft_free(game.south);
+		ft_free(game.west);
+		ft_free(game.east);
+		free_double_pointer(game.map);
+		system("leaks -q cub3D");
+		return (0);
+
 
     game.mlx = mlx_init();
     game.win = mlx_new_window(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
