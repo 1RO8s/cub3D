@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/09 22:26:31 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:39:26 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ char	*duplicate_line(char *start)
 	return (line);
 }
 
-
 /**
  * @brief mapからidentifierが含まれる行を探す
  * @param[in] map
@@ -167,7 +166,8 @@ char	*find_element_line(char *map, char *identifier)
 	// 1行目が'NO ./textures/north_61.xpm'であることを確認
 	line = ft_strnstr(map, identifier, ft_strlen(map));
 	if (line == NULL)
-	{ // identifierが見つからなかった場合
+	{
+		// identifierが見つからなかった場合
 		// 2行目以降で'NO ./textures/north_61.xpm'を探す
 		target = ft_free(target);
 		target = ft_strjoin_nullable("\n", identifier);
@@ -203,7 +203,6 @@ char	*get_element_line(char *map, char *identifier)
 	return (line);
 }
 
-
 /**
  * @brief identifierの行から値を抽出する
  * @param[in] line
@@ -235,7 +234,6 @@ char	*extract_value(char *line, char *identifier)
 
 // int rgb2hex(char *rgb)
 
-
 /**
  * @brief Convert the RGB string to a color code.
  * @param[in] rgb The RGB string to be converted.
@@ -253,7 +251,8 @@ int	convert2color(char *rgb)
 	red = ft_atoi(str_elm[0]);
 	green = ft_atoi(str_elm[1]);
 	blue = ft_atoi(str_elm[2]);
-	if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255)
+	if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0
+		|| blue > 255)
 	{
 		printf("Error: invalid color code\n");
 		free_double_pointer(str_elm);
@@ -264,22 +263,22 @@ int	convert2color(char *rgb)
 	return (color);
 }
 
-int has_textures(t_game *g)
+int	has_textures(t_game *g)
 {
 	g->north = get_element_line(g->cubfile, "NO");
 	g->south = get_element_line(g->cubfile, "SO");
 	g->west = get_element_line(g->cubfile, "WE");
 	g->east = get_element_line(g->cubfile, "EA");
-	if (g->north == NULL || g->south == NULL || g->west == NULL || g->east == NULL)
+	if (g->north == NULL || g->south == NULL || g->west == NULL
+		|| g->east == NULL)
 		return (false);
-
 	g->north = extract_value(g->north, "NO");
 	g->south = extract_value(g->south, "SO");
 	g->west = extract_value(g->west, "WE");
 	g->east = extract_value(g->east, "EA");
-	if (g->north == NULL || g->south == NULL || g->west == NULL || g->east == NULL)
+	if (g->north == NULL || g->south == NULL || g->west == NULL
+		|| g->east == NULL)
 		return (false);
-	
 	return (true);
 }
 
@@ -314,45 +313,50 @@ int	has_elements(t_game *g)
 	return (true);
 }
 
-// void convertStringTo2DArray(char *input, char ***array, int *numLines, int *maxLength) {
-char **convert_str2array(char *str_map) {
-    // 変数の初期化
-    int numLines = 0;
-    int maxLength = 0;
-		// int numLines;
-		int length;
-		char **array;
+// void convertStringTo2DArray(char *input)
+char	**convert_str2array(char *str_map)
+{
+	int		num_lines;
+	int		max_length;
+	int		length;
+	char	**array;
+	char	**lines;
+	int		current_line;
+	int		i;
 
-		char **lines;
-
-		lines = ft_split(str_map, '\n');
-		// 行数と最大行長を計算
-		numLines = 0;
-		while (lines[numLines] != NULL)
-		{
-			length = ft_strlen(lines[numLines]);
-			if (length > maxLength)
-				maxLength = length;
-			numLines++;
-		}
-
-    // 配列のメモリを確保
-    array = (char **)malloc(numLines * sizeof(char *));
-    for (int i = 0; i < numLines; i++) {
-        array[i] = (char *)malloc((maxLength + 1) * sizeof(char));
-    }
-
-    // 配列に行をコピー
-    int currentLine = 0;
-		while (lines[currentLine] != NULL)
-		{
-			ft_memchr(array[currentLine], ' ', maxLength);
-			ft_strlcpy(array[currentLine], lines[currentLine], maxLength);
-			array[currentLine][maxLength] = '\0';
-			currentLine++;
-		}
-		free_double_pointer(lines);
-		return (array);
+	// 変数の初期化
+	num_lines = 0;
+	max_length = 0;
+	// int numLines;
+	lines = ft_split(str_map, '\n');
+	// 行数と最大行長を計算
+	num_lines = 0;
+	while (lines[num_lines] != NULL)
+	{
+		length = ft_strlen(lines[num_lines]);
+		if (length > max_length)
+			max_length = length;
+		num_lines++;
+	}
+	// 配列のメモリを確保
+	array = (char **)malloc(num_lines * sizeof(char *));
+	i = 0;
+	while (i < num_lines)
+	{
+		array[i] = (char *)malloc((max_length + 1) * sizeof(char));
+		i++;
+	}
+	// 配列に行をコピー
+	current_line = 0;
+	while (lines[current_line] != NULL)
+	{
+		ft_memchr(array[current_line], ' ', max_length);
+		ft_strlcpy(array[current_line], lines[current_line], max_length);
+		array[current_line][max_length] = '\0';
+		current_line++;
+	}
+	free_double_pointer(lines);
+	return (array);
 }
 
 int	extract_map(t_game *g)
@@ -364,7 +368,7 @@ int	extract_map(t_game *g)
 	char	*floor_ln;
 	char	*ceiling_ln;
 	char	*map_ln_1st;
-	char *str_map;
+	char	*str_map;
 
 	// printf("--- extract_map ---\n");
 	north_ln = find_element_line(g->cubfile, "NO");
@@ -384,7 +388,6 @@ int	extract_map(t_game *g)
 		// printf("map_ln_1st: %s\n", map_ln_1st);
 		return (false);
 	}
-
 	str_map = ft_strdup(map_ln_1st);
 	// printf("extract_map:\n%s\n----------\n", str_map);
 	g->map = convert_str2array(str_map);
