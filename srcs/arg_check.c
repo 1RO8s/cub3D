@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/09 22:39:26 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:43:49 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,7 @@ char	**convert_str2array(char *str_map)
 		num_lines++;
 	}
 	// 配列のメモリを確保
-	array = (char **)malloc(num_lines * sizeof(char *));
+	array = (char **)malloc((num_lines + 1) * sizeof(char *));
 	i = 0;
 	while (i < num_lines)
 	{
@@ -355,6 +355,7 @@ char	**convert_str2array(char *str_map)
 		array[current_line][max_length] = '\0';
 		current_line++;
 	}
+	array[current_line] = NULL;
 	free_double_pointer(lines);
 	return (array);
 }
