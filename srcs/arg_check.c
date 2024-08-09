@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/08 04:45:43 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:22:17 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,13 @@ char	*duplicate_line(char *start)
 	return (line);
 }
 
+
+/**
+ * @brief mapからidentifierが含まれる行を探す
+ * @param[in] map
+ * @param[in] identifier
+ * @return char* identifierが見つかった場合はその行頭、見つからなかった場合はNULL
+ */
 char	*find_element_line(char *map, char *identifier)
 {
 	char	*target;
@@ -187,25 +194,36 @@ char	*get_element_line(char *map, char *identifier)
 	char	*line;
 
 	line = find_element_line(map, identifier);
+	if (line == NULL)
+	{
+		printf("Error: %s identifier not found\n", identifier);
+		return (NULL);
+	}
 	line = duplicate_line(line);
 	return (line);
 }
 
-// char *convert2path(char *line)
-char	*extract_value(char *line)
+
+/**
+ * @brief identifierの行から値を抽出する
+ * @param[in] line
+ * @param[in] identifier
+ * @return char* 各要素の値、エラーの場合はNULL
+ */
+char	*extract_value(char *line, char *identifier)
 {
 	char	*value;
 	char	**str_elm;
 	int		elm_len;
 
-	// printf("--- convert2path ---\n");
+	// printf("--- extract_value ---\n");
 	str_elm = ft_split(line, ' ');
 	elm_len = 0;
 	while (str_elm[elm_len] != NULL)
 		elm_len++;
 	if (elm_len != 2)
 	{
-		printf("Error: invalid identifier format\n");
+		printf("Error: invalid %s identifier\n", identifier);
 		free_double_pointer(str_elm);
 		return (NULL);
 	}
@@ -216,6 +234,13 @@ char	*extract_value(char *line)
 }
 
 // int rgb2hex(char *rgb)
+
+
+/**
+ * @brief Convert the RGB string to a color code.
+ * @param[in] rgb The RGB string to be converted.
+ * @return int The color code. -1 if the conversion fails.
+ */
 int	convert2color(char *rgb)
 {
 	int		color;
@@ -228,9 +253,34 @@ int	convert2color(char *rgb)
 	red = ft_atoi(str_elm[0]);
 	green = ft_atoi(str_elm[1]);
 	blue = ft_atoi(str_elm[2]);
+	if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255)
+	{
+		printf("Error: invalid color code\n");
+		free_double_pointer(str_elm);
+		return (-1);
+	}
 	free_double_pointer(str_elm);
 	color = (red << 16) + (green << 8) + blue;
 	return (color);
+}
+
+int has_textures(t_game *g)
+{
+	g->north = get_element_line(g->cubfile, "NO");
+	g->south = get_element_line(g->cubfile, "SO");
+	g->west = get_element_line(g->cubfile, "WE");
+	g->east = get_element_line(g->cubfile, "EA");
+	if (g->north == NULL || g->south == NULL || g->west == NULL || g->east == NULL)
+		return (false);
+
+	g->north = extract_value(g->north, "NO");
+	g->south = extract_value(g->south, "SO");
+	g->west = extract_value(g->west, "WE");
+	g->east = extract_value(g->east, "EA");
+	if (g->north == NULL || g->south == NULL || g->west == NULL || g->east == NULL)
+		return (false);
+	
+	return (true);
 }
 
 /**
@@ -245,20 +295,20 @@ int	has_elements(t_game *g)
 	char	*ceil_val;
 
 	// printf("--- has_wall_textures ---\n");
-	g->north = get_element_line(g->cubfile, "NO");
-	g->south = get_element_line(g->cubfile, "SO");
-	g->west = get_element_line(g->cubfile, "WE");
-	g->east = get_element_line(g->cubfile, "EA");
+	if (!has_textures(g))
+		return (false);
 	floor_val = get_element_line(g->cubfile, "F");
 	ceil_val = get_element_line(g->cubfile, "C");
-	g->north = extract_value(g->north);
-	g->south = extract_value(g->south);
-	g->west = extract_value(g->west);
-	g->east = extract_value(g->east);
-	floor_val = extract_value(floor_val);
-	ceil_val = extract_value(ceil_val);
+	if (floor_val == NULL || ceil_val == NULL)
+		return (false);
+	floor_val = extract_value(floor_val, "F");
+	ceil_val = extract_value(ceil_val, "C");
+	if (floor_val == NULL || ceil_val == NULL)
+		return (false);
 	g->floor = convert2color(floor_val);
 	g->ceiling = convert2color(ceil_val);
+	if (g->floor == -1 || g->ceiling == -1)
+		return (false);
 	floor_val = ft_free(floor_val);
 	ceil_val = ft_free(ceil_val);
 	return (true);
