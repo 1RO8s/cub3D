@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/09 22:43:49 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:14:44 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,7 @@ char	**convert_str2array(char *str_map)
 	current_line = 0;
 	while (lines[current_line] != NULL)
 	{
-		ft_memchr(array[current_line], ' ', max_length);
+		ft_memset(array[current_line], ' ', max_length);
 		ft_strlcpy(array[current_line], lines[current_line], max_length);
 		array[current_line][max_length] = '\0';
 		current_line++;
