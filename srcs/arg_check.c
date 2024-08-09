@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/09 22:22:17 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:26:31 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,6 +401,7 @@ int	is_invalid_map(t_game *g)
 	// 壁のテクスチャと床天井の色が設定されているか確認
 	if (!has_elements(g))
 		return (true);
-	extract_map(g);
+	if (extract_map(g))
+		return (false);
 	return (false);
 }
