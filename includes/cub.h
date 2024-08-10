@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/08 04:35:25 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/11 05:08:16 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct
 
 char			*read_cubfile(char *filepath);
 int				arg_check(int argc, char *argv[]);
-int				is_invalid_map(t_game *g);
+int				set_map_info(t_game *g);
 
 void			print_map_info(t_game *game);
 

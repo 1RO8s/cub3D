@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/09 23:14:44 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/11 05:06:32 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,16 +396,68 @@ int	extract_map(t_game *g)
 	return (true);
 }
 
+int exist_player(t_game *g)
+{
+	// g->mapを検索してNSWEのいずれかがあるか確認
+	// ある場合はg->posとg->dirに座標と向きを設定する
+	int i;
+	int j;
+	char c;
+
+	printf("--- exist_player ---\n");
+	i = 0;
+	while (g->map[i] != NULL)
+	{
+		j = 0;
+		while (g->map[i][j] != '\0')
+		{
+			c = g->map[i][j];
+			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+			{
+				g->pos.x = j;
+				g->pos.y = i;
+				if (c == 'N')
+				{
+					g->dir.x = 0;
+					g->dir.y = -1;
+				}
+				else if (c == 'S')
+				{
+					g->dir.x = 0;
+					g->dir.y = 1;
+				}
+				else if (c == 'W')
+				{
+					g->dir.x = -1;
+					g->dir.y = 0;
+				}
+				else if (c == 'E')
+				{
+					g->dir.x = 1;
+					g->dir.y = 0;
+				}
+				return (true);
+			}
+			j++;
+		}
+		i++;
+	}
+	printf("Error: player not found\n");
+	return (false);
+}
+
 /**
- * Returns 1 if it is a invalid map
+ * set map information to t_game. If the map is invalid, return 0.
  * @param[in]  g  t_game with map to be verified
  */
-int	is_invalid_map(t_game *g)
+int	set_map_info(t_game *g)
 {
 	// 壁のテクスチャと床天井の色が設定されているか確認
 	if (!has_elements(g))
-		return (true);
-	if (extract_map(g))
 		return (false);
-	return (false);
+	if (!extract_map(g))
+		return (false);
+	if (!exist_player(g))
+		return (false);
+	return (true);
 }
