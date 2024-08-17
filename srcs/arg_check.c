@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/11 05:06:32 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/18 06:30:09 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,6 +334,7 @@ char	**convert_str2array(char *str_map)
 	while (lines[num_lines] != NULL)
 	{
 		length = ft_strlen(lines[num_lines]);
+		// printf("max:%d len:%d\n",max_length, length);
 		if (length > max_length)
 			max_length = length;
 		num_lines++;
@@ -350,8 +351,12 @@ char	**convert_str2array(char *str_map)
 	current_line = 0;
 	while (lines[current_line] != NULL)
 	{
+		length = ft_strlen(lines[current_line]);
+		// printf("len:%d current line:%s\n",length, lines[current_line]);
 		ft_memset(array[current_line], ' ', max_length);
-		ft_strlcpy(array[current_line], lines[current_line], max_length);
+		// printf("1.array:%s\n",array[current_line]);
+		ft_memcpy(array[current_line], lines[current_line], length);
+		// printf("2.array:%s\n",array[current_line]);
 		array[current_line][max_length] = '\0';
 		current_line++;
 	}
