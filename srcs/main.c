@@ -2,17 +2,23 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>//for sleep
 
 #define MAP_WIDTH 25
 #define MAP_HEIGHT 9
 #define TILE_SIZE 30
-#define WINDOW_WIDTH 800
+#define DEBUG_TILE_SIZE 4
+#define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 800
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 800
-#define DEBUG_WINDOW_WIDTH 200
-#define DEBUG_WINDOW_HEIGHT 200
+//#define DEBUG_WINDOW_WIDTH 200
+//#define DEBUG_WINDOW_HEIGHT 200
+#define DEBUG_SCREEN_WIDTH 200
+#define DEBUG_SCREEN_HEIGHT 200
 #define FOV 60
+
+void render_debug_map(char *img_data, char *map[MAP_HEIGHT], int size_line);
 
 typedef struct {
     int x, y;
@@ -22,22 +28,22 @@ typedef struct {
     void *mlx;
     void *win;
     void *img;
-    char *addr;
+    char *addr; // img_data
     int bpp;
-    int line_length;
+    int line_length;// size_line
     int endian;
     t_player player;
     char *map[MAP_HEIGHT];
 } t_game;
 
 typedef struct {
-    void *mlx;
-    void *win;
-//    void *img;
-//    char *addr;
-//    int bpp;
-//    int line_length;
-//    int endian;
+//    void *mlx;
+//    void *win;
+    void *img;
+    char *addr;
+    int bpp;
+    int line_length;
+    int endian;
 } t_debug;
 
 void my_mlx_pixel_put(t_game *game, int x, int y, int color) {
@@ -144,10 +150,10 @@ int main(void) {
     game.img = mlx_new_image(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
     game.addr = mlx_get_data_addr(game.img, &game.bpp, &game.line_length, &game.endian);
 
-    debug.mlx = mlx_init();
-    debug.win = mlx_new_window(debug.mlx, DEBUG_WINDOW_WIDTH, DEBUG_WINDOW_HEIGHT, "Debug");
-    //debug.img = mlx_new_image(game.mlx, DEBUG_SCREEN_WIDTH, DEBUG_SCREEN_HEIGHT);
-    //debug.addr = mlx_get_data_addr(game.img, &game.bpp, &game.line_length, &game.endian);
+ //   debug.mlx = mlx_init();
+ //   debug.win = mlx_new_window(debug.mlx, DEBUG_WINDOW_WIDTH, DEBUG_WINDOW_HEIGHT, "Debug");
+    debug.img = mlx_new_image(game.mlx, DEBUG_SCREEN_WIDTH, DEBUG_SCREEN_HEIGHT);
+    debug.addr = mlx_get_data_addr(game.img, &game.bpp, &game.line_length, &game.endian);
 
     game.player.x = 14 * TILE_SIZE;
     game.player.y = 3 * TILE_SIZE;
@@ -171,10 +177,10 @@ int main(void) {
     draw_ceiling_and_floor(&game);
     draw_walls(&game);
 
+	render_debug_map(debug.img, map, debug.line_length);
     mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
-	mlx_string_put(debug.mlx, debug.win, 0, 30, 0xFFFFFF, "Hello, world!");
+    mlx_put_image_to_window(game.mlx, game.win, debug.img, 800, 100);
     mlx_loop(game.mlx);
-    mlx_loop(debug.mlx);
 
     return 0;
 }

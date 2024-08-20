@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/21 00:13:25 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/21 04:02:37 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 
 # Source files
 SRCS = \
-	   main.c
+	   main.c render_debug_map.c
 	   #main.c arg_check.c debug.c
 
 # Object files and dependency files
