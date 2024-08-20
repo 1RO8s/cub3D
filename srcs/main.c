@@ -6,8 +6,12 @@
 #define MAP_WIDTH 25
 #define MAP_HEIGHT 9
 #define TILE_SIZE 30
-#define SCREEN_WIDTH 1900
-#define SCREEN_HEIGHT 1000
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 800
+#define DEBUG_WINDOW_WIDTH 200
+#define DEBUG_WINDOW_HEIGHT 200
 #define FOV 60
 
 typedef struct {
@@ -25,6 +29,16 @@ typedef struct {
     t_player player;
     char *map[MAP_HEIGHT];
 } t_game;
+
+typedef struct {
+    void *mlx;
+    void *win;
+//    void *img;
+//    char *addr;
+//    int bpp;
+//    int line_length;
+//    int endian;
+} t_debug;
 
 void my_mlx_pixel_put(t_game *game, int x, int y, int color) {
     char *dst;
@@ -123,11 +137,17 @@ void draw_walls(t_game *game) {
 
 int main(void) {
     t_game game;
+	t_debug	debug;
 
     game.mlx = mlx_init();
-    game.win = mlx_new_window(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
+    game.win = mlx_new_window(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
     game.img = mlx_new_image(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
     game.addr = mlx_get_data_addr(game.img, &game.bpp, &game.line_length, &game.endian);
+
+    debug.mlx = mlx_init();
+    debug.win = mlx_new_window(debug.mlx, DEBUG_WINDOW_WIDTH, DEBUG_WINDOW_HEIGHT, "Debug");
+    //debug.img = mlx_new_image(game.mlx, DEBUG_SCREEN_WIDTH, DEBUG_SCREEN_HEIGHT);
+    //debug.addr = mlx_get_data_addr(game.img, &game.bpp, &game.line_length, &game.endian);
 
     game.player.x = 14 * TILE_SIZE;
     game.player.y = 3 * TILE_SIZE;
@@ -152,7 +172,9 @@ int main(void) {
     draw_walls(&game);
 
     mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
+	mlx_string_put(debug.mlx, debug.win, 0, 30, 0xFFFFFF, "Hello, world!");
     mlx_loop(game.mlx);
+    mlx_loop(debug.mlx);
 
     return 0;
 }
