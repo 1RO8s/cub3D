@@ -134,20 +134,20 @@ int	main(int argc, char *argv[]){
 			return (1);
 		}
 
-		if(is_invalid_map(&game))
+		if(!set_map_info(&game))
 		{
 			printf("Error: invalid map\n");
 			return (1);
 		}
-		game.cubfile = ft_free(game.cubfile);
 		print_map_info(&game);
+		game.cubfile = ft_free(game.cubfile);
 		ft_free(game.north);
 		ft_free(game.south);
 		ft_free(game.west);
 		ft_free(game.east);
 		free_double_pointer(game.map);
-		system("leaks -q cub3D");
-		return (0);
+		// system("leaks -q cub4D");
+		// return (0);
 
 
     game.mlx = mlx_init();

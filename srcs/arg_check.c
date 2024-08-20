@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 07:32:41 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/09 23:14:44 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/08/18 06:30:09 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,6 +334,7 @@ char	**convert_str2array(char *str_map)
 	while (lines[num_lines] != NULL)
 	{
 		length = ft_strlen(lines[num_lines]);
+		// printf("max:%d len:%d\n",max_length, length);
 		if (length > max_length)
 			max_length = length;
 		num_lines++;
@@ -350,8 +351,12 @@ char	**convert_str2array(char *str_map)
 	current_line = 0;
 	while (lines[current_line] != NULL)
 	{
+		length = ft_strlen(lines[current_line]);
+		// printf("len:%d current line:%s\n",length, lines[current_line]);
 		ft_memset(array[current_line], ' ', max_length);
-		ft_strlcpy(array[current_line], lines[current_line], max_length);
+		// printf("1.array:%s\n",array[current_line]);
+		ft_memcpy(array[current_line], lines[current_line], length);
+		// printf("2.array:%s\n",array[current_line]);
 		array[current_line][max_length] = '\0';
 		current_line++;
 	}
@@ -396,16 +401,68 @@ int	extract_map(t_game *g)
 	return (true);
 }
 
+int exist_player(t_game *g)
+{
+	// g->mapを検索してNSWEのいずれかがあるか確認
+	// ある場合はg->posとg->dirに座標と向きを設定する
+	int i;
+	int j;
+	char c;
+
+	printf("--- exist_player ---\n");
+	i = 0;
+	while (g->map[i] != NULL)
+	{
+		j = 0;
+		while (g->map[i][j] != '\0')
+		{
+			c = g->map[i][j];
+			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+			{
+				g->pos.x = j;
+				g->pos.y = i;
+				if (c == 'N')
+				{
+					g->dir.x = 0;
+					g->dir.y = -1;
+				}
+				else if (c == 'S')
+				{
+					g->dir.x = 0;
+					g->dir.y = 1;
+				}
+				else if (c == 'W')
+				{
+					g->dir.x = -1;
+					g->dir.y = 0;
+				}
+				else if (c == 'E')
+				{
+					g->dir.x = 1;
+					g->dir.y = 0;
+				}
+				return (true);
+			}
+			j++;
+		}
+		i++;
+	}
+	printf("Error: player not found\n");
+	return (false);
+}
+
 /**
- * Returns 1 if it is a invalid map
+ * set map information to t_game. If the map is invalid, return 0.
  * @param[in]  g  t_game with map to be verified
  */
-int	is_invalid_map(t_game *g)
+int	set_map_info(t_game *g)
 {
 	// 壁のテクスチャと床天井の色が設定されているか確認
 	if (!has_elements(g))
-		return (true);
-	if (extract_map(g))
 		return (false);
-	return (false);
+	if (!extract_map(g))
+		return (false);
+	if (!exist_player(g))
+		return (false);
+	return (true);
 }
