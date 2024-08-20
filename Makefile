@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/06 21:58:01 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/21 00:13:25 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,12 @@ DEP_DIR = .deps
 LIB_DIR = lib
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFTPRINTF_DIR = $(LIB_DIR)/ft_printf
-# option selected OS
+LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 
 # Source files
 SRCS = \
-       main.c
+	   main.c
+	   #main.c arg_check.c debug.c
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -59,22 +60,17 @@ CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
 	 -I$(LIBMLX_DIR)
 CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
 
+# Get OS type for choosing API
 OS := $(shell uname)
-
-# Choose compile flag for using API
 # To link internal macOS API
 ifeq ($(OS), Darwin)
-LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
-CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
-CF_API = -L./lib/minilibx-linux -lmlx -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
-#LIBMLX_DIR = $(HOME)/lib/minilibx/minilibx_macos
-#LIBMLX := $(LIBMLX_DIR)/libmlx.a
-#CF_API = -framework OpenGL -framework AppKit
+LIBMLX := $(LIBMLX_DIR)/libmlx_Darwin.a
+CF_API = -L./lib/minilibx-linux -lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
 endif
 # To link internal Linux API
 ifeq ($(OS), Linux)
-LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
-CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -I$(LIBMLX_DIR) -lXext -lX11 -lm -lz
+LIBMLX := $(LIBMLX_DIR)/libmlx_Linux.a
+CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 endif
 
 # Makefile Option
@@ -90,12 +86,14 @@ $(DEP_DIR)/%.d: %.c
 	@mkdir -p $(DEP_DIR)
 
 # Default target
-all: start build_lib $(NAME) end display_art
+all: start $(NAME) end display_art
 .PHONY: all
 
 start:
 	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
 .PHONY: start
+
+$(LIBS): build_lib
 
 build_lib:
 	make -C $(LIB_DIR)
@@ -126,9 +124,9 @@ asan: fclean
 
 # Leak check
 check: fclean
-	make WITH_VAL=1
+	make WITH_VALGRIND=1
 	$(VALGRIND_USAGE)
-.PHONY: leak
+.PHONY: check
 
 # Clean target
 clean:
@@ -136,6 +134,7 @@ clean:
 	rm -rf $(OBJ_DIR) $(DEP_DIR)
 	make -C $(LIBFT_DIR) clean
 	make -C $(LIBFTPRINTF_DIR) clean
+	make -C $(LIBMLX_DIR) clean
 .PHONY: clean
 
 # Clean and remove library target
@@ -143,6 +142,7 @@ fclean: clean
 	@echo "${RED}Removing archive file...${NC}"
 	rm -f $(LIBFT)
 	rm -f $(LIBFTPRINTF)
+	rm -f $(LIBMLX)
 	rm -f $(NAME)
 	@echo "${GREEN}Archive file removed.${NC}"
 .PHONY: fclean
@@ -165,7 +165,7 @@ CFLAGS += $(CF_THSAN)
 endif
 
 # Enabel valgrind tool
-ifdef WITH_VAL
+ifdef WITH_VALGRIND
 CFLAGS += $(CF_GENERATE_DEBUG_INFO)
 endif
 

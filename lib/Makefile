@@ -6,12 +6,12 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/06 22:03:05 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/21 00:10:40 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Build Libraries : nest of Cub3D
-#  MiniLibX, Libft, ft_printf
+# target -> MiniLibX, Libft, ft_printf
 
 ## Makefile Option
 MAKEFLAGS += --no-print-directory
@@ -32,40 +32,44 @@ RESOURCE_MLX_OPENGL = minilibx_opengl.tgz
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-LIBMLX = $(LIBMLX_DIR)/libmlx.a
 #LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
 
+# Get OS type for choosing API
 OS := $(shell uname)
-
-## Fix the below : Un nessesary for macOS ??
-# For MacOS
+# To Build MLX on macOS
 ifeq ($(OS), Darwin)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
-#RESOURCE_MLX := $(RESOURCE_MLX_MAC)
-#LIBMLX_DIR = $(LIBMLX_MAC_DIR)
-GET_READY_MLX = extract_mlx
+LIBMLX = $(LIBMLX_DIR)/libmlx_Darwin.a
 LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 #LIBS = $(LIBFT) $(LIBFTPRINTF)
 endif
-# For Linux
+# To Build MLX on Linux
 ifeq ($(OS), Linux)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
+LIBMLX = $(LIBMLX_DIR)/libmlx_Linux.a
 GET_READY_MLX = extract_mlx install_dependencies
 LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 endif
 
-all: submodules $(LIBS)
+all: start submodules $(LIBS)
 
 # Build MiniLibX
 $(LIBMLX): $(GET_READY_MLX)
+	@echo "${YELLOW}Starting build process for '${LIBMLX_DIR}'...${NC}"
 	make -C $(LIBMLX_DIR)
+	@echo "${GREEN}Successfully created archive: $@${NC}"
+
+PROJECT_DIR = $(notdir $(CURDIR))
+start:
+	@echo "${YELLOW}Starting build process for '${PROJECT_DIR}'...${NC}"
+.PHONY: start
 
 # Extract from resource (minilibx-linux.tgz minilibx_opengl.tgz)
-extract_mlx:
+GET_READY_MLX:
 	@./extract_mlx.sh $(RESOURCE_MLX)
-.PHONY: extract_mlx
+#.PHONY: extract_mlx
 
 # Check dependencies installed
 install_dependencies:

@@ -8,6 +8,7 @@
 !Makefile
 !*.c
 !*.h
+!*.cub
 !*.cpp
 !*.sh
 !*.md
@@ -24,5 +25,5 @@
 
 # Ignore specific directories
 lib/minilibx-linux/
-lib/minilibx_mms_20200219/
 lib/minilibx_opengl_20191021/
+lib/minilibx_mms_20200219/
