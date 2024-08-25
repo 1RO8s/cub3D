@@ -17,4 +17,4 @@ for dir in "${DIRS[@]}"; do
 	fi
 done
 
-echo "submodules contained"
+echo "submodules contained" "${DIRS[0]}" "${DIRS[1]}"

@@ -2,8 +2,11 @@ FROM ubuntu:22.04
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
+	x11-apps \
+	mesa-utils \
     xorg \
     openbox \
+    libglu1-mesa-dev freeglut3-dev mesa-common-dev \
     libgl1-mesa-glx \
     libgl1-mesa-dri \
     mesa-utils \
