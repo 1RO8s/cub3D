@@ -7,7 +7,7 @@ int	main(void)
 	init_game(&game);
 
 	// Main loop
-	//mlx_loop_hook(game.mlx, (void *)render, &game);
+	mlx_loop_hook(game.mlx, (void *)render, &game);
 	mlx_loop(game.mlx);
 
 	return (0);

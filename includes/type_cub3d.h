@@ -50,6 +50,8 @@ typedef struct	s_map {
 typedef struct	s_game {
 	void		*mlx;
 	void		*win;
+	t_img		img_3d;
+	t_img		img_2d;
 	t_map		map;
 	t_color		ceiling_color;
 	t_color		floor_color;

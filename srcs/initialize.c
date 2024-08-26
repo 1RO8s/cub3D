@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/26 01:53:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:10:00 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,51 +50,66 @@ void initialize_player(t_game *game, int x, int y, char direction)
 	}
 }
 
-// Function to parse the map and find the player's position
-void parse_map(t_game *game) {
-    int x, y;
-
-    for (y = 0; y < game->map_height; y++) {
-        for (x = 0; x < game->map_width; x++) {
-            if (game->map[y][x] == 'N' || game->map[y][x] == 'S' ||
-                game->map[y][x] == 'W' || game->map[y][x] == 'E') {
-                initialize_player(game, x, y, game->map[y][x]);
-                game->map[y][x] = '0';  // Replace the player marker with an empty space
-                return;  // Assuming only one player, we can exit after finding it
-            }
-        }
-    }
+static bool	is_player_position(char map_point)
+{
+	return (map_point == 'N' || map_point == 'S' ||
+			map_point == 'W' || map_point == 'E');
 }
 
-void init_game(t_game *game) {
-    // Initialize the MiniLibX window
-    game->mlx = mlx_init();
-    game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+// Function to parse the map and find the player's position
+void parse_map(t_game *game) {
+	int	x;
+	int	y;
 
-    // Initialize the 3D image
-    game->img_3d.img = mlx_new_image(game->mlx, WIN_WIDTH / 2, WIN_HEIGHT);
-    game->img_3d.addr = mlx_get_data_addr(game->img_3d.img, &game->img_3d.bpp, &game->img_3d.line_length, &game->img_3d.endian);
+	y = 0;
+	while (y < game->map_height)
+	{
+		x = 0;
+		while (x < game->map_width)
+		{
+            if (is_player_position(game->map[y][x]) == true)
+			{
+				initialize_player(game, x, y, game->map[y][x]);
+				game->map[y][x] = '0';  // Replace the player marker with an empty space
+				return;  // Assuming only one player, we can exit after finding it
+			}
+			x++;
+		}
+		y++;
+	}
+}
 
-    // Initialize the 2D image
-    game->img_2d.img = mlx_new_image(game->mlx, WIN_WIDTH / 2, WIN_HEIGHT);
-    game->img_2d.addr = mlx_get_data_addr(game->img_2d.img, &game->img_2d.bpp, &game->img_2d.line_length, &game->img_2d.endian);
+void init_game(t_game *game)
+{
+	// Initialize the MiniLibX window
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 
-    // Load the map data
-    game->map_width = 10;
-    game->map_height = 10;
-    game->map = (char *[]) {
-        "1111111111",
-        "1000000001",
-        "1000000001",
-        "1000N00001",
-        "1000110001",
-        "1000000001",
-        "1000110001",
-        "1000000001",
-        "1000000001",
-        "1111111111"
-    };
+	// Initialize the 3D image
+	game->img_3d.img = mlx_new_image(game->mlx, WIN_WIDTH / 2, WIN_HEIGHT);
+	game->img_3d.addr = mlx_get_data_addr(game->img_3d.img, &game->img_3d.bpp, &game->img_3d.line_length, &game->img_3d.endian);
 
-    // Parse the map to find the player's initial position and direction
-    parse_map(game);
+	// Initialize the 2D image
+	game->img_2d.img = mlx_new_image(game->mlx, WIN_WIDTH / 2, WIN_HEIGHT);
+	game->img_2d.addr = mlx_get_data_addr(game->img_2d.img, &game->img_2d.bpp, &game->img_2d.line_length, &game->img_2d.endian);
+
+	// Load the map data
+	game->map_width = 10;
+	game->map_height = 10;
+	game->map = (char *[])
+	{
+		"1111111111",
+		"1000000001",
+		"1000000001",
+		"1000N00001",
+		"1000110001",
+		"1000000001",
+		"1000110001",
+		"1000000001",
+		"1000000001",
+		"1111111111"
+	};
+	
+	// Parse the map to find the player's initial position and direction
+	parse_map(game);
 }
