@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:41:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/26 15:03:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:35:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	draw_2d_player(t_game *game)
 	dir_line_x = player_x + game->player_dir_x * 10 * MAP_SCALE;
 	dir_line_y = player_y + game->player_dir_y * 10 * MAP_SCALE;
 	// Bresenham's line algorithm or any simple line drawing algorithm to draw the direction
+	// draw_line(xxxxxx);
 }

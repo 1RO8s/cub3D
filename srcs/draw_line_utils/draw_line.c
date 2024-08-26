@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:34:59 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/26 14:35:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:36:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static void	draw_loop(t_line *line, t_wire *screen, t_clr *color, t_data *data)
 	}
 }
 
+// memo : develop unfinished
 // Bresenham's line algorithm
 void	draw_line(t_data *data, t_wire *screen)
 {

@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/26 15:03:10 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:54:26 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	init_game(t_game *game);
 void	render(t_game *game);
 
 // 3D
+void	init_ray(t_ray *ray, t_game *game, int x);
+void	perform_dda(t_ray *ray, t_game *game);
+void	set_wall_slice(t_wall_slice	*wall_slice, t_ray *ray);
+void	draw_vertical_line(t_img *img, int x, t_wall_slice *wall_slice);
 
 // 2D
 void	draw_2d_wall(t_game *game);

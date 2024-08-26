@@ -6,20 +6,18 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/26 02:02:08 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/26 23:02:36 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Build Cub3D : Top level build
 
 # Directories
-SRCS_DIR = ./srcs
-#		   ./srcs/initialize \
-#		   ./srcs/render \
-#		   ./srcs/my_mlx_utils \
-#		   ./srcs/xxx \
-#		   ./srcs/yyy \
-#		   ./srcs/zzz
+SRCS_DIR = ./srcs \
+		   ./srcs/darw_2d_utils \
+		   ./srcs/draw_3d_utils \
+		   ./srcs/draw_line_utils \
+		   ./srcs/mlx_utils
 
 OBJ_DIR = objs
 INC_DIR = includes
@@ -31,9 +29,21 @@ LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 
 # Source files
 SRCS = \
-	   main.c initialize.c render.c my_mlx_pixel_put.c
-	   #main.c render_debug_map.c
-	   #main.c arg_check.c debug.c
+	   main.c \
+	   initialize.c \
+	   render.c \
+	   \
+	   draw_2d_player.c \
+	   draw_2d_wall.c \
+	   \
+	   init_ray.c \
+	   perform_dda.c \
+	   set_wall_slice.c \
+	   draw_vertical_line.c \
+	   \
+	   draw_line.c \
+	   \
+	   my_mlx_pixel_put.c
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -94,11 +104,12 @@ start:
 	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
 .PHONY: start
 
-$(LIBS): build_lib
+#$(LIBS): build_lib
 
-build_lib:
+#build_lib:
+$(LIBS):
 	make -C $(LIB_DIR)
-.PHONY: build_lib
+#.PHONY: build_lib
 
 end:
 	@echo "${YELLOW}Build process completed.${NC}"
