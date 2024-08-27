@@ -3,6 +3,17 @@
 
 #include <mlx.h>
 
+
+/******************** void?? *********************************/
+/**
+ * @brief RGB color values
+ */
+typedef struct	s_color {
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
+
 /******************** main stracture *********************************/
 
 /**
@@ -77,21 +88,9 @@ typedef struct	s_ray {
  * @brief wall slice
  */
 typedef struct	s_wall_slice {
-	int	
-
 	int	drawStart;
 	int	drawEnd;
 	int	color;
 }	t_wall_slice;
-
-/******************** void?? *********************************/
-/**
- * @brief RGB color values
- */
-//typedef struct	s_color {
-//	int	r;
-//	int	g;
-//	int	b;
-//}	t_color;
 
 #endif

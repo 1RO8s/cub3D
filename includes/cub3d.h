@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/26 22:54:26 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:24:27 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void	draw_2d_player(t_game *game);
 // draw line utils
 
 // mlx utils
-void my_mlx_pixel_put(t_debug *debug, int x, int y, int color);
+void my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

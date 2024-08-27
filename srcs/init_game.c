@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/26 14:10:00 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:16:13 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,38 @@
 /**
  * @brief initialize the player's position and direction
  */
-void initialize_player(t_game *game, int x, int y, char direction)
+void initialize_player(t_player *player, int x, int y, char direction)
 {
-	game->player_x = x + 0.5;
-	game->player_y = y + 0.5;
+	player->x = x + 0.5;
+	player->y = y + 0.5;
 
 	if (direction == 'N')
 	{
-	    game->player_dir_x = 0;
-	    game->player_dir_y = -1;
-	    game->plane_x = 0.66;
-	    game->plane_y = 0;
+	    player->dir_x = 0;
+	    player->dir_y = -1;
+	    player->plane_x = 0.66;
+	    player->plane_y = 0;
 	}
 	else if (direction == 'S')
 	{
-	    game->player_dir_x = 0;
-	    game->player_dir_y = 1;
-	    game->plane_x = -0.66;
-	    game->plane_y = 0;
+	    player->dir_x = 0;
+	    player->dir_y = 1;
+	    player->plane_x = -0.66;
+	    player->plane_y = 0;
 	}
 	else if (direction == 'W')
 	{
-	    game->player_dir_x = -1;
-	    game->player_dir_y = 0;
-	    game->plane_x = 0;
-	    game->plane_y = -0.66;
+	    player->dir_x = -1;
+	    player->dir_y = 0;
+	    player->plane_x = 0;
+	    player->plane_y = -0.66;
 	}
 	else if (direction == 'E')
 	{
-	    game->player_dir_x = 1;
-	    game->player_dir_y = 0;
-	    game->plane_x = 0;
-	    game->plane_y = 0.66;
+	    player->dir_x = 1;
+	    player->dir_y = 0;
+	    player->plane_x = 0;
+	    player->plane_y = 0.66;
 	}
 }
 
@@ -57,20 +57,20 @@ static bool	is_player_position(char map_point)
 }
 
 // Function to parse the map and find the player's position
-void parse_map(t_game *game) {
+void parse_map(t_map *map, t_player *player) {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < game->map_height)
+	while (y < map->height)
 	{
 		x = 0;
-		while (x < game->map_width)
+		while (x < map->width)
 		{
-            if (is_player_position(game->map[y][x]) == true)
+            if (is_player_position(map->data[y][x]) == true)
 			{
-				initialize_player(game, x, y, game->map[y][x]);
-				game->map[y][x] = '0';  // Replace the player marker with an empty space
+				initialize_player(player, x, y, map->data[y][x]);
+				map->data[y][x] = '0';  // Replace the player marker with an empty space
 				return;  // Assuming only one player, we can exit after finding it
 			}
 			x++;
@@ -94,9 +94,9 @@ void init_game(t_game *game)
 	game->img_2d.addr = mlx_get_data_addr(game->img_2d.img, &game->img_2d.bpp, &game->img_2d.line_length, &game->img_2d.endian);
 
 	// Load the map data
-	game->map_width = 10;
-	game->map_height = 10;
-	game->map = (char *[])
+	game->map.width = 10;
+	game->map.height = 10;
+	game->map.data = (char *[])
 	{
 		"1111111111",
 		"1000000001",
@@ -111,5 +111,5 @@ void init_game(t_game *game)
 	};
 	
 	// Parse the map to find the player's initial position and direction
-	parse_map(game);
+	parse_map(&game->map, &game->player);
 }

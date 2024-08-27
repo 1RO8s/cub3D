@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/26 23:02:36 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/27 18:39:11 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 # Directories
 SRCS_DIR = ./srcs \
-		   ./srcs/darw_2d_utils \
+		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
 		   ./srcs/mlx_utils
@@ -30,7 +30,7 @@ LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 # Source files
 SRCS = \
 	   main.c \
-	   initialize.c \
+	   init_game.c \
 	   render.c \
 	   \
 	   draw_2d_player.c \
