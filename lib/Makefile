@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/31 22:03:34 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/01 00:10:09 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ RESOURCE_MLX_OPENGL = minilibx_opengl.tgz
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-LIBDEBUG = $(LIBDEBUG_DIR)/debug.a
+LIBDEBUG = $(LIBDEBUG_DIR)/libdebug.a
 
 # Get OS type for choosing API
 OS := $(shell uname)
@@ -51,18 +51,27 @@ LIBMLX = $(LIBMLX_DIR)/libmlx_Linux.a
 endif
 LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
 
-all: start submodules $(LIBS)
-
-# Build MiniLibX
-$(LIBMLX): extract_mlx install_dependencies
-	@echo "${YELLOW}Starting build process for '${LIBMLX_DIR}'...${NC}"
-	make -C $(LIBMLX_DIR)
-	@echo "${GREEN}Successfully created archive: $@${NC}"
+# Default target
+all: start submodules $(LIBS) end
+.PHONY: all
 
 PROJECT_DIR = $(notdir $(CURDIR))
 start:
 	@echo "${YELLOW}Starting build process for '${PROJECT_DIR}'...${NC}"
 .PHONY: start
+
+end:
+	@echo "${YELLOW}Build process completed for '${LIBS}'."
+.PHONY: end
+
+# Build MiniLibX
+#$(LIBMLX): extract_mlx install_dependencies
+$(LIBMLX):
+	make extract_mlx
+	make install_dependencies
+	@echo "${YELLOW}Starting build process for '${LIBMLX_DIR}'...${NC}"
+	make -C $(LIBMLX_DIR)
+	@echo "${GREEN}Successfully created archive: $@${NC}"
 
 # Extract from resource (minilibx-linux.tgz minilibx_opengl.tgz)
 extract_mlx:

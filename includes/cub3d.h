@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/31 21:09:16 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:40:26 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 // stadard libraries
 # include <math.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 // -------------- define ---------------
 // Cub3d game window

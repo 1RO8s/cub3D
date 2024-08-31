@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 22:44:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/31 20:43:30 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:39:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	debug_map_data(t_map map)
 {
 
-	int	fd_log;
+	int	fd;
+	int	y;
 
 	fd = open_log(LOG_FILE, O_APPEND);
 	if (fd != -1)

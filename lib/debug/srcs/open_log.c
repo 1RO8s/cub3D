@@ -6,11 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:40:26 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/31 20:40:35 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:43:29 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "
+#include "cub3d.h"
 
 int	open_log(const char *file_name, int oflag)
 {
@@ -31,6 +31,6 @@ int	open_log(const char *file_name, int oflag)
 	else
 		fd = -1;
 	if (fd == -1)
-		ft_perror_exit("open");
+		ft_dprintf(STDERR_FILENO, "open");
 	return (fd);
 }
