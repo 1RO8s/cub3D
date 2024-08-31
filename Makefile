@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/27 18:39:11 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/31 21:43:42 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ LIB_DIR = lib
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFTPRINTF_DIR = $(LIB_DIR)/ft_printf
 LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
+LIBDEBUG_DIR = $(LIB_DIR)/debug
 
 # Source files
 SRCS = \
@@ -41,9 +42,9 @@ SRCS = \
 	   set_wall_slice.c \
 	   draw_vertical_line.c \
 	   \
-	   draw_line.c \
-	   \
 	   my_mlx_pixel_put.c
+	   #\
+	   #draw_line.c \
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -52,7 +53,8 @@ DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX)
+LIBDEBUG = $(LIBDEBUG_DIR)/libdebug.a
+LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX) $(LIBDEBUG)
 
 # Build target
 NAME = cub3D
@@ -68,7 +70,7 @@ CF_ASAN = -g -fsanitize=address
 #CF_THSAN = -g -fsanitize=thread
 CF_GENERATE_DEBUG_INFO = -g
 CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
-	 -I$(LIBMLX_DIR)
+	 -I$(LIBMLX_DIR) -I$(LIBDEBUG_DIR)/includes
 CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
 
 # Get OS type for choosing API
@@ -100,17 +102,12 @@ $(DEP_DIR)/%.d: %.c
 all: start $(NAME) end display_art
 .PHONY: all
 
+# Out starting message
 start:
 	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
 .PHONY: start
 
-#$(LIBS): build_lib
-
-#build_lib:
-$(LIBS):
-	make -C $(LIB_DIR)
-#.PHONY: build_lib
-
+# Out ending message
 end:
 	@echo "${YELLOW}Build process completed.${NC}"
 .PHONY: end
@@ -124,15 +121,16 @@ $(NAME): $(LIBS) $(DEPS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(CF_API) -o $(NAME)
 	@echo "${GREEN}Successfully created execute: $@${NC}"
 
+# Build libraries
+$(LIBS):
+	make -C $(LIB_DIR)
+
+# Option : make rules
+
 # Address sanitizer mode make rule
 asan: fclean
 	make WITH_ASAN=1
 .PHONY: asan
-
-# Thread sanitizer mode make rule
-#thsan: fclean
-#	make WITH_THSAN=1
-#.PHONY: thsan
 
 # Leak check
 check: fclean
@@ -147,6 +145,7 @@ clean:
 	make -C $(LIBFT_DIR) clean
 	make -C $(LIBFTPRINTF_DIR) clean
 	make -C $(LIBMLX_DIR) clean
+	make -C $(LIBDEBUG_DIR) clean
 .PHONY: clean
 
 # Clean and remove library target
@@ -155,6 +154,7 @@ fclean: clean
 	rm -f $(LIBFT)
 	rm -f $(LIBFTPRINTF)
 	rm -f $(LIBMLX)
+	rm -f $(LIBDEBUG)
 	rm -f $(NAME)
 	@echo "${GREEN}Archive file removed.${NC}"
 .PHONY: fclean

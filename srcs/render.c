@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/26 22:31:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:55:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void draw_3d_view(t_game *game) {
 	x = 0;
 	while (x < w)
 	{
-		init_ray(&ray, game, x);
-		perform_dda(&ray, game);
+		init_ray(&ray, &game->player, x);
+		perform_dda(&ray, &game->map, &game->player);
 		set_wall_slice(&wall_slice, &ray);
         draw_vertical_line(&game->img_3d, x, &wall_slice);
 		x++;
@@ -35,8 +35,8 @@ static void draw_3d_view(t_game *game) {
 
 // Draw the 2D top-down map
 static void draw_2d_map(t_game *game) {
-	draw_2d_wall(game);
-	draw_2d_player(game);
+	draw_2d_wall(&game->map, &game->img_2d);
+	draw_2d_player(&game->img_2d, &game->player);
 }
 
 // Render both views ( 3D and 2D )

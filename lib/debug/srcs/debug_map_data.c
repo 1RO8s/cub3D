@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_mlx_pixel_put.c                                 :+:      :+:    :+:   */
+/*   debug_map_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 02:00:13 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/30 22:26:33 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/08/30 22:44:36 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/08/31 20:43:30 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// Function to put a pixel in the image
-void my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	debug_map_data(t_map map)
 {
-    char *dst;
 
-    dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
-    *(unsigned int*)dst = color;
+	int	fd_log;
+
+	fd = open_log(LOG_FILE, O_APPEND);
+	if (fd != -1)
+		exit(1);
+	ft_dprintf(fd, "---- map.data[y][x] ----\n");
+	ft_dprintf(fd, "\tmap.height = %d\n", map.height);
+	ft_dprintf(fd, "\tmap.widgh = %d\n", map.width);
+	ft_dprintf(fd, "\tmap.data[x][y]:\n");
+	y = 0;
+	while (y < map.height)
+	{
+		ft_dprintf(fd, "\t\t%s\n", map.data[y]);
+		y++;
+	}
+	if (close(fd) != -1)
+		exit(1);
 }

@@ -4,7 +4,7 @@
 #include <mlx.h>
 
 
-/******************** void?? *********************************/
+/******************** draw_line *********************************/
 /**
  * @brief RGB color values
  */
@@ -13,6 +13,37 @@ typedef struct	s_color {
 	int	g;
 	int	b;
 }	t_color;
+
+typedef struct s_clr
+{
+	int	start_r;
+	int	start_g;
+	int	start_b;
+	int	end_r;
+	int	end_g;
+	int	end_b;
+}	t_clr;
+
+typedef struct s_line {
+	int	px;
+	int	py;
+	int	pc;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	err2;
+}	t_line;
+
+typedef struct s_wire {
+	int	x0;
+	int	y0;
+	int	color0;
+	int	x1;
+	int	y1;
+	int	color1;
+}	t_wire;
 
 /******************** main stracture *********************************/
 
@@ -92,5 +123,6 @@ typedef struct	s_wall_slice {
 	int	drawEnd;
 	int	color;
 }	t_wall_slice;
+
 
 #endif

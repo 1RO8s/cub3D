@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_mlx_pixel_put.c                                 :+:      :+:    :+:   */
+/*   debug_cub3d.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 02:00:13 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/30 22:26:33 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/08/31 20:43:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef DEBUG_CUB3D_H
+# define DEBUG_CUB3D_H
 
-// Function to put a pixel in the image
-void my_mlx_pixel_put(t_img *img, int x, int y, int color)
-{
-    char *dst;
+# include "ft_printf.h"
+# include <fcntl.h>
 
-    dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
-    *(unsigned int*)dst = color;
-}
+# define LOG_FILE "debug.log"
+
+#endif

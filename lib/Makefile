@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/21 00:10:40 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/08/31 22:03:34 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ LIBMLX_LINUX_DIR = minilibx-linux
 LIBMLX_MAC_DIR = minilibx_mms_20200219
 LIBMLXOPENGL_DIR = libmlxopengl
 RESOURCE_DIR = ../resource
+LIBDEBUG_DIR = debug
 
 # Resource files
 RESOURCE_MLX_LINUX = minilibx-linux.tgz
@@ -32,7 +33,7 @@ RESOURCE_MLX_OPENGL = minilibx_opengl.tgz
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-#LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
+LIBDEBUG = $(LIBDEBUG_DIR)/debug.a
 
 # Get OS type for choosing API
 OS := $(shell uname)
@@ -41,22 +42,19 @@ ifeq ($(OS), Darwin)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
 LIBMLX = $(LIBMLX_DIR)/libmlx_Darwin.a
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
-#LIBS = $(LIBFT) $(LIBFTPRINTF)
 endif
 # To Build MLX on Linux
 ifeq ($(OS), Linux)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
 LIBMLX = $(LIBMLX_DIR)/libmlx_Linux.a
-GET_READY_MLX = extract_mlx install_dependencies
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 endif
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
 
 all: start submodules $(LIBS)
 
 # Build MiniLibX
-$(LIBMLX): $(GET_READY_MLX)
+$(LIBMLX): extract_mlx install_dependencies
 	@echo "${YELLOW}Starting build process for '${LIBMLX_DIR}'...${NC}"
 	make -C $(LIBMLX_DIR)
 	@echo "${GREEN}Successfully created archive: $@${NC}"
@@ -67,9 +65,9 @@ start:
 .PHONY: start
 
 # Extract from resource (minilibx-linux.tgz minilibx_opengl.tgz)
-GET_READY_MLX:
+extract_mlx:
 	@./extract_mlx.sh $(RESOURCE_MLX)
-#.PHONY: extract_mlx
+.PHONY: extract_mlx
 
 # Check dependencies installed
 install_dependencies:
@@ -83,6 +81,10 @@ $(LIBFT):
 # Build ft_printf
 $(LIBFTPRINTF): 
 	make -C $(LIBFTPRINTF_DIR)
+
+# Build lib
+$(LIBDEBUG):
+	make -C $(LIBDEBUG_DIR)
 
 # Update submodules
 SUBMODULE_DIR := $(LIBFT_DIR)
@@ -98,6 +100,7 @@ clean:
 	make -C $(LIBFT_DIR) clean
 	make -C $(LIBFTPRINTF_DIR) clean
 	make -C $(LIBMLX_DIR) clean
+	make -C $(LIBDEBUG_DIR) clean
 .PHONY: clean
 
 # Clean and remove library target
