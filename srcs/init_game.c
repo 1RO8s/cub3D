@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/30 22:43:12 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:03:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void init_game(t_game *game)
 		"1000000001",
 		"1111111111"
 	};
-	debug_map_data(map);
+	debug_map_data(game->map);
 	exit(0);
 	
 	// Parse the map to find the player's initial position and direction

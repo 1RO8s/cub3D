@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/31 21:43:42 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/01 22:30:16 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,7 @@ $(DEP_DIR)/%.d: %.c
 	@mkdir -p $(DEP_DIR)
 
 # Default target
-all: start $(NAME) end display_art
+all: start build_lib $(NAME) end display_art
 .PHONY: all
 
 # Out starting message
@@ -107,9 +107,13 @@ start:
 	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
 .PHONY: start
 
+build_lib:
+	make -C $(LIB_DIR)
+.PHONY: build_lib
+
 # Out ending message
 end:
-	@echo "${YELLOW}Build process completed.${NC}"
+	@echo "${YELLOW}Build process completed $(NAME).${NC}"
 .PHONY: end
 
 display_art:
@@ -117,13 +121,14 @@ display_art:
 .PHONY: display_art
 
 # Target
+#$(NAME): $(DEPS) $(OBJS)
 $(NAME): $(LIBS) $(DEPS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(CF_API) -o $(NAME)
 	@echo "${GREEN}Successfully created execute: $@${NC}"
 
 # Build libraries
-$(LIBS):
-	make -C $(LIB_DIR)
+#$(LIBS):
+#	make -C $(LIB_DIR)
 
 # Option : make rules
 

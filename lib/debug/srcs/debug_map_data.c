@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 22:44:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/31 22:39:25 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/01 22:42:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	debug_map_data(t_map map)
 	int	y;
 
 	fd = open_log(LOG_FILE, O_APPEND);
-	if (fd != -1)
+	if (fd == -1)
 		exit(1);
 	ft_dprintf(fd, "---- map.data[y][x] ----\n");
 	ft_dprintf(fd, "\tmap.height = %d\n", map.height);
@@ -31,6 +31,6 @@ void	debug_map_data(t_map map)
 		ft_dprintf(fd, "\t\t%s\n", map.data[y]);
 		y++;
 	}
-	if (close(fd) != -1)
+	if (close(fd) == -1)
 		exit(1);
 }
