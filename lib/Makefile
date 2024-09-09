@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/01 06:07:51 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/05 02:17:11 by kamitsui         ###   ########.fr        #
+#    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
+#    Updated: 2024/08/21 00:10:40 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Build Libraries
-#  MiniLibX, Libft, ft_printf
+# Build Libraries : nest of Cub3D
+# target -> MiniLibX, Libft, ft_printf
 
 ## Makefile Option
 MAKEFLAGS += --no-print-directory
@@ -19,7 +19,8 @@ MAKEFLAGS += --no-print-directory
 # Directories
 LIBFT_DIR = libft
 LIBFTPRINTF_DIR = ft_printf
-LIBMLX_DIR = minilibx-linux
+LIBMLX_LINUX_DIR = minilibx-linux
+LIBMLX_MAC_DIR = minilibx_mms_20200219
 LIBMLXOPENGL_DIR = libmlxopengl
 RESOURCE_DIR = ../resource
 
@@ -31,43 +32,49 @@ RESOURCE_MLX_OPENGL = minilibx_opengl.tgz
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-LIBMLX = $(LIBMLX_DIR)/libmlx.a
 #LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 
+# Get OS type for choosing API
 OS := $(shell uname)
-
+# To Build MLX on macOS
 ifeq ($(OS), Darwin)
-RESOURCE_MLX := $(RESOURCE_MLX_MAC)
+RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
+LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
+LIBMLX = $(LIBMLX_DIR)/libmlx_Darwin.a
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
+#LIBS = $(LIBFT) $(LIBFTPRINTF)
 endif
+# To Build MLX on Linux
 ifeq ($(OS), Linux)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
+LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
+LIBMLX = $(LIBMLX_DIR)/libmlx_Linux.a
+GET_READY_MLX = extract_mlx install_dependencies
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 endif
 
-all: submodules $(LIBS)
+all: start submodules $(LIBS)
 
 # Build MiniLibX
-$(LIBMLX): #echo_build_env extract_mlx install_dependencies
-	make echo_build_env
-	make extract_mlx
-	make install_dependencies
+$(LIBMLX): $(GET_READY_MLX)
+	@echo "${YELLOW}Starting build process for '${LIBMLX_DIR}'...${NC}"
 	make -C $(LIBMLX_DIR)
-# Fix order
+	@echo "${GREEN}Successfully created archive: $@${NC}"
 
-.PHONY: extract_mlx
-echo_build_env:
-	@echo "MiniLibX Compiling for OS: $(OS)"
-	@echo "Resource file selected: $(RESOURCE_MLX)"
+PROJECT_DIR = $(notdir $(CURDIR))
+start:
+	@echo "${YELLOW}Starting build process for '${PROJECT_DIR}'...${NC}"
+.PHONY: start
 
-SETUP_MLX = ./setup_mlx.sh
+# Extract from resource (minilibx-linux.tgz minilibx_opengl.tgz)
+GET_READY_MLX:
+	@./extract_mlx.sh $(RESOURCE_MLX)
+#.PHONY: extract_mlx
 
-.PHONY: extract_mlx
-extract_mlx:
-	@$(SETUP_MLX)
-
-.PHONY: install_dependencies
+# Check dependencies installed
 install_dependencies:
 	@./install_dependency.sh
+.PHONY: install_dependencies
 
 # Build Libft
 $(LIBFT): 
@@ -78,13 +85,31 @@ $(LIBFTPRINTF):
 	make -C $(LIBFTPRINTF_DIR)
 
 # Update submodules
-.PHONY: submodules
 SUBMODULE_DIR := $(LIBFT_DIR)
 submodules:
 	@command -v git >/dev/null 2>&1 \
 		|| { echo >&2 "git is not installed. Aborting."; exit 1; }
 	@./initialize_submodules.sh
+.PHONY: submodules
 
+## Clean target
+clean:
+	@echo "${RED}Cleaning object files of Libraries...${NC}"
+	make -C $(LIBFT_DIR) clean
+	make -C $(LIBFTPRINTF_DIR) clean
+	make -C $(LIBMLX_DIR) clean
+.PHONY: clean
+
+# Clean and remove library target
+fclean: clean
+	@echo "${RED}Removing archive file...${NC}"
+	rm -f $(NAME)
+	@echo "${GREEN}All archive file removed.${NC}"
+.PHONY: fclean
+
+## Rebuild target
+re: fclean all
+.PHONY: re
 
 # Color Definitions
 RED=\033[0;31m

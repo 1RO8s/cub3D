@@ -3,18 +3,18 @@
 
 # Allow directories to be included so we can selectively whitelist files
 !*/
-!map/*.cub
-
 
 # Whitelist important files
 !Makefile
 !*.c
 !*.h
+!*.cub
 !*.cpp
 !*.sh
 !*.md
 !*.txt
 !*.pdf
+!*.png
 !*.zip
 !*.tgz
 !*.dox
@@ -27,3 +27,4 @@
 # Ignore specific directories
 lib/minilibx-linux/
 lib/minilibx_opengl_20191021/
+lib/minilibx_mms_20200219/
