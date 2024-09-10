@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/10 00:48:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:25:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 512
 # define MAP_SCALE 4
+
+// Cub3d color
+# define COLOR_GREY 0xAAAAAA
+# define COLOR_WHITE 0xFFFFFF
 
 // -------------- function prototype ---------------
 // main

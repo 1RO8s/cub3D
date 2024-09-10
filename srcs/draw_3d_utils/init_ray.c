@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/10 00:01:37 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:03:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	set_ray_will_step_along(t_ray_cast *ray_cast)
 	ray_cast->hit = 0;
 	if (ray_cast->ray_dir.x < 0)
 	{
-	    ray_cast->step_dir.x = -1;
-	    ray_cast->next_side.x
+		ray_cast->step_dir.x = -1;
+		ray_cast->next_side.x
 			= (player->x - ray_cast->grid.x) * ray_cast->delta_distance.x;
 	}
 	else
@@ -34,25 +34,24 @@ static void	set_ray_will_step_along(t_ray_cast *ray_cast)
 	}
 	if (ray_cast->ray_dir.y < 0)
 	{
-	    ray_cast->step_dir.y = -1;
-	    ray_cast->next_side.y
+		ray_cast->step_dir.y = -1;
+		ray_cast->next_side.y
 			= (player->y - ray_cast->grid.y) * ray_cast->delta_distance.y;
 	}
 	else
 	{
-	    ray_cast->step_dir.y = 1;
-	    ray_cast->next_side.y
+		ray_cast->step_dir.y = 1;
+		ray_cast->next_side.y
 			= (ray_cast->grid.y + 1.0 - player->y) * ray_cast->delta_dist.y;
 	}
 }
 
-static void	set_delta_distance(ray_cast)
+static void	set_delta_distance(t_ray_cast *ray_cast)
 {
 	if (ray_cast->ray_dir.x == 0)
 		ray_cast->delta_distance.x = 1e30;
 	else
 		ray_cast->delta_distance.x = fabs(1 / ray_cast->ray_dir.x);
-
 	if (ray_cast->ray_dir.y == 0)
 		ray_cast->delta_distance.y = 1e30;
 	else
@@ -86,7 +85,8 @@ void	init_ray(t_ray_cast *ray_cast, t_player *player, int x)
 	ray_cast->camera_plane_x = 2 * x / (double)(WIN_WIDTH / 2) - 1;
 	view_point = player->view_point;
 	camera_forcal_plane = player->camera_forcal_plane;
-	ray_cast->ray_dir.x = view_point.x + camera_forcal_plane.x * ray_cast->camera_plane_x;
+	ray_cast->ray_dir.x
+		= view_point.x + camera_forcal_plane.x * ray_cast->camera_plane_x;
 	ray_cast->ray_dir.y = ray_dir.y + plane_y * ray_cast->camera_plane_x;
 	ray_cast->grid.x = (int)view_point->x;
 	ray_cast->grid.y = (int)view_point->y;

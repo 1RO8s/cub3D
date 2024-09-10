@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:33:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/03 16:28:21 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:27:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	perform_dda(t_ray_cast *ray_cast, t_map *map, t_player *player)
 	bool	hit;
 
 	hit = false;
-    while (hit == 0)
+	while (hit == 0)
 	{
 		if (ray_cast->sideDistX < ray_cast->sideDistY)
 		{
@@ -36,15 +36,13 @@ void	perform_dda(t_ray_cast *ray_cast, t_map *map, t_player *player)
 			ray_cast->mapY += ray_cast->stepY;
 			ray_cast->side = 1;
 		}
-		
 		if (map->data[ray_cast->mapY][ray_cast->mapX] == '1')
 			hit = 1;
-		//if (
+		//if ( .... )
 		// break;
 	}
-
-    if (ray_cast->side == 0)
-        ray_cast->perpWallDist = (ray_cast->mapX - player->x + (1 - ray_cast->stepX) / 2) / ray_cast->rayDirX;
-    else
-        ray_cast->perpWallDist = (ray_cast->mapY - player->y + (1 - ray_cast->stepY) / 2) / ray_cast->rayDirY;
+	if (ray_cast->side == 0)
+		ray_cast->perpWallDist = (ray_cast->mapX - player->x + (1 - ray_cast->stepX) / 2) / ray_cast->rayDirX;
+	else
+		ray_cast->perpWallDist = (ray_cast->mapY - player->y + (1 - ray_cast->stepY) / 2) / ray_cast->rayDirY;
 }
