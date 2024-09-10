@@ -1,11 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   type_cub3d.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/09/10 00:47:14 by kamitsui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TYPE_CUB3D_H
 # define TYPE_CUB3D_H
 
-#include <mlx.h>
-
+/*
+ * @brief cordinate of point (int x, int y)
+ *
+ * @note :
+ * map screen 
+ */
+typedef struct	s_point {
+	int	x;
+	int	y;
+}	t_point;
 
 /******************** draw_line *********************************/
-/**
+/*
  * @brief RGB color values
  */
 typedef struct	s_color {
@@ -59,15 +79,20 @@ typedef struct	s_img {
 }	t_img;
 
 /**
- * @brief player info
+ * @brief vactor
  */
-typedef struct	s_player {
+typedef struct	s_vactor {
 	double	x;
 	double	y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+}	t_vactor;
+
+/*
+ * @brief ray vactor
+ */
+typedef struct	s_player {
+	t_vactor	view_point;
+	t_vactor	ray_dir;
+	t_vactor	camera_forcal_plane;
 }	t_player;
 
 /**
@@ -98,22 +123,28 @@ typedef struct	s_game {
 /**
  * @brief raycasting
  */
-typedef struct	s_ray {
-	double cameraX;       // X-coordinate on the camera plane (-1 to 1)
-	double rayDirX;       // Direction of the ray in the X-axis
-	double rayDirY;       // Direction of the ray in the Y-axis
-	int mapX;             // Current grid position in X
-	int mapY;             // Current grid position in Y
-	double sideDistX;     // Distance to the next X-side
-	double sideDistY;     // Distance to the next Y-side
-	double deltaDistX;    // Distance between X-sides
-	double deltaDistY;    // Distance between Y-sides
+typedef struct	s_ray_cast {
+	double		camera_plane_x;
+	t_vactor	ray_dir;
+	t_point		grid;
+	t_vactor	next_side;
+	t_vactor	delta_distance;
 	double perpWallDist;  // Perpendicular distance to the wall
-	int stepX;            // Step direction in X (1 or -1)
-	int stepY;            // Step direction in Y (1 or -1)
+	t_point		step_dir;
 	int hit;              // Whether a wall was hit
 	int side;             // Was a NS or EW wall hit?
-}	t_ray;
+}	t_ray_cast;
+//	X-coordinate on the camera plane (-1 to 1)
+//	double rayDirX;       // Direction of the ray in the X-axis
+//	double rayDirY;       // Direction of the ray in the Y-axis
+//	int mapX;             // Current grid position in X
+//	int mapY;             // Current grid position in Y
+//	double sideDistX;     // Distance to the next X-side
+//	double sideDistY;     // Distance to the next Y-side
+//	double deltaDistX;    // Distance between X-sides
+//	double deltaDistY;    // Distance between Y-sides
+//	int stepX;            // Step direction in X (1 or -1)
+//	int stepY;            // Step direction in Y (1 or -1)
 
 /**
  * @brief wall slice

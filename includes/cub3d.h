@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/08/31 22:40:26 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/10 00:48:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 // -------------- include ---------------
 // project specific header files
 # include "type_cub3d.h"
+# include <mlx.h>
+
 
 // own libraries
 # include "libft.h"
@@ -36,12 +38,12 @@
 // main
 //void initialize_player(t_game *game, int x, int y, char direction);
 void	init_game(t_game *game);
-void	render(t_game *game);
+void	render_frame(t_game *game);
 
 // 3D
-void	init_ray(t_ray *ray, t_player *player, int x);
-void	perform_dda(t_ray *ray, t_map *map, t_player *player);
-void	set_wall_slice(t_wall_slice	*wall_slice, t_ray *ray);
+void	init_ray(t_ray_cast *ray_cast, t_player *player, int x);
+void	perform_dda(t_ray_cast *ray_cast, t_map *map, t_player *player);
+void	set_wall_slice(t_wall_slice	*wall_slice, t_ray_cast *ray_cast);
 void	draw_vertical_line(t_img *img, int x, t_wall_slice *wall_slice);
 
 // 2D

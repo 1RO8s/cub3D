@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/29 15:55:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/10 00:48:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,30 @@ static void draw_3d_view(t_game *game) {
     // This part involves calculating the distance to walls and rendering vertical strips
     int				w;
 	int				x;
-	t_ray			ray;
+	t_ray_cast		ray_cast;
 	t_wall_slice	wall_slice;
 
 	w = WIN_WIDTH / 2;
 	x = 0;
 	while (x < w)
 	{
-		init_ray(&ray, &game->player, x);
-		perform_dda(&ray, &game->map, &game->player);
-		set_wall_slice(&wall_slice, &ray);
+		init_ray(&ray_cast, &game->player, x);
+		debug_ray_cast(ray_cast, "draw_3d_view");// debug
+		perform_dda(&ray_cast, &game->map, &game->player);
+		set_wall_slice(&wall_slice, &ray_cast);
         draw_vertical_line(&game->img_3d, x, &wall_slice);
 		x++;
     }
 }
 
 // Draw the 2D top-down map
-static void draw_2d_map(t_game *game) {
+static void	draw_2d_map(t_game *game) {
 	draw_2d_wall(&game->map, &game->img_2d);
 	draw_2d_player(&game->img_2d, &game->player);
 }
 
-// Render both views ( 3D and 2D )
-void render(t_game *game)
+// Rendering a single frame
+void	render_frame(t_game *game)
 {
 	draw_3d_view(game);
 	draw_2d_map(game);

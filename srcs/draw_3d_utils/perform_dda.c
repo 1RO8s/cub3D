@@ -6,36 +6,45 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:33:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/30 17:36:24 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:28:21 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	perform_dda(t_ray *ray, t_map *map, t_player *player)
+// Digital Differential Analysis (DDA) Loop
+//  * Incrementally checks each grid square
+//    along the ray’s path until it hits a wall ('1' in the map data).
+//  * Depending on whether the ray moves more in the x or y direction,
+//    either sideDixtX or sideDistY is incremented.
+void	perform_dda(t_ray_cast *ray_cast, t_map *map, t_player *player)
 {
 	bool	hit;
-//	int		map_x;
-//	int		map_y;
 
 	hit = false;
-    while (hit == 0) {
-        if (ray->sideDistX < ray->sideDistY) {
-            ray->sideDistX += ray->deltaDistX;
-            ray->mapX += ray->stepX;
-            ray->side = 0;
-        } else {
-            ray->sideDistY += ray->deltaDistY;
-            ray->mapY += ray->stepY;
-            ray->side = 1;
-        }
+    while (hit == 0)
+	{
+		if (ray_cast->sideDistX < ray_cast->sideDistY)
+		{
+			ray_cast->sideDistX += ray_cast->deltaDistX;
+			ray_cast->mapX += ray_cast->stepX;
+			ray_cast->side = 0;
+		}
+		else
+		{
+			ray_cast->sideDistY += ray_cast->deltaDistY;
+			ray_cast->mapY += ray_cast->stepY;
+			ray_cast->side = 1;
+		}
+		
+		if (map->data[ray_cast->mapY][ray_cast->mapX] == '1')
+			hit = 1;
+		//if (
+		// break;
+	}
 
-        if (map->data[ray->mapY][ray->mapX] == '1')
-            hit = 1;
-    }
-
-    if (ray->side == 0)
-        ray->perpWallDist = (ray->mapX - player->x + (1 - ray->stepX) / 2) / ray->rayDirX;
+    if (ray_cast->side == 0)
+        ray_cast->perpWallDist = (ray_cast->mapX - player->x + (1 - ray_cast->stepX) / 2) / ray_cast->rayDirX;
     else
-        ray->perpWallDist = (ray->mapY - player->y + (1 - ray->stepY) / 2) / ray->rayDirY;
+        ray_cast->perpWallDist = (ray_cast->mapY - player->y + (1 - ray_cast->stepY) / 2) / ray_cast->rayDirY;
 }

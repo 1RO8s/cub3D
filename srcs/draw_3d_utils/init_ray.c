@@ -6,42 +6,90 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/28 00:19:30 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/10 00:01:37 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_ray(t_ray *ray, t_player *player, int x)
+/**
+ * @brief set distance (next_side) and step_dir
+ *
+ * @note step_dir is direction in which the ray will step along the x,y axes.
+ */
+static void	set_ray_will_step_along(t_ray_cast *ray_cast)
 {
-	ray->cameraX = 2 * x / (double)(WIN_WIDTH / 2) - 1;
-	ray->rayDirX = player->dir_x + player->plane_x * ray->cameraX;
-	ray->rayDirY = player->dir_y + player->plane_y * ray->cameraX;
-	// here?
-	ray->mapX = (int)player->x;
-	ray->mapY = (int)player->y;
+	ray_cast->hit = 0;
+	if (ray_cast->ray_dir.x < 0)
+	{
+	    ray_cast->step_dir.x = -1;
+	    ray_cast->next_side.x
+			= (player->x - ray_cast->grid.x) * ray_cast->delta_distance.x;
+	}
+	else
+	{
+		ray_cast->step_dir.x = 1;
+		ray_cast->next_side.x
+			= (ray_cast->grid.x + 1.0 - player->x) * ray_cast->delta_distance.x;
+	}
+	if (ray_cast->ray_dir.y < 0)
+	{
+	    ray_cast->step_dir.y = -1;
+	    ray_cast->next_side.y
+			= (player->y - ray_cast->grid.y) * ray_cast->delta_distance.y;
+	}
+	else
+	{
+	    ray_cast->step_dir.y = 1;
+	    ray_cast->next_side.y
+			= (ray_cast->grid.y + 1.0 - player->y) * ray_cast->delta_dist.y;
+	}
+}
 
-	ray->deltaDistX = (ray->rayDirX == 0) ? 1e30 : fabs(1 / ray->rayDirX);
-	ray->deltaDistY = (ray->rayDirY == 0) ? 1e30 : fabs(1 / ray->rayDirY);
-	ray->hit = 0;
-	if (ray->rayDirX < 0)
-	{
-	    ray->stepX = -1;
-	    ray->sideDistX = (player->x - ray->mapX) * ray->deltaDistX;
-	}
+static void	set_delta_distance(ray_cast)
+{
+	if (ray_cast->ray_dir.x == 0)
+		ray_cast->delta_distance.x = 1e30;
 	else
-	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - player->x) * ray->deltaDistX;
-	}
-	if (ray->rayDirY < 0)
-	{
-	    ray->stepY = -1;
-	    ray->sideDistY = (player->y - ray->mapY) * ray->deltaDistY;
-	}
+		ray_cast->delta_distance.x = fabs(1 / ray_cast->ray_dir.x);
+
+	if (ray_cast->ray_dir.y == 0)
+		ray_cast->delta_distance.y = 1e30;
 	else
-	{
-	    ray->stepY = 1;
-	    ray->sideDistY = (ray->mapY + 1.0 - player->y) * ray->deltaDistY;
-	}
+		ray_cast->delta_distance.y = fabs(1 / ray_cast->ray_dir.y);
+}
+
+/**
+ * @brief initialize t_ray_cast for perspective (represent 3D object)
+ *
+ * @note 
+ *
+ * member
+ * camera_plane_x: x-coordinate on the camera plane (-1 to 1)
+ * ray_dir:        Ray Direction
+ * grid:           current grid position
+ * next_side:      distance to next x-side or y-side
+ * delta_distance: used to incrementally move the ray across the grid
+ * perpWallDist:   Perpendicular distance to the wall
+ * step_dir:       step direction will xxx along
+ * hit:            Whether a wall was hit
+ * side:           Was a NS or EW wall hit?
+ *
+ * plane:          FOV (field of view) / 2
+ */
+void	init_ray(t_ray_cast *ray_cast, t_player *player, int x)
+{
+	t_vactor	view_point;
+	t_vactor	ray_dir;
+	t_vactor	camera_forcal_plane;
+
+	ray_cast->camera_plane_x = 2 * x / (double)(WIN_WIDTH / 2) - 1;
+	view_point = player->view_point;
+	camera_forcal_plane = player->camera_forcal_plane;
+	ray_cast->ray_dir.x = view_point.x + camera_forcal_plane.x * ray_cast->camera_plane_x;
+	ray_cast->ray_dir.y = ray_dir.y + plane_y * ray_cast->camera_plane_x;
+	ray_cast->grid.x = (int)view_point->x;
+	ray_cast->grid.y = (int)view_point->y;
+	set_delta_distance(ray_cast);
+	set_ray_will_step_along(ray_cast);
 }
