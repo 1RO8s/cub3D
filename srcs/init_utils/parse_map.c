@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 16:26:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:56:39 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @note
  *  player view point , ray direction, camera forcal plane direction
  */
-static void	initialize_player(t_player *player, int x, int y, char direction)
+static int	initialize_player(t_player *player, int x, int y, char direction)
 {
 	player->view_point.x = x + 0.5;
 	player->view_point.y = y + 0.5;
@@ -37,11 +37,13 @@ static bool	is_player_position(char map_point)
 /**
  * @brief Parse the map and find the player's position
  */
-void	parse_map(t_map *map, t_player *player)
+int	parse_map(t_map *map, t_player *player)
 {
 	int	x;
 	int	y;
+	int	count_player;
 
+	count_player = 0;
 	y = 0;
 	while (y < map->height)
 	{
@@ -50,9 +52,15 @@ void	parse_map(t_map *map, t_player *player)
 		{
 			if (is_player_position(map->data[y][x]) == true)
 			{
-				initialize_player(player, x, y, map->data[y][x]);
+				if (count_player != 0)
+				{
+					// syntax error : invalid map
+					return (EXIT_FAILURE);
+				}
+				count_player++;
+				if (initialize_player(player, x, y, map->data[y][x]) != EXIT_SUCCESS)
+					return (EXIT_FAILURE);
 				map->data[y][x] = '0';
-				return ;
 			}
 			x++;
 		}
@@ -60,4 +68,5 @@ void	parse_map(t_map *map, t_player *player)
 	}
 	debug_map_data(*map);
 	exit(0);
+	return (EXIT_SUCCESS);;
 }

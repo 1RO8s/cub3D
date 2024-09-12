@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 17:20:36 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:55:35 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@ int	read_map(t_map *map, char *file)
 
 	//if ( open file != EXIT_SUCCESS)
 	//	return (EXIT_FAILURE
+	(void)fd;
 	(void)file;
-	game->map.width = TEST_MAP_SIZE;
-	game->map.height = TEST_MAP_SIZE;
-	game->map.data = (char **)malloc(sizeof(char *) * (TEST_MAP_SIZE + 1));
+	map->width = TEST_MAP_SIZE;
+	map->height = TEST_MAP_SIZE;
+	map->data = (char **)malloc(sizeof(char *) * (TEST_MAP_SIZE + 1));
 	//set_map_data(data, fd);
-	set_map_data(data);
+	set_map_data(map->data);
 	return (EXIT_SUCCESS);
 }
