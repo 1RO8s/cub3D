@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/12 18:54:11 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:21:42 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 // Cub3d color
 # define COLOR_GREY 0xAAAAAA
 # define COLOR_WHITE 0xFFFFFF
+# define COLOR_RED 0xFF0000
 
 // -------------- function prototype ---------------
 // main
@@ -59,6 +60,7 @@ void	draw_2d_wall(t_map *map, t_img *img_2d);
 void	draw_2d_player(t_img *img_2d, t_player *player);
 
 // draw line utils
+void	draw_line(t_img *img, t_line *line);
 
 // mlx utils
 void my_mlx_pixel_put(t_img *img, int x, int y, int color);

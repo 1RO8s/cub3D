@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 15:51:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:20:46 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_clr
 	int	end_b;
 }	t_clr;
 
-typedef struct s_line {
+typedef struct s_plot {
 	int	px;
 	int	py;
 	int	pc;
@@ -44,16 +44,16 @@ typedef struct s_line {
 	int	sy;
 	int	err;
 	int	err2;
-}	t_line;
+}	t_plot;
 
-typedef struct s_wire {
-	int	x0;
-	int	y0;
-	int	color0;
-	int	x1;
-	int	y1;
-	int	color1;
-}	t_wire;
+typedef struct s_line {
+	int	x_start;
+	int	y_start;
+	int	color_start;
+	int	x_end;
+	int	y_end;
+	int	color_end;
+}	t_line;
 
 /******************** main stracture *********************************/
 

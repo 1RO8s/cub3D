@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:34:59 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/30 19:36:14 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:23:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@ static int	transition_color(int start, int end, int move_point, t_clr *color)
 	return ((tr_r << 16) | (tr_g << 8) | tr_b);
 }
 
-static int	get_current_color(t_line *line, t_wire *screen, t_clr *color)
+static int	get_current_color(t_plot *plot, t_line *line, t_clr *color)
 {
 	int	start;
 	int	end;
 	int	move_point;
 
-	if (line->dx > 0)
+	if (plot->dx > 0)
 	{
-		start = screen->x0;
-		end = screen->x1;
-		move_point = line->px;
+		start = line->x0;
+		end = line->x1;
+		move_point = plot->px;
 	}
 	else
 	{
-		start = screen->y0;
-		end = screen->y1;
-		move_point = line->py;
+		start = line->y0;
+		end = line->y1;
+		move_point = plot->py;
 	}
 	return (transition_color(start, end, move_point, color));
 }
@@ -64,43 +64,43 @@ static int	get_current_color(t_line *line, t_wire *screen, t_clr *color)
 //	static int i = 0;
 //	ft_printf("draw_loop : %d\tpx:%d\tpy:%d\tpc:%X\n", i++, px, py, pc);
 //}
-//	debug_line(screen->x0, screen->y0, screen->color0,
-//	screen->x1, screen->y1, screen->color1);
-//		debug_count(line->px, line->py, line->pc);
+//	debug_line(line->x0, line->y0, line->color0,
+//	line->x1, line->y1, line->color1);
+//		debug_count(plot->px, plot->py, plot->pc);
 
-static void	draw_loop(t_line *line, t_wire *screen, t_clr *color, t_data *data)
+static void	draw_loop(t_plot *plot, t_line *line, t_clr *color, t_img *img)
 {
 	while (1)
 	{
-		if (line->px >= IMG_WIDTH || line->px <= 0
-			|| line->py >= IMG_HEIGHT || line->py <= 0)
+		if (plot->px >= IMG_WIDTH || plot->px <= 0
+			|| plot->py >= IMG_HEIGHT || plot->py <= 0)
 			break ;
-		line->pc = get_current_color(line, screen, color);
-		my_mlx_pixel_put(data, line->px, line->py, line->pc);
-		if (line->px == screen->x1 && line->py == screen->y1)
+		plot->pc = get_current_color(plot, line, color);
+		my_mlx_pixel_put(img, plot->px, plot->py, plot->pc);
+		if (plot->px == line->x1 && plot->py == line->y1)
 			break ;
-		line->err2 = 2 * line->err;
-		if (line->err2 > -line->dy)
+		plot->err2 = 2 * plot->err;
+		if (plot->err2 > -plot->dy)
 		{
-			line->err -= line->dy;
-			line->px += line->sx;
+			plot->err -= plot->dy;
+			plot->px += plot->sx;
 		}
-		if (line->err2 < line->dx)
+		if (plot->err2 < plot->dx)
 		{
-			line->err += line->dx;
-			line->py += line->sy;
+			plot->err += plot->dx;
+			plot->py += plot->sy;
 		}
 	}
 }
 
 // memo : develop unfinished
 // Bresenham's line algorithm
-void	draw_line(t_data *data, t_wire *screen)
+void	draw_line(t_img *img, t_line *line)
 {
-	t_line	line;
+	t_plot	plot;
 	t_clr	color;
 
-	init_line(&line, screen);
-	init_color(&color, screen->color0, screen->color1);
-	draw_loop(&line, screen, &color, data);
+	init_plot(&plot, line);
+	init_color(&color, line->color0, line->color1);
+	draw_loop(&plot, line, &color, img);
 }
