@@ -6,25 +6,15 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/10 00:47:14 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:29:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPE_CUB3D_H
 # define TYPE_CUB3D_H
 
-/*
- * @brief cordinate of point (int x, int y)
- *
- * @note :
- * map screen 
- */
-typedef struct	s_point {
-	int	x;
-	int	y;
-}	t_point;
-
 /******************** draw_line *********************************/
+
 /*
  * @brief RGB color values
  */
@@ -119,6 +109,17 @@ typedef struct	s_game {
 }	t_game;
 
 /******************** raycasting *********************************/
+
+/*
+ * @brief cordinate of point (int x, int y)
+ *
+ * @note :
+ * map screen 
+ */
+typedef struct	s_point {
+	int	x;
+	int	y;
+}	t_point;
 
 /**
  * @brief raycasting

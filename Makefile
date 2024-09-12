@@ -6,14 +6,16 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/01 22:30:16 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/12 12:02:49 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Build Cub3D : Top level build
 
 # Directories
-SRCS_DIR = ./srcs \
+SRCS_DIR = \
+		   ./srcs \
+		   ./srcs/init_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
@@ -33,6 +35,9 @@ SRCS = \
 	   main.c \
 	   init_game.c \
 	   render.c \
+	   \
+	   read_map.c \
+	   parse_map.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \
