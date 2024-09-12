@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:02 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 16:27:12 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:25:39 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,35 @@ static void	set_south_direction(
 static void	set_west_direction(
 	t_vector *ray_dir, t_vector *camera_forcal_plane)
 {
-	ray_dir.x = -1;
-	ray_dir.y = 0;
-	camera_forcal_plane.x = 0;
-	camera_forcal_plane.y = -0.66;
+	ray_dir->x = -1;
+	ray_dir->y = 0;
+	camera_forcal_plane->x = 0;
+	camera_forcal_plane->y = -0.66;
 }
 
 static void	set_east_direction(
 	t_vector *ray_dir, t_vector *camera_forcal_plane)
 {
-	ray_dir.x = 1;
-	ray_dir.y = 0;
-	camera_forcal_plane.x = 0;
-	camera_forcal_plane.y = 0.66;
+	ray_dir->x = 1;
+	ray_dir->y = 0;
+	camera_forcal_plane->x = 0;
+	camera_forcal_plane->y = 0.66;
 }
 
 int	set_direction(char direction, t_player *player)
 {
 	if (direction == 'N')
-		set_north_direction(player->ray_dir, player->camera_forcal_plane);
+		set_north_direction(&player->ray_dir, &player->camera_forcal_plane);
 	else if (direction == 'S')
-		set_south_direction(player->ray_dir, player->camera_forcal_plane);
+		set_south_direction(&player->ray_dir, &player->camera_forcal_plane);
 	else if (direction == 'W')
-		set_west_direction(player->ray_dir, player->camera_forcal_plane);
+		set_west_direction(&player->ray_dir, &player->camera_forcal_plane);
 	else if (direction == 'E')
-		set_east_direction(player->ray_dir, player->camera_forcal_plane);
+		set_east_direction(&player->ray_dir, &player->camera_forcal_plane);
 	else
+	{
+		// syntax error : invalid map
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
