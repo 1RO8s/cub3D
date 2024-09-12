@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/10 00:55:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:27:58 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	start_game(t_game *game)
 	mlx_loop(game->mlx);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	t_game game;
+	t_game	game;
 
-	init_game(&game);
+	if (init_game(&game, argc, argv) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	start_game(&game);
 	//end_game(&game);
-
 	return (0);
 }
