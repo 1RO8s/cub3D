@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/03 16:22:43 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:52:50 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	debug_camera_plane_and_ray_dir(int fd, t_ray_cast ray_cast)
 {
 	ft_dprintf(fd, "X-cordinate on the camera plane (-1.0 to 1.0)\n");
 	ft_dprintf(fd, "\tcamera_plane_x = [%f]\n", ray_cast.camera_plane_x);
-	ft_dprintf(fd, "Direction in the ray vactor ... double\n");
+	ft_dprintf(fd, "Direction in the ray vector ... double\n");
 	ft_dprintf(fd, "\tray_dir.x = [%f]\n", ray_cast.ray_dir.x);
 	ft_dprintf(fd, "\tray_dir.y = [%f]\n", ray_cast.ray_dir.y);
 }

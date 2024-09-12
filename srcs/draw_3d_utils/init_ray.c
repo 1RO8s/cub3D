@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/10 11:03:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:52:30 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ static void	set_delta_distance(t_ray_cast *ray_cast)
  */
 void	init_ray(t_ray_cast *ray_cast, t_player *player, int x)
 {
-	t_vactor	view_point;
-	t_vactor	ray_dir;
-	t_vactor	camera_forcal_plane;
+	t_vector	view_point;
+	t_vector	ray_dir;
+	t_vector	camera_forcal_plane;
 
 	ray_cast->camera_plane_x = 2 * x / (double)(WIN_WIDTH / 2) - 1;
 	view_point = player->view_point;

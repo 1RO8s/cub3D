@@ -6,20 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 12:02:38 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:26:48 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	set_direction(
-	double ray_x, double ray_y, double plane_x, double plane_y)
-{
-	player->ray_dir.x = ray_x;
-	player->ray_dir.y = ray_y;
-	player->camera_forcal_plane.x = 0.66;
-	player->camera_forcal_plane.y = 0;
-}
 
 /**
  * @brief initialize the player
@@ -31,34 +22,7 @@ static void	initialize_player(t_player *player, int x, int y, char direction)
 {
 	player->view_point.x = x + 0.5;
 	player->view_point.y = y + 0.5;
-	if (direction == 'N')
-	{
-		player->ray_dir.x = 0;
-		player->ray_dir.y = -1;
-		player->camera_forcal_plane.x = 0.66;
-		player->camera_forcal_plane.y = 0;
-	}
-	else if (direction == 'S')
-	{
-		player->ray_dir.x = 0;
-		player->ray_dir.y = 1;
-		player->camera_forcal_plane.x = -0.66;
-		player->camera_forcal_plane.y = 0;
-	}
-	else if (direction == 'W')
-	{
-		player->ray_dir.x = -1;
-		player->ray_dir.y = 0;
-		player->camera_forcal_plane.x = 0;
-		player->camera_forcal_plane.y = -0.66;
-	}
-	else if (direction == 'E')
-	{
-		player->ray_dir.x = 1;
-		player->ray_dir.y = 0;
-		player->camera_forcal_plane.x = 0;
-		player->camera_forcal_plane.y = 0.66;
-	}
+	return (set_direction(direction, player));
 }
 
 /**

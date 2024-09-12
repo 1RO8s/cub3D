@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/12 12:02:49 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/12 17:24:18 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = \
 	   \
 	   read_map.c \
 	   parse_map.c \
+	   set_direction.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \

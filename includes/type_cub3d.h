@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 09:29:38 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:51:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,20 @@ typedef struct	s_img {
 }	t_img;
 
 /**
- * @brief vactor
+ * @brief vector
  */
-typedef struct	s_vactor {
+typedef struct	s_vector {
 	double	x;
 	double	y;
-}	t_vactor;
+}	t_vector;
 
 /*
- * @brief ray vactor
+ * @brief ray vector
  */
 typedef struct	s_player {
-	t_vactor	view_point;
-	t_vactor	ray_dir;
-	t_vactor	camera_forcal_plane;
+	t_vector	view_point;
+	t_vector	ray_dir;
+	t_vector	camera_forcal_plane;
 }	t_player;
 
 /**
@@ -126,10 +126,10 @@ typedef struct	s_point {
  */
 typedef struct	s_ray_cast {
 	double		camera_plane_x;
-	t_vactor	ray_dir;
+	t_vector	ray_dir;
 	t_point		grid;
-	t_vactor	next_side;
-	t_vactor	delta_distance;
+	t_vector	next_side;
+	t_vector	delta_distance;
 	double perpWallDist;  // Perpendicular distance to the wall
 	t_point		step_dir;
 	int hit;              // Whether a wall was hit
