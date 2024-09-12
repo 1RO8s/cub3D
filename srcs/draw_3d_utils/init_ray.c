@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 23:05:23 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:07:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,6 @@ static void	set_delta_distance(t_ray_cast *ray_cast)
 		ray_cast->delta_distance.y = fabs(1 / ray_cast->ray_dir.y);
 }
 
-//typedef struct	s_ray_cast {
-//	double		camera_plane_x;
-//	t_vector	ray_dir;
-//	t_point		grid;
-//	t_vector	next_side;
-//	t_vector	delta_distance;
-//	double perpWallDist;  // Perpendicular distance to the wall
-//	t_point		step_dir;
-//	int hit;              // Whether a wall was hit
-//	int side;             // Was a NS or EW wall hit?
-//}	t_ray_cast;
 /**
  * @brief initialize t_ray_cast for perspective (represent 3D object)
  *

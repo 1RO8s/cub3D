@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/12 17:24:18 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/12 23:19:59 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,9 +48,9 @@ SRCS = \
 	   set_wall_slice.c \
 	   draw_vertical_line.c \
 	   \
+	   draw_line.c \
+	   \
 	   my_mlx_pixel_put.c
-	   #\
-	   #draw_line.c \
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

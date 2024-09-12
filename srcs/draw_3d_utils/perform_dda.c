@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:33:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/10 11:27:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:20:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ void	perform_dda(t_ray_cast *ray_cast, t_map *map, t_player *player)
 	hit = false;
 	while (hit == 0)
 	{
-		if (ray_cast->sideDistX < ray_cast->sideDistY)
+		if (ray_cast->next_side.x < ray_cast->next_side.y)
 		{
-			ray_cast->sideDistX += ray_cast->deltaDistX;
-			ray_cast->mapX += ray_cast->stepX;
+			ray_cast->next_side.x += ray_cast->delta_distance.x;
+			ray_cast->grid.x += ray_cast->step_dir.x;
 			ray_cast->side = 0;
 		}
 		else
 		{
-			ray_cast->sideDistY += ray_cast->deltaDistY;
-			ray_cast->mapY += ray_cast->stepY;
+			ray_cast->next_side.y += ray_cast->delta_distance.y;
+			ray_cast->grid.y += ray_cast->step_dir.y;
 			ray_cast->side = 1;
 		}
-		if (map->data[ray_cast->mapY][ray_cast->mapX] == '1')
+		if (map->data[ray_cast->grid.y][ray_cast->grid.y] == '1')
 			hit = 1;
 		//if ( .... )
 		// break;
 	}
 	if (ray_cast->side == 0)
-		ray_cast->perpWallDist = (ray_cast->mapX - player->x + (1 - ray_cast->stepX) / 2) / ray_cast->rayDirX;
+		ray_cast->perpWallDist = (ray_cast->grid.x - player->view_point.x + (1 - ray_cast->step_dir.x) / 2) / ray_cast->ray_dir.x;
 	else
-		ray_cast->perpWallDist = (ray_cast->mapY - player->y + (1 - ray_cast->stepY) / 2) / ray_cast->rayDirY;
+		ray_cast->perpWallDist = (ray_cast->grid.y - player->view_point.y + (1 - ray_cast->step_dir.y) / 2) / ray_cast->ray_dir.y;
 }
