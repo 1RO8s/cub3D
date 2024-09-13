@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:34:59 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 22:23:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:33:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,26 @@ static int	get_current_color(t_plot *plot, t_line *line, t_clr *color)
 
 	if (plot->dx > 0)
 	{
-		start = line->x0;
-		end = line->x1;
+		start = line->x_start;
+		end = line->x_end;
 		move_point = plot->px;
 	}
 	else
 	{
-		start = line->y0;
-		end = line->y1;
+		start = line->y_start;
+		end = line->y_end;
 		move_point = plot->py;
 	}
 	return (transition_color(start, end, move_point, color));
 }
 
 //#include "ft_printf.h"
-//void	debug_line(int x0, int y0, int color0,
-//		int x1, int y1, int color1)
+//void	debug_line(int x_start, int y_start, int color0,
+//		int x_end, int y_end, int color1)
 //{
 //	ft_printf("\n\n---- draw_line ----  start -> end\n");
-//	ft_printf("start\tx0:%d y0:%d color0:%X\n", x0, y0, color0);
-//	ft_printf("end  \tx1:%d y1:%d color1:%X\n", x1, y1, color1);
+//	ft_printf("start\tx_start:%d y_start:%d color0:%X\n", x_start, y_start, color0);
+//	ft_printf("end  \tx_end:%d y_end:%d color1:%X\n", x_end, y_end, color1);
 //}
 //
 //void	debug_count(int px, int py, int pc)
@@ -64,20 +64,20 @@ static int	get_current_color(t_plot *plot, t_line *line, t_clr *color)
 //	static int i = 0;
 //	ft_printf("draw_loop : %d\tpx:%d\tpy:%d\tpc:%X\n", i++, px, py, pc);
 //}
-//	debug_line(line->x0, line->y0, line->color0,
-//	line->x1, line->y1, line->color1);
+//	debug_line(line->x_start, line->y_start, line->color0,
+//	line->x_end, line->y_end, line->color1);
 //		debug_count(plot->px, plot->py, plot->pc);
 
 static void	draw_loop(t_plot *plot, t_line *line, t_clr *color, t_img *img)
 {
 	while (1)
 	{
-		if (plot->px >= IMG_WIDTH || plot->px <= 0
-			|| plot->py >= IMG_HEIGHT || plot->py <= 0)
+		if (plot->px >= IMG_2D_WIDTH || plot->px <= 0
+			|| plot->py >= IMG_2D_HEIGHT || plot->py <= 0)
 			break ;
 		plot->pc = get_current_color(plot, line, color);
 		my_mlx_pixel_put(img, plot->px, plot->py, plot->pc);
-		if (plot->px == line->x1 && plot->py == line->y1)
+		if (plot->px == line->x_end && plot->py == line->y_end)
 			break ;
 		plot->err2 = 2 * plot->err;
 		if (plot->err2 > -plot->dy)
@@ -101,6 +101,6 @@ void	draw_line(t_img *img, t_line *line)
 	t_clr	color;
 
 	init_plot(&plot, line);
-	init_color(&color, line->color0, line->color1);
+	init_color(&color, line->color_start, line->color_end);
 	draw_loop(&plot, line, &color, img);
 }

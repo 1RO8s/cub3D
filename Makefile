@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/12 23:19:59 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/13 10:34:19 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS = \
 	   draw_vertical_line.c \
 	   \
 	   draw_line.c \
+	   init_line.c \
 	   \
 	   my_mlx_pixel_put.c
 

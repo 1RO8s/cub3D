@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 22:20:46 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:26:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ typedef struct	s_ray_cast {
 	t_point		grid;
 	t_vector	next_side;
 	t_vector	delta_distance;
-	double perpWallDist;  // Perpendicular distance to the wall
+	double		perp_wall_dist;  // Perpendicular distance to the wall
 	t_point		step_dir;
 	int hit;              // Whether a wall was hit
 	int side;             // Was a NS or EW wall hit?

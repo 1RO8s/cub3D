@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 15:52:50 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:35:10 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	debug_camera_plane_and_ray_dir(int fd, t_ray_cast ray_cast)
 	ft_dprintf(fd, "\tray_dir.y = [%f]\n", ray_cast.ray_dir.y);
 }
 
-static void	debug_grid_and_nex_side(int fd, t_ray_cast ray_cast)
+static void	debug_grid_and_next_side(int fd, t_ray_cast ray_cast)
 {
 	ft_dprintf(fd, "Current grid position (x, y) ... int\n");
 	ft_dprintf(fd, "\tgrid.x = [%d]\n", ray_cast.grid.x);
@@ -33,11 +33,11 @@ static void	debug_grid_and_nex_side(int fd, t_ray_cast ray_cast)
 	ft_dprintf(fd, "\tdelta_distance = [%f]\n", ray_cast.delta_distance.x);
 	ft_dprintf(fd, "\tdelta_distance = [%f]\n", ray_cast.delta_distance.y);
 	ft_dprintf(fd, "Step direction in X, Y (-1 or 1) ... int\n");
-	ft_dprintf(fd, "\tstepX = [%d]\n", ray_cast.step.x);
-	ft_dprintf(fd, "\tstepY = [%d]\n", ray_cast.step.y);
+	ft_dprintf(fd, "\tstepX = [%d]\n", ray_cast.step_dir.x);
+	ft_dprintf(fd, "\tstepY = [%d]\n", ray_cast.step_dir.y);
 }
 
-void	debug_ray_cast(t_ray_cast ray_cast, const char *msg)
+void	debug_ray_cast(t_ray_cast ray_cast, const char *msg, int x)
 {
 	int	fd;
 

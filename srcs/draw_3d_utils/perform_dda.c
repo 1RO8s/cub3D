@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:33:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 23:20:28 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:46:49 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	perform_dda(t_ray_cast *ray_cast, t_map *map, t_player *player)
 		// break;
 	}
 	if (ray_cast->side == 0)
-		ray_cast->perpWallDist = (ray_cast->grid.x - player->view_point.x + (1 - ray_cast->step_dir.x) / 2) / ray_cast->ray_dir.x;
+		ray_cast->perp_wall_dist = (ray_cast->grid.x - player->view_point.x + (1 - ray_cast->step_dir.x) / 2) / ray_cast->ray_dir.x;
 	else
-		ray_cast->perpWallDist = (ray_cast->grid.y - player->view_point.y + (1 - ray_cast->step_dir.y) / 2) / ray_cast->ray_dir.y;
+		ray_cast->perp_wall_dist = (ray_cast->grid.y - player->view_point.y + (1 - ray_cast->step_dir.y) / 2) / ray_cast->ray_dir.y;
 }

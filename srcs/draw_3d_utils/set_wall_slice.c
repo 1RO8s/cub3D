@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:34:03 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/10 11:25:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:47:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_wall_slice(t_wall_slice	*wall_slice, t_ray_cast *ray_cast)
 	int	line_height;
 
 	h = WIN_HEIGHT;
-	line_height = (int)(h / ray_cast->perpWallDist);
+	line_height = (int)(h / ray_cast->perp_wall_dist);
 	wall_slice->drawStart = -line_height / 2 + h / 2;
 	wall_slice->drawEnd = line_height / 2 + h / 2;
 	if (wall_slice->drawStart < 0)

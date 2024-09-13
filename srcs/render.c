@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 09:42:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:26:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	draw_3d_view(t_game *game)
 	while (x < w)
 	{
 		init_ray(&ray_cast, &game->player, x);
-		debug_ray_cast(ray_cast, "draw_3d_view");// debug
+		debug_ray_cast(ray_cast, "draw_3d_view", x);// debug
 		perform_dda(&ray_cast, &game->map, &game->player);
 		set_wall_slice(&wall_slice, &ray_cast);
 		draw_vertical_line(&game->img_3d, x, &wall_slice);

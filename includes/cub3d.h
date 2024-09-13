@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/12 22:21:42 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:33:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 512
 # define MAP_SCALE 4
+# define IMG_3D_WIDTH (WIN_WIDTH / 2)
+# define IMG_3D_HEIGHT WIN_HEIGHT
+# define IMG_2D_WIDTH (WIN_WIDTH / 2)
+# define IMG_2D_HEIGHT WIN_HEIGHT
 
 // Cub3d color
 # define COLOR_GREY 0xAAAAAA
@@ -61,6 +65,8 @@ void	draw_2d_player(t_img *img_2d, t_player *player);
 
 // draw line utils
 void	draw_line(t_img *img, t_line *line);
+void	init_plot(t_plot *plot, t_line *line);
+void	init_color(t_clr *color, int start_color, int end_color);
 
 // mlx utils
 void my_mlx_pixel_put(t_img *img, int x, int y, int color);
