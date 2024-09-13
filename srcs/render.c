@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 16:26:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:54:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	draw_3d_view(t_game *game)
 		draw_vertical_line(&game->img_3d, x, &wall_slice);
 		x++;
 	}
+	sleep(10);
+	exit(0);// debug
 }
 
 /**
