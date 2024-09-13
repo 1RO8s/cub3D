@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 23:07:55 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:55:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ void	init_ray(t_ray_cast *ray_cast, t_player *player, int x)
 	ray_cast->grid.y = (int)view_point.y;
 	set_delta_distance(ray_cast);
 	set_ray_will_step_along(ray_cast, view_point);
+	ray_cast->debug = (t_debug *)player->debug;
 }

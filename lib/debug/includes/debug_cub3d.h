@@ -6,18 +6,19 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 16:27:04 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:21:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEBUG_CUB3D_H
 # define DEBUG_CUB3D_H
 
-# include "cub3d.h"
-# include "ft_printf.h"
+# include "type_cub3d.h"
 
 # define LOG_FILE "debug.log"
-# define IS_DEBUG true
+# define IS_DEBUG 1
+
+int	init_debug_info(t_game *game);
 
 // 2D map
 void	debug_map_data(t_map map);

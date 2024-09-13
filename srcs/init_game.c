@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 18:43:07 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:31:26 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ static int	init_mlx_and_window(t_game *game)
 	void	*window;
 
 	mlx = (void *)mlx_init();
+	//game->mlx = (void *)mlx_init();
 	if (mlx == NULL)
+	//if (game->mlx == NULL)
 		return (EXIT_FAILURE);
-	window = (void *)mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	window = (void *)mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	//window = (void *)mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	if (window == NULL)
 		return (EXIT_FAILURE);
 	game->mlx = mlx;
@@ -36,13 +39,13 @@ static int	init_3d_image(void *mlx, t_img *img_3d)
 	int		*size_line;
 	int		*endian;
 
-	img_ptr = mlx_new_image(mlx, WIN_WIDTH / 2, WIN_HEIGHT);
+	img_ptr = (void *)mlx_new_image(mlx, WIN_WIDTH / 2, WIN_HEIGHT);
 	if (img_ptr == NULL)
 		return (EXIT_FAILURE);
-	bits_per_pixel = &img_3d->bpp;
-	size_line = &img_3d->line_length;
-	endian = &img_3d->endian;
-	addr = mlx_get_data_addr(img_ptr, bits_per_pixel, size_line, endian);
+	bits_per_pixel = &(img_3d->bpp);
+	size_line = &(img_3d->line_length);
+	endian = &(img_3d->endian);
+	addr = (char *)mlx_get_data_addr(img_ptr, bits_per_pixel, size_line, endian);
 	if (addr == NULL)
 		// destory img_3d
 		return (EXIT_FAILURE);
@@ -80,15 +83,21 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
 int	init_game(t_game *game, int argc, char *argv[])
 {
 	if (argc != 2)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		//perror("Error\n"); : //Operation not permitted : macOS
+		return (EXIT_FAILURE);
+	}
+	if (init_debug_info(game) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (init_mlx_and_window(game) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (init_3d_image(game->mlx, game->img_3d.img) != EXIT_SUCCESS)
+	if (init_3d_image(game->mlx, &game->img_3d) != EXIT_SUCCESS)
 	{
 		// destroy window
 		return (EXIT_FAILURE);
 	}
-	if (init_2d_image(game->mlx, game->img_2d.img) != EXIT_SUCCESS)
+	if (init_2d_image(game->mlx, &game->img_2d) != EXIT_SUCCESS)
 	{
 		// destroy window & 3d_image
 		return (EXIT_FAILURE);

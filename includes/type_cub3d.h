@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 16:26:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:17:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ typedef struct s_line {
 /******************** main stracture *********************************/
 
 /**
+ * @brief debug info
+ */
+typedef struct s_debug {
+	int		fd;
+}	t_debug;
+
+/**
  * @brief 3D or 2D image
  */
 typedef struct	s_img {
@@ -66,6 +73,7 @@ typedef struct	s_img {
 	int		bpp;
 	int		line_length;
 	int		endian;
+	t_debug	*debug;
 }	t_img;
 
 /**
@@ -83,6 +91,7 @@ typedef struct	s_player {
 	t_vector	view_point;
 	t_vector	ray_dir;
 	t_vector	camera_forcal_plane;
+	t_debug		*debug;
 }	t_player;
 
 /**
@@ -92,6 +101,7 @@ typedef struct	s_map {
 	int		width;
 	int		height;
 	char	**data;
+	t_debug	*debug;
 }	t_map;
 
 /**
@@ -106,6 +116,7 @@ typedef struct	s_game {
 	t_color		ceiling_color;
 	t_color		floor_color;
 	t_player	player;
+	t_debug		debug;
 }	t_game;
 
 /******************** raycasting *********************************/
@@ -132,8 +143,9 @@ typedef struct	s_ray_cast {
 	t_vector	delta_distance;
 	double		perp_wall_dist;  // Perpendicular distance to the wall
 	t_point		step_dir;
-	int hit;              // Whether a wall was hit
-	int side;             // Was a NS or EW wall hit?
+	int 		hit;              // Whether a wall was hit
+	int 		side;             // Was a NS or EW wall hit?
+	t_debug		*debug;
 }	t_ray_cast;
 //	X-coordinate on the camera plane (-1 to 1)
 //	double rayDirX;       // Direction of the ray in the X-axis

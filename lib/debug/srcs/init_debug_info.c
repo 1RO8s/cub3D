@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_map_data.c                                   :+:      :+:    :+:   */
+/*   init_debug_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 22:44:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 21:18:33 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/09/13 19:37:54 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/09/13 20:00:02 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_map_data(t_map map)
+int	init_debug_info(t_game *game)
 {
 	int	fd;
-	int	y;
 
-	fd = map.debug->fd;
-	ft_dprintf(fd, "---- map.data[y][x] ----\n");
-	ft_dprintf(fd, "\tmap.height = %d\n", map.height);
-	ft_dprintf(fd, "\tmap.widgh = %d\n", map.width);
-	ft_dprintf(fd, "\tmap.data[x][y]:\n");
-	y = 0;
-	while (y < map.height)
+	fd = open_log(LOG_FILE, O_TRUNC);
+	if (fd == -1)
 	{
-		ft_dprintf(fd, "\t\t%s\n", map.data[y]);
-		y++;
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		return (EXIT_FAILURE);
 	}
+	game->debug.fd = fd;
+	game->map.debug = (t_debug *)&game->debug;
+	game->player.debug = (t_debug *)&game->debug;
+	game->img_3d.debug = (t_debug *)&game->debug;
+	game->img_2d.debug = (t_debug *)&game->debug;
+	return (EXIT_SUCCESS);
 }

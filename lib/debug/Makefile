@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/13 10:41:26 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/13 20:02:24 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ endif
 SRCS = \
 	   debug_map_data.c \
 	   debug_ray.c \
+	   init_debug_info.c \
 	   open_log.c
 
 # Object files and dependency files

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 10:27:58 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:24:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ void	start_game(t_game *game)
 	mlx_loop(game->mlx);
 }
 
+void	end_game(t_game *game)
+{
+	// free game(mlx, window, img_3d, img_2d, map.data)
+	// close fd ... debug.log
+	if (close(game->debug.fd) == -1)
+		exit(1);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_game	game;
@@ -27,6 +35,6 @@ int	main(int argc, char *argv[])
 	if (init_game(&game, argc, argv) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	start_game(&game);
-	//end_game(&game);
+	end_game(&game);
 	return (0);
 }

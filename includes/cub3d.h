@@ -6,24 +6,26 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/13 10:33:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:17:07 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 // -------------- include ---------------
 // project specific header files
 # include "type_cub3d.h"
 # include <mlx.h>
 
-
 // own libraries
 # include "libft.h"
+# include "ft_printf.h"
 # include "debug_cub3d.h"
 
 // stadard libraries
+# include <unistd.h>
+# include <stdio.h>
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
