@@ -6,20 +6,20 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/25 22:17:34 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/23 00:41:57 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Build Cub3D : Top level build
 
 # Directories
-SRCS_DIR = ./srcs
-#		   ./srcs/initialize \
-#		   ./srcs/render \
-#		   ./srcs/my_mlx_utils \
-#		   ./srcs/xxx \
-#		   ./srcs/yyy \
-#		   ./srcs/zzz
+SRCS_DIR = \
+		   ./srcs \
+		   ./srcs/init_utils \
+		   ./srcs/draw_2d_utils \
+		   ./srcs/draw_3d_utils \
+		   ./srcs/draw_line_utils \
+		   ./srcs/mlx_utils
 
 OBJ_DIR = objs
 INC_DIR = includes
@@ -28,11 +28,31 @@ LIB_DIR = lib
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFTPRINTF_DIR = $(LIB_DIR)/ft_printf
 LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
+LIBDEBUG_DIR = $(LIB_DIR)/debug
 
 # Source files
 SRCS = \
-	   main.c arg_check.c debug.c
-	   #main.c render_debug_map.c
+	   main.c \
+	   init_game.c \
+	   render.c \
+	   \
+	   read_map.c \
+	   parse_map.c \
+	   set_direction.c \
+	   \
+	   draw_2d_player.c \
+	   draw_2d_wall.c \
+	   \
+	   init_ray.c \
+	   perform_dda.c \
+	   set_wall_slice.c \
+	   draw_vertical_line.c \
+	   \
+	   draw_line.c \
+	   init_line.c \
+	   \
+	   my_mlx_pixel_put.c
+	   #arg_check.c debug.c
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -41,7 +61,8 @@ DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX)
+LIBDEBUG = $(LIBDEBUG_DIR)/libdebug.a
+LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX) $(LIBDEBUG)
 
 # Build target
 NAME = cub3D
@@ -57,7 +78,7 @@ CF_ASAN = -g -fsanitize=address
 #CF_THSAN = -g -fsanitize=thread
 CF_GENERATE_DEBUG_INFO = -g
 CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
-	 -I$(LIBMLX_DIR)
+	 -I$(LIBMLX_DIR) -I$(LIBDEBUG_DIR)/includes
 CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
 
 # Get OS type for choosing API
@@ -86,21 +107,25 @@ $(DEP_DIR)/%.d: %.c
 	@mkdir -p $(DEP_DIR)
 
 # Default target
-all: start $(NAME) end display_art
+all: start build_lib $(NAME) end display_art
 .PHONY: all
 
+# Out starting message
 start:
 	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
 .PHONY: start
 
+# Build libraries
 $(LIBS): build_lib
 
 build_lib:
 	make -C $(LIB_DIR)
+	@echo "${YELLOW}Build process completed for '${LIBS}'.${NC}"
 .PHONY: build_lib
 
+# Out ending message
 end:
-	@echo "${YELLOW}Build process completed.${NC}"
+	@echo "${YELLOW}Build process completed $(NAME).${NC}"
 .PHONY: end
 
 display_art:
@@ -112,15 +137,12 @@ $(NAME): $(LIBS) $(DEPS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(CF_API) -o $(NAME)
 	@echo "${GREEN}Successfully created execute: $@${NC}"
 
+# Option : make rules
+
 # Address sanitizer mode make rule
 asan: fclean
 	make WITH_ASAN=1
 .PHONY: asan
-
-# Thread sanitizer mode make rule
-#thsan: fclean
-#	make WITH_THSAN=1
-#.PHONY: thsan
 
 # Leak check
 check: fclean
@@ -135,6 +157,7 @@ clean:
 	make -C $(LIBFT_DIR) clean
 	make -C $(LIBFTPRINTF_DIR) clean
 	make -C $(LIBMLX_DIR) clean
+	make -C $(LIBDEBUG_DIR) clean
 .PHONY: clean
 
 # Clean and remove library target
@@ -143,6 +166,7 @@ fclean: clean
 	rm -f $(LIBFT)
 	rm -f $(LIBFTPRINTF)
 	rm -f $(LIBMLX)
+	rm -f $(LIBDEBUG)
 	rm -f $(NAME)
 	@echo "${GREEN}Archive file removed.${NC}"
 .PHONY: fclean
