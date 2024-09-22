@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 18:55:35 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/23 01:57:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,23 @@ static int	set_map_data(char **data)
 
 int	read_map(t_map *map, char *file)
 {
-	int	fd;
-
-	//if ( open file != EXIT_SUCCESS)
-	//	return (EXIT_FAILURE
-	(void)fd;
+	// ---- map/*.cub file ---- unfinished
+	//char *cubefile_contents = read_cubfile(file);
+	//if (cubefile_contents == NULL)
+	//{
+	//	ft_dprintf(STDERR_FILENO, "Error: file read failed\n");
+	//	return (EXIT_FAILURE);
+	//}
+	//if(set_map_info(***) != true)
+	//{
+	//	ft_dprintf(STDERR_FILENO, "Error: invalid map\n");
+	//	return (EXIT_FAILURE);
+	//}
+	// ---- TEST_MAP ---- not use texture and selection F,C color
 	(void)file;
 	map->width = TEST_MAP_SIZE;
 	map->height = TEST_MAP_SIZE;
 	map->data = (char **)malloc(sizeof(char *) * (TEST_MAP_SIZE + 1));
-	//set_map_data(data, fd);
 	set_map_data(map->data);
 	return (EXIT_SUCCESS);
 }
