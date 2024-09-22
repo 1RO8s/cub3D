@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 19:31:26 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/23 01:07:44 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,8 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
  */
 int	init_game(t_game *game, int argc, char *argv[])
 {
-	if (argc != 2)
-	{
-		ft_dprintf(STDERR_FILENO, "Error\n");
-		//perror("Error\n"); : //Operation not permitted : macOS
+	if (arg_check(argc, argv) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	}
 	if (init_debug_info(game) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (init_mlx_and_window(game) != EXIT_SUCCESS)

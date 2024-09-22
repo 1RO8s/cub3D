@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/23 00:41:57 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/23 01:09:21 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS = \
 	   init_game.c \
 	   render.c \
 	   \
+	   arg_check.c \
 	   read_map.c \
 	   parse_map.c \
 	   set_direction.c \

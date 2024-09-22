@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/13 21:17:07 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/23 01:05:54 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		init_game(t_game *game, int argc, char *argv[]);
 void	render_frame(t_game *game);
 
 // init_utils
+int		arg_check(int argc, char *argv[]);
 int		read_map(t_map *map, char *file);
 int		set_direction(char direction, t_player *player);
 int		parse_map(t_map *map, t_player *player);
