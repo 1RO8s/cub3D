@@ -24,6 +24,8 @@ output the below message
 -> [Current Progress](docs/progress.md)
 
 > memo : paste the completed cub3D game image here
+>
+> note : [image_note](docs/pdf/kamitsui_note.pdf)
 
 
 ### Directories and Files
