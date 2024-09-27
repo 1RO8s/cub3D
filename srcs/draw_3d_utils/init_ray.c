@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 19:55:43 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/28 00:05:40 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,16 @@ void	init_ray(t_ray_cast *ray_cast, t_player *player, int x)
 {
 	t_vector	view_point;
 	t_vector	camera_forcal_plane;
+	t_vector	ray_dir;
 
 	ray_cast->camera_plane_x = 2 * x / (double)(WIN_WIDTH / 2) - 1;
 	view_point = player->view_point;
 	camera_forcal_plane = player->camera_forcal_plane;
+	ray_dir = player->ray_dir;
 	ray_cast->ray_dir.x
-		= view_point.x + camera_forcal_plane.x * ray_cast->camera_plane_x;
+		= ray_dir.x + camera_forcal_plane.x * ray_cast->camera_plane_x;
 	ray_cast->ray_dir.y
-		= view_point.y + camera_forcal_plane.y * ray_cast->camera_plane_x;
+		= ray_dir.y + camera_forcal_plane.y * ray_cast->camera_plane_x;
 	ray_cast->grid.x = (int)view_point.x;
 	ray_cast->grid.y = (int)view_point.y;
 	set_delta_distance(ray_cast);
