@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 21:49:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:46:29 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	debug_ray_cast(t_ray_cast ray_cast, const char *msg, int x)
 	if (IS_DEBUG != true)
 		return ;
 	fd = ray_cast.debug->fd;
-	dprintf(fd, "\n>> call by '%s'\n", msg);
+	dprintf(fd, "\n>>> func debug_ray_cast() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "\tx [%d], window_width / 2 [%f]\n", x, (double)(WIN_WIDTH / 2));
 	dprintf(fd, "---- ray_cast ----\n");
 	debug_camera_plane_and_ray_dir(fd, ray_cast);
@@ -55,4 +55,5 @@ void	debug_ray_cast(t_ray_cast ray_cast, const char *msg, int x)
 	dprintf(fd, "\tside = [%d]\n", ray_cast.side);
 	dprintf(fd, "Perpendicular distance to the wall ... double\n");
 	dprintf(fd, "\tperp_wall_dist = [%f]\n", ray_cast.perp_wall_dist);
+	dprintf(fd, "\n\n");
 }

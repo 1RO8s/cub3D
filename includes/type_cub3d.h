@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 21:17:15 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:14:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,8 @@ typedef struct	s_ray_cast {
  * @brief wall slice
  */
 typedef struct	s_wall_slice {
-	int	drawStart;
-	int	drawEnd;
+	int	draw_start;
+	int	draw_end;
 	int	color;
 }	t_wall_slice;
 

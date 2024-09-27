@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/23 01:57:15 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/28 00:08:57 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,36 @@
 		"1111111111", \
 		NULL \
 	}
+#define TEST_MAP_W_SIZE 10
+#define TEST_MAP_H_SIZE 10
+
+//#define TEST_DATA \
+//	{ \
+//		"1111111111", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1000N00001", \
+//		"1000110001", \
+//		"1000000001", \
+//		"1000110001", \
+//		"1000000001", \
+//		"1000000001", \
+//		"1111111111", \
+//		NULL \
+//	}
+//#define TEST_MAP_W_SIZE 10
+//#define TEST_MAP_H_SIZE 20
+
 
 static int	set_map_data(char **data)
 {
@@ -47,8 +77,6 @@ static int	set_map_data(char **data)
 	return (EXIT_SUCCESS);
 }
 
-#define TEST_MAP_SIZE 10
-
 int	read_map(t_map *map, char *file)
 {
 	// ---- map/*.cub file ---- unfinished
@@ -65,9 +93,10 @@ int	read_map(t_map *map, char *file)
 	//}
 	// ---- TEST_MAP ---- not use texture and selection F,C color
 	(void)file;
-	map->width = TEST_MAP_SIZE;
-	map->height = TEST_MAP_SIZE;
-	map->data = (char **)malloc(sizeof(char *) * (TEST_MAP_SIZE + 1));
-	set_map_data(map->data);
-	return (EXIT_SUCCESS);
+	map->width = TEST_MAP_W_SIZE;
+	map->height = TEST_MAP_H_SIZE;
+	map->data = (char **)malloc(sizeof(char *) * (TEST_MAP_H_SIZE + 1));
+	if (map->data == NULL)
+		return (EXIT_FAILURE);
+	return (set_map_data(map->data));
 }

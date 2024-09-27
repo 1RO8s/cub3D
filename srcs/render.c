@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/22 23:33:21 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/28 00:05:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	draw_2d_map(t_game *game)
  */
 void	render_frame(t_game *game)
 {
+	debug_frame(game, "render_frame()");
 	draw_3d_view(game);
 	draw_2d_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img_3d.img, 0, 0);
