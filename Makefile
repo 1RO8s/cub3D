@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/23 01:09:21 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/30 23:39:47 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -204,7 +204,11 @@ NC=\033[0m # No Color
 define ASCII_ART
 @echo " _________________________________________________"
 @echo "< Usage : ./cub3D map/*.cub                       >"
-@echo "<  first argment  : a map format                  >"
+@echo "<  $$ ./cub3D map/*.cub                            >"
+@echo "<  or                                             >"
+@echo "<  $$ source config/alias.zsh                      >"
+@echo "<  $$ run                                          >"
+@echo "<                                                 >"
 @echo "--------------------------------------------------"
 @echo "       \   ^__^"
 @echo "        \  (oo)\_______"
