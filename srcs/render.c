@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/28 00:05:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:31:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,25 @@ static void	draw_3d_view(t_game *game)
 {
 	int				w;
 	int				x;
-	t_ray_cast		ray_cast;
-	t_wall_slice	wall_slice;
+	t_one_shot_3d	one_shot_3d;
+	static t_draw_3d_process	func[4] = {
+			init_ray, perform_dda, set_wall_slice, draw_vertical_line};
+	int				i;
 
-	w = WIN_WIDTH / 2;
+	w = IMG_3D_WIDTH;
 	x = 0;
+	one_shot_3d.player = (t_player)game->player;
+	one_shot_3d.map = (t_map)game->map;
+	one_shot_3d.img_3d = (t_img)game->img_3d;
+	one_shot_3d.debug = (t_debug)game->debug;
 	while (x < w)
 	{
-		init_ray(&ray_cast, &game->player, x);
-		debug_ray_cast(ray_cast, "draw_3d_view", x);// debug
-		perform_dda(&ray_cast, &game->map, &game->player);
-		set_wall_slice(&wall_slice, &ray_cast);
-		draw_vertical_line(&game->img_3d, x, &wall_slice);
+		i = 0;
+		while (i < 4)
+		{
+			func[i](&one_shot_3d, x);
+			i++;
+		}
 		x++;
 	}
 }
@@ -62,5 +69,5 @@ void	render_frame(t_game *game)
 	draw_2d_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img_3d.img, 0, 0);
 	mlx_put_image_to_window(
-		game->mlx, game->win, game->img_2d.img, WIN_WIDTH / 2, 0);
+		game->mlx, game->win, game->img_2d.img, IMG_3D_WIDTH, 0);
 }

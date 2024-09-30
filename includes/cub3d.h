@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/23 01:29:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:34:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,21 @@
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 512
 # define MAP_SCALE 4
-# define IMG_3D_WIDTH (WIN_WIDTH / 2)
+# define IMG_3D_WIDTH 512 
 # define IMG_3D_HEIGHT WIN_HEIGHT
-# define IMG_2D_WIDTH (WIN_WIDTH / 2)
+# define IMG_2D_WIDTH 512
 # define IMG_2D_HEIGHT WIN_HEIGHT
 
 // Cub3d color
 # define COLOR_GREY 0xAAAAAA
 # define COLOR_WHITE 0xFFFFFF
 # define COLOR_RED 0xFF0000
+
+// -------------  perform_dda ----------------
+// ray_cast->grid_line
+# define START_POINT -1
+# define ON_VERTICAL_LINE 0
+# define ON_HORIZONTAL_LINE 1
 
 // -------------- function prototype ---------------
 // main
@@ -58,10 +64,11 @@ int		set_direction(char direction, t_player *player);
 int		parse_map(t_map *map, t_player *player);
 
 // 3D
-void	init_ray(t_ray_cast *ray_cast, t_player *player, int x);
-void	perform_dda(t_ray_cast *ray_cast, t_map *map, t_player *player);
-void	set_wall_slice(t_wall_slice	*wall_slice, t_ray_cast *ray_cast);
-void	draw_vertical_line(t_img *img, int x, t_wall_slice *wall_slice);
+void	init_ray(t_one_shot_3d *one_shot_3d, int x);
+void	perform_dda(t_one_shot_3d *one_shot_3d, int x);
+void	set_wall_slice(t_one_shot_3d *one_shot_3d, int x);
+void	draw_vertical_line(t_one_shot_3d *one_shot_3d, int x);
+typedef void 	(*t_draw_3d_process)(t_one_shot_3d *, int);
 
 // 2D
 void	draw_2d_wall(t_map *map, t_img *img_2d);

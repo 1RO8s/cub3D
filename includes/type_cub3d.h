@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/26 20:14:43 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:10:05 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef struct	s_player {
 	t_vector	view_point;
 	t_vector	ray_dir;
 	t_vector	camera_forcal_plane;
-	t_debug		*debug;
 }	t_player;
 
 /**
@@ -134,30 +133,30 @@ typedef struct	s_point {
 
 /**
  * @brief raycasting
+ *
+ * @member
+ * camera_plane_x : normalized (-1 ~ 1) on the camera plane
+ * ray_dir : directon of x coordinate on the camera plane
+ * grid : map cordinate (int value) ... map->data[grid.y][grid.x]
+ * step_dir : direction for next grid ... -1 or 1 (both step_dir.x, step_dir.y)
+ * next_distance : distance to next x-side(HORIZONTAL_LINE) or y-side(VERTICAL_LINE)
+ * delta_distance : used to incrementally move the ray across the grid
+ * type_of_grid_line ... 0:ON_VERTICAL_LINE 1:ON_HORIZONTAL_LINE -1:START_POINT
+ * perp_wall_dist : Perpendicular distance to the wall
  */
 typedef struct	s_ray_cast {
 	double		camera_plane_x;
 	t_vector	ray_dir;
 	t_point		grid;
-	t_vector	next_side;
-	t_vector	delta_distance;
-	double		perp_wall_dist;  // Perpendicular distance to the wall
 	t_point		step_dir;
-	int 		hit;              // Whether a wall was hit
-	int 		side;             // Was a NS or EW wall hit?
-	t_debug		*debug;
+	t_vector	next_distance;
+	t_vector	delta_distance;
 }	t_ray_cast;
-//	X-coordinate on the camera plane (-1 to 1)
-//	double rayDirX;       // Direction of the ray in the X-axis
-//	double rayDirY;       // Direction of the ray in the Y-axis
-//	int mapX;             // Current grid position in X
-//	int mapY;             // Current grid position in Y
-//	double sideDistX;     // Distance to the next X-side
-//	double sideDistY;     // Distance to the next Y-side
-//	double deltaDistX;    // Distance between X-sides
-//	double deltaDistY;    // Distance between Y-sides
-//	int stepX;            // Step direction in X (1 or -1)
-//	int stepY;            // Step direction in Y (1 or -1)
+
+typedef struct	s_dda {
+	int 		type_of_grid_line;
+	double		perp_wall_dist;
+}	t_dda;
 
 /**
  * @brief wall slice
@@ -168,5 +167,14 @@ typedef struct	s_wall_slice {
 	int	color;
 }	t_wall_slice;
 
+typedef struct	s_one_shot_3d {
+	t_player		player;
+	t_map			map;
+	t_ray_cast		ray_cast;
+	t_dda			dda;
+	t_wall_slice	wall_slice;
+	t_img			img_3d;
+	t_debug			debug;
+}	t_one_shot_3d;
 
 #endif
