@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/27 22:46:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:15:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	debug_ray_cast(t_ray_cast ray_cast, const char *msg, int x)
 	dprintf(fd, "Is hit the wall ?\n");
 	dprintf(fd, "\thit = [%d]\n", ray_cast.hit);
 	dprintf(fd, "Is NS or EW wall hit ?\n");
-	dprintf(fd, "\tside = [%d]\n", ray_cast.side);
+	dprintf(fd, "\tgrid_line = [%d]\n", ray_cast.grid_line);
 	dprintf(fd, "Perpendicular distance to the wall ... double\n");
-	dprintf(fd, "\tperp_wall_dist = [%f]\n", ray_cast.perp_wall_dist);
+	//dprintf(fd, "\tperp_wall_dist = [%f]\n", ray_cast.perp_wall_dist);
 	dprintf(fd, "\n\n");
 }
