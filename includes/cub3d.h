@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/30 17:34:28 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:41:01 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_ray(t_one_shot_3d *one_shot_3d, int x);
 void	perform_dda(t_one_shot_3d *one_shot_3d, int x);
 void	set_wall_slice(t_one_shot_3d *one_shot_3d, int x);
 void	draw_vertical_line(t_one_shot_3d *one_shot_3d, int x);
-typedef void 	(*t_draw_3d_process)(t_one_shot_3d *, int);
+typedef void	(*t_draw_3d_process)(t_one_shot_3d *, int);
 
 // 2D
 void	draw_2d_wall(t_map *map, t_img *img_2d);
@@ -80,6 +80,6 @@ void	init_plot(t_plot *plot, t_line *line);
 void	init_color(t_clr *color, int start_color, int end_color);
 
 // mlx utils
-void my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:34:03 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 17:07:20 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:06:01 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	set_wall_slice(t_one_shot_3d *one_shot_3d, int x)
 {
-	int		h;
-	int		line_height;
-	t_dda	dda;
+	int				h;
+	int				line_height;
+	t_dda			dda;
 	t_wall_slice	wall_slice;
 
 	h = WIN_HEIGHT;

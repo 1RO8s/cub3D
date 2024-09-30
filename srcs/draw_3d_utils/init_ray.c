@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 17:36:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:04:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,13 @@ static t_vector	get_delta_distance(t_ray_cast ray_cast)
 
 /**
  * @brief initialize t_ray_cast for perspective (represent 3D object)
- *
- * @note 
  * reference t_ray_cast
  * camera_plane_x : normalized (-1 ~ 1) on the camera plane
  * ray_dir : directon of x coordinate on the camera plane
  * grid : map cordinate (int value) ... map->data[grid.y][grid.x]
  * step_dir : direction for next grid ... -1 or 1 (both step_dir.x, step_dir.y)
- * next_distance : distance to next x-side(HORIZONTAL_LINE) or y-side(VERTICAL_LINE)
+ * next_distance : distance to next x-side(HORIZONTAL_LINE) or
+ *  y-side(VERTICAL_LINE)
  * delta_distance : used to incrementally move the ray across the grid
  */
 void	init_ray(t_one_shot_3d *one_shot_3d, int x)

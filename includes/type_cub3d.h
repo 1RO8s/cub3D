@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 16:10:05 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:55:37 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /*
  * @brief RGB color values
  */
-typedef struct	s_color {
+typedef struct s_color {
 	int	r;
 	int	g;
 	int	b;
@@ -67,7 +67,7 @@ typedef struct s_debug {
 /**
  * @brief 3D or 2D image
  */
-typedef struct	s_img {
+typedef struct s_img {
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -79,7 +79,7 @@ typedef struct	s_img {
 /**
  * @brief vector
  */
-typedef struct	s_vector {
+typedef struct s_vector {
 	double	x;
 	double	y;
 }	t_vector;
@@ -87,7 +87,7 @@ typedef struct	s_vector {
 /*
  * @brief ray vector
  */
-typedef struct	s_player {
+typedef struct s_player {
 	t_vector	view_point;
 	t_vector	ray_dir;
 	t_vector	camera_forcal_plane;
@@ -96,7 +96,7 @@ typedef struct	s_player {
 /**
  * @brief game map
  */
-typedef struct	s_map {
+typedef struct s_map {
 	int		width;
 	int		height;
 	char	**data;
@@ -106,7 +106,7 @@ typedef struct	s_map {
 /**
  * @brief main game
  */
-typedef struct	s_game {
+typedef struct s_game {
 	void		*mlx;
 	void		*win;
 	t_img		img_3d;
@@ -126,25 +126,15 @@ typedef struct	s_game {
  * @note :
  * map screen 
  */
-typedef struct	s_point {
+typedef struct s_point {
 	int	x;
 	int	y;
 }	t_point;
 
-/**
+/*
  * @brief raycasting
- *
- * @member
- * camera_plane_x : normalized (-1 ~ 1) on the camera plane
- * ray_dir : directon of x coordinate on the camera plane
- * grid : map cordinate (int value) ... map->data[grid.y][grid.x]
- * step_dir : direction for next grid ... -1 or 1 (both step_dir.x, step_dir.y)
- * next_distance : distance to next x-side(HORIZONTAL_LINE) or y-side(VERTICAL_LINE)
- * delta_distance : used to incrementally move the ray across the grid
- * type_of_grid_line ... 0:ON_VERTICAL_LINE 1:ON_HORIZONTAL_LINE -1:START_POINT
- * perp_wall_dist : Perpendicular distance to the wall
  */
-typedef struct	s_ray_cast {
+typedef struct s_ray_cast {
 	double		camera_plane_x;
 	t_vector	ray_dir;
 	t_point		grid;
@@ -153,21 +143,21 @@ typedef struct	s_ray_cast {
 	t_vector	delta_distance;
 }	t_ray_cast;
 
-typedef struct	s_dda {
-	int 		type_of_grid_line;
-	double		perp_wall_dist;
+typedef struct s_dda {
+	int		type_of_grid_line;
+	double	perp_wall_dist;
 }	t_dda;
 
 /**
  * @brief wall slice
  */
-typedef struct	s_wall_slice {
+typedef struct s_wall_slice {
 	int	draw_start;
 	int	draw_end;
 	int	color;
 }	t_wall_slice;
 
-typedef struct	s_one_shot_3d {
+typedef struct s_one_shot_3d {
 	t_player		player;
 	t_map			map;
 	t_ray_cast		ray_cast;

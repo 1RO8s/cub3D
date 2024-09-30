@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:33:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 16:27:24 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:07:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,14 @@ static double	calculate_distance(t_ray_cast ray_cast, int type)
 
 /**
  * @brief Digital Differential Analysis (DDA) Loop
- *
  * @note
  * The DDA algorithm incrementally steps through a grid
  * to determine the intersection points with lines or rays.
  */
 void	perform_dda(t_one_shot_3d *one_shot_3d, int x)
 {
-	bool	hit;
-	int		type;
+	bool		hit;
+	int			type;
 	t_ray_cast	ray_cast;
 	t_map		map;
 
@@ -65,13 +64,13 @@ void	perform_dda(t_one_shot_3d *one_shot_3d, int x)
 	type = -1;
 	ray_cast = one_shot_3d->ray_cast;
 	map = one_shot_3d->map;
-	debug_dda(one_shot_3d, type, "perform_dda() ... start");// debug
+	debug_dda(one_shot_3d, type, "perform_dda() ... start");
 	while (hit == 0)
 	{
 		type = get_line_type(ray_cast);
 		move_next_grid_line(&ray_cast, type);
 		hit = is_hit_wall(&map, &ray_cast);
-		debug_dda(one_shot_3d, type, "perform_dda() ... loop until hit wall");// debug
+		debug_dda(one_shot_3d, type, "perform_dda() ... loop until hit wall");
 	}
 	one_shot_3d->dda.type_of_grid_line = type;
 	one_shot_3d->dda.perp_wall_dist = calculate_distance(ray_cast, type);
