@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 17:31:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/01 00:36:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
  */
 static void	draw_3d_view(t_game *game)
 {
-	int				w;
-	int				x;
-	t_one_shot_3d	one_shot_3d;
+	int							w;
+	int							x;
+	t_one_shot_3d				one_shot_3d;
 	static t_draw_3d_process	func[4] = {
-			init_ray, perform_dda, set_wall_slice, draw_vertical_line};
-	int				i;
+		init_ray, perform_dda, set_wall_slice, draw_vertical_line};
+	int							i;
 
 	w = IMG_3D_WIDTH;
 	x = 0;

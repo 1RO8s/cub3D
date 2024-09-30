@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/27 22:46:01 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/01 02:45:14 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	debug_frame(t_game *game, const char *msg)
 {
-	int	fd;
+	int			fd;
 	t_player	player;
 
 	if (IS_DEBUG != true)

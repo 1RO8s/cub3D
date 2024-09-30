@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 18:12:03 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/01 02:39:39 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ int	parse_map(t_map *map, t_player *player)
 		y++;
 	}
 	debug_map_data(*map, "parse_map() after");
-	return (EXIT_SUCCESS);;
+	return (EXIT_SUCCESS);
 }

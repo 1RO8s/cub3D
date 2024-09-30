@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:52:26 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 16:10:44 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/01 02:45:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  */
 void	debug_dda(t_one_shot_3d *one_shot_3d, int type, const char *msg)
 {
-	int	fd;
+	int			fd;
 	t_ray_cast	ray_cast;
 
 	if (IS_DEBUG != true)

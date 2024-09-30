@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 23:43:28 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/01 00:32:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static int	init_mlx_and_window(t_game *game)
 	void	*window;
 
 	mlx = (void *)mlx_init();
-	//game->mlx = (void *)mlx_init();
 	if (mlx == NULL)
-	//if (game->mlx == NULL)
 		return (EXIT_FAILURE);
 	window = (void *)mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	if (window == NULL)
@@ -32,47 +30,59 @@ static int	init_mlx_and_window(t_game *game)
 
 static int	init_3d_image(void *mlx, t_img *img_3d)
 {
-	void	*img_ptr;
+	void	*img;
 	char	*addr;
 	int		*bits_per_pixel;
 	int		*size_line;
 	int		*endian;
 
-	img_ptr = (void *)mlx_new_image(mlx, IMG_3D_WIDTH, WIN_HEIGHT);
-	if (img_ptr == NULL)
+	img = (void *)mlx_new_image(mlx, IMG_3D_WIDTH, WIN_HEIGHT);
+	if (img == NULL)
 		return (EXIT_FAILURE);
 	bits_per_pixel = &(img_3d->bpp);
 	size_line = &(img_3d->line_length);
 	endian = &(img_3d->endian);
-	addr = (char *)mlx_get_data_addr(img_ptr, bits_per_pixel, size_line, endian);
+	addr = (char *)mlx_get_data_addr(img, bits_per_pixel, size_line, endian);
 	if (addr == NULL)
 		// destory img_3d
 		return (EXIT_FAILURE);
-	img_3d->img = img_ptr;
+	img_3d->img = img;
 	img_3d->addr = addr;
 	return (EXIT_SUCCESS);
 }
 
 static int	init_2d_image(void *mlx, t_img *img_2d)
 {
-	void	*img_ptr;
+	void	*img;
 	char	*addr;
 	int		*bits_per_pixel;
 	int		*size_line;
 	int		*endian;
 
-	img_ptr = mlx_new_image(mlx, IMG_2D_WIDTH, WIN_HEIGHT);
-	if (img_ptr == NULL)
+	img = mlx_new_image(mlx, IMG_2D_WIDTH, WIN_HEIGHT);
+	if (img == NULL)
 		return (EXIT_FAILURE);
 	bits_per_pixel = &img_2d->bpp;
 	size_line = &img_2d->line_length;
 	endian = &img_2d->endian;
-	addr = mlx_get_data_addr(img_ptr, bits_per_pixel, size_line, endian);
+	addr = mlx_get_data_addr(img, bits_per_pixel, size_line, endian);
 	if (addr == NULL)
 		// destory img_2d
 		return (EXIT_FAILURE);
-	img_2d->img = img_ptr;
+	img_2d->img = img;
 	img_2d->addr = addr;
+	return (EXIT_SUCCESS);
+}
+
+static int	init_map(t_map *map, t_player *player, char *filename)
+{
+	if (read_map(map, filename) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if (parse_map(map, player) != EXIT_SUCCESS)
+	{
+		// free map.data
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -97,14 +107,9 @@ int	init_game(t_game *game, int argc, char *argv[])
 		// destroy window & 3d_image
 		return (EXIT_FAILURE);
 	}
-	if (read_map(&game->map, argv[1]) != EXIT_SUCCESS)
+	if (init_map(&game->map, &game->player, argv[1]) != EXIT_SUCCESS)
 	{
 		// destroy window & 3d_image & 2d_image
-		return (EXIT_FAILURE);
-	}
-	if (parse_map(&game->map, &game->player) != EXIT_SUCCESS)
-	{
-		// destroy window & 3d_image & 2d_image & free map.data
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

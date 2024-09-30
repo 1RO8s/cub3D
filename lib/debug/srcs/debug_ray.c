@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 17:32:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/01 02:45:57 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	debug_grid_and_next_distance(int fd, t_ray_cast ray_cast)
 
 void	debug_ray_cast(t_one_shot_3d *one_shot_3d, const char *msg, int x)
 {
-	int	fd;
+	int			fd;
 	t_ray_cast	ray_cast;
 
 	if (IS_DEBUG != true)
