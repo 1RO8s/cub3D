@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 17:31:28 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 23:43:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	init_mlx_and_window(t_game *game)
 	if (mlx == NULL)
 	//if (game->mlx == NULL)
 		return (EXIT_FAILURE);
-	window = (void *)mlx_new_window(mlx, IMG_3D_WIDTH, WIN_HEIGHT, "Cub3D");
+	window = (void *)mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	if (window == NULL)
 		return (EXIT_FAILURE);
 	game->mlx = mlx;
@@ -61,7 +61,7 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
 	int		*size_line;
 	int		*endian;
 
-	img_ptr = mlx_new_image(mlx, IMG_3D_WIDTH, WIN_HEIGHT);
+	img_ptr = mlx_new_image(mlx, IMG_2D_WIDTH, WIN_HEIGHT);
 	if (img_ptr == NULL)
 		return (EXIT_FAILURE);
 	bits_per_pixel = &img_2d->bpp;
