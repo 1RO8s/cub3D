@@ -24,6 +24,8 @@ output the below message
 -> [Current Progress](docs/progress.md)
 
 > memo : paste the completed cub3D game image here
+>
+> note : [image_note](docs/pdf/kamitsui_note.pdf)
 
 
 ### Directories and Files
@@ -42,3 +44,11 @@ tree -L 1 .
 ├── resource
 └── srcs
 ```
+
+### About us
+* [hnagasak](https://profile.intra.42.fr/users/hnagasak) : github[1R08s](https://github.com/1RO8s)
+* [kamitsui](https://profile.intra.42.fr/users/kamitsui) : github[kamitsui](https://github.com/kamitsui)
+
+Joined the 42Tokyo in the same year (2023.1)
+
+Start this project at 2024.8
