@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/23 00:41:48 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/30 23:00:43 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ $(LIBMLX):
 
 # Extract from resource (minilibx-linux.tgz minilibx_opengl.tgz)
 extract_mlx:
-	@./extract_mlx.sh $(RESOURCE_MLX)
+	@./extract_mlx.sh $(RESOURCE_DIR)/$(RESOURCE_MLX)
 .PHONY: extract_mlx
 
 # Check dependencies installed

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:34:59 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 10:33:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:57:29 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int	get_current_color(t_plot *plot, t_line *line, t_clr *color)
 //		int x_end, int y_end, int color1)
 //{
 //	ft_printf("\n\n---- draw_line ----  start -> end\n");
-//	ft_printf("start\tx_start:%d y_start:%d color0:%X\n", x_start, y_start, color0);
+//	ft_printf("start\tx_start:%d y_start:%d color0:%X\n",
+//		x_start, y_start, color0);
 //	ft_printf("end  \tx_end:%d y_end:%d color1:%X\n", x_end, y_end, color1);
 //}
 //

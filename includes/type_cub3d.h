@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 21:17:15 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:55:37 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /*
  * @brief RGB color values
  */
-typedef struct	s_color {
+typedef struct s_color {
 	int	r;
 	int	g;
 	int	b;
@@ -67,7 +67,7 @@ typedef struct s_debug {
 /**
  * @brief 3D or 2D image
  */
-typedef struct	s_img {
+typedef struct s_img {
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -79,7 +79,7 @@ typedef struct	s_img {
 /**
  * @brief vector
  */
-typedef struct	s_vector {
+typedef struct s_vector {
 	double	x;
 	double	y;
 }	t_vector;
@@ -87,17 +87,16 @@ typedef struct	s_vector {
 /*
  * @brief ray vector
  */
-typedef struct	s_player {
+typedef struct s_player {
 	t_vector	view_point;
 	t_vector	ray_dir;
 	t_vector	camera_forcal_plane;
-	t_debug		*debug;
 }	t_player;
 
 /**
  * @brief game map
  */
-typedef struct	s_map {
+typedef struct s_map {
 	int		width;
 	int		height;
 	char	**data;
@@ -107,7 +106,7 @@ typedef struct	s_map {
 /**
  * @brief main game
  */
-typedef struct	s_game {
+typedef struct s_game {
 	void		*mlx;
 	void		*win;
 	t_img		img_3d;
@@ -127,46 +126,45 @@ typedef struct	s_game {
  * @note :
  * map screen 
  */
-typedef struct	s_point {
+typedef struct s_point {
 	int	x;
 	int	y;
 }	t_point;
 
-/**
+/*
  * @brief raycasting
  */
-typedef struct	s_ray_cast {
+typedef struct s_ray_cast {
 	double		camera_plane_x;
 	t_vector	ray_dir;
 	t_point		grid;
-	t_vector	next_side;
-	t_vector	delta_distance;
-	double		perp_wall_dist;  // Perpendicular distance to the wall
 	t_point		step_dir;
-	int 		hit;              // Whether a wall was hit
-	int 		side;             // Was a NS or EW wall hit?
-	t_debug		*debug;
+	t_vector	next_distance;
+	t_vector	delta_distance;
 }	t_ray_cast;
-//	X-coordinate on the camera plane (-1 to 1)
-//	double rayDirX;       // Direction of the ray in the X-axis
-//	double rayDirY;       // Direction of the ray in the Y-axis
-//	int mapX;             // Current grid position in X
-//	int mapY;             // Current grid position in Y
-//	double sideDistX;     // Distance to the next X-side
-//	double sideDistY;     // Distance to the next Y-side
-//	double deltaDistX;    // Distance between X-sides
-//	double deltaDistY;    // Distance between Y-sides
-//	int stepX;            // Step direction in X (1 or -1)
-//	int stepY;            // Step direction in Y (1 or -1)
+
+typedef struct s_dda {
+	int		type_of_grid_line;
+	double	perp_wall_dist;
+}	t_dda;
 
 /**
  * @brief wall slice
  */
-typedef struct	s_wall_slice {
-	int	drawStart;
-	int	drawEnd;
+typedef struct s_wall_slice {
+	int	draw_start;
+	int	draw_end;
 	int	color;
 }	t_wall_slice;
 
+typedef struct s_one_shot_3d {
+	t_player		player;
+	t_map			map;
+	t_ray_cast		ray_cast;
+	t_dda			dda;
+	t_wall_slice	wall_slice;
+	t_img			img_3d;
+	t_debug			debug;
+}	t_one_shot_3d;
 
 #endif

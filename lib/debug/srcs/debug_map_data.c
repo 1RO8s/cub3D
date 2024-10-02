@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 22:44:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 21:34:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:46:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	debug_map_data(t_map map, const char *msg)
 	if (IS_DEBUG != true)
 		return ;
 	fd = map.debug->fd;
-	ft_dprintf(fd, "\n>> call by '%s'\n", msg);
+	ft_dprintf(fd, "\n>>> func debug_map_data() ... call by '%s' <<<\n", msg);
 	ft_dprintf(fd, "---- map.data[y][x] ----\n");
 	ft_dprintf(fd, "\tmap.height = %d\n", map.height);
 	ft_dprintf(fd, "\tmap.widgh = %d\n", map.width);
@@ -31,4 +31,5 @@ void	debug_map_data(t_map map, const char *msg)
 		ft_dprintf(fd, "\t\t%s\n", map.data[y]);
 		y++;
 	}
+	dprintf(fd, "\n\n");
 }

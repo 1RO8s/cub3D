@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:37:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/13 20:00:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:06:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	init_debug_info(t_game *game)
 	}
 	game->debug.fd = fd;
 	game->map.debug = (t_debug *)&game->debug;
-	game->player.debug = (t_debug *)&game->debug;
 	game->img_3d.debug = (t_debug *)&game->debug;
 	game->img_2d.debug = (t_debug *)&game->debug;
 	return (EXIT_SUCCESS);
