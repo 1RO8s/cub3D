@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/30 17:41:01 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 01:09:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,13 @@ void	render_frame(t_game *game);
 int		arg_check(int argc, char *argv[]);
 int		read_map(t_map *map, char *file);
 char	*read_cubfile(char *filepath);
+int		parse_cubfile(t_game *game, char *file_contents)
+
+// parse_cubefile_utils
 int		set_direction(char direction, t_player *player);
 int		parse_map(t_map *map, t_player *player);
+int		init_texture(void *mlx, t_texture *texture, char *file_contents);
+int		convert2color(char *rgb);
 
 // 3D
 void	init_ray(t_one_shot_3d *one_shot_3d, int x);
@@ -81,5 +86,8 @@ void	init_color(t_clr *color, int start_color, int end_color);
 
 // mlx utils
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+// free utils
+void	destroy_n_image(void *mlx, void *img[4], int n);
 
 #endif

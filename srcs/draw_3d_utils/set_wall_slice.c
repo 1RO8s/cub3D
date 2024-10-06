@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:34:03 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/05 19:20:10 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:59:53 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ void	set_texture_coordinate(t_one_shot_3d *one_shot_3d)
 	dprintf(fd, "\tside[%d]\tview_point.x[%f]\tray_dir.x[%f]\n", side, view_point.x, ray_dir.x);
 	int	tex_x;
 	double	tex_width;
-	tex_width = 200;// example
+	tex_width = 200;// example : 200
+	// one_shot_3d->texture...  texture->width[i] 0:NORTH, 1:SOUTH, 2:WEST, 3:EAST
 	tex_x = (int)(wall_x * (double)tex_width);
 	if (side == 0 && ray_dir.x > 0) tex_x = tex_width - tex_x - 1;
 	if (side == 1 && ray_dir.y < 0) tex_x = tex_width - tex_x - 1;
 	dprintf(fd, "\ttex_x[%d]\n", tex_x);
-
+	
 }
 
 
@@ -70,7 +71,7 @@ void	set_wall_slice(t_one_shot_3d *one_shot_3d, int x)
 	else
 		wall_slice.color = COLOR_GREY; // east-west walls
 	one_shot_3d->wall_slice = wall_slice;
-	debug_wall_slice(one_shot_3d, line_height, "set_wall_slice()");
+	debug_wall_slice(one_shot_3d, line_height, "set_wall_slice()");//debug
 	set_texture_coordinate(one_shot_3d);
 	(void)x;
 }

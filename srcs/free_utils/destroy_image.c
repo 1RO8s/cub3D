@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_debug_info.c                                  :+:      :+:    :+:   */
+/*   destroy_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 19:37:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/06 18:29:47 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/10/07 01:01:38 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/10/07 01:01:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_debug_info(t_game *game)
+void	destroy_n_image(void *mlx, void *img[4], int n)
 {
-	int	fd;
+	int	i;
 
-	fd = open_log(LOG_FILE, O_TRUNC);
-	if (fd == -1)
+	i = 0;
+	while (i < n)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\n");
-		return (EXIT_FAILURE);
+		mlx_destroy_image(mlx, img[i]);
+		i++;
 	}
-	game->debug.fd = fd;
-	game->map.debug = (t_debug *)&game->debug;
-	game->img_3d.debug = (t_debug *)&game->debug;
-	game->img_2d.debug = (t_debug *)&game->debug;
-	game->texture.debug = (t_debug *)&game->debug;
-	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/05 21:42:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 01:08:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
 }
 
 static int	init_cube_contents(t_game *game, char *filename)
-//static int	init_map(t_map *map, t_player *player, char *filename)
 {
 	char	*file_contents;
 	int		status;
@@ -83,7 +82,7 @@ static int	init_cube_contents(t_game *game, char *filename)
 	file_contents = read_cubfile(filename);
 	if (file_contents == NULL)
 		return (EXIT_FAILURE);
-	status = parse_cube_contents(game, file_contents);
+	status = parse_cubfile(game, file_contents);
 	free(file_contents);
 	if (status != EXIT_SUCCESS)
 		return (EXIT_FAILURE);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/05 21:08:13 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 01:38:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,38 +71,27 @@ static int	set_map_data(char **data)
 	return (EXIT_SUCCESS);
 }
 
-int	read_map(t_map *map, char *file)
+int	init_map(t_map *map, char *file_contents)
 {
-	// ---- map/*.cub file ---- unfinished
-	//cubefile_contents = read_cubfile(file);
-	//if (cubefile_contents == NULL)
-	//{
-	//	ft_dprintf(STDERR_FILENO, "Error: file read failed\n");
-	//	return (EXIT_FAILURE);
-	//}
-	//if (set_texture(&game->texture) != EXIT_SUCCESS)
-	//{
-	//	// free map.data
-	//	// destroy window & 3d_image & 2d_image
-	//	return (EXIT_FAILURE);
-	//}
-	//if(set_texture(&game***) != true)
-	//if(set_map_info(***) != true)
-	//{
-	//	ft_dprintf(STDERR_FILENO, "Error: invalid map\n");
-	//	return (EXIT_FAILURE);
-	//}
-	// ---- TEST_MAP ---- not use texture and selection F,C color
-	(void)file;
-	map->width = TEST_MAP_W_SIZE;
-	map->height = TEST_MAP_H_SIZE;
-	map->data = (char **)malloc(sizeof(char *) * (map->height + 1));
-	if (map->data == NULL)
-		return (EXIT_FAILURE);
-	if (set_map_data(map->data, cubefile_contents) != EXIT_SUCCESS)
+	if(set_map_info(***) != true)
 	{
-		free(map->data);
+		ft_dprintf(STDERR_FILENO, "Error: invalid map\n");
 		return (EXIT_FAILURE);
 	}
-	return (EXIT_SUCCESS);;
-}
+
+// ---- TEST_MAP ---- not use texture and selection F,C color
+//int	read_map(t_map *map, char *file)
+//{
+//	(void)file;
+//	map->width = TEST_MAP_W_SIZE;
+//	map->height = TEST_MAP_H_SIZE;
+//	map->data = (char **)malloc(sizeof(char *) * (map->height + 1));
+//	if (map->data == NULL)
+//		return (EXIT_FAILURE);
+//	if (set_map_data(map->data, cubefile_contents) != EXIT_SUCCESS)
+//	{
+//		free(map->data);
+//		return (EXIT_FAILURE);
+//	}
+//	return (EXIT_SUCCESS);;
+//}

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/05 23:20:53 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 00:42:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct	s_texture
 	t_img	img_tex[4];
 	int		width[4];
 	int		height[4];
+	int		debug;
 }	t_texture;
 
 /**
@@ -122,8 +123,8 @@ typedef struct s_game {
 	t_img		img_3d;
 	t_img		img_2d;
 	t_map		map;
-	t_color		ceiling_color;
 	t_color		floor_color;
+	t_color		ceiling_color;
 	t_player	player;
 	t_texture	texture;
 	t_debug		debug;
