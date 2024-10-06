@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/01 02:37:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:08:13 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,19 @@ static int	set_map_data(char **data)
 int	read_map(t_map *map, char *file)
 {
 	// ---- map/*.cub file ---- unfinished
-	//char *cubefile_contents = read_cubfile(file);
+	//cubefile_contents = read_cubfile(file);
 	//if (cubefile_contents == NULL)
 	//{
 	//	ft_dprintf(STDERR_FILENO, "Error: file read failed\n");
 	//	return (EXIT_FAILURE);
 	//}
+	//if (set_texture(&game->texture) != EXIT_SUCCESS)
+	//{
+	//	// free map.data
+	//	// destroy window & 3d_image & 2d_image
+	//	return (EXIT_FAILURE);
+	//}
+	//if(set_texture(&game***) != true)
 	//if(set_map_info(***) != true)
 	//{
 	//	ft_dprintf(STDERR_FILENO, "Error: invalid map\n");
@@ -92,5 +99,10 @@ int	read_map(t_map *map, char *file)
 	map->data = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (map->data == NULL)
 		return (EXIT_FAILURE);
-	return (set_map_data(map->data));
+	if (set_map_data(map->data, cubefile_contents) != EXIT_SUCCESS)
+	{
+		free(map->data);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);;
 }

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/01 00:32:25 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:42:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,19 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
 	return (EXIT_SUCCESS);
 }
 
-static int	init_map(t_map *map, t_player *player, char *filename)
+static int	init_cube_contents(t_game *game, char *filename)
+//static int	init_map(t_map *map, t_player *player, char *filename)
 {
-	if (read_map(map, filename) != EXIT_SUCCESS)
+	char	*file_contents;
+	int		status;
+
+	file_contents = read_cubfile(filename);
+	if (file_contents == NULL)
 		return (EXIT_FAILURE);
-	if (parse_map(map, player) != EXIT_SUCCESS)
-	{
-		// free map.data
+	status = parse_cube_contents(game, file_contents);
+	free(file_contents);
+	if (status != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -107,7 +111,7 @@ int	init_game(t_game *game, int argc, char *argv[])
 		// destroy window & 3d_image
 		return (EXIT_FAILURE);
 	}
-	if (init_map(&game->map, &game->player, argv[1]) != EXIT_SUCCESS)
+	if (init_cube_contents(&game, argv[1]) != EXIT_SUCCESS)
 	{
 		// destroy window & 3d_image & 2d_image
 		return (EXIT_FAILURE);
