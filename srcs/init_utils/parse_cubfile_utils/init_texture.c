@@ -6,11 +6,17 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 15:25:34 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:34:30 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+#define TEST_NO "NO ./textures/north_61.xpm\n"
+#define TEST_SO "./textures/south_61.xpm\n"
+#define TEST_WE "./textures/west_61.xpm\n"
+#define TEST_EA "./textures/east_61.xpm\n"
+static char *test_textures[4] = {TEST_NO, TEST_SO, TEST_WE, TEST_EA};
 
 char	*get_value_from_file_contents(char *file_contents, const char *key)
 {
@@ -31,7 +37,10 @@ static int	get_texture_image(void *mlx, t_texture *texture, char *file_contents)
 	i = 0;
 	while (i < 4)
 	{
-		xpm_file_name = get_value_from_file_contents(file_contents, key[i]);
+		xpm_file_name = ft_strdup(test_textures[i]);// debug
+		(void)key;// debug
+		(void)file_contents;// debug
+		//xpm_file_name = get_value_from_file_contents(file_contents, key[i]);
 		if (xpm_file_name == NULL)
 		{
 			destroy_n_image(mlx, texture->img_tex, i);
@@ -87,7 +96,7 @@ int	init_texture(void *mlx, t_texture *texture, char *file_contents)
 		return (EXIT_FAILURE);
 	if (enable_texture_image(texture) == EXIT_SUCCESS)
 	{
-		// destroy texture image[4]
+		destroy_n_image(mlx, texture->img_tex, 4);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

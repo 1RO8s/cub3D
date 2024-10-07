@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/07 15:33:05 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/07 16:51:23 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -232,6 +232,9 @@ define VALGRIND_USAGE
 @echo "       /"
 @echo " __________________________________________________________________________"
 @echo "< Vargrind Usage :                                                         >"
-@echo "<  valgrind --leak-check=full --show-leak-kinds=all ./cub3D map/*.cub      >"
+@echo "<  valgrind --leak-check=full ./cub3D map/*.cub                            >"
+@echo "<  or                                                                      >"
+@echo "<  $$ source config/alias.zsh                                               >"
+@echo "<  $$ leak_check                                                           >"
 @echo "---------------------------------------------------------------------------"
 endef

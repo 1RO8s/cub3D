@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 15:08:01 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:40:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,30 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
 	return (EXIT_SUCCESS);
 }
 
+// debug
+#define TEST_CUB_FILE "\
+NO ./textures/north_61.xpm\n\
+SO ./textures/south_61.xpm\n\
+WE ./textures/west_61.xpm\n\
+EA ./textures/east_61.xpm\n\
+\n\
+F 46,139,87\n\
+C 135,206,235\n\
+\n\
+11111\n\
+10001\n\
+10N01\n\
+10001\n\
+11111"
+
 static int	init_cube_contents(t_game *game, char *filename)
 {
 	char	*file_contents;
 	int		status;
 
-	file_contents = read_cubfile(filename);
+	file_contents = ft_strdup(TEST_CUB_FILE);// debug
+	(void)filename;// debug
+	//file_contents = read_cubfile(filename);
 	if (file_contents == NULL)
 		return (EXIT_FAILURE);
 	status = parse_cubfile(game, file_contents);
@@ -102,17 +120,22 @@ int	init_game(t_game *game, int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if (init_3d_image(game->mlx, &game->img_3d) != EXIT_SUCCESS)
 	{
-		// destroy window
+		mlx_destroy_window(game->mlx, game->win);
 		return (EXIT_FAILURE);
 	}
 	if (init_2d_image(game->mlx, &game->img_2d) != EXIT_SUCCESS)
 	{
-		// destroy window & 3d_image
+		mlx_destroy_window(game->mlx, game->win);
+		mlx_destroy_image(game->mlx, game->img_3d.img);
 		return (EXIT_FAILURE);
 	}
 	if (init_cube_contents(game, argv[1]) != EXIT_SUCCESS)
 	{
-		// destroy window & 3d_image & 2d_image
+		mlx_destroy_window(game->mlx, game->win);
+		mlx_destroy_image(game->mlx, game->img_3d.img);
+		mlx_destroy_image(game->mlx, game->img_2d.img);
+		free(game->mlx);
+		close(game->debug.fd);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
