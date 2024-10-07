@@ -6,35 +6,52 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/06 23:17:14 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:42:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	debug_texture(int fd, t_texture *texture, char *file_contents)
+#include "cub3d.h"
+
+void	debug_texture(char *xpm_file_name, t_texture texture,
+			int i, const char *msg)
 {
-	int	i;
 	const char	key[4] = {"NO", "SO", "WE", "EA"};
 
-	ft_dprintf(fd, "\n\n>>> func debug_wall_slice() ... call by '%s' <<<\n", msg);
-	dprintf(fd, "---- texture debug ----\n");
-	i = 0;
-	while (i < 4)
-	{
-		dprintf(fd, "\t%s\twidth[%d]\theight[%d]\n",
-			key[i], texture->width[i], texture->height[i]);
-		img = texture->img_tex[i];
-		dprintf(fd, "\timg_tex[%d]\timg[%p]\taddr[%p]\nbpp[%d]\tline_length[%d]\tendian[%d]\n",
-			i, img.img, img.addr, img.bpp, img.line_length, img.endian);
-		i++;
-	}
+	if (IS_DEBUG != true)
+		return ;
+	fd = texture.debug->fd;
+	if (i == 0)
+		dprintf(fd, "\n\n>>> func debug_texture_image() ... call by '%s' <<<\n", msg);
+	dprintf(fd, "---- [%s] ... [%s] ----\n", key[i], xpm_file_name);
+	dprintf(fd, "\timg_tex[%d].img = %p\n", i, texture.img_tex[i].img);
+	dprintf(fd, "\twidth[%d] = %d\n", i, texture.width[i]);
+	dprintf(fd, "\theight[%d] = %d\n", i, texture.height[i]);
 }
-
 //typedef struct	s_texture
 //{
 //	t_img	img_tex[4];
 //	int		width[4];
 //	int		height[4];
 //}	t_texture;
+
+void	debug_img_tex(t_img *img_tex, int i, const char *msg)
+{
+	const char	key[4] = {"NO", "SO", "WE", "EA"};
+	t_img		img;
+
+	if (IS_DEBUG != true)
+		return ;
+	fd = img_tex.debug.fd;
+	if (i == 0)
+		ft_dprintf(fd,
+			"\n\n>>> func debug_texture() ... call by '%s' <<<\n", msg);
+	dprintf(fd, "---- [%s] ... img_tex[%d] ----\n", key[i], i);
+	img = (t_img)img_tex[i];
+	dprintf(fd, "\timg[%p]\n\taddr[%p]\n\tbpp[%d]\n",
+			i, img.img, img.addr, img.bpp);
+	dprintf(fd, "\tline_length[%d]\n\tendian[%d]\n",
+			img.line_length, img.endian);
+}
 //typedef struct s_img {
 //	void	*img;
 //	char	*addr;

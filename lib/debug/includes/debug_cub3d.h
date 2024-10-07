@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 16:00:37 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:43:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 # define RESET_COLOR "\x1B[0m\n"
 
 // initialize game
-int	init_debug_info(t_game *game);
+int		init_debug_info(t_game *game);
+void	debug_texture(char *xpm_file_name, t_texture texture,
+			int i, const char *msg);
+void	debug_img_tex(t_img *img_tex, int i, const char *msg);
 
 // render frame
 void	debug_frame(t_game *game, const char *msg);
