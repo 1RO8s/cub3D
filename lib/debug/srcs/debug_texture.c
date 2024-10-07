@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 14:49:05 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 22:05:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,16 @@ void	debug_texture(char *xpm_file_name, t_texture texture,
 //	int		height[4];
 //}	t_texture;
 
-void	debug_img_tex(t_img *img_tex, int i, const char *msg)
+void	debug_img_tex(int fd, t_img img, int i, const char *msg)
 {
 	const char	*key[4] = {"NO", "SO", "WE", "EA"};
-	t_img		img;
-	int			fd;
 
 	if (IS_DEBUG != true)
 		return ;
-	fd = img_tex->debug->fd;
 	if (i == 0)
 		ft_dprintf(fd,
 			"\n\n>>> func debug_texture() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "---- [%s] ... img_tex[%d] ----\n", key[i], i);
-	img = (t_img)img_tex[i];
 	dprintf(fd, "\timg[%d].img[%p]\n\taddr[%p]\n\tbpp[%d]\n",
 			i, img.img, img.addr, img.bpp);
 	dprintf(fd, "\tline_length[%d]\n\tendian[%d]\n",

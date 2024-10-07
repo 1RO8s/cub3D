@@ -6,16 +6,17 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 17:34:30 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 22:09:22 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define TEST_NO "NO ./textures/north_61.xpm\n"
-#define TEST_SO "./textures/south_61.xpm\n"
-#define TEST_WE "./textures/west_61.xpm\n"
-#define TEST_EA "./textures/east_61.xpm\n"
+#define TEST_NO "./texture/planks.xpm"
+#define TEST_SO "./texture/planks.xpm"
+#define TEST_WE "./texture/planks.xpm"
+#define TEST_EA "./texture/planks.xpm"
+
 static char *test_textures[4] = {TEST_NO, TEST_SO, TEST_WE, TEST_EA};
 
 char	*get_value_from_file_contents(char *file_contents, const char *key)
@@ -84,7 +85,7 @@ static int	enable_texture_image(t_texture *texture)
 			return (EXIT_FAILURE);
 		}
 		texture->img_tex[i].addr = addr;
-		debug_img_tex(img, i, "after mlx_get_data_addr()");
+		debug_img_tex(texture->debug.fd, texture->img_tex[i], i, "after mlx_get_data_addr()");
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -94,7 +95,7 @@ int	init_texture(void *mlx, t_texture *texture, char *file_contents)
 {
 	if (get_texture_image(mlx, texture, file_contents) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (enable_texture_image(texture) == EXIT_SUCCESS)
+	if (enable_texture_image(texture) != EXIT_SUCCESS)
 	{
 		destroy_n_image(mlx, texture->img_tex, 4);
 		return (EXIT_FAILURE);

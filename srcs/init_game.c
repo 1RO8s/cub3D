@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 17:40:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 21:41:07 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int	init_game(t_game *game, int argc, char *argv[])
 		mlx_destroy_image(game->mlx, game->img_2d.img);
 		free(game->mlx);
 		close(game->debug.fd);
+		//system("leaks cub3D");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

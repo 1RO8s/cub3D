@@ -160,13 +160,16 @@ int main() {
 	}
 
     // Create a window
-    win_ptr = mlx_new_window(mlx_ptr, width+100, height+100, "Simple XPM Example");
+    win_ptr = mlx_new_window(mlx_ptr, (2*width)+100, height+100, "Simple XPM Example");
     if (win_ptr == NULL) {
         return 1;  // Failed to create a window
     }
 
     // Display the image in the window at coordinates (50, 50)
     mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 50, 50);
+
+	img_ptr = mlx_xpm_file_to_image(mlx_ptr, "texture/planks.xpm", &width, &height);
+    mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 150, 50);
 
     // Run the event loop
     mlx_loop(mlx_ptr);

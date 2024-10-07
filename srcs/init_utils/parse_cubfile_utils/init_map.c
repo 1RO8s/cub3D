@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 15:29:07 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 22:13:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	init_map(t_map *map, char *file_contents)
 	}
 	if (is_enable_map(file_contents, map_content) != true)
 	{
+		ft_dprintf(STDOUT_FILENO, "here?");// debug
 		ft_dprintf(STDERR_FILENO, "Error: invalid map");
 		return (EXIT_FAILURE);
 	}
