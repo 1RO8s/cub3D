@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/30 23:39:47 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/07 15:33:05 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,11 @@
 SRCS_DIR = \
 		   ./srcs \
 		   ./srcs/init_utils \
+		   ./srcs/init_utils/parse_cubfile_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
+		   ./srcs/free_utils \
 		   ./srcs/mlx_utils
 
 OBJ_DIR = objs
@@ -37,8 +39,13 @@ SRCS = \
 	   render.c \
 	   \
 	   arg_check.c \
-	   read_map.c \
-	   parse_map.c \
+	   parse_cubfile.c\
+	   \
+	   init_texture.c \
+	   init_floor_and_ceiling.c \
+	   init_map.c \
+	   is_enable_map.c \
+	   init_player.c \
 	   set_direction.c \
 	   \
 	   draw_2d_player.c \
@@ -51,6 +58,8 @@ SRCS = \
 	   \
 	   draw_line.c \
 	   init_line.c \
+	   \
+	   destroy_image.c \
 	   \
 	   my_mlx_pixel_put.c
 	   #arg_check.c debug.c

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 01:17:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:25:16 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	init_floor_and_ceiling(t_game *game, char *file_contents)
 {
-	const char	key[2] = {"F", "C"};
+	const char	*key[2] = {"F", "C"};
 	int			i;
 	char		*color_str;
 	int			color[2];

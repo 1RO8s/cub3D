@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/07 01:09:38 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:30:30 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,27 @@ int		init_game(t_game *game, int argc, char *argv[]);
 void	render_frame(t_game *game);
 
 // init_utils
+int		parse_cubfile(t_game *game, char *file_contents);
+
+// arg_check.c
 int		arg_check(int argc, char *argv[]);
-int		read_map(t_map *map, char *file);
 char	*read_cubfile(char *filepath);
-int		parse_cubfile(t_game *game, char *file_contents)
+char	*find_element_line(char *map, char *identifier);
+char	*get_element_line(char *map, char *identifier);
+char	*extract_value(char *line, char *identifier);
+int		convert2color(char *rgb);
+char	**convert_str2array(char *str_map);
 
 // parse_cubefile_utils
-int		set_direction(char direction, t_player *player);
-int		parse_map(t_map *map, t_player *player);
 int		init_texture(void *mlx, t_texture *texture, char *file_contents);
-int		convert2color(char *rgb);
+char	*get_value_from_file_contents(char *file_contents, const char *key);
+int		init_floor_and_ceiling(t_game *game, char *file_contents);
+int		init_map(t_map *map, char *file_contents);
+int		init_player(t_map *map, t_player *player);
+int		set_direction(char direction, t_player *player);
+
+// init_map.c
+bool	is_enable_map(char *file_contents, char *map_content);
 
 // 3D
 void	init_ray(t_one_shot_3d *one_shot_3d, int x);
@@ -88,6 +99,6 @@ void	init_color(t_clr *color, int start_color, int end_color);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // free utils
-void	destroy_n_image(void *mlx, void *img[4], int n);
+void	destroy_n_image(void *mlx, t_img *img, int n);
 
 #endif

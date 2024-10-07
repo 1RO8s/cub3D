@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 01:08:38 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:08:01 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	init_game(t_game *game, int argc, char *argv[])
 		// destroy window & 3d_image
 		return (EXIT_FAILURE);
 	}
-	if (init_cube_contents(&game, argv[1]) != EXIT_SUCCESS)
+	if (init_cube_contents(game, argv[1]) != EXIT_SUCCESS)
 	{
 		// destroy window & 3d_image & 2d_image
 		return (EXIT_FAILURE);

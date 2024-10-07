@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 10:42:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:49:05 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 void	debug_texture(char *xpm_file_name, t_texture texture,
 			int i, const char *msg)
 {
-	const char	key[4] = {"NO", "SO", "WE", "EA"};
+	const char	*key[4] = {"NO", "SO", "WE", "EA"};
+	int			fd;
 
 	if (IS_DEBUG != true)
 		return ;
-	fd = texture.debug->fd;
+	fd = texture.debug.fd;
 	if (i == 0)
 		dprintf(fd, "\n\n>>> func debug_texture_image() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "---- [%s] ... [%s] ----\n", key[i], xpm_file_name);
@@ -36,18 +37,19 @@ void	debug_texture(char *xpm_file_name, t_texture texture,
 
 void	debug_img_tex(t_img *img_tex, int i, const char *msg)
 {
-	const char	key[4] = {"NO", "SO", "WE", "EA"};
+	const char	*key[4] = {"NO", "SO", "WE", "EA"};
 	t_img		img;
+	int			fd;
 
 	if (IS_DEBUG != true)
 		return ;
-	fd = img_tex.debug.fd;
+	fd = img_tex->debug->fd;
 	if (i == 0)
 		ft_dprintf(fd,
 			"\n\n>>> func debug_texture() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "---- [%s] ... img_tex[%d] ----\n", key[i], i);
 	img = (t_img)img_tex[i];
-	dprintf(fd, "\timg[%p]\n\taddr[%p]\n\tbpp[%d]\n",
+	dprintf(fd, "\timg[%d].img[%p]\n\taddr[%p]\n\tbpp[%d]\n",
 			i, img.img, img.addr, img.bpp);
 	dprintf(fd, "\tline_length[%d]\n\tendian[%d]\n",
 			img.line_length, img.endian);
