@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 21:41:07 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/10 07:51:12 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 static int	init_mlx_and_window(t_game *game)
 {
-	void	*mlx;
-	void	*window;
-
-	mlx = (void *)mlx_init();
-	if (mlx == NULL)
+	game->mlx = (void *)mlx_init();
+	if (game->mlx == NULL)
 		return (EXIT_FAILURE);
-	window = (void *)mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
-	if (window == NULL)
+	game->win = (void *)mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	if (game->win == NULL)
+	{
+		free(game->mlx);
 		return (EXIT_FAILURE);
-	game->mlx = mlx;
-	game->win = window;
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -74,30 +72,12 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
 	return (EXIT_SUCCESS);
 }
 
-// debug
-#define TEST_CUB_FILE "\
-NO ./textures/north_61.xpm\n\
-SO ./textures/south_61.xpm\n\
-WE ./textures/west_61.xpm\n\
-EA ./textures/east_61.xpm\n\
-\n\
-F 46,139,87\n\
-C 135,206,235\n\
-\n\
-11111\n\
-10001\n\
-10N01\n\
-10001\n\
-11111"
-
 static int	init_cube_contents(t_game *game, char *filename)
 {
 	char	*file_contents;
 	int		status;
 
-	file_contents = ft_strdup(TEST_CUB_FILE);// debug
-	(void)filename;// debug
-	//file_contents = read_cubfile(filename);
+	file_contents = read_cubfile(filename);
 	if (file_contents == NULL)
 		return (EXIT_FAILURE);
 	status = parse_cubfile(game, file_contents);
@@ -117,16 +97,23 @@ int	init_game(t_game *game, int argc, char *argv[])
 	if (init_debug_info(game) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (init_mlx_and_window(game) != EXIT_SUCCESS)
+	{
+		close(game->debug.fd);
 		return (EXIT_FAILURE);
+	}
 	if (init_3d_image(game->mlx, &game->img_3d) != EXIT_SUCCESS)
 	{
 		mlx_destroy_window(game->mlx, game->win);
+		free(game->mlx);
+		close(game->debug.fd);
 		return (EXIT_FAILURE);
 	}
 	if (init_2d_image(game->mlx, &game->img_2d) != EXIT_SUCCESS)
 	{
 		mlx_destroy_window(game->mlx, game->win);
 		mlx_destroy_image(game->mlx, game->img_3d.img);
+		free(game->mlx);
+		close(game->debug.fd);
 		return (EXIT_FAILURE);
 	}
 	if (init_cube_contents(game, argv[1]) != EXIT_SUCCESS)
@@ -136,7 +123,6 @@ int	init_game(t_game *game, int argc, char *argv[])
 		mlx_destroy_image(game->mlx, game->img_2d.img);
 		free(game->mlx);
 		close(game->debug.fd);
-		//system("leaks cub3D");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

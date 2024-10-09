@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/07 16:51:23 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/10 08:17:48 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS = \
 	   \
 	   destroy_image.c \
 	   \
+	   hook_functions.c \
 	   my_mlx_pixel_put.c
 	   #arg_check.c debug.c
 
@@ -72,7 +73,7 @@ DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBDEBUG = $(LIBDEBUG_DIR)/libdebug.a
-LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX) $(LIBDEBUG)
+LIBS = $(LIBDEBUG) $(LIBFT) $(LIBFTPRINTF) $(LIBMLX)
 
 # Build target
 NAME = cub3D

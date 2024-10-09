@@ -3,6 +3,26 @@
 #include <stdio.h>
 #include <string.h>
 
+// ------------------ leak check ------------------ OK
+// compile macOS
+//cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
+// compile linux
+//cc practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft -g
+// valgrind ./a.out
+//
+//char	*read_cubfile(char *filepath);
+//
+//int	main(void)
+//{
+//	char	*filename = "aaa.txt";
+//	char	*file_contents;
+//
+//	file_contents = read_cubfile(filename);
+//	printf("--- filename ---\n%s\n", filename);
+//	printf("--- read_contents ---\n%s", file_contents);
+//	free(file_contents);
+//	return (0);
+//}
 // ------------------ xpm data -------------------- unsuccess
 // compile command
 //cw practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit -g -fsanitize=address
@@ -138,45 +158,82 @@
 // ------------------ put image from xpm file --------------------
 // compile command
 //cw practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit -g -fsanitize=address
-#include <mlx.h>
-
-int main() {
-    void *mlx_ptr;
-    void *win_ptr;
-    void *img_ptr;
-    int width, height;
-
-    // Initialize MiniLibX
-    mlx_ptr = mlx_init();
-    if (mlx_ptr == NULL) {
-        return 1;  // Failed to initialize MiniLibX
-    }
-
-	// Get image from PNG file
-	img_ptr = mlx_xpm_file_to_image(mlx_ptr, "texture/sonic.xpm", &width, &height);
-	if (img_ptr == NULL) {
-	    // Handle error: file might not exist or there was an issue reading it
-	    fprintf(stderr, "Failed to load texture.\n");
-	}
-
-    // Create a window
-    win_ptr = mlx_new_window(mlx_ptr, (2*width)+100, height+100, "Simple XPM Example");
-    if (win_ptr == NULL) {
-        return 1;  // Failed to create a window
-    }
-
-    // Display the image in the window at coordinates (50, 50)
-    mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 50, 50);
-
-	img_ptr = mlx_xpm_file_to_image(mlx_ptr, "texture/planks.xpm", &width, &height);
-    mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 150, 50);
-
-    // Run the event loop
-    mlx_loop(mlx_ptr);
-
-    return 0;
-}
-
+//cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
+//#include <mlx.h>
+//
+//typedef struct s_game {
+//    void *mlx_ptr;
+//    void *win_ptr;
+//    void *img_ptr;
+//	void *img_ptr2;
+//}	t_game;
+//
+//#define KEY_ESC 53
+//
+//int	my_key_function(int keycode, t_game *game)
+//{
+//	if (keycode == KEY_ESC)
+//	{
+//		// free resource
+//		mlx_destroy_image(game->mlx_ptr, game->img_ptr);
+//		mlx_destroy_image(game->mlx_ptr, game->img_ptr2);
+//		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+//		free(game->mlx_ptr);
+//		exit(0);
+//	}
+//}
+//
+//int	close_window(t_game *game)
+//{
+//	mlx_destroy_image(game->mlx_ptr, game->img_ptr);
+//	mlx_destroy_image(game->mlx_ptr, game->img_ptr2);
+//	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+//	free(game->mlx_ptr);
+//	exit(0);
+//}
+//
+//int main() {
+//	t_game	game;
+//    int width, height;
+//
+//    // Initialize MiniLibX
+//    game.mlx_ptr = mlx_init();
+//    if (game.mlx_ptr == NULL) {
+//        return 1;  // Failed to initialize MiniLibX
+//    }
+//
+//	// Get image from xpm file
+//	game.img_ptr = mlx_xpm_file_to_image(game.mlx_ptr, "texture/sonic.xpm", &width, &height);
+//	if (game.img_ptr == NULL) {
+//	    // Handle error: file might not exist or there was an issue reading it
+//	    fprintf(stderr, "Failed to load texture.\n");
+//	}
+//	game.img_ptr2 = mlx_xpm_file_to_image(game.mlx_ptr, "texture/planks.xpm", &width, &height);
+//
+//    // Create a window
+//    game.win_ptr = mlx_new_window(game.mlx_ptr, 500, 500, "Simple XPM Example");
+//    if (game.win_ptr == NULL) {
+//        return 1;  // Failed to create a window
+//    }
+//
+//	// Clear
+//    mlx_clear_window(game.mlx_ptr, game.win_ptr);
+//
+//    // Display the image in the window at coordinates (50, 50)
+//    mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.img_ptr, 50, 50);
+//    mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.img_ptr2, 150, 50);
+//
+//
+//
+//	mlx_key_hook(game.win_ptr, &my_key_function, &game);
+//	mlx_hook(game.win_ptr, 17, 0, close_window, &game);
+//
+//    // Run the event loop
+//    mlx_loop(game.mlx_ptr);
+//	//system("leaks ./a.out");// ?? does not done ... why ?
+//    return 0;
+//}
+//
 // ------------------ return structure ------------
 //typedef struct	s_abc {
 //	int		a;

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 22:09:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/09 01:28:12 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ static int	enable_texture_image(t_texture *texture)
 		endian = (int *)&(texture->img_tex[i].endian);
 		addr = (char *)mlx_get_data_addr(img, bits_per_pixel, size_line, endian);
 		if (addr == NULL)
-		{
 			return (EXIT_FAILURE);
-		}
 		texture->img_tex[i].addr = addr;
 		debug_img_tex(texture->debug.fd, texture->img_tex[i], i, "after mlx_get_data_addr()");
 		i++;

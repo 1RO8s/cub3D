@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
 	libbsd-dev \
     cmake \
     git \
+	valgrind \
     wget
 
 # Set the working directory
