@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/01 00:36:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/10 09:09:46 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	draw_3d_view(t_game *game)
 	one_shot_3d.player = (t_player)game->player;
 	one_shot_3d.map = (t_map)game->map;
 	one_shot_3d.img_3d = (t_img)game->img_3d;
+	one_shot_3d.texture = (t_texture)game->texture;
 	one_shot_3d.debug = (t_debug)game->debug;
 	while (x < w)
 	{

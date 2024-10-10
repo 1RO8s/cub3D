@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/10 08:20:05 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:11:29 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_debug {
 }	t_debug;
 
 /**
- * @brief 3D or 2D image
+ * @brief 3D or 2D or Texture image
  */
 typedef struct s_img {
 	void	*img;
@@ -161,12 +161,17 @@ typedef struct s_ray_cast {
 typedef struct s_dda {
 	int		type_of_grid_line;
 	double	perp_wall_dist;
+	int		tex_x;
+	t_img	img_tex;
+	int		tex_width;
+	int		tex_height;
 }	t_dda;
 
 /**
  * @brief wall slice
  */
 typedef struct s_wall_slice {
+	int	line_height;
 	int	draw_start;
 	int	draw_end;
 	int	color;
