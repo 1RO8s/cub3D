@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:33:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 18:07:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 03:37:02 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,26 @@ static double	calculate_distance(t_ray_cast ray_cast, int type)
  * The DDA algorithm incrementally steps through a grid
  * to determine the intersection points with lines or rays.
  */
-void	perform_dda(t_one_shot_3d *one_shot_3d, int x)
+void	perform_dda(t_frame *frame, int x)
 {
 	bool		hit;
 	int			type;
-	t_ray_cast	ray_cast;
-	t_map		map;
 
 	hit = false;
-	type = -1;
-	ray_cast = one_shot_3d->ray_cast;
-	map = one_shot_3d->map;
-	debug_dda(one_shot_3d, type, "perform_dda() ... start");
+	type = START_POINT;
+	debug_dda(frame, type, "perform_dda() ... start");
 	while (hit == 0)
 	{
-		type = get_line_type(ray_cast);
-		move_next_grid_line(&ray_cast, type);
-		hit = is_hit_wall(&map, &ray_cast);
-		debug_dda(one_shot_3d, type, "perform_dda() ... loop until hit wall");
+		type = get_line_type(frame->ray_cast);
+		move_next_grid_line(&frame->ray_cast, type);
+		hit = is_hit_wall(frame->map, &frame->ray_cast);
+		debug_dda(frame, type, "perform_dda() ... loop until hit wall");
 	}
-	one_shot_3d->dda.type_of_grid_line = type;
-	one_shot_3d->dda.perp_wall_dist = calculate_distance(ray_cast, type);
+	frame->dda.type_of_grid_line = type;
+	frame->dda.perp_wall_dist = calculate_distance(frame->ray_cast, type);
 	(void)x;
 }
+// reference cub3d.h 
+//# define START_POINT -1
+//# define ON_VERTICAL_LINE 0
+//# define ON_HORIZONTAL_LINE 1

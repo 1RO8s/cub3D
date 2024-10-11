@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/11 21:12:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 04:00:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_line {
 	int	color_end;
 }	t_line;
 
-/******************** main stracture *********************************/
+/******************** common *********************************/
 
 /**
  * @brief debug info
@@ -63,6 +63,25 @@ typedef struct s_line {
 typedef struct s_debug {
 	int		fd;
 }	t_debug;
+
+/*
+ * @brief cordinate of point (int x, int y)
+ *
+ * @note :
+ * map screen
+ */
+typedef struct s_point {
+	int	x;
+	int	y;
+}	t_point;
+
+/**
+ * @brief vector
+ */
+typedef struct s_vector {
+	double	x;
+	double	y;
+}	t_vector;
 
 /**
  * @brief 3D or 2D or Texture image
@@ -77,40 +96,6 @@ typedef struct s_img {
 }	t_img;
 
 /**
- * @brief vector
- */
-typedef struct s_vector {
-	double	x;
-	double	y;
-}	t_vector;
-
-/*
- * @brief ray vector
- */
-typedef struct s_player {
-	t_vector	view_point;
-	t_vector	ray_dir;
-	t_vector	camera_forcal_plane;
-}	t_player;
-
-/**
- * @brief game map
- */
-typedef struct s_map {
-	int		width;
-	int		height;
-	char	**data;
-	t_debug	debug;
-}	t_map;
-
-typedef enum	e_type_wall {
-	NORTH,
-	WEST,
-	EAST,
-	SOURTH
-}	t_type_wall;
-
-/**
  * @brief texture
  */
 typedef struct	s_texture
@@ -118,7 +103,6 @@ typedef struct	s_texture
 	t_img	img_tex;
 	int		width;
 	int		height;
-	int		fd;// not nessesary ??
 	t_debug	debug;
 }	t_texture;
 // texture[0] ... texture[NORTH]
@@ -126,36 +110,7 @@ typedef struct	s_texture
 // texture[2] ... texture[EAST]
 // texture[3] ... texture[SOUTH]
 
-/**
- * @brief main game
- */
-typedef struct s_game {
-	void		*mlx;
-	void		*win;
-	t_img		img_3d;
-	t_img		img_2d;
-	t_map		map;
-	int			floor_color;
-	int			ceiling_color;
-//	t_color		floor_color;	// unnessesary ??
-//	t_color		ceiling_color;	// unnessesary ??
-	t_player	player;
-	t_texture	texture[4];
-	t_debug		debug;
-}	t_game;
-
 /******************** raycasting *********************************/
-
-/*
- * @brief cordinate of point (int x, int y)
- *
- * @note :
- * map screen 
- */
-typedef struct s_point {
-	int	x;
-	int	y;
-}	t_point;
 
 /*
  * @brief raycasting
@@ -186,15 +141,78 @@ typedef struct s_wall_slice {
 	int	color;
 }	t_wall_slice;
 
-typedef struct s_one_shot_3d {
-	t_player		player;
+/**
+ * @brief keyboard event flag
+ */
+typedef struct	s_keys {
+	int	move_forward;
+	int	move_backward;
+	int	strafe_left;
+	int	strafe_right;
+	int	rotate_left;
+	int	rotate_right;
+}	t_keys;
+
+/******************** main stracture *********************************/
+
+/*
+ * @brief ray vector
+ */
+typedef struct s_player {
+	t_vector	view_point;
+	t_vector	ray_dir;
+	t_vector	camera_forcal_plane;
+}	t_player;
+
+/**
+ * @brief game map
+ */
+typedef struct s_map {
+	int		width;
+	int		height;
+	char	**data;
+	t_debug	debug;
+}	t_map;
+
+typedef enum	e_type_wall {
+	NORTH,
+	WEST,
+	EAST,
+	SOURTH
+}	t_type_wall;
+
+/**
+ * @brief single still image for render_frame
+ */
+typedef struct s_frame {
 	t_ray_cast		ray_cast;
 	t_dda			dda;
 	t_wall_slice	wall_slice;
-	t_map			map;
+	t_player		*player;
+	t_keys			keys;
+	t_map			*map;
 	t_texture		*texture;
-	t_img			img_3d;
+	t_img			*img_3d;
 	t_debug			debug;
-}	t_one_shot_3d;
+}	t_frame;
+
+/**
+ * @brief main game
+ */
+typedef struct s_game {
+	void		*mlx;
+	void		*win;
+	t_img		img_3d;
+	t_img		img_2d;
+	t_map		map;
+	int			floor_color;
+	int			ceiling_color;
+//	t_color		floor_color;	// unnessesary ??
+//	t_color		ceiling_color;	// unnessesary ??
+	t_player	player;
+	t_texture	texture[4];
+	t_frame		frame;
+	t_debug		debug;
+}	t_game;
 
 #endif

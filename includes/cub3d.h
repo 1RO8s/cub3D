@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/11 10:18:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 03:28:49 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,13 @@ int		set_direction(char direction, t_player *player);
 // init_map.c
 bool	is_enable_map(char *map_content);
 
-// 3D
-void	init_ray(t_one_shot_3d *one_shot_3d, int x);
-void	perform_dda(t_one_shot_3d *one_shot_3d, int x);
-void	set_wall_slice(t_one_shot_3d *one_shot_3d, int x);
-void	draw_vertical_line(t_one_shot_3d *one_shot_3d, int x);
-typedef void	(*t_draw_3d_process)(t_one_shot_3d *, int);
+// process drawing 3D image
+void	init_ray(t_frame *frame, int x);
+void	perform_dda(t_frame *frame, int x);
+void	set_wall_slice(t_frame *frame, int x);
+void	set_texture_x_coordinate(t_frame *frame, int x);
+void	draw_vertical_line(t_frame *frame, int x);
+typedef void	(*t_draw_3d_process)(t_frame *, int);
 
 // 2D
 void	draw_2d_wall(t_map *map, t_img *img_2d);

@@ -6,11 +6,31 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/11 11:16:15 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 03:23:42 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	debug_texture_coodinate(int fd, double wall_x, t_frame *frame)
+{
+	t_vector	ray_dir;
+	t_vector	view_point;
+	t_dda		dda;
+
+	dda = frame->dda;
+	view_point = frame->player->view_point;
+	ray_dir = frame->ray_cast.ray_dir;
+	dprintf(fd, ">>> func debug_texture_coodinate() <<<\n");
+	dprintf(fd, "\twall_x[%f]\ttype_of_grid_line[%d]\n",
+		wall_x, dda.type_of_grid_line);
+	dprintf(fd, "\ttype_of_grid_line[%d]\tview_point.y[%f]\tray_dir.y[%f]\n",
+		dda.type_of_grid_line, view_point.y, ray_dir.y);
+	dprintf(fd, "\ttype_of_grid_line[%d]\tview_point.x[%f]\tray_dir.x[%f]\n",
+		dda.type_of_grid_line, view_point.x, ray_dir.x);
+	dprintf(fd, "\ttex_x[%d]\n", dda.tex_x);
+	dprintf(fd, "\n\n");
+}
 
 void	debug_texture(char *xpm_file_name, t_texture texture,
 			int i, const char *msg)
