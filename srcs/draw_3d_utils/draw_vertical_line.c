@@ -6,16 +6,16 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/10 10:12:46 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 11:12:22 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_texture_pixel(t_img *img_tex, int tex_x, int tex_y)
+int	get_texture_pixel(t_img img_tex, int tex_x, int tex_y)
 {
-	int	offset = (tex_y * img_tex->line_length) + (tex_x * (img_tex->bpp / 8));
-	int	color = *(int *)(img_tex->addr + offset);
+	int	offset = (tex_y * img_tex.line_length) + (tex_x * (img_tex.bpp / 8));
+	int	color = *(int *)(img_tex.addr + offset);
 	return (color);
 }
 //typedef struct s_img {
@@ -47,8 +47,8 @@ void	draw_vertical_line(t_one_shot_3d *one_shot_3d, int x)
 		wall_slice.draw_end = WIN_HEIGHT - 1;
 	y = wall_slice.draw_start;
 	int	line_height = wall_slice.line_height;
+	int	tex_x = one_shot_3d->dda.tex_x;
 	int	tex_height = one_shot_3d->dda.tex_height;
-	int	tex_width = one_shot_3d->dda.tex_width;
 	t_img	img_tex = one_shot_3d->dda.img_tex;
 	while (y <= wall_slice.draw_end)
 	{

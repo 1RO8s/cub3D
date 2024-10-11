@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/10 08:17:00 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:18:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ void	init_color(t_clr *color, int start_color, int end_color);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // free utils
-void	destroy_n_image(void *mlx, t_img *img, int n);
+void	destroy_texture_image(void *mlx, t_texture *texture, int n);
 
 #endif

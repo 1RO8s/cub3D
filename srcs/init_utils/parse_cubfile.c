@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/09 01:15:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:55:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
  */
 int	parse_cubfile(t_game *game, char *file_contents)
 {
-	if (init_texture(game->mlx, &game->texture, file_contents) != EXIT_SUCCESS)
+	if (init_texture(game->mlx, game->texture, file_contents) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (init_floor_and_ceiling(game, file_contents) != EXIT_SUCCESS)
 	{
-		destroy_n_image(game->mlx, &game->texture.img_tex[0], 4);
+		destroy_texture_image(game->mlx, game->texture, 4);
 		return (EXIT_FAILURE);
 	}
 	if (init_map(&game->map, file_contents) != EXIT_SUCCESS)
 	{
-		destroy_n_image(game->mlx, &game->texture.img_tex[0], 4);
+		destroy_texture_image(game->mlx, game->texture, 4);
 		return (EXIT_FAILURE);
 	}
 	if (init_player(&game->map, &game->player) != EXIT_SUCCESS)
 	{
-		destroy_n_image(game->mlx, &game->texture.img_tex[0], 4);
+		destroy_texture_image(game->mlx, game->texture, 4);
 		free_double_pointer(game->map.data);
 		return (EXIT_FAILURE);
 	}

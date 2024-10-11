@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 22:05:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:37:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	debug_map_data(t_map map, const char *msg);
 // 3D ray casting
 void	debug_ray_cast(t_one_shot_3d *one_shot_3d, const char *msg, int x);
 void	debug_dda(t_one_shot_3d *one_shot_3d, int type, const char *msg);
-void	debug_wall_slice(t_one_shot_3d *one_shot_3d, int line_height,
-			const char *msg);
+void	debug_wall_slice(int fd,
+			double perp_wall_dist, t_wall_slice wall_slice, const char *msg);
 void	debug_is_hit_wall(t_one_shot_3d *one_shot_3d);
 
 // common

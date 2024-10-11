@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/09 01:28:12 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:40:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ static int	get_texture_image(void *mlx, t_texture *texture, char *file_contents)
 		//xpm_file_name = get_value_from_file_contents(file_contents, key[i]);
 		if (xpm_file_name == NULL)
 		{
-			destroy_n_image(mlx, texture->img_tex, i);
+			destroy_texture_image(mlx, texture, i);
 			return (EXIT_FAILURE);
 		}
-		texture->img_tex[i].img = (void *)mlx_xpm_file_to_image(mlx, xpm_file_name,
-				&texture->width[i], &texture->height[i]);
-		if (texture->img_tex[i].img == NULL)
+		texture[i].img_tex.img = (void *)mlx_xpm_file_to_image(mlx, xpm_file_name,
+				&texture[i].width, &texture[i].height);
+		if (texture[i].img_tex.img == NULL)
 		{
 			free(xpm_file_name);
-			destroy_n_image(mlx, texture->img_tex, i);
+			destroy_texture_image(mlx, texture, i);
 			return (EXIT_FAILURE);
 		}
-		debug_texture(xpm_file_name, *texture, i,
+		debug_texture(xpm_file_name, texture[i], i,
 			"after mlx_xpm_file_to_image");
 		free(xpm_file_name);
 		i++;
@@ -75,15 +75,15 @@ static int	enable_texture_image(t_texture *texture)
 	i = 0;
 	while (i < 4)
 	{
-		img = (void *)texture->img_tex[i].img;
-		bits_per_pixel = (int *)&(texture->img_tex[i].bpp);
-		size_line = (int *)&(texture->img_tex[i].line_length);
-		endian = (int *)&(texture->img_tex[i].endian);
+		img = (void *)texture[i].img_tex.img;
+		bits_per_pixel = (int *)&(texture[i].img_tex.bpp);
+		size_line = (int *)&(texture[i].img_tex.line_length);
+		endian = (int *)&(texture[i].img_tex.endian);
 		addr = (char *)mlx_get_data_addr(img, bits_per_pixel, size_line, endian);
 		if (addr == NULL)
 			return (EXIT_FAILURE);
-		texture->img_tex[i].addr = addr;
-		debug_img_tex(texture->debug.fd, texture->img_tex[i], i, "after mlx_get_data_addr()");
+		texture[i].img_tex.addr = addr;
+		debug_img_tex(texture[i].debug.fd, texture[i].img_tex, i, "after mlx_get_data_addr()");
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -95,7 +95,7 @@ int	init_texture(void *mlx, t_texture *texture, char *file_contents)
 		return (EXIT_FAILURE);
 	if (enable_texture_image(texture) != EXIT_SUCCESS)
 	{
-		destroy_n_image(mlx, texture->img_tex, 4);
+		destroy_texture_image(mlx, texture, 4);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

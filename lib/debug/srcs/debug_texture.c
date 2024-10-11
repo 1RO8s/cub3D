@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/07 22:05:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 11:16:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ void	debug_texture(char *xpm_file_name, t_texture texture,
 	if (i == 0)
 		dprintf(fd, "\n\n>>> func debug_texture_image() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "---- [%s] ... [%s] ----\n", key[i], xpm_file_name);
-	dprintf(fd, "\timg_tex[%d].img = %p\n", i, texture.img_tex[i].img);
-	dprintf(fd, "\twidth[%d] = %d\n", i, texture.width[i]);
-	dprintf(fd, "\theight[%d] = %d\n", i, texture.height[i]);
+	dprintf(fd, "\timg_tex.img = %p\n", texture.img_tex.img);
+	dprintf(fd, "\twidth = %d\n", texture.width);
+	dprintf(fd, "\theight = %d\n", texture.height);
 }
 //typedef struct	s_texture
 //{
-//	t_img	img_tex[4];
-//	int		width[4];
-//	int		height[4];
+//	t_img	img_tex;
+//	int		width;
+//	int		height;
+//	t_debug	debug;
 //}	t_texture;
 
 void	debug_img_tex(int fd, t_img img, int i, const char *msg)

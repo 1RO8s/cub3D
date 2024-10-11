@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/10 10:11:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 11:02:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ typedef struct s_img {
 	int		bpp;
 	int		line_length;
 	int		endian;
-	t_debug	*debug;
-	//t_debug	*debug;// fix *debug -> debug
+	t_debug	debug;
 }	t_img;
 
 /**
@@ -101,19 +100,30 @@ typedef struct s_map {
 	int		width;
 	int		height;
 	char	**data;
-	t_debug	*debug;// fix *debug -> debug
+	t_debug	debug;
 }	t_map;
+
+typedef enum	e_type_wall {
+	NORTH,
+	WEST,
+	EAST,
+	SOURTH
+}	t_type_wall;
 
 /**
  * @brief texture
  */
 typedef struct	s_texture
 {
-	t_img	img_tex[4];
-	int		width[4];
-	int		height[4];
+	t_img	img_tex;
+	int		width;
+	int		height;
 	t_debug	debug;
 }	t_texture;
+// texture[0] ... texture[NORTH]
+// texture[1] ... texture[WEST]
+// texture[2] ... texture[EAST]
+// texture[3] ... texture[SOUTH]
 
 /**
  * @brief main game
@@ -129,7 +139,7 @@ typedef struct s_game {
 //	t_color		floor_color;	// unnessesary ??
 //	t_color		ceiling_color;	// unnessesary ??
 	t_player	player;
-	t_texture	texture;
+	t_texture	texture[4];
 	t_debug		debug;
 }	t_game;
 
@@ -183,7 +193,7 @@ typedef struct s_one_shot_3d {
 	t_ray_cast		ray_cast;
 	t_dda			dda;
 	t_wall_slice	wall_slice;
-	t_texture		texture;
+	t_texture		*texture;
 	t_img			img_3d;
 	t_debug			debug;
 }	t_one_shot_3d;
