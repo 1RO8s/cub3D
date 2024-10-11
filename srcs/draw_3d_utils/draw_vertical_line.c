@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/11 11:12:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 21:03:50 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	draw_vertical_line(t_one_shot_3d *one_shot_3d, int x)
 	y = wall_slice.draw_start;
 	int	line_height = wall_slice.line_height;
 	int	tex_x = one_shot_3d->dda.tex_x;
-	int	tex_height = one_shot_3d->dda.tex_height;
-	t_img	img_tex = one_shot_3d->dda.img_tex;
+	int	tex_height = one_shot_3d->dda.texture.height;
+	t_img	img_tex = one_shot_3d->dda.texture.img_tex;
 	while (y <= wall_slice.draw_end)
 	{
 		int d = (y * 256) - (IMG_3D_HEIGHT * 128) + (line_height * 128);

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/11 11:02:20 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 21:12:02 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct	s_texture
 	t_img	img_tex;
 	int		width;
 	int		height;
+	int		fd;// not nessesary ??
 	t_debug	debug;
 }	t_texture;
 // texture[0] ... texture[NORTH]
@@ -169,12 +170,10 @@ typedef struct s_ray_cast {
 }	t_ray_cast;
 
 typedef struct s_dda {
-	int		type_of_grid_line;
-	double	perp_wall_dist;
-	int		tex_x;
-	t_img	img_tex;
-	int		tex_width;
-	int		tex_height;
+	int			type_of_grid_line;
+	double		perp_wall_dist;
+	int			tex_x;
+	t_texture	texture;
 }	t_dda;
 
 /**
@@ -189,10 +188,10 @@ typedef struct s_wall_slice {
 
 typedef struct s_one_shot_3d {
 	t_player		player;
-	t_map			map;
 	t_ray_cast		ray_cast;
 	t_dda			dda;
 	t_wall_slice	wall_slice;
+	t_map			map;
 	t_texture		*texture;
 	t_img			img_3d;
 	t_debug			debug;

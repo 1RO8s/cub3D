@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:37:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/11 10:50:58 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:52:57 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	init_debug_info(t_game *game)
 	game->img_2d.debug = game->debug;
 	int	i;
 	i = 0;
-	while (i < 0)
+	while (i < 4)
 	{
 		game->texture[i].debug = game->debug;
 		i++;
