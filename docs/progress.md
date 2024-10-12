@@ -1,11 +1,19 @@
 # Cub3D current progress
 ...
 
-Commit ID: [6c77670](https://github.com/1RO8s/cub3D/commit/6c77670)
+Commit ID: [49ef3e6](https://github.com/1RO8s/cub3D/commit/49ef3e6)
 
-10/01 by kamitsui
+10/12 by kamitsui
 
 ...
+
+---
+1012 feat/texture
+
+texture sonic
+![game_image](image/1012_texture/texture_sonic.png)
+texture plank
+![game_image](image/1012_texture/texture_plank.png)
 
 ---
 1001
