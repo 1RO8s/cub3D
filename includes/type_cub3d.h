@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 04:00:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:18:57 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 # define TYPE_CUB3D_H
 
 /******************** draw_line *********************************/
-
-/*
- * @brief RGB color values
- */
-typedef struct s_color {
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
 
 typedef struct s_clr
 {
@@ -141,6 +132,17 @@ typedef struct s_wall_slice {
 	int	color;
 }	t_wall_slice;
 
+typedef enum	e_enum_key {
+	ENUM_ESC,
+	ENUM_W,
+	ENUM_S,
+	ENUM_A,
+	ENUM_D,
+	ENUM_LEFT,
+	ENUM_RIGHT,
+	ENUM_OTHER
+}	t_enum_key;
+
 /**
  * @brief keyboard event flag
  */
@@ -207,8 +209,6 @@ typedef struct s_game {
 	t_map		map;
 	int			floor_color;
 	int			ceiling_color;
-//	t_color		floor_color;	// unnessesary ??
-//	t_color		ceiling_color;	// unnessesary ??
 	t_player	player;
 	t_texture	texture[4];
 	t_frame		frame;

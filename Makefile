@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/10 08:17:48 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/12 15:39:21 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCS_DIR = \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
 		   ./srcs/free_utils \
-		   ./srcs/mlx_utils
+		   ./srcs/mlx_utils \
+		   ./srcs/mlx_utils/keypress_utils
 
 OBJ_DIR = objs
 INC_DIR = includes
@@ -39,7 +40,9 @@ SRCS = \
 	   render.c \
 	   \
 	   arg_check.c \
-	   parse_cubfile.c\
+	   init_mlx_window.c \
+	   init_mlx_image.c \
+	   init_cub_contents.c\
 	   \
 	   init_texture.c \
 	   init_floor_and_ceiling.c \
@@ -59,11 +62,14 @@ SRCS = \
 	   draw_line.c \
 	   init_line.c \
 	   \
-	   destroy_image.c \
+	   destroy_texture_image.c \
 	   \
 	   hook_functions.c \
-	   my_mlx_pixel_put.c
-	   #arg_check.c debug.c
+	   my_mlx_pixel_put.c \
+	   \
+	   move_keys.c \
+	   quit_rotate_invalid_keys.c
+	   #debug.c
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

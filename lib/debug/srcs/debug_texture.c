@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 03:23:42 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 15:26:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	debug_texture(char *xpm_file_name, t_texture texture,
 		return ;
 	fd = texture.debug.fd;
 	if (i == 0)
-		dprintf(fd, "\n\n>>> func debug_texture_image() ... call by '%s' <<<\n", msg);
+		dprintf(fd,
+			"\n\n>>> func debug_texture_image() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "---- [%s] ... [%s] ----\n", key[i], xpm_file_name);
 	dprintf(fd, "\timg_tex.img = %p\n", texture.img_tex.img);
 	dprintf(fd, "\twidth = %d\n", texture.width);
@@ -67,9 +68,9 @@ void	debug_img_tex(int fd, t_img img, int i, const char *msg)
 			"\n\n>>> func debug_texture() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "---- [%s] ... img_tex[%d] ----\n", key[i], i);
 	dprintf(fd, "\timg[%d].img[%p]\n\taddr[%p]\n\tbpp[%d]\n",
-			i, img.img, img.addr, img.bpp);
+		i, img.img, img.addr, img.bpp);
 	dprintf(fd, "\tline_length[%d]\n\tendian[%d]\n",
-			img.line_length, img.endian);
+		img.line_length, img.endian);
 }
 //typedef struct s_img {
 //	void	*img;

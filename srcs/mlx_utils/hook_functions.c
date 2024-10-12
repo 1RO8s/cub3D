@@ -6,58 +6,35 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 03:21:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/10 08:12:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 15:47:24 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_keypress(int fd, const char *msg)
-{
-	if (IS_DEBUG == false)
-		return ;
-	ft_dprintf(fd, msg);
-}
-
 int	handle_keypress(int keycode, t_game *game)
 {
-	int	fd;
+	static t_handle_keypress	func[ENUM_OTHER + 1] = {
+		quit_key, move_forward, move_backward,
+		move_left, move_right, rotate_left, rotate_right, invalid_key};
+	int						i;
 
-	fd = STDOUT_FILENO;
-	if (keycode == KEY_ESC)
+	i = 0;
+	while (i < ENUM_OTHER + 1)
 	{
-		debug_keypress(fd, "ESC\n");
-		exit(0);
+		if (func[i](keycode, game) == EXIT_SUCCESS)
+			break ;
+		i++;
 	}
-	else if (keycode == KEY_W)
-		debug_keypress(fd, "Move forward\n");
-	else if (keycode == KEY_S)
-		debug_keypress(fd, "Move backword\n");
-	else if (keycode == KEY_A)
-		debug_keypress(fd, "Move left\n");
-	else if (keycode == KEY_D)
-		debug_keypress(fd, "Move right\n");
-	else
-		ft_dprintf(fd, "keycode[%d]\n", keycode);
-	(void)game;
-	return (0);
-}
-// fd = STDOUT_FILENO -> game->debug.fd ... out to debug.log
-
-void	debug_mouse(int fd, int button, int x, int y)
-{
-	if (IS_DEBUG == false)
-		return ;
-	ft_dprintf(fd, "mouse[%d] x[%d] y[%d]\n", button, x, y);
+	return (EXIT_SUCCESS);
 }
 
 int	handle_mouse(int button, int x, int y, t_game *game)
 {
-	int	fd;
-
-	fd = STDOUT_FILENO;
-	debug_mouse(fd, button, x, y);
+	if (IS_DEBUG == false)
+		return (EXIT_FAILURE);
+	ft_dprintf(STDOUT_FILENO, "mouse[%d] x[%d] y[%d]\n", button, x, y);
 	(void)game;
-	return (0);
+	return (EXIT_SUCCESS);
 }
 // fd = STDOUT_FILENO -> game->debug.fd ... out to debug.log

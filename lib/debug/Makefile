@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/07 14:37:41 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/12 16:21:11 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS = \
 	   debug_wall_slice.c \
 	   debug_frame.c \
 	   debug_texture.c \
+	   debug_keypress.c \
 	   init_debug_info.c \
 	   open_log.c
 

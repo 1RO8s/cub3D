@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_image.c                                    :+:      :+:    :+:   */
+/*   init_mlx_window.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 01:01:38 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/11 10:05:12 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/10/12 13:00:59 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/10/12 13:01:13 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	destroy_texture_image(void *mlx, t_texture *texture, int n)
+int	init_mlx_window(t_game *game)
 {
-	int	i;
-
-	i = 0;
-	while (i < n)
+	game->mlx = (void *)mlx_init();
+	if (game->mlx == NULL)
+		return (EXIT_FAILURE);
+	game->win = (void *)mlx_new_window(game->mlx,
+			WIN_WIDTH, WIN_HEIGHT, "cub3D");
+	if (game->win == NULL)
 	{
-		mlx_destroy_image(mlx, texture[i].img_tex.img);
-		i++;
+		free(game->mlx);
+		return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }

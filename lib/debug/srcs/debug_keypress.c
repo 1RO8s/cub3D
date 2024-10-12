@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_debug_info.c                                  :+:      :+:    :+:   */
+/*   debug_keypress.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 19:37:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 15:24:41 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/10/12 14:38:07 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/10/12 15:29:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_debug_info(t_game *game)
+void	debug_keypress(int fd, t_enum_key keytype, int keycode)
 {
-	int	fd;
-	int	i;
+	static const char	*msg[ENUM_OTHER + 1] = {
+		"Quit cub3d\n",
+		"Move forward\n", "Move backword\n",
+		"Move left\n", "Move right\n",
+		"Rotate left\n", "Rotate right\n",
+		"Invalid keycode[%d]\n"};
 
-	fd = open_log(LOG_FILE, O_TRUNC);
-	if (fd == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "Error\n");
-		return (EXIT_FAILURE);
-	}
-	game->debug.fd = fd;
-	game->map.debug = game->debug;
-	game->img_3d.debug = game->debug;
-	game->img_2d.debug = game->debug;
-	game->frame.debug = game->debug;
-	i = 0;
-	while (i < 4)
-	{
-		game->texture[i].debug = game->debug;
-		i++;
-	}
-	return (EXIT_SUCCESS);
+	if (IS_DEBUG == false)
+		return ;
+	if (keytype == ENUM_OTHER)
+		ft_dprintf(fd, msg[keytype], keycode);
+	else
+		ft_dprintf(fd, msg[keytype]);
 }

@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/12 03:28:49 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:17:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 # define KEY_ESC	65307
 
 // -------------  perform_dda ----------------
@@ -66,7 +68,9 @@ int		handle_keypress(int keycode, t_game *game);
 int		handle_mouse(int button, int x, int y, t_game *game);
 
 // init_utils
-int		parse_cubfile(t_game *game, char *file_contents);
+int		init_mlx_window(t_game *game);
+int		init_mlx_image(t_game *game);
+int		init_cub_contents(t_game *game, char *filename);
 
 // arg_check.c
 int		arg_check(int argc, char *argv[]);
@@ -111,5 +115,16 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // free utils
 void	destroy_texture_image(void *mlx, t_texture *texture, int n);
+
+// keypress utils
+int		quit_key(int keycode, t_game *game);
+int		move_forward(int keycode, t_game *game);
+int		move_backward(int keycode, t_game *game);
+int		move_left(int keycode, t_game *game);
+int		move_right(int keycode, t_game *game);
+int		rotate_left(int keycode, t_game *game);
+int		rotate_right(int keycode, t_game *game);
+int		invalid_key(int keycode, t_game *game);
+typedef int	(*t_handle_keypress)(int, t_game *);
 
 #endif

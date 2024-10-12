@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 03:19:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 15:50:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	debug_wall_slice(int fd,
 			double perp_wall_dist, t_wall_slice wall_slice, const char *msg);
 void	debug_texture_coodinate(int fd, double wall_x, t_frame *frame);
 void	debug_is_hit_wall(t_frame *frame);
+
+// hook functions
+void	debug_keypress(int fd, t_enum_key keytype, int keycode);
 
 // common
 int		open_log(const char *file_name, int oflag);

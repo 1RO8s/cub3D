@@ -6,29 +6,18 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/10 08:18:38 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:13:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_end(int fd)
+static int	end_game(t_game *game)
 {
-	if (IS_DEBUG == false)
-		return ;
-	ft_dprintf(fd, "quit cub3D\n");
-}
-
-int	end_game(t_game *game)
-{
-	int	fd;
-
-	fd = STDOUT_FILENO;// -> game->debug.fd ... out to debug.log
-	debug_end(fd);
+	ft_printf("quit cub3D\n");
 	(void)game;
 	//system("leaks ./cub3D");// does not find leak ... why ?
 	exit(0);
-
 }
 //	// Nessesary
 //	destroy_n_image(game->mlx, &game->texture.img_tex[0], 4);
@@ -46,9 +35,9 @@ int	end_game(t_game *game)
 
 void	start_game(t_game *game)
 {
-	mlx_hook(game->win, 2, 1L<<0, handle_keypress, game);  // Key press
-	mlx_hook(game->win, 17, 1L<<17, end_game, game);    // Window close
-	mlx_mouse_hook(game->win, handle_mouse, game);// Mouse click
+	mlx_hook(game->win, 2, 1L << 0, handle_keypress, game);
+	mlx_hook(game->win, 17, 1L << 17, end_game, game);
+	mlx_mouse_hook(game->win, handle_mouse, game);
 	mlx_loop_hook(game->mlx, (void *)render_frame, game);
 	mlx_loop(game->mlx);
 }
