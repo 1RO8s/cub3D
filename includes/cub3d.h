@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/12 16:17:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/13 06:26:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ void	set_wall_slice(t_frame *frame, int x);
 void	set_texture_x_coordinate(t_frame *frame, int x);
 void	draw_vertical_line(t_frame *frame, int x);
 typedef void	(*t_draw_3d_process)(t_frame *, int);
+
+// wall slice utils
+t_type_wall	get_texture_direction(int type_of_grid_line, t_vector ray_dir);
 
 // 2D
 void	draw_2d_wall(t_map *map, t_img *img_2d);

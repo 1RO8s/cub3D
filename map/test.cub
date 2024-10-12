@@ -1,7 +1,7 @@
 NO ./texture/sonic.xpm
-SO ./texture/sonic.xpm
-WE ./texture/sonic.xpm
-EA ./texture/sonic.xpm
+SO ./texture/planks.xpm
+WE ./texture/tails.xpm
+EA ./texture/teapot.xpm
 
 F 46,139,87
 C 135,206,235

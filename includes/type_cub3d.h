@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 16:18:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/13 06:27:03 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ typedef struct s_line {
 
 /******************** common *********************************/
 
+typedef struct	s_game	t_game;
 /**
  * @brief debug info
  */
 typedef struct s_debug {
 	int		fd;
+	t_game	*game;
 }	t_debug;
 
 /*
@@ -180,7 +182,7 @@ typedef enum	e_type_wall {
 	NORTH,
 	WEST,
 	EAST,
-	SOURTH
+	SOUTH
 }	t_type_wall;
 
 /**

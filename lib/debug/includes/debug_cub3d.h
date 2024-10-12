@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 15:50:55 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/13 05:51:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void	debug_is_hit_wall(t_frame *frame);
 void	debug_dda(t_frame *frame, int type, const char *msg);
 void	debug_wall_slice(int fd,
 			double perp_wall_dist, t_wall_slice wall_slice, const char *msg);
-void	debug_texture_coodinate(int fd, double wall_x, t_frame *frame);
+void	debug_texture_coodinate(int fd, double wall_x, t_frame *frame,
+			const char *msg);
+void	debug_put_texture_image(t_frame *frame);
 void	debug_is_hit_wall(t_frame *frame);
 
 // hook functions
