@@ -1,11 +1,17 @@
 # Cub3D current progress
 ...
 
-Commit ID: [49ef3e6](https://github.com/1RO8s/cub3D/commit/49ef3e6)
+Commit ID: [9f2da82](https://github.com/1RO8s/cub3D/commit/9f2da82)
 
-10/12 by kamitsui
+10/13 by kamitsui
 
 ...
+
+---
+1013 bugfix/texture
+
+texture direction
+![game_image](image/1013_bugfix_texture/texture_direction.png)
 
 ---
 1012 feat/texture
