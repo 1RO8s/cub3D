@@ -6,13 +6,13 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/13 06:25:58 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/14 02:03:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_texture_coodinate(int fd, double wall_x, t_frame *frame,
+void	debug_texture_coordinate(int fd, double wall_x, t_frame *frame,
 			const char *msg)
 {
 	t_vector	ray_dir;
@@ -24,7 +24,7 @@ void	debug_texture_coodinate(int fd, double wall_x, t_frame *frame,
 	dda = frame->dda;
 	view_point = frame->player->view_point;
 	ray_dir = frame->ray_cast.ray_dir;
-	dprintf(fd, ">>> func debug_texture_coodinate() <<< ... call by %s\n",
+	dprintf(fd, ">>> func debug_texture_coordinate() <<< ... call by %s\n",
 		msg);
 	dprintf(fd, "\twall_x[%f]\ttype_of_grid_line[%d]\n",
 		wall_x, dda.type_of_grid_line);
@@ -37,6 +37,13 @@ void	debug_texture_coodinate(int fd, double wall_x, t_frame *frame,
 	dprintf(fd, "\ttype_wall[%d] -> [%s]\n", type_wall, direction[type_wall]);
 	dprintf(fd, "\n\n");
 }
+// reference type_cub3d.h
+//typedef enum	e_type_wall {
+//	NORTH,
+//	WEST,
+//	EAST,
+//	SOUTH
+//}	t_type_wall;
 
 void	debug_texture(char *xpm_file_name, t_texture texture,
 			int i, const char *msg)

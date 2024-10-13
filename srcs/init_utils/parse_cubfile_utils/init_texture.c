@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 16:25:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/14 02:07:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	get_image_from_xpm_file(
 static int	get_texture_images(
 		void *mlx, t_texture *texture, char *file_contents)
 {
-	const char	*key[4] = {"NO", "SO", "WE", "EA"};
+	const char	*key[4] = {"NO", "WE", "EA", "SO"};
 	int			i;
 	char		*xpm_file_name;
 	//static char	*test_textures[4] = {TEST_NO, TEST_SO, TEST_WE, TEST_EA};//debug
@@ -55,9 +55,6 @@ static int	get_texture_images(
 	i = 0;
 	while (i < 4)
 	{
-		//xpm_file_name = ft_strdup(test_textures[i]);// debug
-		//(void)key;// debug
-		//(void)file_contents;// debug
 		xpm_file_name = get_value_from_file_contents(file_contents, key[i]);// leak check??
 		if (xpm_file_name == NULL)
 		{
@@ -72,6 +69,13 @@ static int	get_texture_images(
 	}
 	return (EXIT_SUCCESS);
 }
+// reference type_cub3d.h
+//typedef enum	e_type_wall {
+//	NORTH,
+//	WEST,
+//	EAST,
+//	SOUTH
+//}	t_type_wall;
 
 static int	enable_texture_image(t_texture *texture)
 {
