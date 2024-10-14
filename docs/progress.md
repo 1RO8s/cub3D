@@ -1,11 +1,17 @@
 # Cub3D current progress
 ...
 
-Commit ID: [9f2da82](https://github.com/1RO8s/cub3D/commit/9f2da82)
+Commit ID: [2483bcf](https://github.com/1RO8s/cub3D/commit/2483bcf)
 
-10/13 by kamitsui
+10/14 by kamitsui
 
 ...
+
+---
+1014 bugfix/texture
+
+Add draw_ceiling() and draw_floor()
+![game_image](image/1014_ceiling_and_floor/game_screen_ok.png)
 
 ---
 1013 bugfix/texture
