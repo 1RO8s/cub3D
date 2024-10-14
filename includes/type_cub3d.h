@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/13 06:27:03 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:05:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,8 @@ typedef struct s_frame {
 	t_keys			keys;
 	t_map			*map;
 	t_texture		*texture;
+	int				*ceiling_color;
+	int				*floor_color;
 	t_img			*img_3d;
 	t_debug			debug;
 }	t_frame;

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/09 01:15:53 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:29:42 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int	init_floor_and_ceiling(t_game *game, char *file_contents)
 		return (EXIT_FAILURE);
 	game->floor_color = color[0];
 	game->ceiling_color = color[1];
+	game->frame.ceiling_color = &game->ceiling_color;
+	game->frame.floor_color = &game->floor_color;
 	return (EXIT_SUCCESS);
 }
