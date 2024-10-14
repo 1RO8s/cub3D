@@ -15,9 +15,11 @@
 !*.txt
 !*.pdf
 !*.png
+!*.xpm
 !*.zip
 !*.tgz
 !*.dox
+!*.zsh
 !Dockerfile
 !doxygen-awesome-css
 !Doxyfile

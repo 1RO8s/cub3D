@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Function to identify OS
+detect_os() {
+	OS=$(uname -s)
+
+	if [ "$OS" = "Darwin" ]; then
+		echo "macOS detected, exit from install_dependency.sh"
+		exit
+	elif [ "$OS" = "Linux" ]; then
+		echo "Ubuntu detected, continuing..."
+	else
+		echo "Unsupported OS"
+		exit 1
+	fi
+}
+
 # Function to check if a package is installed
 is_installed() {
     dpkg -s "$1" &> /dev/null
@@ -28,6 +43,9 @@ check_and_install() {
 
 # List of packages to check and install
 packages=("gcc" "make" "xorg" "libxext-dev" "zlib1g-dev" "libbsd-dev")
+
+# Call detect_os function
+detect_os
 
 # Loop through the list of packages and check/install each
 for pkg in "${packages[@]}"; do
