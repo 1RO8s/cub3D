@@ -6,11 +6,37 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 05:41:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:05:03 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	update_player(t_game *game)
+{
+	static t_moving_player	func[1] = {
+		move_forward};
+//	static t_moving_player	func[6] = {
+//		move_forward, move_backward,
+//		strafe_left, strafe_right,
+//		rotate_left, rotate_right};
+	int	i;
+
+	i = 0;
+	while (i < 1)
+	{
+		if (is_hit_flag(game->frame.flag, 0x01 << i) == true)
+			func[i](&game->map, &game->player);
+		i++;
+	}
+	//while (i < 6)
+	//{
+	//	if (is_hit_flag(game->frame.flag, 0x01 << i) == true)
+	//		func[i](&game->map, &game->player);
+	//	i++;
+	//}
+	game->frame.flag = 0;
+}
 
 /**
  * @brief Draw the 3D perspective
@@ -58,6 +84,7 @@ static void	draw_2d_map(t_game *game)
  */
 void	render_frame(t_game *game)
 {
+	update_player(game);
 	debug_frame(game, "render_frame()");
 	draw_3d_view(&game->frame);
 	draw_2d_map(game);

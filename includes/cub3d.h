@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/13 06:26:36 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:20:13 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 // main
 int		init_game(t_game *game, int argc, char *argv[]);
 void	render_frame(t_game *game);
-int		handle_keypress(int keycode, t_game *game);
+int	handle_key_press(int keycode, t_game *game);
 int		handle_mouse(int button, int x, int y, t_game *game);
 
 // init_utils
@@ -120,14 +120,28 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	destroy_texture_image(void *mlx, t_texture *texture, int n);
 
 // keypress utils
-int		quit_key(int keycode, t_game *game);
-int		move_forward(int keycode, t_game *game);
-int		move_backward(int keycode, t_game *game);
-int		move_left(int keycode, t_game *game);
-int		move_right(int keycode, t_game *game);
-int		rotate_left(int keycode, t_game *game);
-int		rotate_right(int keycode, t_game *game);
-int		invalid_key(int keycode, t_game *game);
-typedef int	(*t_handle_keypress)(int, t_game *);
+void	quit_game(int keycode, t_game *game);
+void	set_move_forward_flag(int keycode, t_game *game);
+void	set_move_backward_flag(int keycode, t_game *game);
+void	set_strafe_left_flag(int keycode, t_game *game);
+void	set_strafe_right_flag(int keycode, t_game *game);
+void	set_rotate_left_flag(int keycode, t_game *game);
+void	set_rotate_right_flag(int keycode, t_game *game);
+void	invalid_key(int keycode, t_game *game);
+
+typedef void	(*t_handle_key_press)(int, t_game *);
+
+// update utils
+# define MOVE_SPEED			1
+# define ROTATE_SPEED		1
+# define BIT_MOVE_FORWARD	0x01	// 0000 0001
+# define BIT_MOVE_BACKWARD	0x02	// 0000 0010
+# define BIT_STRAFE_LEFT	0x04	// 0000 0100
+# define BIT_STRAFE_RIGHT	0x10	// 0000 1000
+# define BIT_ROTATE_LEFT	0x20	// 0001 0000
+# define BIT_ROTATE_RIGHT	0x40	// 0010 0000
+void	move_forward(t_map *map, t_player *player);
+typedef void	(*t_moving_player)(t_map *, t_player *);
+bool	is_hit_flag(int flag, int bit);
 
 #endif

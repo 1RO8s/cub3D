@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 13:06:03 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:05:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,7 @@ static void	init_frame(t_game *game)
 	frame->img_3d = (t_img *)&game->img_3d;
 	frame->texture = (t_texture *)&game->texture;
 	frame->player = (t_player *)&game->player;
-	frame->keys.move_forward = 0;
-	frame->keys.move_backward = 0;
-	frame->keys.strafe_left = 0;
-	frame->keys.strafe_right = 0;
-	frame->keys.rotate_left = 0;
-	frame->keys.rotate_right = 0;
+	frame->flag = 0;
 }
 
 /**

@@ -1,69 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_keys.c                                        :+:      :+:    :+:   */
+/*   set_move_strafe_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:42:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 15:52:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:23:53 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	move_forward(int keycode, t_game *game)
+void	set_move_forward_flag(int keycode, t_game *game)
 {
-	t_keys	*keys;
-
-	keys = &game->frame.keys;
 	if (keycode == KEY_W)
 	{
 		debug_keypress(STDOUT_FILENO, ENUM_W, keycode);
-		keys->move_forward = 1;
-		return (EXIT_SUCCESS);
+		game->frame.flag |= BIT_MOVE_FORWARD;
 	}
-	return (EXIT_FAILURE);
 }
 
-int	move_backward(int keycode, t_game *game)
+void	set_move_backward_flag(int keycode, t_game *game)
 {
-	t_keys	*keys;
-
-	keys = &game->frame.keys;
 	if (keycode == KEY_S)
 	{
 		debug_keypress(STDOUT_FILENO, ENUM_S, keycode);
-		keys->move_backward = 1;
-		return (EXIT_SUCCESS);
+		game->frame.flag |= BIT_MOVE_BACKWARD;
 	}
-	return (EXIT_FAILURE);
 }
 
-int	move_left(int keycode, t_game *game)
+void	set_strafe_left_flag(int keycode, t_game *game)
 {
-	t_keys	*keys;
-
-	keys = &game->frame.keys;
 	if (keycode == KEY_A)
 	{
 		debug_keypress(STDOUT_FILENO, ENUM_A, keycode);
-		keys->strafe_left = 1;
-		return (EXIT_SUCCESS);
+		game->frame.flag |= BIT_STRAFE_LEFT;
 	}
-	return (EXIT_FAILURE);
 }
 
-int	move_right(int keycode, t_game *game)
+void	set_strafe_right_flag(int keycode, t_game *game)
 {
-	t_keys	*keys;
-
-	keys = &game->frame.keys;
 	if (keycode == KEY_D)
 	{
 		debug_keypress(STDOUT_FILENO, ENUM_D, keycode);
-		keys->strafe_right = 1;
-		return (EXIT_SUCCESS);
+		game->frame.flag |= BIT_STRAFE_RIGHT;
 	}
-	return (EXIT_FAILURE);
 }

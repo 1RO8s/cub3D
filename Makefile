@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/12 15:39:21 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/15 14:04:25 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS_DIR = \
 		   ./srcs/draw_line_utils \
 		   ./srcs/free_utils \
 		   ./srcs/mlx_utils \
-		   ./srcs/mlx_utils/keypress_utils
+		   ./srcs/keypress_utils \
+		   ./srcs/update_utils
 
 OBJ_DIR = objs
 INC_DIR = includes
@@ -67,8 +68,13 @@ SRCS = \
 	   hook_functions.c \
 	   my_mlx_pixel_put.c \
 	   \
-	   move_keys.c \
-	   quit_rotate_invalid_keys.c
+	   set_move_strafe_flag.c \
+	   set_rotate_flag.c \
+	   handle_quit_invalid_keys.c \
+	   \
+	   is_hit_flag.c \
+	   move_forward_backward.c
+
 	   #debug.c
 
 # Object files and dependency files

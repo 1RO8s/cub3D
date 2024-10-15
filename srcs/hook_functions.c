@@ -6,24 +6,24 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 03:21:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 15:47:24 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:20:32 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	handle_keypress(int keycode, t_game *game)
+int	handle_key_press(int keycode, t_game *game)
 {
-	static t_handle_keypress	func[ENUM_OTHER + 1] = {
-		quit_key, move_forward, move_backward,
-		move_left, move_right, rotate_left, rotate_right, invalid_key};
-	int						i;
+	static t_handle_key_press	func[ENUM_OTHER + 1] = {
+		quit_game, set_move_forward_flag, set_move_backward_flag,
+		set_strafe_left_flag, set_strafe_right_flag,
+		set_rotate_left_flag, set_rotate_right_flag, invalid_key};
+	int							i;
 
 	i = 0;
 	while (i < ENUM_OTHER + 1)
 	{
-		if (func[i](keycode, game) == EXIT_SUCCESS)
-			break ;
+		func[i](keycode, game);
 		i++;
 	}
 	return (EXIT_SUCCESS);
