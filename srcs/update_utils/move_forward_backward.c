@@ -6,21 +6,42 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:47:13 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:16:54 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 02:02:14 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "type_cub3d.h"
+#include "cub3d.h"
+
+bool	is_collision_detection_x(char **data, t_player *player)
+{
+	int	x;
+	int	y;
+
+	x = (int)(player->view_point.x + player->ray_dir.x * player->move_speed);
+	y = (int)(player->view_point.y);
+	if (data[y][x] == '1')
+		return (true);
+	return (false);
+}
+
+bool	is_collision_detection_y(char **data, t_player *player)
+{
+	int	x;
+	int	y;
+
+	x = (int)(player->view_point.x);
+	y = (int)(player->view_point.y + player->ray_dir.y * player->move_speed);
+	if (data[y][x] == '1')
+		return (true);
+	return (false);
+}
 
 void	move_forward(t_map *map, t_player *player)
 {
-	// Collision Detection
-	//if (game->map[(int)(player->y)][(int)(player->x + player->dir_x * player->move_speed)] == '0')
+	if (is_collision_detection_x(map->data, player) == false)
 		player->view_point.x += player->ray_dir.x * player->move_speed;
-	// Collision Detection
-	//if (game->map[(int)(player->y + player->dir_y * player->move_speed)][(int)(player->x)] == '0')
+	if (is_collision_detection_y(map->data, player) == false)
 		player->view_point.y += player->ray_dir.y * player->move_speed;
-	(void)map;
 }
 // reference type_cub3d.h
 //typedef struct s_player {

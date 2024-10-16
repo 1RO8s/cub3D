@@ -6,11 +6,29 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:05:03 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 02:10:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	debug_is_hit_flag(t_game *game, int bit)
+{
+	int		fd;
+	char	*bin_bit;
+	char	*bin_flag;
+
+	if (IS_DEBUG != true)
+		return ;
+	fd = game->debug.fd;
+	dprintf(fd, ">>> is_hit_flag() == true\n");
+	bin_bit = ft_itoa_binary(bit);
+	bin_flag = ft_itoa_binary(game->frame.flag);
+	dprintf(fd, "\tflag[%s]\n", bin_flag);
+	dprintf(fd, "\tbit [%s]\n", bin_flag);
+	free(bin_bit);
+	free(bin_flag);
+}
 
 static void	update_player(t_game *game)
 {
@@ -21,17 +39,23 @@ static void	update_player(t_game *game)
 //		strafe_left, strafe_right,
 //		rotate_left, rotate_right};
 	int	i;
+	int	bit;
 
 	i = 0;
 	while (i < 1)
 	{
-		if (is_hit_flag(game->frame.flag, 0x01 << i) == true)
+		bit = 0x01 << i;
+		if (is_hit_flag(game->frame.flag, bit) == true)
+		{
+			debug_is_hit_flag(game, bit);
 			func[i](&game->map, &game->player);
+		}
 		i++;
 	}
 	//while (i < 6)
 	//{
-	//	if (is_hit_flag(game->frame.flag, 0x01 << i) == true)
+	//	bit = 0x01 << i;
+	//	if (is_hit_flag(game->frame.flag, bit) == true)
 	//		func[i](&game->map, &game->player);
 	//	i++;
 	//}

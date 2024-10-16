@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:35:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:24:14 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 02:00:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	quit_game(int keycode, t_game *game)
 
 void	invalid_key(int keycode, t_game *game)
 {
-	debug_keypress(STDOUT_FILENO, ENUM_OTHER, keycode);
+	if (game->frame.flag == 0x00)
+		debug_keypress(STDOUT_FILENO, ENUM_OTHER, keycode);
 	(void)game;
 }

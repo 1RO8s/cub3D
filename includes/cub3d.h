@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/15 14:20:13 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:47:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ void	invalid_key(int keycode, t_game *game);
 typedef void	(*t_handle_key_press)(int, t_game *);
 
 // update utils
-# define MOVE_SPEED			1
-# define ROTATE_SPEED		1
+# define MOVE_SPEED			0.2
+# define ROTATE_SPEED		0.1
 # define BIT_MOVE_FORWARD	0x01	// 0000 0001
 # define BIT_MOVE_BACKWARD	0x02	// 0000 0010
 # define BIT_STRAFE_LEFT	0x04	// 0000 0100
