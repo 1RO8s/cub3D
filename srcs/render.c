@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 02:10:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 10:51:03 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	debug_is_hit_flag(t_game *game, int bit)
 
 static void	update_player(t_game *game)
 {
-	static t_moving_player	func[1] = {
-		move_forward};
+	static t_moving_player	func[2] = {
+		move_forward, move_backward};
 //	static t_moving_player	func[6] = {
 //		move_forward, move_backward,
 //		strafe_left, strafe_right,
@@ -42,12 +42,12 @@ static void	update_player(t_game *game)
 	int	bit;
 
 	i = 0;
-	while (i < 1)
+	while (i < 2)
 	{
 		bit = 0x01 << i;
 		if (is_hit_flag(game->frame.flag, bit) == true)
 		{
-			debug_is_hit_flag(game, bit);
+			//debug_is_hit_flag(game, bit);
 			func[i](&game->map, &game->player);
 		}
 		i++;

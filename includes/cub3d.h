@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/15 15:47:15 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 10:49:29 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef void	(*t_handle_key_press)(int, t_game *);
 # define BIT_ROTATE_LEFT	0x20	// 0001 0000
 # define BIT_ROTATE_RIGHT	0x40	// 0010 0000
 void	move_forward(t_map *map, t_player *player);
+void	move_backward(t_map *map, t_player *player);
 typedef void	(*t_moving_player)(t_map *, t_player *);
 bool	is_hit_flag(int flag, int bit);
 
