@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/17 10:49:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:06:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,20 @@ typedef void	(*t_handle_key_press)(int, t_game *);
 # define BIT_MOVE_FORWARD	0x01	// 0000 0001
 # define BIT_MOVE_BACKWARD	0x02	// 0000 0010
 # define BIT_STRAFE_LEFT	0x04	// 0000 0100
-# define BIT_STRAFE_RIGHT	0x10	// 0000 1000
-# define BIT_ROTATE_LEFT	0x20	// 0001 0000
-# define BIT_ROTATE_RIGHT	0x40	// 0010 0000
+# define BIT_STRAFE_RIGHT	0x08	// 0000 1000
+# define BIT_ROTATE_LEFT	0x10	// 0001 0000
+# define BIT_ROTATE_RIGHT	0x20	// 0010 0000
 void	move_forward(t_map *map, t_player *player);
 void	move_backward(t_map *map, t_player *player);
+void	strafe_left(t_map *map, t_player *player);
+void	strafe_right(t_map *map, t_player *player);
+void	rotate_left(t_map *map, t_player *player);
+void	rotate_right(t_map *map, t_player *player);
 typedef void	(*t_moving_player)(t_map *, t_player *);
 bool	is_hit_flag(int flag, int bit);
+bool	is_collision_detection_x(
+			char **data, t_vector view_point, double move_amount);
+bool	is_collision_detection_y(
+			char **data, t_vector view_point, double move_amount);
 
 #endif

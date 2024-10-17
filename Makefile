@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/15 14:04:25 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/17 11:53:49 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,9 @@ SRCS = \
 	   handle_quit_invalid_keys.c \
 	   \
 	   is_hit_flag.c \
-	   move_forward_backward.c
+	   is_collision_detection.c \
+	   move_and_strafe.c \
+	   rotate.c
 
 	   #debug.c
 
