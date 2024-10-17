@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:18:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 02:43:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	end_game(t_game *game)
 {
 	ft_printf("quit cub3D\n");
 	(void)game;
-	//system("leaks ./cub3D");// does not find leak ... why ?
+	//system("leaks ./cub3D");// does not call leaks command ... why ?
 	exit(0);
 }
 //	// Nessesary

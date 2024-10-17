@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 19:53:40 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 06:58:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ void	render_frame(t_game *game)
 	update_player(game);
 	debug_frame(game, "render_frame()");
 	draw_3d_view(&game->frame);
-	draw_2d_map(game);
+	if (DISABLE_2D_MAP == true)
+		draw_2d_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img_3d.img, 0, 0);
-	mlx_put_image_to_window(
-		game->mlx, game->win, game->img_2d.img, IMG_3D_WIDTH, 0);
+	if (DISABLE_2D_MAP == true)
+		mlx_put_image_to_window(
+			game->mlx, game->win, game->img_2d.img, IMG_3D_WIDTH, 0);
 }

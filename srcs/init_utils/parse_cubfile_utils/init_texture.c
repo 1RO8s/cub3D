@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 19:17:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 05:24:39 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 char	*get_value_from_file_contents(char *file_contents, const char *key)
 {
 	char	*line;
+	char	*value;
 
-	line = get_element_line(file_contents, (char *)key);// leak check ??
+	line = get_element_line(file_contents, (char *)key);
 	if (line == NULL)
 		return (NULL);
-	return (extract_value(line, (char *)key));// leak check ??
+	value = extract_value(line, (char *)key);
+	return (value);
 }
+// line is freed in extract_value()
 
 static int	get_image_from_xpm_file(
 		void *mlx, char *file_name, t_texture *texture, int i)
@@ -48,7 +51,6 @@ static int	get_texture_images(
 	i = 0;
 	while (i < 4)
 	{
-		// leak check??
 		xpm_file_name = get_value_from_file_contents(file_contents, key[i]);
 		if (xpm_file_name == NULL)
 		{

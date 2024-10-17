@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:49:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 19:39:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 07:00:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,13 @@ int	init_mlx_image(t_game *game)
 {
 	if (init_3d_image(game->mlx, &game->img_3d) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (init_2d_image(game->mlx, &game->img_2d) != EXIT_SUCCESS)
+	if (DISABLE_2D_MAP == false)
 	{
-		mlx_destroy_image(game->mlx, game->img_3d.img);
-		return (EXIT_FAILURE);
+		if (init_2d_image(game->mlx, &game->img_2d) != EXIT_SUCCESS)
+		{
+			mlx_destroy_image(game->mlx, game->img_3d.img);
+			return (EXIT_FAILURE);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

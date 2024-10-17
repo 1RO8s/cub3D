@@ -3,12 +3,53 @@
 #include <stdio.h>
 #include <string.h>
 
-// ------------------ leak check ------------------ OK
+// ------------------ leak check ------------------ extract_value() OK
 // compile macOS
-//cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
+//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
 // compile linux
-//cc practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft -g
-// valgrind ./a.out
+//  cc -g practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft
+//  valgrind ./a.out
+#include "libft.h"
+#define LINE "NO ./texture/sonic.xpm"
+char	*extract_value(char *line, char *identifier);
+int	main(void)
+{
+	char	*value;
+	printf("---- line is -----\n");
+	printf("%s", LINE);
+	printf("\n---------------------\n");
+	value = extract_value(ft_strdup(LINE), "NO");
+	printf("value[%p]\n", value);
+	printf("%s", value);
+	free(value);
+	return (0);
+}
+// ------------------ leak check ------------------ get_element_line() OK
+// compile macOS
+//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
+// compile linux
+//  cc -g practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft
+//  valgrind ./a.out
+//#define FILE_CONTENTS "1234567890\nasdfgh\nnoooooo\nwwwwNOyyyyyy\nNO ./texture/sonic.xpm"
+//char	*get_element_line(char *map, char *identifier);
+//int	main(void)
+//{
+//	char	*line;
+//	printf("---- file_contents is -----\n");
+//	printf("%s", FILE_CONTENTS);
+//	printf("\n---------------------\n");
+//	line = get_element_line(FILE_CONTENTS, "NO");
+//	printf("line[%p]\n", line);
+//	printf("%s", line);
+//	free(line);
+//	return (0);
+//}
+// ------------------ leak check ------------------ read_cubefile() OK
+// compile macOS
+//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
+// compile linux
+//  cc practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft -g
+//  valgrind ./a.out
 //
 //char	*read_cubfile(char *filepath);
 //
