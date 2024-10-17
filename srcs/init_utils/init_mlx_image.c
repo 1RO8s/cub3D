@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:49:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 12:51:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:39:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static int	init_3d_image(void *mlx, t_img *img_3d)
 	endian = &(img_3d->endian);
 	addr = (char *)mlx_get_data_addr(img, bits_per_pixel, size_line, endian);
 	if (addr == NULL)
-		// destory img_3d
+	{
+		mlx_destroy_image(mlx, img_3d->img);
 		return (EXIT_FAILURE);
+	}
 	img_3d->img = img;
 	img_3d->addr = addr;
 	return (EXIT_SUCCESS);
@@ -51,8 +53,10 @@ static int	init_2d_image(void *mlx, t_img *img_2d)
 	endian = &img_2d->endian;
 	addr = mlx_get_data_addr(img, bits_per_pixel, size_line, endian);
 	if (addr == NULL)
-		// destory img_2d
+	{
+		mlx_destroy_image(mlx, img_2d->img);
 		return (EXIT_FAILURE);
+	}
 	img_2d->img = img;
 	img_2d->addr = addr;
 	return (EXIT_SUCCESS);

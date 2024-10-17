@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/17 11:53:49 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/17 19:56:01 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS = \
 	   init_ray.c \
 	   perform_dda.c \
 	   set_wall_slice.c \
+	   set_texture_x_coordinate.c \
 	   draw_vertical_line.c \
 	   \
 	   draw_line.c \

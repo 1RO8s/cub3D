@@ -6,29 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 12:09:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:53:40 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	debug_is_hit_flag(t_game *game, int bit)
-{
-	int		fd;
-	char	*bin_bit;
-	char	*bin_flag;
-
-	if (IS_DEBUG != true)
-		return ;
-	fd = game->debug.fd;
-	dprintf(fd, ">>> is_hit_flag() == true\n");
-	bin_bit = ft_itoa_binary(bit);
-	bin_flag = ft_itoa_binary(game->frame.flag);
-	dprintf(fd, "\tflag[%s]\n", bin_flag);
-	dprintf(fd, "\tbit [%s]\n", bin_flag);
-	free(bin_bit);
-	free(bin_flag);
-}
 
 static void	update_player(t_game *game)
 {
@@ -36,8 +18,8 @@ static void	update_player(t_game *game)
 		move_forward, move_backward,
 		strafe_left, strafe_right,
 		rotate_left, rotate_right};
-	int	i;
-	int	bit;
+	int						i;
+	int						bit;
 
 	i = 0;
 	while (i < 6)
@@ -64,7 +46,8 @@ static void	draw_3d_view(t_frame *frame)
 {
 	int							x;
 	static t_draw_3d_process	func[5] = {
-		init_ray, perform_dda, set_wall_slice, set_texture_x_coordinate,
+		init_ray, perform_dda,
+		set_wall_slice, set_texture_x_coordinate,
 		draw_vertical_line};
 	int							i;
 

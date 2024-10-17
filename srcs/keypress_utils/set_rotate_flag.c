@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:02:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:12:34 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:12:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	set_rotate_left_flag(int keycode, t_game *game)
 	{
 		debug_keypress(STDOUT_FILENO, ENUM_LEFT, keycode);
 		game->frame.flag = BIT_ROTATE_LEFT;
-		//return (EXIT_SUCCESS);
 	}
-	//return (EXIT_FAILURE);
 }
 
 void	set_rotate_right_flag(int keycode, t_game *game)
@@ -29,8 +27,5 @@ void	set_rotate_right_flag(int keycode, t_game *game)
 	{
 		debug_keypress(STDOUT_FILENO, ENUM_RIGHT, keycode);
 		game->frame.flag = BIT_ROTATE_RIGHT;
-		//return (EXIT_SUCCESS);
 	}
-	//return (EXIT_FAILURE);
 }
-
