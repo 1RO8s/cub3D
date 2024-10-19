@@ -8,11 +8,12 @@ fi
 
 # Assign the first argument to SRC
 SRC="$1"
+SRC_DIR="../resource"
 
 # Determine DST based on the value of SRC
-if [ "$SRC" == "minilibx-linux.tgz" ]; then
+if [ "$SRC" == "$SRC_DIR/minilibx-linux.tgz" ]; then
     DST="minilibx-linux"
-elif [ "$SRC" == "minilibx_mms_20200219_beta.tgz" ]; then
+elif [ "$SRC" == "$SRC_DIR/minilibx_mms_20200219_beta.tgz" ]; then
     DST="minilibx_mms_20200219"
 else
     echo "Unknown archive file: $SRC"
