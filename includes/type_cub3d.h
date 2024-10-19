@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:21:44 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/19 14:45:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,14 +147,14 @@ typedef enum e_enum_key {
 /**
  * @brief keyboard event flag
  */
-typedef struct s_keys {
-	int	move_forward;
-	int	move_backward;
-	int	strafe_left;
-	int	strafe_right;
-	int	rotate_left;
-	int	rotate_right;
-}	t_keys;
+//typedef struct s_keys {
+//	int	move_forward;
+//	int	move_backward;
+//	int	strafe_left;
+//	int	strafe_right;
+//	int	rotate_left;
+//	int	rotate_right;
+//}	t_keys;
 
 /******************** main stracture *********************************/
 
