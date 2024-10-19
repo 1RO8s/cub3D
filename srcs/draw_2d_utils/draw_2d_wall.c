@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/01 00:39:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:44:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	draw_2d_wall_one_place(t_img *img_2d, int x, int y)
 		j = 0;
 		while (j < MAP_SCALE)
 		{
-			// White for walls
 			my_mlx_pixel_put(img_2d, start_x + i, start_y + j, 0xFFFFFF);
 			j++;
 		}
@@ -45,7 +44,6 @@ void	draw_2d_wall(t_map *map, t_img *img_2d)
 	int	x;
 	int	y;
 
-	// Draw the map
 	y = 0;
 	while (y < map->height)
 	{

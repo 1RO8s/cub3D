@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/18 23:40:39 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:57:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ t_type_wall	get_texture_direction(int type_of_grid_line, t_vector ray_dir);
 //	EAST,
 //	SOUTH
 //}	t_type_wall;
+
+// draw_vertical_line utils
+int	get_texture_y_coordinate(t_frame *frame, int y);
 
 // 2D
 void		draw_2d_wall(t_map *map, t_img *img_2d);

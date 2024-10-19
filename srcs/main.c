@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/18 02:43:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:41:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,13 @@
 static int	end_game(t_game *game)
 {
 	ft_printf("quit cub3D\n");
-	(void)game;
-	//system("leaks ./cub3D");// does not call leaks command ... why ?
+	destroy_texture_image(game->mlx, game->texture, 4);
+	free_double_pointer(game->map.data);
+	mlx_destroy_image(game->mlx, game->img_3d.img);
+	mlx_destroy_image(game->mlx, game->img_2d.img);
+	mlx_destroy_window(game->mlx, game->win);
 	exit(0);
 }
-//	// Nessesary
-//	destroy_n_image(game->mlx, &game->texture.img_tex[0], 4);
-//	free_double_pointer(game->map.data);
-//	mlx_destroy_image(game->mlx, game->img_3d.img);
-//	mlx_destroy_image(game->mlx, game->img_2d.img);
-//	mlx_destroy_window(game->mlx, game->win);
-//	exit (0);
-//
 //	// SEGV
 //	mlx_loop_end(game->mlx);
 //	free(game->mlx); // !!!!

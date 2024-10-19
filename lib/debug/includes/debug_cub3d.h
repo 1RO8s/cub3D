@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/19 15:04:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:51:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "type_cub3d.h"
 
 # define LOG_FILE "debug.log"
-# define IS_DEBUG true
+# define IS_DEBUG false
 # define DEBUG_COLOR "\n\x1B[100m\x1B[37m"
 # define RESET_COLOR "\x1B[0m\n"
 
@@ -27,6 +27,7 @@ void	debug_texture(char *xpm_file_name, t_texture texture,
 void	debug_img_tex(int fd, t_img img, int i, const char *msg);
 
 // render frame
+void	debug_moved_player(t_game *game);
 void	debug_frame(t_game *game, const char *msg);
 
 // 2D map
@@ -40,6 +41,7 @@ void	debug_wall_slice(int fd,
 			double perp_wall_dist, t_wall_slice wall_slice, const char *msg);
 void	debug_texture_coordinate(int fd, double wall_x, t_frame *frame,
 			const char *msg);
+void	debug_texture_y_coordinate_overflow(t_frame *frame, int y);
 void	debug_put_texture_image(t_frame *frame);
 void	debug_is_hit_wall(t_frame *frame);
 
