@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 19:48:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:50:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	draw_vertical_line(t_frame *frame, int x)
 		frame->wall_slice.draw_end = IMG_3D_HEIGHT - 1;
 	y = frame->wall_slice.draw_start;
 	draw_ceiling(frame, x, y);
+//	printf("line_height[%d]\n", frame->wall_slice.line_height);
 	while (y <= frame->wall_slice.draw_end)
 	{
 		tex_y = get_texture_y_coordinate(frame, y);
