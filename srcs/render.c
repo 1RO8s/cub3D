@@ -6,12 +6,27 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/19 15:32:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 01:23:54 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	debug_moved_player(t_game *game)
+{
+	int			fd;
+	t_vector	view_point;
+	t_vector	ray_dir;
+
+	if (IS_DEBUG == false || game->frame.flag == 0x00)
+		return ;
+	fd = STDOUT_FILENO;
+	view_point = game->player.view_point;
+	ray_dir = game->player.ray_dir;
+	dprintf(fd,
+		"moved player=<%f, %f> ray_dir=<%f, %f>\n",
+		view_point.x, view_point.y, ray_dir.x, ray_dir.y);
+}
 static void	update_player(t_game *game)
 {
 	static t_moving_player	func[6] = {
@@ -32,14 +47,7 @@ static void	update_player(t_game *game)
 		}
 		i++;
 	}
-	t_vector	view_point;
-	view_point = game->player.view_point;
-	int	x, y;
-	x = (int)(view_point.x);
-	y = (int)(view_point.y);
-	dprintf(game->debug.fd,
-		"move after view_point=<%f, %f> map[y][x]='%c'\n",
-		view_point.x, view_point.y, game->map.data[y][x]);
+	debug_moved_player(game);
 	game->frame.flag = 0;
 }
 

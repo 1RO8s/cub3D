@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/20 00:20:04 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 01:43:42 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static int	get_color_texture_pixel(t_frame *frame, int tex_x, int tex_y)
 
 static int	get_texture_y_coordinate(t_frame *frame, int y)
 {
-	int	d;
-	int	line_height;
-	int	tex_height;
-	int	tex_y;
+	int64_t	d;
+	int64_t	line_height;
+	int64_t	tex_height;
+	int64_t	tex_y;
 
 	line_height = frame->wall_slice.line_height;
 	tex_height = frame->dda.texture.height;
@@ -61,6 +61,7 @@ static int	get_texture_y_coordinate(t_frame *frame, int y)
 	if (d < 0)
 		d = 0;
 	tex_y = ((d * tex_height) / line_height) / 256;
+	//tex_y = ((d / 256) / line_height) * tex_height;
 	if (tex_y < 0)
 		tex_y = 0;
 	//if (tex_y >= tex_height)
@@ -92,22 +93,25 @@ void	debug_texture_y_coordinate_overflow(t_frame *frame, int y, char *msg)
 	if (IS_DEBUG != true)
 		return ;
 	fd = frame->debug.fd;
-	dprintf(fd, "\n>>> func debug_texture_y_coordinate() ... call by '%s' <<<\n", msg);
-	dprintf(fd, "---- texture y_coordinagte ----\n");
+	(void)msg;
+	//dprintf(fd, "\n>>> func debug_texture_y_coordinate() ... call by '%s' <<<\n", msg);
+	//dprintf(fd, "---- texture y_coordinagte ----\n");
 	tex_y = get_texture_y_coordinate(frame, y);
 	tex_y_ng = get_texture_y_coordinate_ng(frame, y);
 	if (tex_y != tex_y_ng)
 	{
-		dprintf(2, "\toverflow min y[%4d] -> tex_y[%d] , tex_y_ng[%d]\n",
+		dprintf(2, "\toverflow min y[%4d] -> tex_y[%d] , tex_y_ng[%d]",
 			y, tex_y, tex_y_ng);
+		dprintf(2, "\ttexture.height[%d]\n", frame->texture->height);
 	}
 	y = frame->wall_slice.draw_end;
 	tex_y = get_texture_y_coordinate(frame, y);
 	tex_y_ng = get_texture_y_coordinate_ng(frame, y);
 	if (tex_y != tex_y_ng)
 	{
-		dprintf(2, "\toverflow max y[%4d] -> tex_y[%d] , tex_y_ng[%d]\n",
+		dprintf(2, "\toverflow max y[%4d] -> tex_y[%d] , tex_y_ng[%d]",
 			y, tex_y, tex_y_ng);
+		dprintf(2, "\ttexture.height[%d]\n", frame->texture->height);
 	}
 	dprintf(fd, "\n\n");
 }
