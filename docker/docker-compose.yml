@@ -7,10 +7,14 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ..:/workspace
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - ~/.ssh:/root/.ssh
+      - /tmp/.X11-unix:/tmp/.X11-unix			# Share X11 socket
+      - $HOME/.Xauthority:/root/.Xauthority:rw	# Share X11 authorization file
+      - ~/.ssh:/root/.ssh						# Share ssh key
     environment:
+      #- DISPLAY=${DISPLAY}             # Forward the display from the host
+      - QT_X11_NO_MITSHM=1             # Prevent potential MIT-SHM errors
       - DISPLAY=host.docker.internal:0
+    network_mode: "host"
     container_name: cub3d
     stdin_open: true
     tty: true

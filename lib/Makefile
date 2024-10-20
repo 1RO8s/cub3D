@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/08/21 00:10:40 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/09/30 23:00:43 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ LIBMLX_LINUX_DIR = minilibx-linux
 LIBMLX_MAC_DIR = minilibx_mms_20200219
 LIBMLXOPENGL_DIR = libmlxopengl
 RESOURCE_DIR = ../resource
+LIBDEBUG_DIR = debug
 
 # Resource files
 RESOURCE_MLX_LINUX = minilibx-linux.tgz
@@ -32,57 +33,56 @@ RESOURCE_MLX_OPENGL = minilibx_opengl.tgz
 # Library name
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
-#LIBMLXOPENGL = $(LIBMLXOPENGL_DIR)/libmlx___.a
+LIBDEBUG = $(LIBDEBUG_DIR)/libdebug.a
 
-# Get OS type for choosing API
+# Get OS type for choosing minilibx library
 OS := $(shell uname)
 # To Build MLX on macOS
 ifeq ($(OS), Darwin)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
 LIBMLX = $(LIBMLX_DIR)/libmlx_Darwin.a
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
-#LIBS = $(LIBFT) $(LIBFTPRINTF)
 endif
 # To Build MLX on Linux
 ifeq ($(OS), Linux)
 RESOURCE_MLX := $(RESOURCE_MLX_LINUX)
 LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
 LIBMLX = $(LIBMLX_DIR)/libmlx_Linux.a
-GET_READY_MLX = extract_mlx install_dependencies
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 endif
 
-all: start submodules $(LIBS)
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
 
-# Build MiniLibX
-$(LIBMLX): $(GET_READY_MLX)
-	@echo "${YELLOW}Starting build process for '${LIBMLX_DIR}'...${NC}"
-	make -C $(LIBMLX_DIR)
-	@echo "${GREEN}Successfully created archive: $@${NC}"
+NAME := start submodules $(LIBMLX)
+
+# Default target
+all: $(NAME)
+	make -C $(LIBFT_DIR)
+	make -C $(LIBFTPRINTF_DIR)
+	make -C $(LIBDEBUG_DIR)
+.PHONY: all
 
 PROJECT_DIR = $(notdir $(CURDIR))
 start:
 	@echo "${YELLOW}Starting build process for '${PROJECT_DIR}'...${NC}"
 .PHONY: start
 
+# Build MiniLibX
+$(LIBMLX):
+	make extract_mlx
+	make install_dependencies
+	@echo "${YELLOW}Starting build process for '${LIBMLX_DIR}'...${NC}"
+	make -C $(LIBMLX_DIR)
+	@echo "${GREEN}Successfully created archive: $@${NC}"
+
 # Extract from resource (minilibx-linux.tgz minilibx_opengl.tgz)
-GET_READY_MLX:
-	@./extract_mlx.sh $(RESOURCE_MLX)
-#.PHONY: extract_mlx
+extract_mlx:
+	@./extract_mlx.sh $(RESOURCE_DIR)/$(RESOURCE_MLX)
+.PHONY: extract_mlx
 
 # Check dependencies installed
 install_dependencies:
 	@./install_dependency.sh
 .PHONY: install_dependencies
-
-# Build Libft
-$(LIBFT): 
-	make -C $(LIBFT_DIR)
-
-# Build ft_printf
-$(LIBFTPRINTF): 
-	make -C $(LIBFTPRINTF_DIR)
 
 # Update submodules
 SUBMODULE_DIR := $(LIBFT_DIR)
@@ -98,12 +98,13 @@ clean:
 	make -C $(LIBFT_DIR) clean
 	make -C $(LIBFTPRINTF_DIR) clean
 	make -C $(LIBMLX_DIR) clean
+	make -C $(LIBDEBUG_DIR) clean
 .PHONY: clean
 
 # Clean and remove library target
 fclean: clean
 	@echo "${RED}Removing archive file...${NC}"
-	rm -f $(NAME)
+	rm -f $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
 	@echo "${GREEN}All archive file removed.${NC}"
 .PHONY: fclean
 
@@ -116,140 +117,3 @@ RED=\033[0;31m
 GREEN=\033[0;32m
 YELLOW=\033[0;33m
 NC=\033[0m # No Color
-
-## Build target
-#NAME = $(notdir $(CURDIR))
-#
-## vpath for serching source files in multiple directories
-#vpath %.c $(SRCS_DIR)
-#
-## Compiler
-#CC = cc
-#CFLAGS = -Wall -Wextra -Werror
-#CF_ASAN = -g -fsanitize=address
-##CF_THSAN = -g -fsanitize=thread
-#CF_GENERATE_DEBUG_INFO = -g
-#CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF)/includes \
-#	 -I$(LIBMLX_DIR)/includes
-#CF_DEP = -MMD -MP -MF $(@:$(OBJ_DIR)/%.o=$(DEP_DIR)/%.d)
-## macOS
-#CF_FRAMEWORK = -framework OpenGL -framework AppKit
-#
-## Makefile Option
-#MAKEFLAGS += --no-print-directory
-#
-## Rules for building object files
-#$(OBJ_DIR)/%.o: %.c
-#	@mkdir -p $(OBJ_DIR)
-#	@mkdir -p $(DEP_DIR)
-#	$(CC) $(CFLAGS) $(CF_INC) $(CF_DEP) -c $< -o $@
-#
-#$(DEP_DIR)/%.d: %.c
-#	@mkdir -p $(DEP_DIR)
-#
-## Default target
-#all: start build_lib $(NAME) end display_art
-#.PHONY: all
-#
-#start:
-#	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
-#.PHONY: start
-#
-#build_lib:
-#	make -C $(LIB_DIR)
-#.PHONY: build_lib
-#
-#end:
-#	@echo "${YELLOW}Build process completed.${NC}"
-#.PHONY: end
-#
-#display_art:
-#	$(ASCII_ART)
-#.PHONY: display_art
-#
-## Target
-#$(NAME): $(LIBS) $(DEPS) $(OBJS)
-#	$(CC) $(CFLAGS) $(CF_FRAMEWORK) $(OBJS) $(LIBS) -o $(NAME)
-#	@echo "${GREEN}Successfully created execute: $@${NC}"
-#
-## Address sanitizer mode make rule
-#asan: fclean
-#	make WITH_ASAN=1
-#.PHONY: asan
-#
-## Thread sanitizer mode make rule
-##thsan: fclean
-##	make WITH_THSAN=1
-##.PHONY: thsan
-#
-## Leak check
-#check: fclean
-#	make WITH_VAL=1
-#	$(VALGRIND_USAGE)
-#.PHONY: leak
-#
-## Clean target
-#clean:
-#	@echo "${RED}Cleaning object files of '${NAME}'...${NC}"
-#	rm -rf $(OBJ_DIR) $(DEP_DIR)
-#	make -C $(LIBDEBUG_DIR) clean
-#.PHONY: clean
-#
-## Clean and remove library target
-#fclean: clean
-#	@echo "${RED}Removing archive file...${NC}"
-#	rm -f $(LIBDEBUG)
-#	rm -f $(NAME)
-#	@echo "${GREEN}Archive file removed.${NC}"
-#.PHONY: fclean
-#
-## Rebuild target
-#re: fclean all
-#.PHONY: re
-#
-## Enable dependency file
-#-include $(DEPS)
-#
-## Enabel Address sanitizer
-#ifdef WITH_ASAN
-#CFLAGS += $(CF_ASAN)
-#endif
-#
-## Enabel Thread sanitizer
-#ifdef WITH_THSAN
-#CFLAGS += $(CF_THSAN)
-#endif
-#
-## Enabel valgrind tool
-#ifdef WITH_VAL
-#CFLAGS += $(CF_GENERATE_DEBUG_INFO)
-#endif
-#
-## Color Definitions
-#RED=\033[0;31m
-#GREEN=\033[0;32m
-#YELLOW=\033[0;33m
-#NC=\033[0m # No Color
-#
-## ASCII Art
-#define ASCII_ART
-#@echo " _________________________________________________"
-#@echo "< Usage : ./cub3D map/*.cub                       >"
-#@echo "<  first argment  : a map format                  >"
-#@echo "--------------------------------------------------"
-#@echo "       \   ^__^"
-#@echo "        \  (oo)\_______"
-#@echo "           (__)\       )\\/\\"
-#@echo "               ||----w |"
-#@echo "               ||     ||\n"
-#endef
-#
-## Valgrind Usage
-#define VALGRIND_USAGE
-#@echo "        /"
-#@echo "       /"
-#@echo " __________________________________________________________________________"
-#@echo "< Vargrind Usage :                                                         >"
-#@echo "<  valgrind --leak-check=full --show-leak-kinds=all ./cub3D map/*.cub      >"
-#@echo "---------------------------------------------------------------------------"
-#endef
