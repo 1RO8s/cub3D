@@ -41,7 +41,6 @@ static bool	is_map_element(const char *str)
 	len = ft_strlen(identifier);
 	while (*str != '\n')
 	{
-		printf("[%c]", *str);
 		i = 0;
 		while (i < len)
 		{

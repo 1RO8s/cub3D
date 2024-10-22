@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/22 21:38:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/23 00:35:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,20 @@ static void	init_frame(t_game *game)
 void	debug_element_type(int fd, const char *str)
 {
 	t_enum_elem	type;
+	static int	count = 0;
 
+	if (IS_DEBUG == false)
+		return ;
+	if (count == 0)
+	{
+		dprintf(fd, ">> file_contents\n");
+		dprintf(fd, "----------\n%s----------\n", str);
+		dprintf(fd, "type tex[%d] fc[%d] map[%d] err[%d]\n",
+				(int)ENUM_TEX, (int)ENUM_FC, (int)ENUM_MAP, (int)ENUM_ELEMENT_ERR);//debug
+	}
 	type = get_type_element(str);
-	dprintf(fd, "\telement type [%d] c[%c]%p\n", (int)type, *str, str);
+	dprintf(fd, "\telement type [%d] first_char[%c]%p\n", (int)type, *str, str);
+	count++;
 }
 
 /**
@@ -40,35 +51,27 @@ static int	parse_cubfile(t_game *game, const char *element)
 	t_parse			parse;
 	//t_parse_element	func[3] = {parse_tex, parse_fc, parse_map};
 	t_enum_elem		type;
-	//size_t			row;
 
 	parse.flag = 0x00;
 	parse.game = game;
-	//row = 1;
-	printf(">> file_contents\n");
-	printf("----------\n%s----------\n", element);
-	printf("type tex[%d] fc[%d] map[%d] err[%d]\n",
-			(int)ENUM_TEX, (int)ENUM_FC, (int)ENUM_MAP, (int)ENUM_ELEMENT_ERR);//debug
-	//printf("before[%c] [%p]\n", *element, element);
 	if (*element == '\n')
 		element = find_next_element(element);
-	//printf("after [%c] [%p]\n", *element, element);
-	//exit(0);
 	while (element != NULL)
 	{
 		type = get_type_element(element);
 		debug_element_type(game->debug.fd, element);
-		if (type == ENUM_ELEMENT_ERR)
-		{
-			ft_dprintf(STDERR_FILENO, "Error: cub file\n");
-			//ft_dprintf(STDERR_FILENO, "line[%zu]: %10s", row, element);// refactor '\n'
-			return (EXIT_FAILURE);
-		}
+		//if (type == ENUM_ELEMENT_ERR)
+		//{
+		//	ft_dprintf(STDERR_FILENO, "Error: cub file\n");
+		//	//ft_dprintf(STDERR_FILENO, "line[%zu]: %10s", row, element);// refactor '\n'
+		//	return (EXIT_FAILURE);
+		//}
 		//if (func[type](element, &parse) != EXIT_SUCCESS)
 		//	return (EXIT_FAILURE);
 		element = find_next_element(element);
 		//row++;
 	}
+	exit(0);
 	(void)init_frame;// remove
 	return (EXIT_SUCCESS);
 }
