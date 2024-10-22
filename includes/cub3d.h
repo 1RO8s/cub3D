@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/09/30 17:41:01 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/13 06:26:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@
 # define COLOR_WHITE 0xFFFFFF
 # define COLOR_RED 0xFF0000
 
+// key code
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC	65307
+
 // -------------  perform_dda ----------------
 // ray_cast->grid_line
 # define START_POINT -1
@@ -55,20 +64,45 @@
 // main
 int		init_game(t_game *game, int argc, char *argv[]);
 void	render_frame(t_game *game);
+int		handle_keypress(int keycode, t_game *game);
+int		handle_mouse(int button, int x, int y, t_game *game);
 
 // init_utils
-int		arg_check(int argc, char *argv[]);
-int		read_map(t_map *map, char *file);
-char	*read_cubfile(char *filepath);
-int		set_direction(char direction, t_player *player);
-int		parse_map(t_map *map, t_player *player);
+int		init_mlx_window(t_game *game);
+int		init_mlx_image(t_game *game);
+int		init_cub_contents(t_game *game, char *filename);
 
-// 3D
-void	init_ray(t_one_shot_3d *one_shot_3d, int x);
-void	perform_dda(t_one_shot_3d *one_shot_3d, int x);
-void	set_wall_slice(t_one_shot_3d *one_shot_3d, int x);
-void	draw_vertical_line(t_one_shot_3d *one_shot_3d, int x);
-typedef void	(*t_draw_3d_process)(t_one_shot_3d *, int);
+// arg_check.c
+int		arg_check(int argc, char *argv[]);
+char	*read_cubfile(char *filepath);
+char	*find_element_line(char *map, char *identifier);
+char	*get_element_line(char *map, char *identifier);
+char	*extract_value(char *line, char *identifier);
+int		convert2color(char *rgb);
+char	**convert_str2array(char *str_map);
+void	free_double_pointer(char **array);
+
+// parse_cubefile_utils
+int		init_texture(void *mlx, t_texture *texture, char *file_contents);
+char	*get_value_from_file_contents(char *file_contents, const char *key);
+int		init_floor_and_ceiling(t_game *game, char *file_contents);
+int		init_map(t_map *map, char *file_contents);
+int		init_player(t_map *map, t_player *player);
+int		set_direction(char direction, t_player *player);
+
+// init_map.c
+bool	is_enable_map(char *map_content);
+
+// process drawing 3D image
+void	init_ray(t_frame *frame, int x);
+void	perform_dda(t_frame *frame, int x);
+void	set_wall_slice(t_frame *frame, int x);
+void	set_texture_x_coordinate(t_frame *frame, int x);
+void	draw_vertical_line(t_frame *frame, int x);
+typedef void	(*t_draw_3d_process)(t_frame *, int);
+
+// wall slice utils
+t_type_wall	get_texture_direction(int type_of_grid_line, t_vector ray_dir);
 
 // 2D
 void	draw_2d_wall(t_map *map, t_img *img_2d);
@@ -81,5 +115,19 @@ void	init_color(t_clr *color, int start_color, int end_color);
 
 // mlx utils
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+// free utils
+void	destroy_texture_image(void *mlx, t_texture *texture, int n);
+
+// keypress utils
+int		quit_key(int keycode, t_game *game);
+int		move_forward(int keycode, t_game *game);
+int		move_backward(int keycode, t_game *game);
+int		move_left(int keycode, t_game *game);
+int		move_right(int keycode, t_game *game);
+int		rotate_left(int keycode, t_game *game);
+int		rotate_right(int keycode, t_game *game);
+int		invalid_key(int keycode, t_game *game);
+typedef int	(*t_handle_keypress)(int, t_game *);
 
 #endif

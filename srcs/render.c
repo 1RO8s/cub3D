@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/01 00:36:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 05:41:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,21 @@
  * Implement raycasting and draw the 3D view to game->img_3d.
  * Involves calculating the distance to walls and rendering vertical strips
  */
-static void	draw_3d_view(t_game *game)
+static void	draw_3d_view(t_frame *frame)
 {
-	int							w;
 	int							x;
-	t_one_shot_3d				one_shot_3d;
-	static t_draw_3d_process	func[4] = {
-		init_ray, perform_dda, set_wall_slice, draw_vertical_line};
+	static t_draw_3d_process	func[5] = {
+		init_ray, perform_dda, set_wall_slice, set_texture_x_coordinate,
+		draw_vertical_line};
 	int							i;
 
-	w = IMG_3D_WIDTH;
 	x = 0;
-	one_shot_3d.player = (t_player)game->player;
-	one_shot_3d.map = (t_map)game->map;
-	one_shot_3d.img_3d = (t_img)game->img_3d;
-	one_shot_3d.debug = (t_debug)game->debug;
-	while (x < w)
+	while (x < IMG_3D_WIDTH)
 	{
 		i = 0;
-		while (i < 4)
+		while (i < 5)
 		{
-			func[i](&one_shot_3d, x);
+			func[i](frame, x);
 			i++;
 		}
 		x++;
@@ -65,7 +59,7 @@ static void	draw_2d_map(t_game *game)
 void	render_frame(t_game *game)
 {
 	debug_frame(game, "render_frame()");
-	draw_3d_view(game);
+	draw_3d_view(&game->frame);
 	draw_2d_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img_3d.img, 0, 0);
 	mlx_put_image_to_window(

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/30 17:55:37 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:05:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 # define TYPE_CUB3D_H
 
 /******************** draw_line *********************************/
-
-/*
- * @brief RGB color values
- */
-typedef struct s_color {
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
 
 typedef struct s_clr
 {
@@ -55,26 +46,27 @@ typedef struct s_line {
 	int	color_end;
 }	t_line;
 
-/******************** main stracture *********************************/
+/******************** common *********************************/
 
+typedef struct	s_game	t_game;
 /**
  * @brief debug info
  */
 typedef struct s_debug {
 	int		fd;
+	t_game	*game;
 }	t_debug;
 
-/**
- * @brief 3D or 2D image
+/*
+ * @brief cordinate of point (int x, int y)
+ *
+ * @note :
+ * map screen
  */
-typedef struct s_img {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-	t_debug	*debug;
-}	t_img;
+typedef struct s_point {
+	int	x;
+	int	y;
+}	t_point;
 
 /**
  * @brief vector
@@ -83,6 +75,89 @@ typedef struct s_vector {
 	double	x;
 	double	y;
 }	t_vector;
+
+/**
+ * @brief 3D or 2D or Texture image
+ */
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	t_debug	debug;
+}	t_img;
+
+/**
+ * @brief texture
+ */
+typedef struct	s_texture
+{
+	t_img	img_tex;
+	int		width;
+	int		height;
+	t_debug	debug;
+}	t_texture;
+// texture[0] ... texture[NORTH]
+// texture[1] ... texture[WEST]
+// texture[2] ... texture[EAST]
+// texture[3] ... texture[SOUTH]
+
+/******************** raycasting *********************************/
+
+/*
+ * @brief raycasting
+ */
+typedef struct s_ray_cast {
+	double		camera_plane_x;
+	t_vector	ray_dir;
+	t_point		grid;
+	t_point		step_dir;
+	t_vector	next_distance;
+	t_vector	delta_distance;
+}	t_ray_cast;
+
+typedef struct s_dda {
+	int			type_of_grid_line;
+	double		perp_wall_dist;
+	int			tex_x;
+	t_texture	texture;
+}	t_dda;
+
+/**
+ * @brief wall slice
+ */
+typedef struct s_wall_slice {
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
+	int	color;
+}	t_wall_slice;
+
+typedef enum	e_enum_key {
+	ENUM_ESC,
+	ENUM_W,
+	ENUM_S,
+	ENUM_A,
+	ENUM_D,
+	ENUM_LEFT,
+	ENUM_RIGHT,
+	ENUM_OTHER
+}	t_enum_key;
+
+/**
+ * @brief keyboard event flag
+ */
+typedef struct	s_keys {
+	int	move_forward;
+	int	move_backward;
+	int	strafe_left;
+	int	strafe_right;
+	int	rotate_left;
+	int	rotate_right;
+}	t_keys;
+
+/******************** main stracture *********************************/
 
 /*
  * @brief ray vector
@@ -100,8 +175,32 @@ typedef struct s_map {
 	int		width;
 	int		height;
 	char	**data;
-	t_debug	*debug;
+	t_debug	debug;
 }	t_map;
+
+typedef enum	e_type_wall {
+	NORTH,
+	WEST,
+	EAST,
+	SOUTH
+}	t_type_wall;
+
+/**
+ * @brief single still image for render_frame
+ */
+typedef struct s_frame {
+	t_ray_cast		ray_cast;
+	t_dda			dda;
+	t_wall_slice	wall_slice;
+	t_player		*player;
+	t_keys			keys;
+	t_map			*map;
+	t_texture		*texture;
+	int				*ceiling_color;
+	int				*floor_color;
+	t_img			*img_3d;
+	t_debug			debug;
+}	t_frame;
 
 /**
  * @brief main game
@@ -112,59 +211,12 @@ typedef struct s_game {
 	t_img		img_3d;
 	t_img		img_2d;
 	t_map		map;
-	t_color		ceiling_color;
-	t_color		floor_color;
+	int			floor_color;
+	int			ceiling_color;
 	t_player	player;
+	t_texture	texture[4];
+	t_frame		frame;
 	t_debug		debug;
 }	t_game;
-
-/******************** raycasting *********************************/
-
-/*
- * @brief cordinate of point (int x, int y)
- *
- * @note :
- * map screen 
- */
-typedef struct s_point {
-	int	x;
-	int	y;
-}	t_point;
-
-/*
- * @brief raycasting
- */
-typedef struct s_ray_cast {
-	double		camera_plane_x;
-	t_vector	ray_dir;
-	t_point		grid;
-	t_point		step_dir;
-	t_vector	next_distance;
-	t_vector	delta_distance;
-}	t_ray_cast;
-
-typedef struct s_dda {
-	int		type_of_grid_line;
-	double	perp_wall_dist;
-}	t_dda;
-
-/**
- * @brief wall slice
- */
-typedef struct s_wall_slice {
-	int	draw_start;
-	int	draw_end;
-	int	color;
-}	t_wall_slice;
-
-typedef struct s_one_shot_3d {
-	t_player		player;
-	t_map			map;
-	t_ray_cast		ray_cast;
-	t_dda			dda;
-	t_wall_slice	wall_slice;
-	t_img			img_3d;
-	t_debug			debug;
-}	t_one_shot_3d;
 
 #endif

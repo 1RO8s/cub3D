@@ -6,25 +6,40 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/23 00:46:35 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:13:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static int	end_game(t_game *game)
+{
+	ft_printf("quit cub3D\n");
+	(void)game;
+	//system("leaks ./cub3D");// does not find leak ... why ?
+	exit(0);
+}
+//	// Nessesary
+//	destroy_n_image(game->mlx, &game->texture.img_tex[0], 4);
+//	free_double_pointer(game->map.data);
+//	mlx_destroy_image(game->mlx, game->img_3d.img);
+//	mlx_destroy_image(game->mlx, game->img_2d.img);
+//	mlx_destroy_window(game->mlx, game->win);
+//	exit (0);
+//
+//	// SEGV
+//	mlx_loop_end(game->mlx);
+//	free(game->mlx); // !!!!
+//	close(game->debug.fd);
+//	return (0);
+
 void	start_game(t_game *game)
 {
-	mlx_loop_hook(game->mlx, (void *)&render_frame, game);
-	//mlx_hook(game->win, 2, 1L<<0, &handle_keypress, game);  // Key press
-	//mlx_hook(game->win, 17, 1L<<17, &handle_exit, game);    // Window close
+	mlx_hook(game->win, 2, 1L << 0, handle_keypress, game);
+	mlx_hook(game->win, 17, 1L << 17, end_game, game);
+	mlx_mouse_hook(game->win, handle_mouse, game);
+	mlx_loop_hook(game->mlx, (void *)render_frame, game);
 	mlx_loop(game->mlx);
-}
-
-void	end_game(t_game *game)
-{
-	// free game(mlx, window, img_3d, img_2d, map.data)
-	if (close(game->debug.fd) == -1)
-		exit(1);
 }
 
 int	main(int argc, char *argv[])
@@ -34,7 +49,6 @@ int	main(int argc, char *argv[])
 	if (init_game(&game, argc, argv) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	start_game(&game);
-	end_game(&game);
 	return (0);
 }
 // ---- before merge : commitID dbb159d ----

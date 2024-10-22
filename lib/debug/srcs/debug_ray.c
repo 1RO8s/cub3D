@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/01 02:45:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/12 02:57:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ static void	debug_grid_and_next_distance(int fd, t_ray_cast ray_cast)
 	dprintf(fd, "\tdelta_distance = [%f]\n", ray_cast.delta_distance.y);
 }
 
-void	debug_ray_cast(t_one_shot_3d *one_shot_3d, const char *msg, int x)
+void	debug_ray_cast(t_frame *frame, const char *msg, int x)
 {
 	int			fd;
 	t_ray_cast	ray_cast;
 
 	if (IS_DEBUG != true)
 		return ;
-	fd = one_shot_3d->debug.fd;
-	ray_cast = one_shot_3d->ray_cast;
+	fd = frame->debug.fd;
+	ray_cast = frame->ray_cast;
 	dprintf(fd, "\n>>> func debug_ray_cast() ... call by '%s' <<<\n", msg);
 	dprintf(fd, "\tx [%d], window_width / 2 [%f]\n", x, (double)IMG_3D_WIDTH);
 	dprintf(fd, "---- ray_cast ----\n");

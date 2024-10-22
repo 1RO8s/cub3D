@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/30 23:39:47 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/12 15:39:21 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,13 @@
 SRCS_DIR = \
 		   ./srcs \
 		   ./srcs/init_utils \
+		   ./srcs/init_utils/parse_cubfile_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
-		   ./srcs/mlx_utils
+		   ./srcs/free_utils \
+		   ./srcs/mlx_utils \
+		   ./srcs/mlx_utils/keypress_utils
 
 OBJ_DIR = objs
 INC_DIR = includes
@@ -37,8 +40,15 @@ SRCS = \
 	   render.c \
 	   \
 	   arg_check.c \
-	   read_map.c \
-	   parse_map.c \
+	   init_mlx_window.c \
+	   init_mlx_image.c \
+	   init_cub_contents.c\
+	   \
+	   init_texture.c \
+	   init_floor_and_ceiling.c \
+	   init_map.c \
+	   is_enable_map.c \
+	   init_player.c \
 	   set_direction.c \
 	   \
 	   draw_2d_player.c \
@@ -52,8 +62,14 @@ SRCS = \
 	   draw_line.c \
 	   init_line.c \
 	   \
-	   my_mlx_pixel_put.c
-	   #arg_check.c debug.c
+	   destroy_texture_image.c \
+	   \
+	   hook_functions.c \
+	   my_mlx_pixel_put.c \
+	   \
+	   move_keys.c \
+	   quit_rotate_invalid_keys.c
+	   #debug.c
 
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -63,7 +79,7 @@ DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBDEBUG = $(LIBDEBUG_DIR)/libdebug.a
-LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX) $(LIBDEBUG)
+LIBS = $(LIBDEBUG) $(LIBFT) $(LIBFTPRINTF) $(LIBMLX)
 
 # Build target
 NAME = cub3D
@@ -223,6 +239,9 @@ define VALGRIND_USAGE
 @echo "       /"
 @echo " __________________________________________________________________________"
 @echo "< Vargrind Usage :                                                         >"
-@echo "<  valgrind --leak-check=full --show-leak-kinds=all ./cub3D map/*.cub      >"
+@echo "<  valgrind --leak-check=full ./cub3D map/*.cub                            >"
+@echo "<  or                                                                      >"
+@echo "<  $$ source config/alias.zsh                                               >"
+@echo "<  $$ leak_check                                                           >"
 @echo "---------------------------------------------------------------------------"
 endef
