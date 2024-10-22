@@ -6,13 +6,13 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/14 21:35:55 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:50:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_ceiling(t_frame *frame, int x, int ceiling_end)
+static void	draw_ceiling(t_frame *frame, int x, int ceiling_end)
 {
 	int	y;
 
@@ -24,7 +24,7 @@ void	draw_ceiling(t_frame *frame, int x, int ceiling_end)
 	}
 }
 
-void	draw_floor(t_frame *frame, int x, int floor_start)
+static void	draw_floor(t_frame *frame, int x, int floor_start)
 {
 	int	y;
 
@@ -69,20 +69,17 @@ void	draw_vertical_line(t_frame *frame, int x)
 	int				tex_x;
 	int				tex_y;
 	int				color;
-	t_wall_slice	wall_slice;
 
 	tex_x = frame->dda.tex_x;
-	wall_slice = (t_wall_slice)frame->wall_slice;
 	if (x < 0 || x >= IMG_3D_WIDTH)
 		return ;
-	if (wall_slice.draw_start < 0)
-		wall_slice.draw_start = 0;
-	if (wall_slice.draw_end >= IMG_3D_HEIGHT)
-		wall_slice.draw_end = IMG_3D_HEIGHT - 1;
-	y = wall_slice.draw_start;
-	draw_ceiling(frame, x, wall_slice.draw_start);
-	y = wall_slice.draw_start;
-	//draw_wall(frame);
+	if (frame->wall_slice.draw_start < 0)
+		frame->wall_slice.draw_start = 0;
+	if (frame->wall_slice.draw_end >= IMG_3D_HEIGHT)
+		frame->wall_slice.draw_end = IMG_3D_HEIGHT - 1;
+	y = frame->wall_slice.draw_start;
+	draw_ceiling(frame, x, y);
+//	printf("line_height[%d]\n", frame->wall_slice.line_height);
 	while (y <= frame->wall_slice.draw_end)
 	{
 		tex_y = get_texture_y_coordinate(frame, y);
@@ -90,5 +87,5 @@ void	draw_vertical_line(t_frame *frame, int x)
 		my_mlx_pixel_put(frame->img_3d, x, y, color);
 		y++;
 	}
-	draw_floor(frame, x, wall_slice.draw_end);
+	draw_floor(frame, x, frame->wall_slice.draw_end);
 }

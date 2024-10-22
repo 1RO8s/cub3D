@@ -6,11 +6,34 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 05:41:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 06:58:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	update_player(t_game *game)
+{
+	static t_moving_player	func[6] = {
+		move_forward, move_backward,
+		strafe_left, strafe_right,
+		rotate_left, rotate_right};
+	int						i;
+	int						bit;
+
+	i = 0;
+	while (i < 6)
+	{
+		bit = 0x01 << i;
+		if (is_hit_flag(game->frame.flag, bit) == true)
+		{
+			//debug_is_hit_flag(game, bit);
+			func[i](&game->map, &game->player);
+		}
+		i++;
+	}
+	game->frame.flag = 0;
+}
 
 /**
  * @brief Draw the 3D perspective
@@ -23,7 +46,8 @@ static void	draw_3d_view(t_frame *frame)
 {
 	int							x;
 	static t_draw_3d_process	func[5] = {
-		init_ray, perform_dda, set_wall_slice, set_texture_x_coordinate,
+		init_ray, perform_dda,
+		set_wall_slice, set_texture_x_coordinate,
 		draw_vertical_line};
 	int							i;
 
@@ -58,10 +82,13 @@ static void	draw_2d_map(t_game *game)
  */
 void	render_frame(t_game *game)
 {
+	update_player(game);
 	debug_frame(game, "render_frame()");
 	draw_3d_view(&game->frame);
-	draw_2d_map(game);
+	if (DISABLE_2D_MAP == true)
+		draw_2d_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img_3d.img, 0, 0);
-	mlx_put_image_to_window(
-		game->mlx, game->win, game->img_2d.img, IMG_3D_WIDTH, 0);
+	if (DISABLE_2D_MAP == true)
+		mlx_put_image_to_window(
+			game->mlx, game->win, game->img_2d.img, IMG_3D_WIDTH, 0);
 }

@@ -1,11 +1,17 @@
 # Cub3D current progress
 ...
 
-Commit ID: [2483bcf](https://github.com/1RO8s/cub3D/commit/2483bcf)
+Commit ID: [782038c](https://github.com/1RO8s/cub3D/commit/782038c)
 
-10/14 by kamitsui
+10/17 by kamitsui
 
 ...
+
+---
+1017 feat/move_and_rotate
+
+Add move_and_strafe.c rotate.c in srcs/update_utils
+![game_image](movie/20241017/first_behavior.gif)
 
 ---
 1014 bugfix/texture

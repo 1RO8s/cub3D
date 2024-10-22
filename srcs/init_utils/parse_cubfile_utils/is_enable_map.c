@@ -6,7 +6,7 @@
 /*   By: kamitsui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/09 02:16:03 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:29:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static char	*find_next_content(char *contents)
 	}
 	return (line);
 }
-// behavior of line(NULL or "\n" or "exist_line"
+// behavior about each of line type ( NULL or "\n" or "exist_next_line" )
 // NULL : next line is empty
-// "\n" : continue call get_next_line
-// "exist_line" : return line
+// "\n" : repeat to call get_next_line
+// "exist_next_line" : return line
 
 bool	is_last_element(char *map_content)
 {
@@ -61,14 +61,13 @@ bool	is_enable_map(char *map_content)
 {
 	if (is_last_element(map_content) == false)
 		return (false);
-// Unfinish to impliment the below ...
 //	if (is_closed_map() == false)
 //		return (false);
 //	if (is_other_invalid() == false)
 //		return (false);
 	return (true);
 }
-// Nessesary ??
+// Nessesary ?? ... because it checked with is_last_element()
 //bool	is_enable_map(char *file_contents, char *map_content)
 //{
 //	char	*key[6] = {"NO", "SO", "WE", "EA", "F", "C"};

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/14 21:05:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:21:44 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_line {
 
 /******************** common *********************************/
 
-typedef struct	s_game	t_game;
+typedef struct s_game	t_game;
 /**
  * @brief debug info
  */
@@ -91,8 +91,7 @@ typedef struct s_img {
 /**
  * @brief texture
  */
-typedef struct	s_texture
-{
+typedef struct s_texture {
 	t_img	img_tex;
 	int		width;
 	int		height;
@@ -134,7 +133,7 @@ typedef struct s_wall_slice {
 	int	color;
 }	t_wall_slice;
 
-typedef enum	e_enum_key {
+typedef enum e_enum_key {
 	ENUM_ESC,
 	ENUM_W,
 	ENUM_S,
@@ -148,7 +147,7 @@ typedef enum	e_enum_key {
 /**
  * @brief keyboard event flag
  */
-typedef struct	s_keys {
+typedef struct s_keys {
 	int	move_forward;
 	int	move_backward;
 	int	strafe_left;
@@ -166,6 +165,8 @@ typedef struct s_player {
 	t_vector	view_point;
 	t_vector	ray_dir;
 	t_vector	camera_forcal_plane;
+	double		move_speed;
+	double		rotate_speed;
 }	t_player;
 
 /**
@@ -178,7 +179,7 @@ typedef struct s_map {
 	t_debug	debug;
 }	t_map;
 
-typedef enum	e_type_wall {
+typedef enum e_type_wall {
 	NORTH,
 	WEST,
 	EAST,
@@ -193,7 +194,7 @@ typedef struct s_frame {
 	t_dda			dda;
 	t_wall_slice	wall_slice;
 	t_player		*player;
-	t_keys			keys;
+	int				flag;
 	t_map			*map;
 	t_texture		*texture;
 	int				*ceiling_color;

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 05:39:25 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:24:23 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	init_player(t_map *map, t_player *player)
 		}
 		grid.y++;
 	}
+	player->move_speed = MOVE_SPEED;
+	player->rotate_speed = ROTATE_SPEED;
 	debug_map_data(*map, "parse_map() after");
 	return (EXIT_SUCCESS);
 }

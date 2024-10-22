@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 13:13:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 02:43:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	end_game(t_game *game)
 {
 	ft_printf("quit cub3D\n");
 	(void)game;
-	//system("leaks ./cub3D");// does not find leak ... why ?
+	//system("leaks ./cub3D");// does not call leaks command ... why ?
 	exit(0);
 }
 //	// Nessesary
@@ -35,7 +35,7 @@ static int	end_game(t_game *game)
 
 void	start_game(t_game *game)
 {
-	mlx_hook(game->win, 2, 1L << 0, handle_keypress, game);
+	mlx_hook(game->win, 2, 1L << 0, handle_key_press, game);
 	mlx_hook(game->win, 17, 1L << 17, end_game, game);
 	mlx_mouse_hook(game->win, handle_mouse, game);
 	mlx_loop_hook(game->mlx, (void *)render_frame, game);

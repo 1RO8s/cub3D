@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/14 02:07:59 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/18 05:24:39 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 char	*get_value_from_file_contents(char *file_contents, const char *key)
 {
 	char	*line;
+	char	*value;
 
-	line = get_element_line(file_contents, (char *)key);// leak check ??
+	line = get_element_line(file_contents, (char *)key);
 	if (line == NULL)
 		return (NULL);
-	return (extract_value(line, (char *)key));// leak check ??
+	value = extract_value(line, (char *)key);
+	return (value);
 }
+// line is freed in extract_value()
 
 static int	get_image_from_xpm_file(
 		void *mlx, char *file_name, t_texture *texture, int i)
@@ -38,24 +41,17 @@ static int	get_image_from_xpm_file(
 	return (EXIT_SUCCESS);
 }
 
-// for debug
-//#define TEST_NO "./texture/planks.xpm"
-//#define TEST_SO "./texture/planks.xpm"
-//#define TEST_WE "./texture/planks.xpm"
-//#define TEST_EA "./texture/planks.xpm"
-
 static int	get_texture_images(
 		void *mlx, t_texture *texture, char *file_contents)
 {
 	const char	*key[4] = {"NO", "WE", "EA", "SO"};
 	int			i;
 	char		*xpm_file_name;
-	//static char	*test_textures[4] = {TEST_NO, TEST_SO, TEST_WE, TEST_EA};//debug
 
 	i = 0;
 	while (i < 4)
 	{
-		xpm_file_name = get_value_from_file_contents(file_contents, key[i]);// leak check??
+		xpm_file_name = get_value_from_file_contents(file_contents, key[i]);
 		if (xpm_file_name == NULL)
 		{
 			destroy_texture_image(mlx, texture, i);
@@ -69,13 +65,6 @@ static int	get_texture_images(
 	}
 	return (EXIT_SUCCESS);
 }
-// reference type_cub3d.h
-//typedef enum	e_type_wall {
-//	NORTH,
-//	WEST,
-//	EAST,
-//	SOUTH
-//}	t_type_wall;
 
 static int	enable_texture_image(t_texture *texture)
 {
