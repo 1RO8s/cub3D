@@ -18,6 +18,7 @@
 !*.zip
 !*.tgz
 !*.dox
+!*.zsh
 !Dockerfile
 !doxygen-awesome-css
 !Doxyfile
