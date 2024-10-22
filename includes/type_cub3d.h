@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/19 14:45:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:24:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,20 @@ typedef struct s_texture {
 // texture[1] ... texture[WEST]
 // texture[2] ... texture[EAST]
 // texture[3] ... texture[SOUTH]
+
+/******************** parse *********************************/
+
+typedef struct s_parse {
+	int		flag;
+	t_game	*game;
+}	t_parse;
+
+typedef enum {
+	ENUM_TEX,
+	ENUM_FC,
+	ENUM_MAP,
+	ENUM_ELEMENT_ERR
+}	t_enum_element;
 
 /******************** raycasting *********************************/
 

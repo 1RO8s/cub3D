@@ -6,24 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/20 02:22:46 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:01:13 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static char	*get_next_line(char *contents)
-{
-	char	*line;
-
-	line = ft_strchr(contents, '\n');
-	if (line == NULL)
-		return (NULL);
-	line++;
-	if (*line == '\0')
-		return (NULL);
-	return (line);
-}
 
 static char	*find_next_content(char *contents)
 {
@@ -34,7 +21,7 @@ static char	*find_next_content(char *contents)
 	line = contents;
 	while (line != NULL)
 	{
-		line = get_next_line(line);
+		line = find_next_line(line);
 		if (line == NULL)
 			return (NULL);
 		if (*line == '\n')

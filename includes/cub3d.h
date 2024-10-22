@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/20 02:57:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:01:44 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ int			convert2color(char *rgb);
 char		**convert_str2array(char *str_map);
 void		free_double_pointer(char **array);
 
+
+typedef int	(*t_parse_element)(const char *, t_parse *);
+int	parse_tex(const char *line, t_parse *parse);
+int	parse_fc(const char *line, t_parse *parse);
+int	parse_map(const char *line, t_parse *parse);
+char	*find_next_line(const char *contents);
+
+t_enum_element	get_type_element(const char *line);
 // parse_cubefile_utils
 int			init_texture(void *mlx, t_texture *texture, char *file_contents);
 char		*get_value_from_file_contents(char *file_contents, const char *key);
