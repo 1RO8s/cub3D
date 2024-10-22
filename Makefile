@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/22 16:26:28 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/22 18:24:02 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS = \
 	   \
 	   get_type_element.c \
 	   find_next_line.c \
+	   find_next_element.c \
 	   init_texture.c \
 	   init_floor_and_ceiling.c \
 	   init_map.c \

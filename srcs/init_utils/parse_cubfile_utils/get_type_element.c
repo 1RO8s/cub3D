@@ -36,22 +36,27 @@ static bool	is_map_element(const char *str)
 	size_t		i;
 	size_t		len;
 
+	if (*str == '\n')
+		return (false);
 	len = ft_strlen(identifier);
 	while (*str != '\n')
 	{
+		printf("[%c]", *str);
 		i = 0;
 		while (i < len)
 		{
-			if (ft_strncmp(str, identifier + i, (size_t)1) != 0)
-				return (false);
+			if (ft_strncmp(str, identifier + i, (size_t)1) == 0)
+				break ;
 			i++;
 		}
+		if (i == len)
+			return (false);
 		str++;
 	}
 	return (true);
 }
 
-t_enum_element	get_type_element(const char *line)
+t_enum_elem	get_type_element(const char *line)
 {
 	if (is_texture_element(line) == true)
 		return (ENUM_TEX);

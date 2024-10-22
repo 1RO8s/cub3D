@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/22 16:01:44 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:32:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,16 @@ char		**convert_str2array(char *str_map);
 void		free_double_pointer(char **array);
 
 
-typedef int	(*t_parse_element)(const char *, t_parse *);
-int	parse_tex(const char *line, t_parse *parse);
-int	parse_fc(const char *line, t_parse *parse);
-int	parse_map(const char *line, t_parse *parse);
-char	*find_next_line(const char *contents);
-
-t_enum_element	get_type_element(const char *line);
 // parse_cubefile_utils
+t_enum_elem	get_type_element(const char *line);
+const char	*find_next_element(const char *line);
+char		*find_next_line(const char *contents);
+
+typedef int	(*t_parse_element)(const char *, t_parse *);
+int			parse_tex(const char *line, t_parse *parse);
+int			parse_fc(const char *line, t_parse *parse);
+int			parse_map(const char *line, t_parse *parse);
+
 int			init_texture(void *mlx, t_texture *texture, char *file_contents);
 char		*get_value_from_file_contents(char *file_contents, const char *key);
 int			init_floor_and_ceiling(t_game *game, char *file_contents);
@@ -121,7 +123,7 @@ t_type_wall	get_texture_direction(int type_of_grid_line, t_vector ray_dir);
 //}	t_type_wall;
 
 // draw_vertical_line utils
-int	get_texture_y_coordinate(t_frame *frame, int y);
+int			get_texture_y_coordinate(t_frame *frame, int y);
 
 // 2D
 void		draw_2d_wall(t_map *map, t_img *img_2d);

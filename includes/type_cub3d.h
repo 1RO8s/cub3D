@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/22 16:24:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:26:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef enum {
 	ENUM_FC,
 	ENUM_MAP,
 	ENUM_ELEMENT_ERR
-}	t_enum_element;
+}	t_enum_elem;
 
 /******************** raycasting *********************************/
 

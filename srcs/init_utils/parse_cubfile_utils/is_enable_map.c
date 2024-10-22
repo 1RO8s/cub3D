@@ -6,47 +6,23 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/22 16:01:13 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:53:54 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*find_next_content(char *contents)
+static bool	is_final_element(char *map_content)
 {
-	char	*line;
-	bool	is_empty_line;
+	const char	*next_content;
 
-	is_empty_line = false;
-	line = contents;
-	while (line != NULL)
-	{
-		line = find_next_line(line);
-		if (line == NULL)
-			return (NULL);
-		if (*line == '\n')
-			is_empty_line = true;
-		if (is_empty_line == true && *line != '\n')
-			break ;
-	}
-	return (line);
-}
-// behavior about each of line type ( NULL or "\n" or "exist_next_line" )
-// NULL : next line is empty
-// "\n" : repeat to call get_next_line
-// "exist_next_line" : return line
-
-bool	is_last_element(char *map_content)
-{
-	char	*next_content;
-
-	next_content = find_next_content(map_content);
+	next_content = find_next_element(map_content);
 	return (next_content == NULL);
 }
 
 bool	is_enable_map(char *map_content)
 {
-	if (is_last_element(map_content) == false)
+	if (is_final_element(map_content) == false)
 		return (false);
 //	if (is_closed_map() == false)
 //		return (false);
