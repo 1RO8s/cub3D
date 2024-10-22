@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:57:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/18 06:58:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:35:00 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ static void	update_player(t_game *game)
 	{
 		bit = 0x01 << i;
 		if (is_hit_flag(game->frame.flag, bit) == true)
-		{
-			//debug_is_hit_flag(game, bit);
 			func[i](&game->map, &game->player);
-		}
 		i++;
 	}
+	debug_moved_player(game);
 	game->frame.flag = 0;
 }
+// debug_is_hit_flag(game, bit);// call this if is_hit_flag() == true
 
 /**
  * @brief Draw the 3D perspective

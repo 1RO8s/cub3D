@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/18 23:50:38 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:57:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,24 @@ static int	get_color_texture_pixel(t_frame *frame, int tex_x, int tex_y)
 	return (color);
 }
 
-static int	get_texture_y_coordinate(t_frame *frame, int y)
+int	get_texture_y_coordinate(t_frame *frame, int y)
 {
-	int	d;
-	int	line_height;
-	int	tex_height;
+	int64_t	d;
+	int64_t	line_height;
+	int64_t	tex_height;
+	int64_t	tex_y;
 
 	line_height = frame->wall_slice.line_height;
 	tex_height = frame->dda.texture.height;
 	d = (y * 256) - (IMG_3D_HEIGHT * 128) + (line_height * 128);
-	return (((d * tex_height) / line_height) / 256);
+	if (d < 0)
+		d = 0;
+	tex_y = ((d * tex_height) / line_height) / 256;
+	if (tex_y < 0)
+		tex_y = 0;
+	if (tex_y > tex_height)
+		tex_y = tex_height;
+	return (tex_y);
 }
 
 /**
@@ -79,7 +87,7 @@ void	draw_vertical_line(t_frame *frame, int x)
 		frame->wall_slice.draw_end = IMG_3D_HEIGHT - 1;
 	y = frame->wall_slice.draw_start;
 	draw_ceiling(frame, x, y);
-//	printf("line_height[%d]\n", frame->wall_slice.line_height);
+	debug_texture_y_coordinate_overflow(frame, y);
 	while (y <= frame->wall_slice.draw_end)
 	{
 		tex_y = get_texture_y_coordinate(frame, y);
