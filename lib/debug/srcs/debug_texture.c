@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/14 02:03:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:15:53 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ void	debug_texture_coordinate(int fd, double wall_x, t_frame *frame,
 //	SOUTH
 //}	t_type_wall;
 
-void	debug_texture(char *xpm_file_name, t_texture texture,
-			int i, const char *msg)
+void	debug_texture(char *file, t_texture texture,
+			const char *msg)
 {
-	const char	*key[4] = {"NO", "SO", "WE", "EA"};
 	int			fd;
+	static	int	count = 0;
 
 	if (IS_DEBUG != true)
 		return ;
 	fd = texture.debug.fd;
-	if (i == 0)
+	if (count == 0)
 		dprintf(fd,
-			"\n\n>>> func debug_texture_image() ... call by '%s' <<<\n", msg);
-	dprintf(fd, "---- [%s] ... [%s] ----\n", key[i], xpm_file_name);
+			"\n\n>>> func debug_texture() ... call by '%s' <<<\n", msg);
+	dprintf(fd, "---- [%d] ... [%s] ----\n", count, file);
 	dprintf(fd, "\timg_tex.img = %p\n", texture.img_tex.img);
 	dprintf(fd, "\twidth = %d\n", texture.width);
 	dprintf(fd, "\theight = %d\n", texture.height);

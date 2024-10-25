@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/22 18:24:02 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/25 21:55:30 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SRCS = \
 	   init_mlx_window.c \
 	   init_mlx_image.c \
 	   init_cub_contents.c\
+	   \
+	   parse_tex.c \
 	   \
 	   get_type_element.c \
 	   find_next_line.c \

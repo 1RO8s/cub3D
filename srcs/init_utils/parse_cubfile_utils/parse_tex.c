@@ -5,11 +5,11 @@ bool	is_key_line(const char *line, const char *key)
 	size_t	len;
 
 	len = ft_strlen(key);
-	return (ft_strncmp(line, key[i], len) == 0);
+	return (ft_strncmp(line, key, len) == 0);
 }
 
 static int	get_texture_image(
-		void *mlx, char *file_line, t_texture *texture, int i)
+		void *mlx, const char *file_line, t_texture *texture)
 {
 	char	*file;
 	size_t	len;
@@ -21,11 +21,9 @@ static int	get_texture_image(
 	if (texture->img_tex.img == NULL)
 	{
 		free(file);
-		//destroy_texture_image(mlx, texture, i);
 		return (EXIT_FAILURE);
 	}
-	debug_texture(file, texture[i], i,
-		"after mlx_xpm_file_to_image");
+	debug_texture(file, *texture, "get_texture_image()");
 	return (EXIT_SUCCESS);
 }
 
@@ -48,7 +46,7 @@ int	parse_tex(const char *line, t_parse *parse)
 				i++;
 				continue ;
 			}
-			if (get_texture_image(mlx, &line[3], texture[i]) != EXIT_SUCCESS)
+			if (get_texture_image(mlx, &line[3], &texture[i]) != EXIT_SUCCESS)
 			{
 				destroy_texture_image(mlx, texture, i);
 				return (EXIT_FAILURE);
@@ -58,5 +56,19 @@ int	parse_tex(const char *line, t_parse *parse)
 		find_next_line(line);
 	}
 	// get_texture_addr();
+	exit(0);//debug
+	return (EXIT_SUCCESS);
+}
+
+int	parse_fc(const char *line, t_parse *parse)
+{
+	(void)line;
+	(void)parse;
+	return (EXIT_SUCCESS);
+}
+int	parse_map(const char *line, t_parse *parse)
+{
+	(void)line;
+	(void)parse;
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/25 19:51:06 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:21:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	debug_element_type(int fd, const char *str)
 static int	parse_cubfile(t_game *game, const char *element)
 {
 	t_parse			parse;
-	//t_parse_element	func[3] = {parse_tex, parse_fc, parse_map};
+	t_parse_elem	func[3] = {parse_tex, parse_fc, parse_map};
 	t_enum_elem		type;
 
 	parse.flag = 0x00;
@@ -65,11 +65,11 @@ static int	parse_cubfile(t_game *game, const char *element)
 			ft_dprintf(STDERR_FILENO, "Error: cub file\n");
 			return (EXIT_FAILURE);
 		}
-		//if (func[type](&parse, element) != EXIT_SUCCESS)
-		//	return (EXIT_FAILURE);
+		if (func[type](element, &parse) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
 		element = find_next_element(element);
 	}
-	exit(0);
+	exit(0);// debug
 	(void)init_frame;// remove
 	return (EXIT_SUCCESS);
 }

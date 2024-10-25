@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:21:58 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/18 05:24:39 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:17:06 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static int	get_image_from_xpm_file(
 		destroy_texture_image(mlx, texture, i);
 		return (EXIT_FAILURE);
 	}
-	debug_texture(file_name, texture[i], i,
-		"after mlx_xpm_file_to_image");
+//	debug_texture(file_name, texture[i], i,
+//		"after mlx_xpm_file_to_image");
 	return (EXIT_SUCCESS);
 }
 

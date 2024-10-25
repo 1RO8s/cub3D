@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/23 00:36:07 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:16:10 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 // initialize game
 int		init_debug_info(t_game *game);
-void	debug_texture(char *xpm_file_name, t_texture texture,
-			int i, const char *msg);
+void	debug_texture(char *file, t_texture texture,
+			const char *msg);
 void	debug_img_tex(int fd, t_img img, int i, const char *msg);
 
 // render frame
