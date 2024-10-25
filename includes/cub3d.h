@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/25 20:09:35 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:01:50 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define IMG_3D_HEIGHT WIN_HEIGHT
 # define IMG_2D_WIDTH 512
 # define IMG_2D_HEIGHT WIN_HEIGHT
-# define DISABLE_2D_MAP false
+# define DISABLE_2D_MAP 0
 
 // Cub3d color
 # define COLOR_GREY 0xAAAAAA
@@ -83,11 +83,11 @@ int			convert2color(char *rgb);
 char		**convert_str2array(char *str_map);
 void		free_double_pointer(char **array);
 
-
 // parse_cubefile_utils
 t_enum_elem	get_type_element(const char *line);
 const char	*find_next_element(const char *line);
 char		*find_next_line(const char *contents);
+void		init_tex_keys(const char *keys[], int size);
 
 typedef int	(*t_parse_elem)(const char *, t_parse *);
 int			parse_tex(const char *line, t_parse *parse);
@@ -100,6 +100,15 @@ int			init_floor_and_ceiling(t_game *game, char *file_contents);
 int			init_map(t_map *map, char *file_contents);
 int			init_player(t_map *map, t_player *player);
 int			set_direction(char direction, t_player *player);
+
+// parse flag
+# define BIT_NORTH	0x01	// 0000 0001
+# define BIT_WEST	0x02	// 0000 0010
+# define BIT_EAST	0x04	// 0000 0100
+# define BIT_SOUTH	0x08	// 0000 1000
+# define BIT_F		0x10	// 0001 0000
+# define BIT_C		0x20	// 0010 0000
+# define BIT_MAP	0x40	// 0100 0000
 
 // init_map.c
 bool		is_enable_map(char *map_content);

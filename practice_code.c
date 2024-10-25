@@ -3,38 +3,67 @@
 #include <stdio.h>
 #include <string.h>
 
-// ------------------ minilibX exist leak bug ------------------
-// cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
-// valgrind --leak-check=full --show-leak-kinds=all ./a.out
-#include <mlx.h>
-
-typedef struct s_game {
-	void	*mlx;
-	void	*win;
-}	t_game;
-
-static int	end_game(t_game *game)
+void	init_keys(const char *keys[], int size)
 {
-	printf("quit Example\n");
-	mlx_destroy_window(game->mlx, game->win);// still reachable: 62 blocks -> 60 blocks
-	free(game->mlx);// still reachable: 60 blocks -> 59 blocks
-	exit(0);
+	int					i;
+	static const char	*defaults[] = {
+		"NO ", "WE ", "EA ", "SO "};
+
+	i = 0;
+	while (i < size)
+	{
+		keys[i] = defaults[i];
+		i++;
+	}
 }
 
 int	main(void)
 {
-	t_game	game;
+	int			i;
+	const char	*key[4];
 
-	game.mlx = mlx_init();
-	if (game.mlx == NULL)
-	    return 1;
-	game.win = mlx_new_window(game.mlx, 1024, 512, "Example");
-	if (game.win == NULL)
-	    return 1;
-	mlx_hook(game.win, 17, 1L << 17, end_game, &game);
-	mlx_loop(game.mlx);
+	init_keys(key, 4);
+	i = 0;
+	while (i < 4)
+	{
+		printf("%s\n", key[i]);
+		i++;
+	}
 	return (0);
 }
+
+// ------------------ minilibX exist leak bug ------------------
+// cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
+// valgrind --leak-check=full --show-leak-kinds=all ./a.out
+//#include <mlx.h>
+//
+//typedef struct s_game {
+//	void	*mlx;
+//	void	*win;
+//}	t_game;
+//
+//static int	end_game(t_game *game)
+//{
+//	printf("quit Example\n");
+//	mlx_destroy_window(game->mlx, game->win);// still reachable: 62 blocks -> 60 blocks
+//	free(game->mlx);// still reachable: 60 blocks -> 59 blocks
+//	exit(0);
+//}
+//
+//int	main(void)
+//{
+//	t_game	game;
+//
+//	game.mlx = mlx_init();
+//	if (game.mlx == NULL)
+//	    return 1;
+//	game.win = mlx_new_window(game.mlx, 1024, 512, "Example");
+//	if (game.win == NULL)
+//	    return 1;
+//	mlx_hook(game.win, 17, 1L << 17, end_game, &game);
+//	mlx_loop(game.mlx);
+//	return (0);
+//}
 // ------------------ leak check ------------------ extract_value() OK
 // compile macOS
 //  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g

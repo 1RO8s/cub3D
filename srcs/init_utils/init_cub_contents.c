@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/25 22:21:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:40:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,21 @@ static void	init_frame(t_game *game)
 	frame->flag = 0;
 }
 
-void	debug_element_type(int fd, const char *str)
+void	debug_element_type(int fd, const char *str, const char *msg)
 {
 	t_enum_elem	type;
 	static int	count = 0;
 
 	if (IS_DEBUG == false)
 		return ;
-	if (count == 0)
-	{
-		dprintf(fd, ">> file_contents\n");
-		dprintf(fd, "----------\n%s----------\n", str);
-		dprintf(fd, "type tex[%d] fc[%d] map[%d] err[%d]\n",
-				(int)ENUM_TEX, (int)ENUM_FC, (int)ENUM_MAP, (int)ENUM_ELEMENT_ERR);//debug
-	}
+	dprintf(fd,
+		"\n\n>>> func debug_element_type() ... call by '%s' <<<\n", msg);
 	type = get_type_element(str);
-	dprintf(fd, "\tNo.%d element type [%d] first_char[%c]%p\n", count, (int)type, *str, str);
+	dprintf(fd, "\tNo.%d first_char[%c]%p\n", count, *str, str);
+	dprintf(fd, "\telement type [%d] ... tex[%d] fc[%d] map[%d] err[%d]\n",
+			(int)type, (int)ENUM_TEX, (int)ENUM_FC, (int)ENUM_MAP, (int)ENUM_ELEMENT_ERR);//debug
+	dprintf(fd, "\t---- current element ----\n");
+	dprintf(fd, "%s\t-------------------------\n", str);
 	count++;
 }
 
@@ -59,7 +58,7 @@ static int	parse_cubfile(t_game *game, const char *element)
 	while (element != NULL)
 	{
 		type = get_type_element(element);
-		debug_element_type(game->debug.fd, element);
+		debug_element_type(game->debug.fd, element, "parse_cubfile()");
 		if (type == ENUM_ELEMENT_ERR)
 		{
 			ft_dprintf(STDERR_FILENO, "Error: cub file\n");

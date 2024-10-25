@@ -1,14 +1,31 @@
 #include "cub3d.h"
 
+void	init_tex_keys(const char *keys[], int size)
+{
+	int					i;
+	static const char	*defaults[] = {
+		"NO ", "WE ", "EA ", "SO "};
+
+	i = 0;
+	while (i < size)
+	{
+		keys[i] = defaults[i];
+		i++;
+	}
+}
+
 static bool	is_texture_element(const char *str)
 {
-	const char	*identifier[4] = {"NO ", "SO ", "WE ", "EA "};
+	const char	*identifier[4];
 	size_t		i;
+	size_t		len;
 
+	init_tex_keys(identifier, 4);
 	i = 0;
 	while (i < 4)
 	{
-		if (ft_strncmp(str, identifier[i], (size_t)3) == 0)
+		len = ft_strlen(identifier[i]);
+		if (ft_strncmp(str, identifier[i], len) == 0)
 			return (true);
 		i++;
 	}
@@ -19,11 +36,13 @@ static bool	is_floor_ceiling_element(const char *str)
 {
 	const char	*identifier[2] = {"F ", "C "};
 	size_t		i;
+	size_t		len;
 
 	i = 0;
 	while (i < 2)
 	{
-		if (ft_strncmp(str, identifier[i], (size_t)2) == 0)
+		len = ft_strlen(identifier[i]);
+		if (ft_strncmp(str, identifier[i], len) == 0)
 			return (true);
 		i++;
 	}

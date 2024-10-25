@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/25 22:15:53 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:29:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	debug_texture(char *file, t_texture texture,
 	dprintf(fd, "\timg_tex.img = %p\n", texture.img_tex.img);
 	dprintf(fd, "\twidth = %d\n", texture.width);
 	dprintf(fd, "\theight = %d\n", texture.height);
+	count++;
 }
 //typedef struct	s_texture
 //{
@@ -72,8 +73,9 @@ void	debug_texture(char *file, t_texture texture,
 
 void	debug_img_tex(int fd, t_img img, int i, const char *msg)
 {
-	const char	*key[4] = {"NO", "SO", "WE", "EA"};
+	const char	*key[4];
 
+	init_tex_keys(key, 4);
 	if (IS_DEBUG != true)
 		return ;
 	if (i == 0)
