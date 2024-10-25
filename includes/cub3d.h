@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/22 18:32:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:09:35 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_enum_elem	get_type_element(const char *line);
 const char	*find_next_element(const char *line);
 char		*find_next_line(const char *contents);
 
-typedef int	(*t_parse_element)(const char *, t_parse *);
+typedef int	(*t_parse_elem)(const char *, t_parse *);
 int			parse_tex(const char *line, t_parse *parse);
 int			parse_fc(const char *line, t_parse *parse);
 int			parse_map(const char *line, t_parse *parse);

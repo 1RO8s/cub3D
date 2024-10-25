@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/23 00:35:34 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/25 19:51:06 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	debug_element_type(int fd, const char *str)
 				(int)ENUM_TEX, (int)ENUM_FC, (int)ENUM_MAP, (int)ENUM_ELEMENT_ERR);//debug
 	}
 	type = get_type_element(str);
-	dprintf(fd, "\telement type [%d] first_char[%c]%p\n", (int)type, *str, str);
+	dprintf(fd, "\tNo.%d element type [%d] first_char[%c]%p\n", count, (int)type, *str, str);
 	count++;
 }
 
@@ -60,16 +60,14 @@ static int	parse_cubfile(t_game *game, const char *element)
 	{
 		type = get_type_element(element);
 		debug_element_type(game->debug.fd, element);
-		//if (type == ENUM_ELEMENT_ERR)
-		//{
-		//	ft_dprintf(STDERR_FILENO, "Error: cub file\n");
-		//	//ft_dprintf(STDERR_FILENO, "line[%zu]: %10s", row, element);// refactor '\n'
-		//	return (EXIT_FAILURE);
-		//}
-		//if (func[type](element, &parse) != EXIT_SUCCESS)
+		if (type == ENUM_ELEMENT_ERR)
+		{
+			ft_dprintf(STDERR_FILENO, "Error: cub file\n");
+			return (EXIT_FAILURE);
+		}
+		//if (func[type](&parse, element) != EXIT_SUCCESS)
 		//	return (EXIT_FAILURE);
 		element = find_next_element(element);
-		//row++;
 	}
 	exit(0);
 	(void)init_frame;// remove

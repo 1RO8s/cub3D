@@ -8,8 +8,7 @@ char	*find_next_line(const char *contents)
 	if (line == NULL)
 		return (NULL);
 	line++;
-// ??
-//	if (*line == '\0')
-//		return (NULL);
+	if (*line == '\0')
+		return (NULL);
 	return (line);
 }
