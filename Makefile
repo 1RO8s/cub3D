@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/25 21:55:30 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/10/28 04:08:38 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,12 @@ SRCS = \
 	   init_cub_contents.c\
 	   \
 	   parse_tex.c \
+	   parse_fc.c \
 	   \
 	   get_type_element.c \
 	   find_next_line.c \
 	   find_next_element.c \
 	   init_texture.c \
-	   init_floor_and_ceiling.c \
 	   init_map.c \
 	   is_enable_map.c \
 	   init_player.c \
