@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_floor_and_ceiling.c                           :+:      :+:    :+:   */
+/*   parse_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/28 03:56:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/28 05:49:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,15 @@ int	get_rgb_color(char *str)
 	return (color);
 }
 
+void	debug_parse_fc(int fd, int	color[2], const char *msg)
+{
+	if (IS_DEBUG != true)
+		return ;
+	ft_dprintf(fd, ">>> func debug_get_rgb_color <<< ... call by %s\n", msg);
+	ft_dprintf(fd, "\tF color[%x]\n", color[0]);
+	ft_dprintf(fd, "\tC color[%x]\n", color[1]);
+}
+
 int	parse_fc(const char *line, t_parse *parse)
 {
 	const char	*key[2] = {"F ", "C "};
@@ -150,8 +159,7 @@ int	parse_fc(const char *line, t_parse *parse)
 		}
 		line = find_next_line(line);
 	}
-	printf("\tF color[%x]\n", color[0]);
-	printf("\tC color[%x]\n", color[1]);
+	debug_parse_fc(parse->game->debug.fd, color, "parse_fc()");
 	if (color[0] == -1 || color[1] == -1)
 	{
 		// print error msg

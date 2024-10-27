@@ -124,7 +124,6 @@ int	parse_tex(const char *line, t_parse *parse)
 	texture = parse->game->texture;
 	if (create_texture_images(line, parse) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	printf("parse end\n");
 	if (get_textures_addr(texture) != EXIT_SUCCESS)
 	{
 		destroy_texture_image(mlx, texture, 4);

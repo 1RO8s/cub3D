@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/25 22:16:10 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/28 05:39:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "type_cub3d.h"
 
 # define LOG_FILE "debug.log"
-# define IS_DEBUG true
+# define IS_DEBUG false
 # define DEBUG_COLOR "\n\x1B[100m\x1B[37m"
 # define RESET_COLOR "\x1B[0m\n"
 

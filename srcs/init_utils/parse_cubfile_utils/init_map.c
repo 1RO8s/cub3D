@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/28 04:20:59 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/28 05:51:26 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,18 @@ int	init_map(t_map *map, char *file_contents)
 
 int	parse_map(const char *line, t_parse *parse)
 {
-	printf("line[%s]\n", line);
+	//printf("line[%s]\n", line);
 	const char	*eof;
 	eof = find_next_element(line);
-	printf("eof[%p]\n", eof);
+	//printf("eof[%p]\n", eof);
 	if (eof != NULL)
 	{
 		// Error: map is not the last
 		return (EXIT_FAILURE);
 	}
 	if (set_map_data(&parse->game->map, line) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if (init_player(&parse->game->map, &parse->game->player) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
