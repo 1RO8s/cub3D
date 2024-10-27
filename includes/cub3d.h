@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/26 00:01:50 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/27 11:07:05 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // -------------- include ---------------
 // project specific header files
 # include "type_cub3d.h"
+# include "error_cub3d.h"
 # include <mlx.h>
 
 // own libraries
@@ -100,6 +101,8 @@ int			init_floor_and_ceiling(t_game *game, char *file_contents);
 int			init_map(t_map *map, char *file_contents);
 int			init_player(t_map *map, t_player *player);
 int			set_direction(char direction, t_player *player);
+
+char		strdup_until_nl(const char *line);
 
 // parse flag
 # define BIT_NORTH	0x01	// 0000 0001

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/26 00:40:09 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/26 13:32:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	parse_cubfile(t_game *game, const char *element)
 		element = find_next_element(element);
 	}
 	exit(0);// debug
-	(void)init_frame;// remove
+	init_frame(game);
 	return (EXIT_SUCCESS);
 }
 // Before branch <parse/cub_file>

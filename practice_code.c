@@ -3,34 +3,94 @@
 #include <stdio.h>
 #include <string.h>
 
-void	init_keys(const char *keys[], int size)
-{
-	int					i;
-	static const char	*defaults[] = {
-		"NO ", "WE ", "EA ", "SO "};
+// --------------- split vs strtok ----------------------
+#define STR "hello\n\n42tokyo\n"
+#include "libft.h"
+// cc -Ilib/libft practice_code.c lib/libft/libft.a
 
+int	call_split(char *str)
+{
+	int		i;
+	char	**array;
+	array = ft_split(str, '\n');
+
+	printf("----- split -----\n");
+	printf("%s", str);
+	printf("----------\n");
 	i = 0;
-	while (i < size)
+	while (array[i] != NULL)
 	{
-		keys[i] = defaults[i];
+		printf("[%s]", array[i]);
 		i++;
 	}
+	printf("\nlast array [%p]\n", array[i]);
+	printf("----------\n\n");
+	i = 0;
+	while (array[i] != NULL)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+	return (0);
 }
 
 int	main(void)
 {
-	int			i;
-	const char	*key[4];
+	char	*token;
+	token = strdup(STR);
 
-	init_keys(key, 4);
-	i = 0;
-	while (i < 4)
+	call_split(STR);
+	printf("----- strtok -----\n");
+	printf("%s", token);
+	printf("----------\n");
+	token = strtok(token, "\n");
+	while (token != NULL)
 	{
-		printf("%s\n", key[i]);
-		i++;
+		printf("[%s]", token);
+		token = strtok(NULL, "\n");
 	}
+	printf("\nlast token addr [%p]\n", token);
 	return (0);
 }
+//% ./a.out
+//----------
+//hello
+//
+//42tokyo
+//----------
+//[hello][42tokyo]
+//last token addr [(nil)]
+
+// --------------- initialize const var ---------------------
+//void	init_keys(const char *keys[], int size)
+//{
+//	int					i;
+//	static const char	*defaults[] = {
+//		"NO ", "WE ", "EA ", "SO "};
+//
+//	i = 0;
+//	while (i < size)
+//	{
+//		keys[i] = defaults[i];
+//		i++;
+//	}
+//}
+//
+//int	main(void)
+//{
+//	int			i;
+//	const char	*key[4];
+//
+//	init_keys(key, 4);
+//	i = 0;
+//	while (i < 4)
+//	{
+//		printf("%s\n", key[i]);
+//		i++;
+//	}
+//	return (0);
+//}
 
 // ------------------ minilibX exist leak bug ------------------
 // cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
