@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/26 00:29:43 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/28 03:33:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	debug_texture_coordinate(int fd, double wall_x, t_frame *frame,
 	t_type_wall	type_wall;
 	static char	*direction[4] = {"NORTH", "WEST", "EAST", "SOUTH"};
 
+	if (IS_DEBUG != true)
+		return ;
 	dda = frame->dda;
 	view_point = frame->player->view_point;
 	ray_dir = frame->ray_cast.ray_dir;

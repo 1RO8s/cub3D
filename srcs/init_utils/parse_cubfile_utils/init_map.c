@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 14:48:30 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/28 04:01:07 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,12 @@ int	init_map(t_map *map, char *file_contents)
 	}
 	if (set_map_data(map, map_content) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	parse_map(const char *line, t_parse *parse)
+{
+	(void)line;
+	(void)parse;
 	return (EXIT_SUCCESS);
 }

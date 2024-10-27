@@ -6,13 +6,13 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/20 02:41:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/28 02:09:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	end_game(t_game *game)
+int	end_game(t_game *game)
 {
 	ft_printf("quit cub3D\n");
 	destroy_texture_image(game->mlx, game->texture, 4);

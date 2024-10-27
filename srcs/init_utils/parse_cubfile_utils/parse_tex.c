@@ -1,5 +1,17 @@
 #include "cub3d.h"
 
+int	print_until_nl(int fd, const char *str)
+{
+	size_t	len;
+
+	if (str == NULL)
+		return (EXIT_FAILURE);
+	len = ft_strchr(str, '\n') - str;
+	write(fd, str, len);
+	return (EXIT_SUCCESS);
+}
+
+// refactor (move file)
 bool	is_key_line(const char *line, const char *key)
 {
 	size_t	len;
@@ -71,7 +83,7 @@ static int	create_texture_images(const char *line, t_parse *parse)
 		// if (i == 4) // may be...
 		// {
 		// 	ft_dprintf(STDERR, "Error: texture direction\n");
-		// 	print_until_nl(STDERR, line);
+		// 	print_until_nl(STDERR_FILENO, line);
 		// 	return (EXIT_FAILURE);
 		// }
 		line = find_next_line(line);
@@ -118,12 +130,5 @@ int	parse_tex(const char *line, t_parse *parse)
 		destroy_texture_image(mlx, texture, 4);
 		return (EXIT_FAILURE);
 	}
-	return (EXIT_SUCCESS);
-}
-
-int	parse_map(const char *line, t_parse *parse)
-{
-	(void)line;
-	(void)parse;
 	return (EXIT_SUCCESS);
 }

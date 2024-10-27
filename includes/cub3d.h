@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/10/27 11:07:05 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/10/28 03:57:13 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 // -------------- function prototype ---------------
 // main
 int			init_game(t_game *game, int argc, char *argv[]);
+int			end_game(t_game *game);
 void		render_frame(t_game *game);
 int			handle_key_press(int keycode, t_game *game);
 int			handle_mouse(int button, int x, int y, t_game *game);
@@ -88,6 +89,9 @@ void		free_double_pointer(char **array);
 t_enum_elem	get_type_element(const char *line);
 const char	*find_next_element(const char *line);
 char		*find_next_line(const char *contents);
+bool		is_key_line(const char *line, const char *key);
+char		*strdup_until_ch(const char *line, int until_ch);
+int			print_until_nl(int fd, const char *str);
 void		init_tex_keys(const char *keys[], int size);
 
 typedef int	(*t_parse_elem)(const char *, t_parse *);
@@ -97,7 +101,7 @@ int			parse_map(const char *line, t_parse *parse);
 
 int			init_texture(void *mlx, t_texture *texture, char *file_contents);
 char		*get_value_from_file_contents(char *file_contents, const char *key);
-int			init_floor_and_ceiling(t_game *game, char *file_contents);
+//int			init_floor_and_ceiling(t_game *game, char *file_contents);
 int			init_map(t_map *map, char *file_contents);
 int			init_player(t_map *map, t_player *player);
 int			set_direction(char direction, t_player *player);
