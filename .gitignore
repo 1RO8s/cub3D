@@ -30,3 +30,4 @@
 lib/minilibx-linux/
 lib/minilibx_opengl_20191021/
 lib/minilibx_mms_20200219/
+test/parse_test/cub3D_parseTest
