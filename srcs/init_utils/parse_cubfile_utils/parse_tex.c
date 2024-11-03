@@ -57,6 +57,7 @@ static int	create_texture_images(const char *line, t_parse *parse)
 	t_texture	*texture;
 	int			i;
 	int			status;
+	const int	bit_dir[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
 
 	init_tex_keys(key, 4);
 	mlx = parse->game->mlx;
@@ -71,6 +72,9 @@ static int	create_texture_images(const char *line, t_parse *parse)
 				i++;
 				continue ;
 			}
+			// if ((parse->flag & bit_dir[i]) > 0)
+			//	return (EXIT_FALURE);
+			parse->flag |= bit_dir[i];
 			status = get_texture_image(mlx, &line[3], &texture[i]);
 			if (status != EXIT_SUCCESS)
 			{

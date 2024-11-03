@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/22 18:26:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/03 23:29:07 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_texture {
 
 typedef struct s_parse {
 	int		flag;
+	t_point	player_grid;
 	t_game	*game;
 }	t_parse;
 

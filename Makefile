@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/29 19:58:38 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/03 23:41:43 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS_DIR = \
 		   ./srcs \
 		   ./srcs/init_utils \
 		   ./srcs/init_utils/parse_cubfile_utils \
+		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
@@ -49,11 +50,12 @@ SRCS = \
 	   parse_fc.c \
 	   parse_map.c \
 	   \
+	   is_enclosed_by_walls.c \
+	   \
 	   get_type_element.c \
 	   find_next_line.c \
 	   find_next_element.c \
 	   init_texture.c \
-	   is_enable_map.c \
 	   init_player.c \
 	   set_direction.c \
 	   \

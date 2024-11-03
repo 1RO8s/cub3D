@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 11:24:23 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/03 23:29:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,16 @@ static int	find_player_and_set(
 /**
  * @brief get player's position
  */
-int	init_player(t_map *map, t_player *player)
+int	get_player_info(const char *line, t_parse *parse)
 {
 	t_point	grid;
 	int		count_player;
+	t_map	*map;
+	t_player	*player;
 
+	(void)line;
+	map = &parse->game->map;
+	player = &parse->game->player;
 	count_player = 0;
 	grid.y = 0;
 	while (grid.y < map->height)
@@ -78,6 +83,7 @@ int	init_player(t_map *map, t_player *player)
 	}
 	player->move_speed = MOVE_SPEED;
 	player->rotate_speed = ROTATE_SPEED;
+	parse->player_grid = gird;
 	debug_map_data(*map, "parse_map() after");
 	return (EXIT_SUCCESS);
 }

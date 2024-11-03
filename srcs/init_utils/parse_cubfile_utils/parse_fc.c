@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/28 05:49:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:19:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int	parse_fc(const char *line, t_parse *parse)
 	int			i;
 	char		*color_str;
 	int			color[2];
+	int			bit[2] = {BIT_F, BIT_C};
 
 	while (line != NULL)
 	{
@@ -152,6 +153,12 @@ int	parse_fc(const char *line, t_parse *parse)
 			if (color_str == NULL)
 				return (EXIT_FAILURE);
 			// flag check & flag set
+			//if ((parse->flag & bit[i]) > 0)
+			//{
+			//	free(color_str);
+			//	retun (EXIT_FAILURE);
+			//}
+			parse->flag |= bit[i];
 			color[i] = get_rgb_color(color_str);
 			//color[i] = convert2color(color_str);
 			free(color_str);
