@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/04 23:37:39 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 00:15:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ char		strdup_until_nl(const char *line);
 # define BIT_C			0x20	// 0000 0010 0000
 # define BIT_MAP		0x40	// 0000 0100 0000
 # define BIT_INIT_TEX	0x100	// 0001 0000 0000
+# define BIT_INIT_MAP	0x200	// 0010 0000 0000
 
 // init_map.c
 bool		is_enable_map(char *map_content);

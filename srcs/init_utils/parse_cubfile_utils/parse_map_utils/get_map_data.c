@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 21:37:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/04 22:54:24 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 00:15:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int	get_map_data(const char *line, t_parse *parse)
 		count++;
 	map->height = count;
 	debug_map_data(*map, "get_map_data()");
+	parse->flag |= BIT_INIT_MAP;
 	return (EXIT_SUCCESS);
 }

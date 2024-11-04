@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/04 23:44:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 00:16:46 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ static int	parse_cubfile(t_game *game, const char *element)
 		{
 			if (is_hit_flag(parse.flag, BIT_INIT_TEX) == true)
 				destroy_texture_image(game->mlx, game->texture, 4);
-			//if (is_initialized(BIT_INIT_MAP) == true)
-			//	free_double_pointer(game->map.data);
+			if (is_hit_flag(parse.flag, BIT_INIT_MAP) == true)
+				free_double_pointer(game->map.data);
 			return (EXIT_FAILURE);
 		}
 		element = find_next_element(element);
 	}
-	//exit(0);// debug
 	init_frame(game);
 	return (EXIT_SUCCESS);
 }
