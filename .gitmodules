@@ -4,6 +4,3 @@
 [submodule "lib/ft_printf"]
 	path = lib/ft_printf
 	url = git@github.com:kamitsui/ft_printf.git
-[submodule "test/parse_test"]
-	path = test/parse_test
-	url = https://github.com/deerman31/42_test.git
