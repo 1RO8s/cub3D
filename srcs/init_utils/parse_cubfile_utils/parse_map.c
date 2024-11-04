@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/04 22:02:32 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 23:58:06 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_last_map(const char *line, t_parse *parse)
 {
 	(void)parse;
-	if (find_next_element(line) == NULL)
+	if (find_next_element(line) != NULL)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -37,11 +37,11 @@ int	check_range_map(const char *line, t_parse *parse)
 			cols = len;
 		rows++;
 		if (cols > MAX_COLS || rows > MAX_ROWS)
-			return (false);
+			return (EXIT_FAILURE);
 		line = find_next_line(line);
 	}
 	(void)parse;
-	return (true);
+	return (EXIT_SUCCESS);
 }
 
 int	parse_map(const char *line, t_parse *parse)
@@ -53,11 +53,12 @@ int	parse_map(const char *line, t_parse *parse)
 	int						status;
 
 	i = 0;
-	while (i < 3)
+	while (i < 5)
 	{
 		status = func[i](line, parse);
 		if (status != EXIT_SUCCESS)
 		{
+			printf("fail : parse_map func[%d]\n", i);//debug
 			// print error:msg
 			return (EXIT_FAILURE);
 		}

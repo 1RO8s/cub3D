@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/28 05:39:43 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 23:15:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "type_cub3d.h"
 
 # define LOG_FILE "debug.log"
-# define IS_DEBUG false
+# define IS_DEBUG true
 # define DEBUG_COLOR "\n\x1B[100m\x1B[37m"
 # define RESET_COLOR "\x1B[0m\n"
 
@@ -25,13 +25,12 @@ int		init_debug_info(t_game *game);
 void	debug_texture(char *file, t_texture texture,
 			const char *msg);
 void	debug_img_tex(int fd, t_img img, int i, const char *msg);
+void	debug_map_data(t_map map, const char *msg);
+void	debug_player(int fd, t_player player, const char *msg);
 
 // render frame
 void	debug_moved_player(t_game *game);
 void	debug_frame(t_game *game, const char *msg);
-
-// 2D map
-void	debug_map_data(t_map map, const char *msg);
 
 // 3D ray casting
 void	debug_ray_cast(t_frame *frame, const char *msg, int x);

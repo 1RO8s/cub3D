@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/03 21:19:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 23:56:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,28 @@ int	atoi_0_to_255(char *str)
 	return (result);
 }
 
-void	debug_get_rgb_color(int fd, int rgb[3], const char *msg)
+void	debug_get_rgb_color(int first, int fd, int rgb[3], const char *msg)
 {
 	const char	*s[3] = {"r", "g", "b"};
 	int			i;
 
 	if (IS_DEBUG != true)
 		return ;
-	ft_dprintf(fd, ">>> func debug_get_rgb_color <<< ... call by %s\n", msg);
+	if (first == 0)
+		ft_dprintf(fd, ">>> func debug_get_rgb_color <<< ... call by %s\n", msg);
+	ft_dprintf(fd, "\tcolor[%d]", first);
 	i = 0;
 	while (i < 3)
 	{
 		ft_dprintf(fd, "\t%s[%d]", s[i], rgb[i]);
 		i++;
 	}
-	ft_dprintf(fd, "\n\n");
-
+	ft_dprintf(fd, "\n");
+	if (first == 1)
+		ft_dprintf(fd, "\n");
 }
 
-int	get_rgb_color(char *str)
+int	get_rgb_color(int first, t_parse *parse, char *str)
 {
 	int	color;
 	int	rgb[3];
@@ -117,7 +120,7 @@ int	get_rgb_color(char *str)
 		i++;
 		str = ft_strchr(str, ',');
 	}
-	debug_get_rgb_color(STDOUT_FILENO, rgb, "get_rgb_color()");
+	debug_get_rgb_color(first, parse->game->debug.fd, rgb, "get_rgb_color()");
 	color = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
 	return (color);
 }
@@ -159,7 +162,7 @@ int	parse_fc(const char *line, t_parse *parse)
 			//	retun (EXIT_FAILURE);
 			//}
 			parse->flag |= bit[i];
-			color[i] = get_rgb_color(color_str);
+			color[i] = get_rgb_color(i, parse, color_str);
 			//color[i] = convert2color(color_str);
 			free(color_str);
 			break ;

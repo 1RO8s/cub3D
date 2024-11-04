@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/04 22:02:05 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 23:37:39 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ char		*find_element_line(char *map, char *identifier);
 char		*get_element_line(char *map, char *identifier);
 char		*extract_value(char *line, char *identifier);
 int			convert2color(char *rgb);
-char		**convert_str2array(char *str_map);
+//char		**convert_str2array(const char *str_map);
+//char		**convert_str2array(char *str_map);
 void		free_double_pointer(char **array);
 
 // parse_cubefile_utils
@@ -117,13 +118,14 @@ int			set_direction(char direction, t_player *player);
 char		strdup_until_nl(const char *line);
 
 // parse flag
-# define BIT_NORTH	0x01	// 0000 0001
-# define BIT_WEST	0x02	// 0000 0010
-# define BIT_EAST	0x04	// 0000 0100
-# define BIT_SOUTH	0x08	// 0000 1000
-# define BIT_F		0x10	// 0001 0000
-# define BIT_C		0x20	// 0010 0000
-# define BIT_MAP	0x40	// 0100 0000
+# define BIT_NORTH		0x01	// 0000 0000 0001
+# define BIT_WEST		0x02	// 0000 0000 0010
+# define BIT_EAST		0x04	// 0000 0000 0100
+# define BIT_SOUTH		0x08	// 0000 0000 1000
+# define BIT_F			0x10	// 0000 0001 0000
+# define BIT_C			0x20	// 0000 0010 0000
+# define BIT_MAP		0x40	// 0000 0100 0000
+# define BIT_INIT_TEX	0x100	// 0001 0000 0000
 
 // init_map.c
 bool		is_enable_map(char *map_content);

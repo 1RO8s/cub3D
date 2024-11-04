@@ -134,5 +134,6 @@ int	parse_tex(const char *line, t_parse *parse)
 		destroy_texture_image(mlx, texture, 4);
 		return (EXIT_FAILURE);
 	}
+	parse->flag |= BIT_INIT_TEX;
 	return (EXIT_SUCCESS);
 }

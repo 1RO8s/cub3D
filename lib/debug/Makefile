@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/20 02:54:50 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/04 23:17:07 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ endif
 # Source files
 SRCS = \
 	   debug_map_data.c \
+	   debug_player.c \
 	   debug_ray.c \
 	   debug_perform_dda.c \
 	   debug_wall_slice.c \

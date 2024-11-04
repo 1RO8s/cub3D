@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/04 22:07:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 23:32:53 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	get_player_info(const char *line, t_parse *parse)
 	player->move_speed = MOVE_SPEED;
 	player->rotate_speed = ROTATE_SPEED;
 	parse->player_grid = grid;
-	debug_map_data(*map, "parse_map() after");
+	debug_map_data(*map, "get_player_info()");
+	debug_player(map->debug.fd, *player, "get_player_info()");
 	return (EXIT_SUCCESS);
 }
