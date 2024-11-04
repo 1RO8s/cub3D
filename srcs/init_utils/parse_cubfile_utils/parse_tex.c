@@ -47,6 +47,7 @@ static int	get_texture_image(
 		return (EXIT_FAILURE);
 	}
 	debug_texture(file, *texture, "get_texture_image()");
+	free(file);
 	return (EXIT_SUCCESS);
 }
 
