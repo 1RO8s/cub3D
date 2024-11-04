@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/04 22:06:34 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 00:21:58 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ int check_enclosed_by_walls(const char *line, t_parse *parse)
 	if (start_x == -1 || start_y == -1)
 	{
 		printf("No starting position found on the map.\n");
-		return false;
+		return (EXIT_FAILURE);
 	}
 	// Perform flood-fill starting from the initial position
 	if (!flood_fill(map, start_x, start_y, visited))
 	{
 		printf("Map is not enclosed by walls.\n");
-		return false;
+		return (EXIT_FAILURE);
 	}
 	(void)line;
-	return true;  // The map is properly enclosed
+	return (EXIT_SUCCESS);  // The map is properly enclosed
 }
