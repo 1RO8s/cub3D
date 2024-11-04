@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/03 23:20:21 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:02:05 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,13 @@ char		*get_value_from_file_contents(char *file_contents, const char *key);
 //int			init_floor_and_ceiling(t_game *game, char *file_contents);
 
 // parse_map utils
-int			get_map_data(t_map *map, const char *map_content);
-//int			init_map(t_map *map, char *file_contents);
-//int			init_player(t_map *map, t_player *player);
+typedef int	(*t_parse_map)(const char *, t_parse *parse);
+int			check_last_map(const char *line, t_parse *parse);
+int			check_range_map(const char *line, t_parse *parse);
+int			get_map_data(const char *line, t_parse *parse);
+int			get_player_info(const char *line, t_parse *parse);
+int 		check_enclosed_by_walls(const char *line, t_parse *parse);
+
 int			set_direction(char direction, t_player *player);
 
 char		strdup_until_nl(const char *line);

@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/03 23:41:43 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/04 22:01:28 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ SRCS = \
 	   parse_fc.c \
 	   parse_map.c \
 	   \
-	   is_enclosed_by_walls.c \
+	   get_map_data.c \
+	   check_enclosed_by_walls.c \
 	   \
 	   get_type_element.c \
 	   find_next_line.c \

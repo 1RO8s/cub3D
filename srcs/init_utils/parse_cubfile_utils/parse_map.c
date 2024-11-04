@@ -6,45 +6,51 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/03 23:16:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:02:32 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	is_last_map(const char *line)
+int	check_last_map(const char *line, t_parse *parse)
 {
-	return (find_next_element(line) == NULL);
+	(void)parse;
+	if (find_next_element(line) == NULL)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 #define MAX_ROWS 100
 #define MAX_COLS 100
-bool	is_range_map(const char *line)
+int	check_range_map(const char *line, t_parse *parse)
 {
-	size_t	row;
-	size_t	culom;
+	size_t	rows;
+	size_t	cols;
+	size_t	len;
 	
-	row = 0;
-	col = 0;
+	rows = 0;
+	cols = 0;
 	while (line != NULL)
 	{
 		len = ft_strchr(line, '\n') - line;
-		if (col < len)
-			col = len;
-		row++;
-		if (col > MAX_COLS || row > MAX_ROWS)
+		if (cols < len)
+			cols = len;
+		rows++;
+		if (cols > MAX_COLS || rows > MAX_ROWS)
 			return (false);
 		line = find_next_line(line);
 	}
+	(void)parse;
 	return (true);
 }
 
 int	parse_map(const char *line, t_parse *parse)
 {
-	static t_is_valid_map	func[3] = {
-			is_last_map, is_range_map, get_map_data,
-			get_plater_info, is_enclosed_by_wall};
+	static t_parse_map	func[5] = {
+			check_last_map, check_range_map, get_map_data,
+			get_player_info, check_enclosed_by_walls};
 	int						i;
+	int						status;
 
 	i = 0;
 	while (i < 3)

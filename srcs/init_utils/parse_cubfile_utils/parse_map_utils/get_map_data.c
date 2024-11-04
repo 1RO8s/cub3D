@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 21:37:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/03 22:23:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:03:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	get_map_data(const char *line, t_parse *parse)
 	int		count;
 	t_map	*map;
 
-	map = parse->game->map;
-	parse->game->map->data = convert_str2array((char *)line);
+	map = &parse->game->map;
+	map->data = convert_str2array((char *)line);
 	if (map->data == NULL)
 		return (EXIT_FAILURE);
 	map->width = ft_strlen(map->data[0]);
@@ -28,4 +28,3 @@ int	get_map_data(const char *line, t_parse *parse)
 	map->height = count;
 	return (EXIT_SUCCESS);
 }
-
