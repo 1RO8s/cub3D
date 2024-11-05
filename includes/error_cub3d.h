@@ -36,6 +36,7 @@
 # define EMSG_MAP_PLAYER_MISS	"MAP: Missing player start position"
 # define EMSG_MAP_NOT_LAST		"MAP: Must be the last element"
 # define EMSG_MAP_NOT_ENCLOSED	"MAP: Not enclosed by walls"
+# define EMSG_MAP_TOO_LARGE		"MAP: Too large"
 
 
 #endif

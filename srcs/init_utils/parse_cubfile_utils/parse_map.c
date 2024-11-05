@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 11:37:03 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:17:11 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	check_last_map(const char *line, t_parse *parse)
 {
 	(void)parse;
 	if (find_next_element(line) != NULL)
+	{
+		dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -27,7 +30,9 @@ int	check_range_map(const char *line, t_parse *parse)
 	size_t	rows;
 	size_t	cols;
 	size_t	len;
+	bool	is_over_size;
 	
+	is_over_size = false;
 	rows = 0;
 	cols = 0;
 	while (line != NULL)
@@ -37,8 +42,15 @@ int	check_range_map(const char *line, t_parse *parse)
 			cols = len;
 		rows++;
 		if (cols > MAX_COLS || rows > MAX_ROWS)
-			return (EXIT_FAILURE);
+			is_over_size = true;
 		line = find_next_line(line);
+	}
+	if (is_over_size == true)
+	{
+		dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
+		dprintf(STDERR_FILENO, "\t%zu x %zu", cols, rows);
+		dprintf(STDERR_FILENO, " (within %d x %d)", MAX_COLS, MAX_ROWS);
+		return (EXIT_FAILURE);
 	}
 	(void)parse;
 	return (EXIT_SUCCESS);
