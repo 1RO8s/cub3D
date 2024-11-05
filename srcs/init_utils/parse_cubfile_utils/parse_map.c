@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/04 23:58:06 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:37:03 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ int	check_range_map(const char *line, t_parse *parse)
 	return (EXIT_SUCCESS);
 }
 
+void	debug_parse_map_fail(int fd, int i)
+{
+	if (IS_DEBUG != true)
+		return ;
+	dprintf(fd, "fail : parse_map func[%d]\n", i);//debug
+}
+
 int	parse_map(const char *line, t_parse *parse)
 {
 	static t_parse_map	func[5] = {
@@ -58,7 +65,7 @@ int	parse_map(const char *line, t_parse *parse)
 		status = func[i](line, parse);
 		if (status != EXIT_SUCCESS)
 		{
-			printf("fail : parse_map func[%d]\n", i);//debug
+			debug_parse_map_fail(parse->game->debug.fd, i);// debug
 			// print error:msg
 			return (EXIT_FAILURE);
 		}
