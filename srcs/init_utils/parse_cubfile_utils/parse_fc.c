@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/04 23:56:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:35:14 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,14 @@ int	atoi_0_to_255(char *str)
 	while (*str != '\0' && *str == ' ')
 		str++;
 	if (*str == '\0')
+	{
+		dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
 		return (-1);
+	}
 	while (*str != '\0' && ft_isdigit(*str) == true)
 	{
+		while (result == 0 && *str == '0')
+			str++;
 		result = result * 10 + (*str - '0');
 		//printf("[%c] result[%d]", *str, result);
 		if (result > 255)
@@ -69,7 +74,9 @@ int	atoi_0_to_255(char *str)
 		}
 		str++;
 	}
-	//printf("result[%d]\n", result);
+	if (*str != '\0' && *str != ',')
+		dprintf(STDERR_FILENO, "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
+
 
 //	while (*str != '\0' && *str == ' ')
 //		str++;
@@ -99,10 +106,20 @@ void	debug_get_rgb_color(int first, int fd, int rgb[3], const char *msg)
 		ft_dprintf(fd, "\n");
 }
 
+/**
+ * @brief 
+ *
+ * @param first
+ * @param parse
+ * @param str
+ *
+ * @return (0x00~0xFFFFFF) ... OK,  (-1) ... Fail
+ */
 int	get_rgb_color(int first, t_parse *parse, char *str)
 {
 	int	color;
 	int	rgb[3];
+	const char	*rgb_str[3] = {"R", "G", "B"};
 	int	i;
 
 	color = 0;
@@ -111,14 +128,21 @@ int	get_rgb_color(int first, t_parse *parse, char *str)
 	{
 		if (*str == ',')
 		{
-			str++;
-			continue;
+			dprintf(STDERR_FILENO, "%s%s %s\n", ERR_PROMPT, EMSG_RGB_MISS, rgb_str[i]);
+			return (-1);
 		}
 		rgb[i] = atoi_0_to_255(str);
 		if (rgb[i] == -1)
+		{
+			dprintf(STDERR_FILENO, "%s%s: ",
+				ERR_PROMPT, parse->entry);
 			return (-1);
+		}
 		i++;
 		str = ft_strchr(str, ',');
+		if (str == NULL)
+			break ;
+		str++;
 	}
 	debug_get_rgb_color(first, parse->game->debug.fd, rgb, "get_rgb_color()");
 	color = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
@@ -142,6 +166,8 @@ int	parse_fc(const char *line, t_parse *parse)
 	int			color[2];
 	int			bit[2] = {BIT_F, BIT_C};
 
+	color[0] = -1;
+	color[1] = -1;
 	while (line != NULL)
 	{
 		i = 0;
@@ -152,28 +178,38 @@ int	parse_fc(const char *line, t_parse *parse)
 				i++;
 				continue ;
 			}
+			parse->entry = key[i];
 			color_str = strdup_until_ch(&line[2], '\n');
 			if (color_str == NULL)
 				return (EXIT_FAILURE);
 			// flag check & flag set
-			//if ((parse->flag & bit[i]) > 0)
-			//{
-			//	free(color_str);
-			//	retun (EXIT_FAILURE);
-			//}
-			parse->flag |= bit[i];
+			if ((parse->flag & bit[i]) > 0)
+			{
+				dprintf(STDERR_FILENO, "%s%s : %s\n",
+					ERR_PROMPT, EMSG_ENTRY_DUP, key[i]);
+				free(color_str);
+				return (EXIT_FAILURE);
+			}
 			color[i] = get_rgb_color(i, parse, color_str);
-			//color[i] = convert2color(color_str);
+			if (color[i] == -1)
+				return (EXIT_FAILURE);
+			parse->flag |= bit[i];
 			free(color_str);
 			break ;
 		}
 		line = find_next_line(line);
 	}
 	debug_parse_fc(parse->game->debug.fd, color, "parse_fc()");
-	if (color[0] == -1 || color[1] == -1)
+	i = 0;
+	while (i < 2)
 	{
-		// print error msg
-		return (EXIT_FAILURE);
+		if (color[i] == -1)
+		{
+			dprintf(STDERR_FILENO, "%s%s: %s\n",
+				ERR_PROMPT, EMSG_ENTRY_MISS, key[i]);
+			return (EXIT_FAILURE);
+		}
+		i++;
 	}
 	parse->game->floor_color = color[0];
 	parse->game->ceiling_color = color[1];

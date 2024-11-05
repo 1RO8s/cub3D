@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:55:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 19:57:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:54:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ t_type_wall	get_texture_direction(
 			return (EAST);
 	}
 }
+// reference type_cub3d.h
+//typedef enum e_type_wall {
+//	NORTH,
+//	WEST,
+//	EAST,
+//	SOUTH
+//}	t_type_wall;
 
 /**
  * @brief Calculate wall texture's X-coordinate ( wall_x : 0.0 ~ 1.0 )

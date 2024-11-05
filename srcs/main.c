@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 14:03:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:26:24 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	end_game(t_game *game)
 //	// SEGV
 //	free(game->mlx); // !!!!
 
-void	start_game(t_game *game)
+static void	start_game(t_game *game)
 {
 	mlx_hook(game->win, 2, 1L << 0, handle_key_press, game);
 	mlx_hook(game->win, 17, 1L << 17, end_game, game);

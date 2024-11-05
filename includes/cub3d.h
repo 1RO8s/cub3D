@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/05 15:35:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:56:48 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,20 @@
 # define ON_HORIZONTAL_LINE 1
 
 // -------------- function prototype ---------------
-// main
+// srcs/
+// call by main
 int			init_game(t_game *game, int argc, char *argv[]);
 int			end_game(t_game *game);
 void		render_frame(t_game *game);
 int			handle_key_press(int keycode, t_game *game);
 int			handle_mouse(int button, int x, int y, t_game *game);
 
-// init_utils
+// srcs/
+// │
+// └ init_utils
 int			init_mlx_window(t_game *game);
 int			init_mlx_image(t_game *game);
 int			init_cub_contents(t_game *game, char *filename);
-
-// free utils
-void		destroy_texture_image(void *mlx, t_texture *texture, int n);
-void		*ft_free(void *ptr);
-void		free_double_pointer(char **array);
 
 // srcs/init_utils/
 // │
@@ -121,7 +119,7 @@ int 		check_enclosed_by_walls(const char *line, t_parse *parse);
 // call by get_player_info()
 int			set_direction(char direction, t_player *player);
 
-// parse flag
+// parse->flag
 # define BIT_NORTH		0x01	// 0000 0000 0001
 # define BIT_WEST		0x02	// 0000 0000 0010
 # define BIT_EAST		0x04	// 0000 0000 0100
@@ -132,10 +130,11 @@ int			set_direction(char direction, t_player *player);
 # define BIT_INIT_TEX	0x100	// 0001 0000 0000
 # define BIT_INIT_MAP	0x200	// 0010 0000 0000
 
-// init_map.c
-bool		is_enable_map(char *map_content);
+// srcs/
+// │
+// └ draw_3d_utils
 
-// process drawing 3D image
+// ray cast process for drawing 3D image
 void		init_ray(t_frame *frame, int x);
 void		perform_dda(t_frame *frame, int x);
 void		set_wall_slice(t_frame *frame, int x);
@@ -143,32 +142,43 @@ void		set_texture_x_coordinate(t_frame *frame, int x);
 void		draw_vertical_line(t_frame *frame, int x);
 typedef void	(*t_draw_3d_process)(t_frame *, int);
 
-// wall slice utils
-t_type_wall	get_texture_direction(int type_of_grid_line, t_vector ray_dir);
-// reference type_cub3d.h
-//typedef enum e_type_wall {
-//	NORTH,
-//	WEST,
-//	EAST,
-//	SOUTH
-//}	t_type_wall;
+// call by
+// draw_vertical_line() & debug_texture_y_coordinate_overflow()
+int	get_texture_y_coordinate(t_frame *frame, int y);
 
-// draw_vertical_line utils
-int			get_texture_y_coordinate(t_frame *frame, int y);
+// call by debug_texture_coordinate()
+t_type_wall	get_texture_direction(
+						int type_of_grid_line, t_vector ray_dir);
 
-// 2D
+// srcs/
+// │
+// └ draw_2d_utils
 void		draw_2d_wall(t_map *map, t_img *img_2d);
 void		draw_2d_player(t_img *img_2d, t_player *player);
 
-// draw line utils
+// srcs/
+// │
+// └ draw_line_utils
 void		draw_line(t_img *img, t_line *line);
 void		init_plot(t_plot *plot, t_line *line);
 void		init_color(t_clr *color, int start_color, int end_color);
 
-// mlx utils
+// srcs/
+// │
+// └ free_utils
+void		destroy_texture_image(void *mlx, t_texture *texture, int n);
+void		*ft_free(void *ptr);
+void		free_double_pointer(char **array);
+
+// srcs/
+// │
+// └ mlx utils
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
-// keypress utils
+// srcs/
+// │
+// └ keypress utils
+// call by handle_key_press()
 void		quit_game(int keycode, t_game *game);
 void		set_move_forward_flag(int keycode, t_game *game);
 void		set_move_backward_flag(int keycode, t_game *game);
@@ -177,10 +187,12 @@ void		set_strafe_right_flag(int keycode, t_game *game);
 void		set_rotate_left_flag(int keycode, t_game *game);
 void		set_rotate_right_flag(int keycode, t_game *game);
 void		invalid_key(int keycode, t_game *game);
-
 typedef void	(*t_handle_key_press)(int, t_game *);
 
 // update utils
+// srcs/
+// │
+// └ update utils
 # define MOVE_SPEED			0.1
 # define ROTATE_SPEED		0.05
 # define BIT_MOVE_FORWARD	0x01	// 0000 0001
@@ -196,6 +208,7 @@ void		strafe_right(t_map *map, t_player *player);
 void		rotate_left(t_map *map, t_player *player);
 void		rotate_right(t_map *map, t_player *player);
 typedef void	(*t_moving_player)(t_map *, t_player *);
+
 bool		is_hit_flag(int flag, int bit);
 bool		is_collision_detection_x(
 				char **data, t_vector view_point, double move_amount);

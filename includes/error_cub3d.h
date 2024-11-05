@@ -24,13 +24,13 @@
 # define EMSG_ENTRY_INVAL	"Invalid entry"
 
 // RGB
-// "F: "8523" out of range
+// "F: "8523" out of range		... F 8523, 42, 42
 # define EMSG_RGB_RANGE_OUT	"Out of range (0 ~ 255)"
-// "F: "i" is not a number
+// "F: "i" is not a number		...	F i, 42, 42
 # define EMSG_RGB_NOT_NUM	"is not a number"
-// "F: Missing RGB component B"
+// "F: Missing RGB component B" ... F 10, 10, ,
 # define EMSG_RGB_MISS		"Missing RGB component"
-// "F: Empty RGB component"
+// "F: Empty RGB component"		... F
 # define EMSG_RGB_EMPTY		"Empty RGB component"
 
 // MAP

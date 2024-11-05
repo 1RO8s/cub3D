@@ -32,6 +32,24 @@ static int	get_texture_image(
 	return (EXIT_SUCCESS);
 }
 
+bool	is_created_all_tex_image(int flag, const char *key[4], const int bit_tex[4])
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if ((flag & bit_tex[i]) == 0x00)
+		{
+			dprintf(STDERR_FILENO, "%s%s : %s\n",
+				ERR_PROMPT, EMSG_ENTRY_MISS, key[i]);
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
 static int	create_texture_images(const char *line, t_parse *parse)
 {
 	const char	*key[4];
@@ -39,7 +57,7 @@ static int	create_texture_images(const char *line, t_parse *parse)
 	t_texture	*texture;
 	int			i;
 	int			status;
-	const int	bit_dir[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
+	const int	bit_tex[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
 
 	init_tex_keys(key, 4);
 	mlx = parse->game->mlx;
@@ -54,9 +72,13 @@ static int	create_texture_images(const char *line, t_parse *parse)
 				i++;
 				continue ;
 			}
-			// if ((parse->flag & bit_dir[i]) > 0)
-			//	return (EXIT_FALURE);
-			parse->flag |= bit_dir[i];
+			if ((parse->flag & bit_tex[i]) > 0)
+			{
+				dprintf(STDERR_FILENO, "%s%s : %s\n",
+					ERR_PROMPT, EMSG_ENTRY_MISS, key[i]);
+				return (EXIT_FAILURE);
+			}
+			parse->flag |= bit_tex[i];
 			status = get_texture_image(mlx, &line[3], &texture[i]);
 			if (status != EXIT_SUCCESS)
 			{
@@ -74,8 +96,8 @@ static int	create_texture_images(const char *line, t_parse *parse)
 		// }
 		line = find_next_line(line);
 	}
-	// if (is_created_all_tex_image() == false) // may be ...
-	// 	return (EXIT_FAILURE);
+	if (is_created_all_tex_image(parse->flag, key, bit_tex) == false)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
