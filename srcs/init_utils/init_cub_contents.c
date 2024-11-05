@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 00:16:46 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:11:02 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,51 @@ static int	parse_cubfile(t_game *game, const char *element)
 //	init_frame(game);
 //	return (EXIT_SUCCESS);
 //}
+
+static char	*read_cubfile(char *filepath)
+{
+	int		fd;
+	char	*line;
+	char	*map;
+	char	*old;
+
+	old = NULL;
+	map = NULL;
+	// printf("--- read_cubfile ---\n");
+	fd = open(filepath, O_RDONLY);
+	if (fd == -1 && printf("Error: file open failed\n"))
+		return (NULL);
+	line = malloc(1);
+	while (line != NULL)
+	{
+		// printf("#### line: %p\n", line);
+		line = ft_free(line);
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		if (map != NULL)
+		{
+			// printf("1: %p\n", map);
+			map = ft_free(map);
+		}
+		// printf("Line: %s\n", line);
+		map = ft_strjoin_nullable(old, line);
+		// printf("MAP %p:\n_/_/_/_/_/\n%s\n_/_/_/_/_/\n", map, map);
+		// printf("2: %p\n", old);
+		if (old != NULL)
+		{
+			// printf("2.1: %p\n", old);
+			old = ft_free(old);
+		}
+		// printf("3:map %p\n", map);
+		old = ft_strdup(map);
+		// printf("4:old %p\n", old);
+	}
+	// printf("5:%p\n", old);
+	old = ft_free(old);
+	close(fd);
+	return (map);
+}
 
 int	init_cub_contents(t_game *game, char *filename)
 {

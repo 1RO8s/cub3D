@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 15:40:12 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:49:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,33 @@ static void	destroy_and_free(t_game *game)
 	mlx_destroy_image(game->mlx, game->img_2d.img);
 	free(game->mlx);
 	close(game->debug.fd);
+}
+
+/**
+ * @brief Check the number of arguments and the file extension.
+ * @param[in] argc The number of arguments.
+ * @param[in] argv The arguments.
+ */
+static int	arg_check(int argc, char *argv[])
+{
+	int		len;
+	char	*ext;
+	char	*filename;
+
+	if (argc != 2)
+	{
+		dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT,  EMSG_ARG_COUNT);
+		return (EXIT_FAILURE);
+	}
+	filename = argv[1];
+	len = ft_strlen(filename);
+	ext = &filename[len - 4];
+	if (ft_strncmp(".cub", ext, 4))
+	{
+		dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT,  EMSG_FILE_EXT);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
 
 /**

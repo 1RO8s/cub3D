@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/04 22:01:28 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/05 15:34:06 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@
 SRCS_DIR = \
 		   ./srcs \
 		   ./srcs/init_utils \
+		   ./srcs/init_utils/read_cubfile_utils \
 		   ./srcs/init_utils/parse_cubfile_utils \
 		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
 		   ./srcs/draw_2d_utils \
@@ -41,24 +42,24 @@ SRCS = \
 	   init_game.c \
 	   render.c \
 	   \
-	   arg_check.c \
 	   init_mlx_window.c \
 	   init_mlx_image.c \
 	   init_cub_contents.c\
+	   \
+	   ft_strjoin_nullable.c \
 	   \
 	   parse_tex.c \
 	   parse_fc.c \
 	   parse_map.c \
 	   \
 	   get_map_data.c \
+	   set_direction.c \
+	   get_player_info.c \
 	   check_enclosed_by_walls.c \
 	   \
+	   parse_general_func.c \
 	   get_type_element.c \
-	   find_next_line.c \
 	   find_next_element.c \
-	   init_texture.c \
-	   init_player.c \
-	   set_direction.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \
@@ -73,6 +74,7 @@ SRCS = \
 	   init_line.c \
 	   \
 	   destroy_texture_image.c \
+	   free_double_pointer.c \
 	   \
 	   hook_functions.c \
 	   my_mlx_pixel_put.c \

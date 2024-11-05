@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/05 00:15:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:35:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 // own libraries
 # include "libft.h"
+# include "get_next_line.h"
 # include "ft_printf.h"
 # include "debug_cub3d.h"
 
@@ -75,37 +76,41 @@ int			init_mlx_window(t_game *game);
 int			init_mlx_image(t_game *game);
 int			init_cub_contents(t_game *game, char *filename);
 
-// arg_check.c
-int			arg_check(int argc, char *argv[]);
-char		*read_cubfile(char *filepath);
-char		*find_element_line(char *map, char *identifier);
-char		*get_element_line(char *map, char *identifier);
-char		*extract_value(char *line, char *identifier);
-int			convert2color(char *rgb);
-//char		**convert_str2array(const char *str_map);
-//char		**convert_str2array(char *str_map);
+// free utils
+void		destroy_texture_image(void *mlx, t_texture *texture, int n);
+void		*ft_free(void *ptr);
 void		free_double_pointer(char **array);
 
-// parse_cubefile_utils
-t_enum_elem	get_type_element(const char *line);
-const char	*find_next_element(const char *line);
-char		*find_next_line(const char *contents);
-bool		is_key_line(const char *line, const char *key);
-char		*strdup_until_ch(const char *line, int until_ch);
-int			print_until_nl(int fd, const char *str);
-void		init_tex_keys(const char *keys[], int size);
+// srcs/init_utils/
+// │
+// └ read_cubfile_utils
+char		*ft_strjoin_nullable(char *s1, char *s2);
 
+// srcs/init_utils/
+// │
+// └ parse_cubfile_utils
+
+// call by init_cub_contents()
+const char	*find_next_element(const char *line);
+t_enum_elem	get_type_element(const char *line);
 typedef int	(*t_parse_elem)(const char *, t_parse *);
 int			parse_tex(const char *line, t_parse *parse);
 int			parse_fc(const char *line, t_parse *parse);
 int			parse_map(const char *line, t_parse *parse);
-int			get_player_info(const char *line, t_parse *parse);
 
-int			init_texture(void *mlx, t_texture *texture, char *file_contents);
-char		*get_value_from_file_contents(char *file_contents, const char *key);
-//int			init_floor_and_ceiling(t_game *game, char *file_contents);
+// parse_general_func.c
+char		*find_next_line(const char *contents);
+bool		is_key_line(const char *line, const char *key);
+char		*strdup_until_ch(const char *line, int until_ch);
+//int			print_until_nl(int fd, const char *str);
+void		init_tex_keys(const char *keys[], int size);
 
-// parse_map utils
+
+// srcs/init_utils/parse_cubfile_utils/
+// │
+// └ parse_map_utils
+
+// call by parse_map()
 typedef int	(*t_parse_map)(const char *, t_parse *parse);
 int			check_last_map(const char *line, t_parse *parse);
 int			check_range_map(const char *line, t_parse *parse);
@@ -113,9 +118,8 @@ int			get_map_data(const char *line, t_parse *parse);
 int			get_player_info(const char *line, t_parse *parse);
 int 		check_enclosed_by_walls(const char *line, t_parse *parse);
 
+// call by get_player_info()
 int			set_direction(char direction, t_player *player);
-
-char		strdup_until_nl(const char *line);
 
 // parse flag
 # define BIT_NORTH		0x01	// 0000 0000 0001
@@ -163,9 +167,6 @@ void		init_color(t_clr *color, int start_color, int end_color);
 
 // mlx utils
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
-// free utils
-void		destroy_texture_image(void *mlx, t_texture *texture, int n);
 
 // keypress utils
 void		quit_game(int keycode, t_game *game);

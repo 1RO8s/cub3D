@@ -1,19 +1,5 @@
 #include "cub3d.h"
 
-void	init_tex_keys(const char *keys[], int size)
-{
-	int					i;
-	static const char	*defaults[] = {
-		"NO ", "WE ", "EA ", "SO "};
-
-	i = 0;
-	while (i < size)
-	{
-		keys[i] = defaults[i];
-		i++;
-	}
-}
-
 static bool	is_texture_element(const char *str)
 {
 	const char	*identifier[4];

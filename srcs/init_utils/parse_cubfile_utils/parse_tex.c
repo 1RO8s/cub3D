@@ -11,25 +11,6 @@ int	print_until_nl(int fd, const char *str)
 	return (EXIT_SUCCESS);
 }
 
-// refactor (move file)
-bool	is_key_line(const char *line, const char *key)
-{
-	size_t	len;
-
-	len = ft_strlen(key);
-	return (ft_strncmp(line, key, len) == 0);
-}
-
-char	*strdup_until_ch(const char *line, int until_ch)
-{
-	size_t	len;
-	char	*file;
-
-	len = ft_strchr(line, until_ch) - line;
-	file = ft_strndup(line, len);
-	return (file);
-}
-
 static int	get_texture_image(
 		void *mlx, const char *file_line, t_texture *texture)
 {

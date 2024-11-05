@@ -7,6 +7,9 @@
  */
 # define ERR_PROMPT "Error: "
 
+#define EMSG_ARG_COUNT	"One argument must be specified"
+#define EMSG_FILE_EXT	"Specify a file path with .cub extension"
+
 // parse_tex.c
 # define EMSG_XPM_FILE "texture file"
 # define EMSG_IMG_DATA_ADDR "failure mlx_get_data_addr function"
