@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 22:35:14 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 01:57:05 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,35 +47,52 @@
  *
  * @return OK(0~255), Error: -1(str==NULL, empty string, over range, non-digit characters)
  */
-int	atoi_0_to_255(char *str)
+int	atoi_0_to_255(char *str, const char *entry)
 {
 	int	result;
+	char	*str_num;
+	int		status;
 
 	result = 0;
+	status = 0;
 	if (str == NULL)
 		return (-1);
 	while (*str != '\0' && *str == ' ')
 		str++;
 	if (*str == '\0')
 	{
+		dprintf(STDERR_FILENO, "%s%c: ",
+			ERR_PROMPT, *entry);
 		dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
 		return (-1);
 	}
+	str_num = str;
 	while (*str != '\0' && ft_isdigit(*str) == true)
 	{
 		while (result == 0 && *str == '0')
 			str++;
-		result = result * 10 + (*str - '0');
+		if (result <= 255)
+			result = result * 10 + (*str - '0');
 		//printf("[%c] result[%d]", *str, result);
-		if (result > 255)
-		{
-			//printf("error : result[%d]\n", result);
-			return (-1);
-		}
+		else
+			status = -1;
 		str++;
 	}
 	if (*str != '\0' && *str != ',')
+	{
+		dprintf(STDERR_FILENO, "%s%c: ",
+			ERR_PROMPT, *entry);
 		dprintf(STDERR_FILENO, "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
+		return (-1);
+	}
+	if (status == -1)
+	{
+		dprintf(STDERR_FILENO, "%s%c: ",
+			ERR_PROMPT, *entry);
+		*str = '\0';
+		dprintf(STDERR_FILENO, "\"%s\" %s\n", str_num, EMSG_RGB_RANGE_OUT);
+		return (-1);
+	}
 
 
 //	while (*str != '\0' && *str == ' ')
@@ -131,11 +148,11 @@ int	get_rgb_color(int first, t_parse *parse, char *str)
 			dprintf(STDERR_FILENO, "%s%s %s\n", ERR_PROMPT, EMSG_RGB_MISS, rgb_str[i]);
 			return (-1);
 		}
-		rgb[i] = atoi_0_to_255(str);
+		rgb[i] = atoi_0_to_255(str, parse->entry);
 		if (rgb[i] == -1)
 		{
-			dprintf(STDERR_FILENO, "%s%s: ",
-				ERR_PROMPT, parse->entry);
+			//dprintf(STDERR_FILENO, "%s%c: ",
+			//	ERR_PROMPT, *parse->entry);
 			return (-1);
 		}
 		i++;
