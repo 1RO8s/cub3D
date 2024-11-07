@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/08 01:57:05 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 03:07:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,15 @@ int	atoi_0_to_255(char *str, const char *entry)
 	{
 		while (result == 0 && *str == '0')
 			str++;
-		if (result <= 255)
+		if (status != -1)
 			result = result * 10 + (*str - '0');
-		//printf("[%c] result[%d]", *str, result);
-		else
+		if (result > 255)
 			status = -1;
+		//if (result <= 255)
+		//	status = 0;
+		////printf("[%c] result[%d]", *str, result);
+		//else
+		//	status = -1;
 		str++;
 	}
 	if (*str != '\0' && *str != ',')
@@ -145,7 +149,7 @@ int	get_rgb_color(int first, t_parse *parse, char *str)
 	{
 		if (*str == ',')
 		{
-			dprintf(STDERR_FILENO, "%s%s %s\n", ERR_PROMPT, EMSG_RGB_MISS, rgb_str[i]);
+			dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *parse->entry, EMSG_RGB_MISS, rgb_str[i]);
 			return (-1);
 		}
 		rgb[i] = atoi_0_to_255(str, parse->entry);
@@ -160,6 +164,11 @@ int	get_rgb_color(int first, t_parse *parse, char *str)
 		if (str == NULL)
 			break ;
 		str++;
+	}
+	if (i < 3)
+	{
+		dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *parse->entry, EMSG_RGB_MISS, rgb_str[i]);
+		return (-1);
 	}
 	debug_get_rgb_color(first, parse->game->debug.fd, rgb, "get_rgb_color()");
 	color = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
@@ -202,8 +211,8 @@ int	parse_fc(const char *line, t_parse *parse)
 			// flag check & flag set
 			if ((parse->flag & bit[i]) > 0)
 			{
-				dprintf(STDERR_FILENO, "%s%s : %s\n",
-					ERR_PROMPT, EMSG_ENTRY_DUP, key[i]);
+				dprintf(STDERR_FILENO, "%s%c: %s\n",
+					ERR_PROMPT, *key[i], EMSG_ENTRY_DUP);
 				free(color_str);
 				return (EXIT_FAILURE);
 			}
@@ -222,8 +231,8 @@ int	parse_fc(const char *line, t_parse *parse)
 	{
 		if (color[i] == -1)
 		{
-			dprintf(STDERR_FILENO, "%s%s: %s\n",
-				ERR_PROMPT, EMSG_ENTRY_MISS, key[i]);
+			dprintf(STDERR_FILENO, "%s%c: %s\n",
+				ERR_PROMPT, *key[i], EMSG_ENTRY_MISS);
 			return (EXIT_FAILURE);
 		}
 		i++;

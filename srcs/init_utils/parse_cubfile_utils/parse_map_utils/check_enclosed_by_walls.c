@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 00:21:58 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 02:35:23 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int check_enclosed_by_walls(const char *line, t_parse *parse)
 	//rows = parse->map->width;
 	//cols = parse->map->height;
 	// Find the first open space ('0') to start the flood-fill
-	for (int y = 0; y < map->height; y++)
+	for (y = 0; y < map->height; y++)
 	{
-		for (int x = 0; x < map->width; x++)
+		for (x = 0; x < map->width; x++)
 		{
 			if (map->data[y][x] == '0' || map->data[y][x] == 'N' || map->data[y][x] == 'S' || map->data[y][x] == 'E' || map->data[y][x] == 'W')
 			{

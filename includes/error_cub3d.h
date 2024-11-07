@@ -16,11 +16,11 @@
 
 
 // Entry
-// "Duplicate entry : F"
+// "F: Duplicate entry"
 # define EMSG_ENTRY_DUP		"Duplicate entry"
-// "Missing entry : F"
+// "F Missing entry"
 # define EMSG_ENTRY_MISS	"Missing entry"
-// Invalid entry: BA
+// "BA: Invalid entry"
 # define EMSG_ENTRY_INVAL	"Invalid entry"
 
 // RGB

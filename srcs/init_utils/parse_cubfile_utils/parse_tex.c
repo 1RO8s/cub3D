@@ -32,6 +32,17 @@ static int	get_texture_image(
 	return (EXIT_SUCCESS);
 }
 
+void	put_error_msg(const char *entry, const char *msg)
+{
+	dprintf(STDERR_FILENO, ERR_PROMPT);
+	while (*entry != ' ' && *entry != '\0')
+	{
+		write(STDERR_FILENO, entry, 1);
+		entry++;
+	}
+	dprintf(STDERR_FILENO, ": %s\n", msg);
+}
+
 bool	is_created_all_tex_image(int flag, const char *key[4], const int bit_tex[4])
 {
 	int	i;
@@ -41,8 +52,9 @@ bool	is_created_all_tex_image(int flag, const char *key[4], const int bit_tex[4]
 	{
 		if ((flag & bit_tex[i]) == 0x00)
 		{
-			dprintf(STDERR_FILENO, "%s%s : %s\n",
-				ERR_PROMPT, EMSG_ENTRY_MISS, key[i]);
+			put_error_msg(key[i], EMSG_ENTRY_MISS);
+			//dprintf(STDERR_FILENO, "%s%s: %s\n",
+			//	ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
 			return (false);
 		}
 		i++;
@@ -74,8 +86,9 @@ static int	create_texture_images(const char *line, t_parse *parse)
 			}
 			if ((parse->flag & bit_tex[i]) > 0)
 			{
-				dprintf(STDERR_FILENO, "%s%s : %s\n",
-					ERR_PROMPT, EMSG_ENTRY_MISS, key[i]);
+				put_error_msg(key[i], EMSG_ENTRY_DUP);
+				//dprintf(STDERR_FILENO, "%s%s: %s\n",
+				//	ERR_PROMPT, key[i], EMSG_ENTRY_DUP);
 				return (EXIT_FAILURE);
 			}
 			parse->flag |= bit_tex[i];
