@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/08 03:07:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:44:27 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int	parse_fc(const char *line, t_parse *parse)
 
 	color[0] = -1;
 	color[1] = -1;
-	while (line != NULL)
+	while (line != NULL && *line != '\n')
 	{
 		i = 0;
 		while (i < 2)
@@ -222,6 +222,11 @@ int	parse_fc(const char *line, t_parse *parse)
 			parse->flag |= bit[i];
 			free(color_str);
 			break ;
+		}
+		if (i == 2)
+		{
+			put_error_msg(line, EMSG_ENTRY_INVAL);
+			return (EXIT_FAILURE);
 		}
 		line = find_next_line(line);
 	}

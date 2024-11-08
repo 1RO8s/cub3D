@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/05 15:34:06 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/08 14:47:54 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS = \
 	   check_enclosed_by_walls.c \
 	   \
 	   parse_general_func.c \
+	   put_error_msg.c \
 	   get_type_element.c \
 	   find_next_element.c \
 	   \

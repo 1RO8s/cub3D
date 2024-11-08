@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 14:11:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:58:30 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static int	parse_cubfile(t_game *game, const char *element)
 		debug_element_type(game->debug.fd, element, "parse_cubfile()");
 		if (type == ENUM_ELEMENT_ERR)
 		{
-			ft_dprintf(STDERR_FILENO, "Error: cub file\n");
+			put_error_msg(element, EMSG_ENTRY_INVAL);
+			//ft_dprintf(STDERR_FILENO, "Error: cub file\n");
 			return (EXIT_FAILURE);
 		}
 		if (func[type](element, &parse) != EXIT_SUCCESS)

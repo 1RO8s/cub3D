@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/05 20:56:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:46:08 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ bool		is_key_line(const char *line, const char *key);
 char		*strdup_until_ch(const char *line, int until_ch);
 //int			print_until_nl(int fd, const char *str);
 void		init_tex_keys(const char *keys[], int size);
+
+// put_error_msg.c
+void	put_error_msg(const char *entry, const char *msg);
 
 
 // srcs/init_utils/parse_cubfile_utils/

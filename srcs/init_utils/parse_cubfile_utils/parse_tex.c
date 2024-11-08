@@ -32,17 +32,6 @@ static int	get_texture_image(
 	return (EXIT_SUCCESS);
 }
 
-void	put_error_msg(const char *entry, const char *msg)
-{
-	dprintf(STDERR_FILENO, ERR_PROMPT);
-	while (*entry != ' ' && *entry != '\0')
-	{
-		write(STDERR_FILENO, entry, 1);
-		entry++;
-	}
-	dprintf(STDERR_FILENO, ": %s\n", msg);
-}
-
 bool	is_created_all_tex_image(int flag, const char *key[4], const int bit_tex[4])
 {
 	int	i;
