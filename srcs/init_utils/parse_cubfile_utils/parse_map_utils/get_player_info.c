@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 14:47:44 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:14:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static bool	is_player_position(char map_point)
 		|| map_point == 'W' || map_point == 'E');
 }
 
+bool	is_valid_char(char map_point)
+{
+	return (map_point == '1' || map_point == '0');
+}
+
 static int	find_player_and_set(
 				char **data, t_point grid, int *count_player, t_player *player)
 {
@@ -50,6 +55,15 @@ static int	find_player_and_set(
 			!= EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		data[grid.y][grid.x] = '0';
+	}
+	else
+	{
+		if (is_valid_char(data[grid.y][grid.x]) != true)
+		{
+			dprintf(STDERR_FILENO, "%s%s", ERR_PROMPT, EMSG_MAP_CHAR);
+			dprintf(STDERR_FILENO, ": \"%c\"\n", data[grid.y][grid.x]);
+			return (EXIT_FAILURE);
+		}
 	}
 	return (EXIT_SUCCESS);
 }
