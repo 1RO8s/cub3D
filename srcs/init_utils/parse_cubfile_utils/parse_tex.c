@@ -74,7 +74,7 @@ static int	create_texture_images(const char *line, t_parse *parse)
 	init_tex_keys(key, 4);
 	mlx = parse->game->mlx;
 	texture = parse->game->texture;
-	while (line != NULL)// parse->flag BIT_NO, WE, EA, WE ... may be ...
+	while (line != NULL && *line != '\n')// parse->flag BIT_NO, WE, EA, WE ... may be ...
 	{
 		i = 0;
 		while (i < 4)
@@ -101,12 +101,12 @@ static int	create_texture_images(const char *line, t_parse *parse)
 			}
 			break ;
 		}
-		// if (i == 4) // may be...
-		// {
-		// 	ft_dprintf(STDERR, "Error: texture direction\n");
-		// 	print_until_nl(STDERR_FILENO, line);
-		// 	return (EXIT_FAILURE);
-		// }
+		if (i == 4) // may be...
+		{
+			put_error_msg(line, EMSG_ENTRY_INVAL);
+			//print_until_nl(STDERR_FILENO, line);
+			return (EXIT_FAILURE);
+		}
 		line = find_next_line(line);
 	}
 	if (is_created_all_tex_image(parse->flag, key, bit_tex) == false)
