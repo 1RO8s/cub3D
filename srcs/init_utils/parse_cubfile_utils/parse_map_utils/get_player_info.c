@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/08 16:14:36 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:43:01 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	find_player_and_set(
 	{
 		if (*count_player != 0)
 		{
-			// syntax error : invalid map
+			dprintf(STDERR_FILENO, "%s%s", ERR_PROMPT, EMSG_MAP_PLAYER_MULTI);
 			return (EXIT_FAILURE);
 		}
 		(*count_player)++;
@@ -95,6 +95,11 @@ int	get_player_info(const char *line, t_parse *parse)
 		}
 		grid.y++;
 	}
+	//if (count_player == 0)
+	//{
+	//	dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_PLAYER_MISS);
+	//	return (EXIT_FAILURE);
+	//}
 	player->move_speed = MOVE_SPEED;
 	player->rotate_speed = ROTATE_SPEED;
 	parse->player_grid = grid;
