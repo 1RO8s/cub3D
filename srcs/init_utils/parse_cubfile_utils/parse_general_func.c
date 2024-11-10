@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+int	print_until_nl(int fd, const char *str)
+{
+	size_t	len;
+
+	if (str == NULL)
+		return (EXIT_FAILURE);
+	len = ft_strchr(str, '\n') - str;
+	write(fd, str, len);
+	return (EXIT_SUCCESS);
+}
+
 char	*find_next_line(const char *contents)
 {
 	char	*line;

@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/08 14:46:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/11 03:59:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int			parse_map(const char *line, t_parse *parse);
 char		*find_next_line(const char *contents);
 bool		is_key_line(const char *line, const char *key);
 char		*strdup_until_ch(const char *line, int until_ch);
-//int			print_until_nl(int fd, const char *str);
+int			print_until_nl(int fd, const char *str);
 void		init_tex_keys(const char *keys[], int size);
 
 // put_error_msg.c
@@ -129,7 +129,8 @@ int			set_direction(char direction, t_player *player);
 # define BIT_SOUTH		0x08	// 0000 0000 1000
 # define BIT_F			0x10	// 0000 0001 0000
 # define BIT_C			0x20	// 0000 0010 0000
-# define BIT_MAP		0x40	// 0000 0100 0000
+# define BIT_PLAYER		0x40	// 0000 0100 0000
+# define BIT_MAP		0x80	// 0000 1000 0000
 # define BIT_INIT_TEX	0x100	// 0001 0000 0000
 # define BIT_INIT_MAP	0x200	// 0010 0000 0000
 

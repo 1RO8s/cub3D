@@ -1,16 +1,5 @@
 #include "cub3d.h"
 
-int	print_until_nl(int fd, const char *str)
-{
-	size_t	len;
-
-	if (str == NULL)
-		return (EXIT_FAILURE);
-	len = ft_strchr(str, '\n') - str;
-	write(fd, str, len);
-	return (EXIT_SUCCESS);
-}
-
 static int	get_texture_image(
 		void *mlx, const char *file_line, t_texture *texture)
 {
@@ -18,12 +7,19 @@ static int	get_texture_image(
 
 	file = strdup_until_ch(file_line, '\n');
 	if (file == NULL)
-		return (EXIT_FAILURE + 1);
+		return (EXIT_FAILURE);// may be ...
+		//return (EXIT_FAILURE + 1);
+	// if (is_exist_file(file) != true)
+	//{
+	//	put_error_msg(file, EMSG_NOT_EXIST_FILE);
+	//	return (EXIT_FAILURE);
+	//}
 	texture->img_tex.img = (void *)mlx_xpm_file_to_image(
 			mlx, file, &texture->width, &texture->height);
 	if (texture->img_tex.img == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s %s\n", ERR_PROMPT, EMSG_XPM_FILE, file);
+		ft_dprintf(STDERR_FILENO, "%s%s: %s\n",
+			ERR_PROMPT, EMSG_MLX_XPM_TO_IMG, file);
 		free(file);
 		return (EXIT_FAILURE);
 	}
@@ -63,7 +59,7 @@ static int	create_texture_images(const char *line, t_parse *parse)
 	init_tex_keys(key, 4);
 	mlx = parse->game->mlx;
 	texture = parse->game->texture;
-	while (line != NULL && *line != '\n')// parse->flag BIT_NO, WE, EA, WE ... may be ...
+	while (line != NULL && *line != '\n' && *line != '\0')// parse->flag BIT_NO, WE, EA, WE ... may be ...
 	{
 		i = 0;
 		while (i < 4)
@@ -81,11 +77,18 @@ static int	create_texture_images(const char *line, t_parse *parse)
 				return (EXIT_FAILURE);
 			}
 			parse->flag |= bit_tex[i];
+			if (line[3] == '\n' || line[3] == '\0')
+			{
+				put_error_msg(key[i], EMSG_XPM_FILE);
+				return (EXIT_FAILURE);
+			}
 			status = get_texture_image(mlx, &line[3], &texture[i]);
 			if (status != EXIT_SUCCESS)
 			{
-				i = i - (status != EXIT_FAILURE);
+				//i = i - (status != EXIT_FAILURE);
 				destroy_texture_image(mlx, texture, i);
+				//dprintf(STDERR_FILENO, "%s%s: %s\n",
+				//	ERR_PROMPT, key[i], EMSG_ENTRY_DUP);
 				return (EXIT_FAILURE);
 			}
 			break ;

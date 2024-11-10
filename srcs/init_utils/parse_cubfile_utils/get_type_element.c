@@ -37,7 +37,7 @@ static bool	is_floor_ceiling_element(const char *str)
 
 static bool	is_map_element(const char *str)
 {
-	const char	*identifier = " 1";
+	const char	*identifier = " 10";
 	size_t		i;
 	size_t		len;
 
@@ -64,10 +64,9 @@ t_enum_elem	get_type_element(const char *line)
 {
 	if (is_texture_element(line) == true)
 		return (ENUM_TEX);
-	else if (is_floor_ceiling_element(line) == true)
+	if (is_floor_ceiling_element(line) == true)
 		return (ENUM_FC);
-	else if (is_map_element(line) == true)
+	if (is_map_element(line) == true)
 		return (ENUM_MAP);
-	else
-		return (ENUM_ELEMENT_ERR);
+	return (ENUM_ELEMENT_ERR);
 }

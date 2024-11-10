@@ -11,8 +11,10 @@
 #define EMSG_FILE_EXT	"Specify a file path with .cub extension"
 
 // parse_tex.c
-# define EMSG_XPM_FILE "texture file"
-# define EMSG_IMG_DATA_ADDR "failure mlx_get_data_addr function"
+# define EMSG_XPM_FILE "Texture file"
+# define EMSG_NOT_EXIST_FILE "Not exist file"
+# define EMSG_IMG_DATA_ADDR "mlx_get_data_addr"
+# define EMSG_MLX_XPM_TO_IMG "mlx_xpm_file_to_image"
 
 
 // Entry
