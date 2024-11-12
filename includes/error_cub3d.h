@@ -1,21 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_cub3d.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 15:26:28 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/11/12 15:27:29 by kamitsui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ERROR_CUB3D_H
 # define ERROR_CUB3D_H
 
-
 /**
- * @brief error message
+ * @brief error prompt
  */
 # define ERR_PROMPT "Error: "
 
-#define EMSG_ARG_COUNT	"One argument must be specified"
-#define EMSG_FILE_EXT	"Specify a file path with .cub extension"
+# define EMSG_ARG_COUNT	"One argument must be specified"
+# define EMSG_FILE_EXT	"Specify a file path with .cub extension"
 
 // parse_tex.c
 # define EMSG_XPM_FILE "Texture file"
 # define EMSG_NOT_EXIST_FILE "Not exist file"
 # define EMSG_IMG_DATA_ADDR "mlx_get_data_addr"
 # define EMSG_MLX_XPM_TO_IMG "mlx_xpm_file_to_image"
-
 
 // Entry
 // "F: Duplicate entry"
@@ -42,6 +52,5 @@
 # define EMSG_MAP_NOT_LAST		"MAP: Must be the last element"
 # define EMSG_MAP_NOT_ENCLOSED	"MAP: Not enclosed by walls"
 # define EMSG_MAP_TOO_LARGE		"MAP: Too large"
-
 
 #endif

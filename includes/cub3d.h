@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/11 03:59:31 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:23:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char		*ft_strjoin_nullable(char *s1, char *s2);
 // call by init_cub_contents()
 const char	*find_next_element(const char *line);
 t_enum_elem	get_type_element(const char *line);
-typedef int	(*t_parse_elem)(const char *, t_parse *);
+typedef int		(*t_parse_elem)(const char *, t_parse *);
 int			parse_tex(const char *line, t_parse *parse);
 int			parse_fc(const char *line, t_parse *parse);
 int			parse_map(const char *line, t_parse *parse);
@@ -104,20 +104,19 @@ int			print_until_nl(int fd, const char *str);
 void		init_tex_keys(const char *keys[], int size);
 
 // put_error_msg.c
-void	put_error_msg(const char *entry, const char *msg);
-
+void		put_error_msg(const char *entry, const char *msg);
 
 // srcs/init_utils/parse_cubfile_utils/
 // │
 // └ parse_map_utils
 
 // call by parse_map()
-typedef int	(*t_parse_map)(const char *, t_parse *parse);
+typedef int		(*t_parse_map)(const char *, t_parse *parse);
 int			check_last_map(const char *line, t_parse *parse);
 int			check_range_map(const char *line, t_parse *parse);
 int			get_map_data(const char *line, t_parse *parse);
 int			get_player_info(const char *line, t_parse *parse);
-int 		check_enclosed_by_walls(const char *line, t_parse *parse);
+int			check_enclosed_by_walls(const char *line, t_parse *parse);
 
 // call by get_player_info()
 int			set_direction(char direction, t_player *player);
@@ -148,11 +147,11 @@ typedef void	(*t_draw_3d_process)(t_frame *, int);
 
 // call by
 // draw_vertical_line() & debug_texture_y_coordinate_overflow()
-int	get_texture_y_coordinate(t_frame *frame, int y);
+int			get_texture_y_coordinate(t_frame *frame, int y);
 
 // call by debug_texture_coordinate()
 t_type_wall	get_texture_direction(
-						int type_of_grid_line, t_vector ray_dir);
+				int type_of_grid_line, t_vector ray_dir);
 
 // srcs/
 // │

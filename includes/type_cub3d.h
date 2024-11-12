@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 21:08:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:26:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ typedef struct s_texture {
 /******************** parse *********************************/
 
 typedef struct s_parse {
-	int		flag;
+	int			flag;
 	const char	*entry;
-	t_point	player_grid;
-	t_game	*game;
+	t_point		player_grid;
+	t_game		*game;
 }	t_parse;
 
-typedef enum {
+typedef enum e_enum_elem {
 	ENUM_TEX,
 	ENUM_FC,
 	ENUM_MAP,
