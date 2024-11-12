@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/11 04:21:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:56:44 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ bool flood_fill(t_map *map, int x, int y, bool visited[MAX_ROWS][MAX_COLS])
 	return (up && down && left && right);  // All directions must be enclosed
 }
 
-void	put_visited(bool visited[MAX_ROWS][MAX_COLS], t_map *map)
+void	put_visited(int fd, bool visited[MAX_ROWS][MAX_COLS], t_map *map)
 {
 	for (int r = 0; r < map->height; r++)
 	{
 		for (int c = 0; c < map->width; c++)
 		{
-			printf("%d", visited[r][c]);
+			ft_dprintf(fd, "%d", visited[r][c]);
 		}
-		printf("\n");
+		ft_dprintf(fd, "\n");
 	}
 }
 
@@ -64,7 +64,7 @@ int check_enclosed_by_walls(const char *line, t_parse *parse)
 	// Perform flood-fill starting from the initial position
 	if (flood_fill(map, start_x, start_y, visited) != true)
 	{
-		dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
+		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
 		return (EXIT_FAILURE);
 	}
 	(void)line;
@@ -72,4 +72,4 @@ int check_enclosed_by_walls(const char *line, t_parse *parse)
 }
 // debug code
 //printf("-- End flood_fill()\n");//debug
-//put_visited(visited, map);
+//put_visited(parse->game->debug.fd, visited, map);

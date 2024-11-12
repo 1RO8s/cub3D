@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/08 14:44:27 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:41:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	atoi_0_to_255(char *str, const char *entry)
 		str++;
 	if (*str == '\0')
 	{
-		dprintf(STDERR_FILENO, "%s%c: ",
+		ft_dprintf(STDERR_FILENO, "%s%c: ",
 			ERR_PROMPT, *entry);
-		dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
+		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
 		return (-1);
 	}
 	str_num = str;
@@ -84,17 +84,17 @@ int	atoi_0_to_255(char *str, const char *entry)
 	}
 	if (*str != '\0' && *str != ',')
 	{
-		dprintf(STDERR_FILENO, "%s%c: ",
+		ft_dprintf(STDERR_FILENO, "%s%c: ",
 			ERR_PROMPT, *entry);
-		dprintf(STDERR_FILENO, "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
+		ft_dprintf(STDERR_FILENO, "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
 		return (-1);
 	}
 	if (status == -1)
 	{
-		dprintf(STDERR_FILENO, "%s%c: ",
+		ft_dprintf(STDERR_FILENO, "%s%c: ",
 			ERR_PROMPT, *entry);
 		*str = '\0';
-		dprintf(STDERR_FILENO, "\"%s\" %s\n", str_num, EMSG_RGB_RANGE_OUT);
+		ft_dprintf(STDERR_FILENO, "\"%s\" %s\n", str_num, EMSG_RGB_RANGE_OUT);
 		return (-1);
 	}
 
@@ -149,13 +149,13 @@ int	get_rgb_color(int first, t_parse *parse, char *str)
 	{
 		if (*str == ',')
 		{
-			dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *parse->entry, EMSG_RGB_MISS, rgb_str[i]);
+			ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *parse->entry, EMSG_RGB_MISS, rgb_str[i]);
 			return (-1);
 		}
 		rgb[i] = atoi_0_to_255(str, parse->entry);
 		if (rgb[i] == -1)
 		{
-			//dprintf(STDERR_FILENO, "%s%c: ",
+			//ft_dprintf(STDERR_FILENO, "%s%c: ",
 			//	ERR_PROMPT, *parse->entry);
 			return (-1);
 		}
@@ -167,7 +167,7 @@ int	get_rgb_color(int first, t_parse *parse, char *str)
 	}
 	if (i < 3)
 	{
-		dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *parse->entry, EMSG_RGB_MISS, rgb_str[i]);
+		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *parse->entry, EMSG_RGB_MISS, rgb_str[i]);
 		return (-1);
 	}
 	debug_get_rgb_color(first, parse->game->debug.fd, rgb, "get_rgb_color()");
@@ -211,7 +211,7 @@ int	parse_fc(const char *line, t_parse *parse)
 			// flag check & flag set
 			if ((parse->flag & bit[i]) > 0)
 			{
-				dprintf(STDERR_FILENO, "%s%c: %s\n",
+				ft_dprintf(STDERR_FILENO, "%s%c: %s\n",
 					ERR_PROMPT, *key[i], EMSG_ENTRY_DUP);
 				free(color_str);
 				return (EXIT_FAILURE);
@@ -236,7 +236,7 @@ int	parse_fc(const char *line, t_parse *parse)
 	{
 		if (color[i] == -1)
 		{
-			dprintf(STDERR_FILENO, "%s%c: %s\n",
+			ft_dprintf(STDERR_FILENO, "%s%c: %s\n",
 				ERR_PROMPT, *key[i], EMSG_ENTRY_MISS);
 			return (EXIT_FAILURE);
 		}

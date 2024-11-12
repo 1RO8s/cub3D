@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/11 04:22:10 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:45:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	find_player_and_set(
 	{
 		if ((parse->flag & BIT_PLAYER) > 0x00)
 		{
-			dprintf(STDERR_FILENO, "%s%s", ERR_PROMPT, EMSG_MAP_PLAYER_MULTI);
+			ft_dprintf(STDERR_FILENO, "%s%s", ERR_PROMPT, EMSG_MAP_PLAYER_MULTI);
 			return (EXIT_FAILURE);
 		}
 		parse->flag |= BIT_PLAYER;
@@ -61,8 +61,8 @@ static int	find_player_and_set(
 	{
 		if (is_valid_char(data[grid.y][grid.x]) != true)
 		{
-			dprintf(STDERR_FILENO, "%s%s", ERR_PROMPT, EMSG_MAP_CHAR);
-			dprintf(STDERR_FILENO, ": \"%c\"\n", data[grid.y][grid.x]);
+			ft_dprintf(STDERR_FILENO, "%s%s", ERR_PROMPT, EMSG_MAP_CHAR);
+			ft_dprintf(STDERR_FILENO, ": \"%c\"\n", data[grid.y][grid.x]);
 			return (EXIT_FAILURE);
 		}
 	}
@@ -96,7 +96,7 @@ int	get_player_info(const char *line, t_parse *parse)
 	}
 	//if ((parse->flag & BIT_PLAYER) > 0x00)// may be ...
 	//{
-	//	dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_PLAYER_MISS);
+	//	ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_PLAYER_MISS);
 	//	return (EXIT_FAILURE);
 	//}
 	player->move_speed = MOVE_SPEED;

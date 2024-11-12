@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/11 04:16:37 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:59:27 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	debug_element_type(int fd, const char *str, const char *msg)
 
 	if (IS_DEBUG == false)
 		return ;
-	dprintf(fd,
+	ft_dprintf(fd,
 		"\n\n>>> func debug_element_type() ... call by '%s' <<<\n", msg);
 	type = get_type_element(str);
-	dprintf(fd, "\tNo.%d first_char[%c]%p\n", count, *str, str);
-	dprintf(fd, "\telement type [%d] ... tex[%d] fc[%d] map[%d] err[%d]\n",
+	ft_dprintf(fd, "\tNo.%d first_char[%c]%p\n", count, *str, str);
+	ft_dprintf(fd, "\telement type [%d] ... tex[%d] fc[%d] map[%d] err[%d]\n",
 			(int)type, (int)ENUM_TEX, (int)ENUM_FC, (int)ENUM_MAP, (int)ENUM_ELEMENT_ERR);//debug
-	dprintf(fd, "\t---- current element ----\n");
-	dprintf(fd, "%s\t-------------------------\n", str);
+	ft_dprintf(fd, "\t---- current element ----\n");
+	ft_dprintf(fd, "%s\t-------------------------\n", str);
 	count++;
 }
 
@@ -113,7 +113,7 @@ static char	*read_cubfile(char *filepath)
 	map = NULL;
 	// printf("--- read_cubfile ---\n");
 	fd = open(filepath, O_RDONLY);
-	if (fd == -1 && printf("Error: file open failed\n"))
+	if (fd == -1 && ft_dprintf(STDERR_FILENO, "Error: file open failed\n"))
 		return (NULL);
 	line = malloc(1);
 	while (line != NULL)
