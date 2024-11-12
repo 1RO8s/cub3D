@@ -6,11 +6,25 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:52:26 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 03:08:01 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:43:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	put_ray_cast(int fd, t_ray_cast ray_cast)
+{
+	int	original_stdout_fd;
+
+	original_stdout_fd = set_stdout_fd(fd);
+	printf("\tnext_distance.x[%f] grid.x[%d]\n",
+		ray_cast.next_distance.x, ray_cast.grid.x);
+	printf("\tnext_distance.y[%f] grid.y[%d]\n",
+		ray_cast.next_distance.y, ray_cast.grid.y);
+	if (dup2(original_stdout_fd, STDOUT_FILENO) == -1)
+		handle_error("dup2");
+	close(original_stdout_fd);
+}
 
 /**
  * @brief print out next step through grid line
@@ -31,10 +45,7 @@ void	debug_dda(t_frame *frame, int type, const char *msg)
 	}
 	dprintf(fd,
 		"type[%d] ... 0:VERTICAL\t1:HORIZONTAL\t-1:START\n", type);
-	dprintf(fd, "\tnext_distance.x[%f] grid.x[%d]\n",
-		ray_cast.next_distance.x, ray_cast.grid.x);
-	dprintf(fd, "\tnext_distance.y[%f] grid.y[%d]\n",
-		ray_cast.next_distance.y, ray_cast.grid.y);
+	put_ray_cast(fd, ray_cast);
 }
 
 /**
