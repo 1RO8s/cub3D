@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 02:53:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 15:02:30 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:14:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ static int	get_texture_y_coordinate_ng(t_frame *frame, int y)
 	return (((d * tex_height) / line_height) / 256);
 }
 
-static void	check_overflow(t_frame *frame, int y)
+static void	check_min_overflow(t_frame *frame, int y)
 {
+	int			tex_y;
+	int			tex_y_ng;
+
 	tex_y = get_texture_y_coordinate(frame, y);
 	tex_y_ng = get_texture_y_coordinate_ng(frame, y);
 	if (tex_y != tex_y_ng)
@@ -38,16 +41,11 @@ static void	check_overflow(t_frame *frame, int y)
 	}
 }
 
-void	debug_texture_y_coordinate_overflow(t_frame *frame, int y)
+static void	check_max_overflow(t_frame *frame, int y)
 {
 	int			tex_y;
 	int			tex_y_ng;
 
-	if (IS_DEBUG != true)
-		return ;
-	check_overflow(frame, y);
-	check_overflow(frame, y);
-	y = frame->wall_slice.draw_end;
 	tex_y = get_texture_y_coordinate(frame, y);
 	tex_y_ng = get_texture_y_coordinate_ng(frame, y);
 	if (tex_y != tex_y_ng)
@@ -58,4 +56,13 @@ void	debug_texture_y_coordinate_overflow(t_frame *frame, int y)
 		ft_dprintf(STDERR_FILENO,
 			"\ttexture.height[%d]\n", frame->texture->height);
 	}
+}
+
+void	debug_texture_y_coordinate_overflow(t_frame *frame, int y)
+{
+	if (IS_DEBUG != true)
+		return ;
+	check_min_overflow(frame, y);
+	y = frame->wall_slice.draw_end;
+	check_max_overflow(frame, y);
 }
