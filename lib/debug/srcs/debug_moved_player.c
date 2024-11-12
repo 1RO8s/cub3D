@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 02:26:32 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/20 02:31:06 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:43:05 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ void	debug_moved_player(t_game *game)
 	int			fd;
 	t_vector	view_point;
 	t_vector	ray_dir;
+	int			original_stdout_fd;
 
 	if (IS_DEBUG != true || game->frame.flag == 0x00)
 		return ;
 	fd = STDOUT_FILENO;
 	view_point = game->player.view_point;
 	ray_dir = game->player.ray_dir;
-	dprintf(fd,
-		"moved player=<%f, %f> ray_dir=<%f, %f>\n",
+	original_stdout_fd = set_stdout_fd(fd);
+	printf("moved player=<%f, %f> ray_dir=<%f, %f>\n",
 		view_point.x, view_point.y, ray_dir.x, ray_dir.y);
+	if (dup2(original_stdout_fd, STDOUT_FILENO) == -1)
+		handle_error("dup2");
+	close(original_stdout_fd);
 }

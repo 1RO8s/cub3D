@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug_player.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 14:22:09 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/11/12 14:44:16 by kamitsui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 //typedef struct s_player {
@@ -25,7 +37,7 @@ static void	put_player(int fd, t_player player)
 	y = player.camera_forcal_plane.y;
 	printf("\tcamera_forcal_plane x[%f] y[%f]\n", x, y);
 	printf("\tmove_speed[%f]\trotate_speed[%f]\n",
-			player.move_speed, player.rotate_speed);
+		player.move_speed, player.rotate_speed);
 	if (dup2(original_stdout_fd, STDOUT_FILENO) == -1)
 		handle_error("dup2");
 	close(original_stdout_fd);
@@ -35,7 +47,7 @@ void	debug_player(int fd, t_player player, const char *msg)
 {
 	if (IS_DEBUG != true)
 		return ;
-	dprintf(fd, "\n>>> func debug_player() ... call by '%s' <<<\n", msg);
+	ft_dprintf(fd, "\n>>> func debug_player() ... call by '%s' <<<\n", msg);
 	put_player(fd, player);
-	dprintf(fd, "\n\n");
+	ft_dprintf(fd, "\n\n");
 }

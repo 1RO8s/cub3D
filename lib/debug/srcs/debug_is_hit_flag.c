@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:48:47 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/17 15:56:14 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:41:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ void	debug_is_hit_flag(t_game *game, int bit)
 	if (IS_DEBUG != true)
 		return ;
 	fd = game->debug.fd;
-	dprintf(fd, ">>> is_hit_flag() == true\n");
+	ft_dprintf(fd, ">>> is_hit_flag() == true\n");
 	bin_flag = ft_itoa_binary(game->frame.flag);
 	if (bin_flag == NULL)
 	{
-		dprintf(STDERR_FILENO, "Error: in debug_is_hit_flag\n");
+		ft_dprintf(STDERR_FILENO, "Error: in debug_is_hit_flag\n");
 		return ;
 	}
-	dprintf(fd, "\tflag[%s]\n", bin_flag);
+	ft_dprintf(fd, "\tflag[%s]\n", bin_flag);
 	bin_bit = ft_itoa_binary(bit);
 	if (bin_bit == NULL)
 	{
-		dprintf(STDERR_FILENO, "Error: in debug_is_hit_flag\n");
+		ft_dprintf(STDERR_FILENO, "Error: in debug_is_hit_flag\n");
 		free(bin_bit);
 		return ;
 	}
-	dprintf(fd, "\tbit [%s]\n", bin_flag);
+	ft_dprintf(fd, "\tbit [%s]\n", bin_flag);
 	free(bin_bit);
 	free(bin_flag);
 }

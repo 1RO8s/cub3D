@@ -6,76 +6,28 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:11:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:45:40 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	put_x_y_coordinate(int type_of_grid_line,
-			t_vector view_point, t_vector ray_dir)
-{
-	printf("\ttype_of_grid_line[%d]\tview_point.y[%f]\tray_dir.y[%f]\n",
-		type_of_grid_line, view_point.y, ray_dir.y);
-	printf("\ttype_of_grid_line[%d]\tview_point.x[%f]\tray_dir.x[%f]\n",
-		type_of_grid_line, view_point.x, ray_dir.x);
-}
-
-static void	put_texture_coordinate(int fd, double wall_x, t_frame *frame)
-{
-	int	original_stdout_fd;
-	t_dda		dda;
-	t_type_wall	type_wall;
-	static char	*direction[4] = {"NORTH", "WEST", "EAST", "SOUTH"};
-
-	original_stdout_fd = set_stdout_fd(fd);
-	dda = frame->dda;
-	printf("\twall_x[%f]\ttype_of_grid_line[%d]\n",
-		wall_x, dda.type_of_grid_line);
-	put_x_y_coordinate(dda.type_of_grid_line,
-			frame->player->view_point, frame->ray_cast.ray_dir);
-	printf("\ttex_x[%d]\n", dda.tex_x);
-	type_wall = get_texture_direction(dda.type_of_grid_line, frame->ray_cast.ray_dir);
-	printf("\ttype_wall[%d] -> [%s]\n", type_wall, direction[type_wall]);
-	if (dup2(original_stdout_fd, STDOUT_FILENO) == -1)
-		handle_error("dup2");
-	close(original_stdout_fd);
-}
-
-void	debug_texture_coordinate(int fd, double wall_x, t_frame *frame,
-			const char *msg)
-{
-	if (IS_DEBUG != true)
-		return ;
-	ft_dprintf(fd, ">>> func debug_texture_coordinate() <<< ... call by %s\n",
-		msg);
-	put_texture_coordinate(fd, wall_x, frame);
-	ft_dprintf(fd, "\n\n");
-}
-// reference type_cub3d.h
-//typedef enum	e_type_wall {
-//	NORTH,
-//	WEST,
-//	EAST,
-//	SOUTH
-//}	t_type_wall;
-
 void	debug_texture(char *file, t_texture texture,
 			const char *msg)
 {
 	int			fd;
-	static	int	count = 0;
+	static int	count = 0;
 
 	if (IS_DEBUG != true)
 		return ;
 	fd = texture.debug.fd;
 	if (count == 0)
-		dprintf(fd,
+		ft_dprintf(fd,
 			"\n\n>>> func debug_texture() ... call by '%s' <<<\n", msg);
-	dprintf(fd, "---- [%d] ... [%s] ----\n", count, file);
-	dprintf(fd, "\timg_tex.img = %p\n", texture.img_tex.img);
-	dprintf(fd, "\twidth = %d\n", texture.width);
-	dprintf(fd, "\theight = %d\n", texture.height);
+	ft_dprintf(fd, "---- [%d] ... [%s] ----\n", count, file);
+	ft_dprintf(fd, "\timg_tex.img = %p\n", texture.img_tex.img);
+	ft_dprintf(fd, "\twidth = %d\n", texture.width);
+	ft_dprintf(fd, "\theight = %d\n", texture.height);
 	count++;
 }
 //typedef struct	s_texture
@@ -96,10 +48,10 @@ void	debug_img_tex(int fd, t_img img, int i, const char *msg)
 	if (i == 0)
 		ft_dprintf(fd,
 			"\n\n>>> func debug_texture() ... call by '%s' <<<\n", msg);
-	dprintf(fd, "---- [%s] ... img_tex[%d] ----\n", key[i], i);
-	dprintf(fd, "\timg[%d].img[%p]\n\taddr[%p]\n\tbpp[%d]\n",
+	ft_dprintf(fd, "---- [%s] ... img_tex[%d] ----\n", key[i], i);
+	ft_dprintf(fd, "\timg[%d].img[%p]\n\taddr[%p]\n\tbpp[%d]\n",
 		i, img.img, img.addr, img.bpp);
-	dprintf(fd, "\tline_length[%d]\n\tendian[%d]\n",
+	ft_dprintf(fd, "\tline_length[%d]\n\tendian[%d]\n",
 		img.line_length, img.endian);
 }
 //typedef struct s_img {

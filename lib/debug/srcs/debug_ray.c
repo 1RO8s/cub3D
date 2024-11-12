@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:10:12 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:45:27 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,18 @@ void	debug_ray_cast(t_frame *frame, const char *msg, int x)
 {
 	int			fd;
 	t_ray_cast	ray_cast;
-	int	original_stdout_fd;
-
+	int			original_stdout_fd;
 
 	if (IS_DEBUG != true)
 		return ;
 	fd = frame->debug.fd;
 	ray_cast = frame->ray_cast;
-	dprintf(fd, "\n>>> func debug_ray_cast() ... call by '%s' <<<\n", msg);
-	dprintf(fd, "\tx [%d], window_width / 2 [%f]\n", x, (double)IMG_3D_WIDTH);
-	dprintf(fd, "---- ray_cast ----\n");
+	ft_dprintf(fd, "\n>>> func debug_ray_cast() ... call by '%s' <<<\n", msg);
 	original_stdout_fd = set_stdout_fd(fd);
+	printf("\tx [%d], window_width / 2 [%f]\n", x, (double)IMG_3D_WIDTH);
+	printf("---- ray_cast ----\n");
 	debug_camera_plane_and_ray_dir(ray_cast);
 	debug_grid_and_next_distance(ray_cast);
 	close(original_stdout_fd);
-	dprintf(fd, "\n\n");
+	ft_dprintf(fd, "\n\n");
 }

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:10:50 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:41:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	debug_frame(t_game *game, const char *msg)
 		return ;
 	fd = game->debug.fd;
 	player = game->player;
-	dprintf(fd, "\n>>> func debug_frame() ... call by '%s' <<<\n", msg);
-	dprintf(fd, "---- player ----\n");
+	ft_dprintf(fd, "\n>>> func debug_frame() ... call by '%s' <<<\n", msg);
+	ft_dprintf(fd, "---- player ----\n");
 	put_player(fd, player);
-	dprintf(fd, "\n\n");
+	ft_dprintf(fd, "\n\n");
 }
