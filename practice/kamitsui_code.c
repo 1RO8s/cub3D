@@ -1,58 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   kamitsui_code.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 12:41:26 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/11/12 13:14:40 by kamitsui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 // --------------- split vs strtok ----------------------
-#define STR "hello\n\n42tokyo\n"
-#include "libft.h"
+//Compile
 // cc -Ilib/libft practice_code.c lib/libft/libft.a
-
-int	call_split(char *str)
-{
-	int		i;
-	char	**array;
-	array = ft_split(str, '\n');
-
-	printf("----- split -----\n");
-	printf("%s", str);
-	printf("----------\n");
-	i = 0;
-	while (array[i] != NULL)
-	{
-		printf("[%s]", array[i]);
-		i++;
-	}
-	printf("\nlast array [%p]\n", array[i]);
-	printf("----------\n\n");
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (0);
-}
-
-int	main(void)
-{
-	char	*token;
-	token = strdup(STR);
-
-	call_split(STR);
-	printf("----- strtok -----\n");
-	printf("%s", token);
-	printf("----------\n");
-	token = strtok(token, "\n");
-	while (token != NULL)
-	{
-		printf("[%s]", token);
-		token = strtok(NULL, "\n");
-	}
-	printf("\nlast token addr [%p]\n", token);
-	return (0);
-}
+//#define STR "hello\n\n42tokyo\n"
+//#include "libft.h"
+//
+//int	call_split(char *str)
+//{
+//	int		i;
+//	char	**array;
+//	array = ft_split(str, '\n');
+//
+//	printf("----- split -----\n");
+//	printf("%s", str);
+//	printf("----------\n");
+//	i = 0;
+//	while (array[i] != NULL)
+//	{
+//		printf("[%s]", array[i]);
+//		i++;
+//	}
+//	printf("\nlast array [%p]\n", array[i]);
+//	printf("----------\n\n");
+//	i = 0;
+//	while (array[i] != NULL)
+//	{
+//		free(array[i]);
+//		i++;
+//	}
+//	free(array);
+//	return (0);
+//}
+//
+//int	main(void)
+//{
+//	char	*token;
+//	token = strdup(STR);
+//
+//	call_split(STR);
+//	printf("----- strtok -----\n");
+//	printf("%s", token);
+//	printf("----------\n");
+//	token = strtok(token, "\n");
+//	while (token != NULL)
+//	{
+//		printf("[%s]", token);
+//		token = strtok(NULL, "\n");
+//	}
+//	printf("\nlast token addr [%p]\n", token);
+//	return (0);
+//}
 //% ./a.out
 //----------
 //hello
@@ -93,7 +106,8 @@ int	main(void)
 //}
 
 // ------------------ minilibX exist leak bug ------------------
-// cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
+// cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux
+// 	-lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
 // valgrind --leak-check=full --show-leak-kinds=all ./a.out
 //#include <mlx.h>
 //
@@ -105,7 +119,8 @@ int	main(void)
 //static int	end_game(t_game *game)
 //{
 //	printf("quit Example\n");
-//	mlx_destroy_window(game->mlx, game->win);// still reachable: 62 blocks -> 60 blocks
+//	mlx_destroy_window(game->mlx, game->win);
+//	// still reachable: 62 blocks -> 60 blocks
 //	free(game->mlx);// still reachable: 60 blocks -> 59 blocks
 //	exit(0);
 //}
@@ -126,9 +141,11 @@ int	main(void)
 //}
 // ------------------ leak check ------------------ extract_value() OK
 // compile macOS
-//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
+//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c
+//  	-Iincludes -Ilib/libft -g
 // compile linux
-//  cc -g practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft
+//  cc -g practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a
+//  	-Iincludes -Ilib/libft
 //  valgrind ./a.out
 //#include "libft.h"
 //#define LINE "NO ./texture/sonic.xpm"
@@ -147,11 +164,14 @@ int	main(void)
 //}
 // ------------------ leak check ------------------ get_element_line() OK
 // compile macOS
-//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
+//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c
+//  	-Iincludes -Ilib/libft -g
 // compile linux
-//  cc -g practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft
+//  cc -g practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a
+//  	-Iincludes -Ilib/libft
 //  valgrind ./a.out
-//#define FILE_CONTENTS "1234567890\nasdfgh\nnoooooo\nwwwwNOyyyyyy\nNO ./texture/sonic.xpm"
+//#define FILE_CONTENTS
+//	"1234567890\nasdfgh\nnoooooo\nwwwwNOyyyyyy\nNO ./texture/sonic.xpm"
 //char	*get_element_line(char *map, char *identifier);
 //int	main(void)
 //{
@@ -167,9 +187,11 @@ int	main(void)
 //}
 // ------------------ leak check ------------------ read_cubefile() OK
 // compile macOS
-//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c -Iincludes -Ilib/libft -g
+//  cc lib/libft/libft.a practice_code.c srcs/init_utils/arg_check.c
+//  	-Iincludes -Ilib/libft -g
 // compile linux
-//  cc practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a -Iincludes -Ilib/libft -g
+//  cc practice_code.c srcs/init_utils/arg_check.c lib/libft/libft.a
+//  	-Iincludes -Ilib/libft -g
 //  valgrind ./a.out
 //
 //char	*read_cubfile(char *filepath);
@@ -187,18 +209,20 @@ int	main(void)
 //}
 // ------------------ xpm data -------------------- unsuccess
 // compile command
-//cw practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit -g -fsanitize=address
+// cw practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux
+// 	-lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext
+// 	-framework OpenGL -framework AppKit -g -fsanitize=address
 //#include <mlx.h>
 //
 //char *simple_xpm_data[] = {
-//    "4 4 2 1",             // Width: 4, Height: 4, Colors: 2, Characters per pixel: 1
-//    "0 c #FFFFFFFFFFFF",         // Color '0' is white (#FFFFFF)
-//    "1 c #000000000000",         // Color '1' is black (#000000)
-//    "0101",                // Row 1: Black, White, Black, White
-//    "1010",                // Row 2: White, Black, White, Black
-//    "0101",                // Row 3: Black, White, Black, White
-//    "1010"                // Row 4: White, Black, White, Black
-//    NULL                   // NULL to mark the end of the XPM data
+//    "4 4 2 1",	// Width: 4, Height: 4, Colors: 2, Characters per pixel: 1
+//    "0 c #FFFFFFFFFFFF", // Color '0' is white (#FFFFFF)
+//    "1 c #000000000000",	// Color '1' is black (#000000)
+//    "0101",	// Row 1: Black, White, Black, White
+//    "1010",	// Row 2: White, Black, White, Black
+//    "0101",	// Row 3: Black, White, Black, White
+//    "1010"	// Row 4: White, Black, White, Black
+//    NULL		// NULL to mark the end of the XPM data
 //};
 //
 //size_t	count_size(char **xpm_data)
@@ -273,15 +297,16 @@ int	main(void)
 //	printf("size [%zu]\n", size);
 //	//return (0);
 //	char	**xpm_data;
-////    	"4 4 2 1",             // Width: 4, Height: 4, Colors: 2, Characters per pixel: 1
-////    	"0 c #FFFFFF",         // Color '0' is white (#FFFFFF)
-////    	"1 c #000000",         // Color '1' is black (#000000)
-////    	"0101",                // Row 1: Black, White, Black, White
-////    	"1010",                // Row 2: White, Black, White, Black
-////    	"0101",                // Row 3: Black, White, Black, White
-////    	"1010"};                // Row 4: White, Black, White, Black
+////    	"4 4 2 1",		// Width: 4, Height: 4, Colors: 2, Char/pixel: 1
+////    	"0 c #FFFFFF",	// Color '0' is white (#FFFFFF)
+////    	"1 c #000000",	// Color '1' is black (#000000)
+////    	"0101",			// Row 1: Black, White, Black, White
+////    	"1010",			// Row 2: White, Black, White, Black
+////    	"0101",			// Row 3: Black, White, Black, White
+////    	"1010"};		// Row 4: White, Black, White, Black
 //	xpm_data = (char **)malloc(sizeof(char *) * size);
-//	if (dup_xpm_data(xpm_data, simple_xpm_data, sizeof(simple_xpm_data)/8) != EXIT_SUCCESS)
+//	if (dup_xpm_data(xpm_data, simple_xpm_data,
+//		sizeof(simple_xpm_data)/8) != EXIT_SUCCESS)
 //	{
 //		free(xpm_data);
 //		return (1);
@@ -303,7 +328,8 @@ int	main(void)
 //    }
 //
 //    // Create a window
-//    win_ptr = mlx_new_window(mlx_ptr, width+100, height+100, "Simple XPM Example");
+//    win_ptr = mlx_new_window(
+//    	mlx_ptr, width+100, height+100, "Simple XPM Example");
 //    if (win_ptr == NULL) {
 //        return 1;  // Failed to create a window
 //    }
@@ -319,8 +345,12 @@ int	main(void)
 
 // ------------------ put image from xpm file --------------------
 // compile command
-//cw practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit -g -fsanitize=address
-//cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux -lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
+// cw practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux
+// 	-lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext
+// 	-framework OpenGL -framework AppKit -g -fsanitize=address
+// cc practice_code.c -Ilib/minilibx-linux/ -L./lib/minilibx-linux
+// 	-lmlx_Linux -L/usr/X11R6/lib -lX11 -lXext -g
+//
 //#include <mlx.h>
 //
 //typedef struct s_game {
@@ -365,15 +395,18 @@ int	main(void)
 //    }
 //
 //	// Get image from xpm file
-//	game.img_ptr = mlx_xpm_file_to_image(game.mlx_ptr, "texture/sonic.xpm", &width, &height);
+//	game.img_ptr = mlx_xpm_file_to_image(
+//		game.mlx_ptr, "texture/sonic.xpm", &width, &height);
 //	if (game.img_ptr == NULL) {
 //	    // Handle error: file might not exist or there was an issue reading it
 //	    fprintf(stderr, "Failed to load texture.\n");
 //	}
-//	game.img_ptr2 = mlx_xpm_file_to_image(game.mlx_ptr, "texture/planks.xpm", &width, &height);
+//	game.img_ptr2 = mlx_xpm_file_to_image(
+//		game.mlx_ptr, "texture/planks.xpm", &width, &height);
 //
 //    // Create a window
-//    game.win_ptr = mlx_new_window(game.mlx_ptr, 500, 500, "Simple XPM Example");
+//    game.win_ptr = mlx_new_window(
+//    	game.mlx_ptr, 500, 500, "Simple XPM Example");
 //    if (game.win_ptr == NULL) {
 //        return 1;  // Failed to create a window
 //    }
@@ -382,8 +415,10 @@ int	main(void)
 //    mlx_clear_window(game.mlx_ptr, game.win_ptr);
 //
 //    // Display the image in the window at coordinates (50, 50)
-//    mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.img_ptr, 50, 50);
-//    mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.img_ptr2, 150, 50);
+//    mlx_put_image_to_window(
+//    	game.mlx_ptr, game.win_ptr, game.img_ptr, 50, 50);
+//    mlx_put_image_to_window(
+//    	game.mlx_ptr, game.win_ptr, game.img_ptr2, 150, 50);
 //
 //
 //
@@ -435,19 +470,19 @@ int	main(void)
 //}
 
 // ------------------ define mapdata ---------------
-//#define TEST_DATA \
-//	{ \
-//		"1111111111", \
-//		"1000000001", \
-//		"1000000001", \
-//		"1000N00001", \
-//		"1000110001", \
-//		"1000000001", \
-//		"1000110001", \
-//		"1000000001", \
-//		"1000000001", \
-//		"1111111111", \
-//		NULL \
+//#define TEST_DATA
+//	{
+//		"1111111111",
+//		"1000000001",
+//		"1000000001",
+//		"1000N00001",
+//		"1000110001",
+//		"1000000001",
+//		"1000110001",
+//		"1000000001",
+//		"1000000001",
+//		"1111111111",
+//		NULL
 //	}
 //
 //int	main(void)
@@ -466,7 +501,8 @@ int	main(void)
 //double calculate_camera_plane(double fov_degrees) {
 //    double fov_radians = fov_degrees * (M_PI / 180.0);  // Convert to radians
 //	printf("radian[%f]\n", fov_radians);
-//    return tan(fov_radians / 2.0);  // Return the half-width of the camera plane
+//    return tan(fov_radians / 2.0);
+//    // Return the half-width of the camera plane
 //}
 //
 //int	main(int argc, char *argv[])
@@ -478,6 +514,7 @@ int	main(void)
 //	//fov_degree = (double)atoi(argv[1]);
 //	(void)argv;
 //	fov_degree = 66;
-//	printf("deg[%f] -> camera_plane_x[%f]\n", fov_degree, calculate_camera_plane(fov_degree));
+//	printf("deg[%f] -> camera_plane_x[%f]\n",
+//		fov_degree, calculate_camera_plane(fov_degree));
 //	return (0);
 //}
