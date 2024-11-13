@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:20:40 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/14 03:20:54 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void	debug_keypress(int fd, t_enum_key keytype, int keycode);
 
 // common
 int		open_log(const char *file_name, int oflag);
-// set_stdout_fd.c for put float value
-int		set_stdout_fd(int fd);
-void	handle_error(const char *cause);
+
+// double_to_string.c
+void	double_to_string(double value, char *str, size_t n);
+# define PRECISION	5
+# define SIZE_DOUBLE_TO_STR 32
 
 #endif

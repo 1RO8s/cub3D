@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:52:26 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:43:49 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/14 02:22:03 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 void	put_ray_cast(int fd, t_ray_cast ray_cast)
 {
-	int	original_stdout_fd;
+	char	str[SIZE_DOUBLE_TO_STR];
 
-	original_stdout_fd = set_stdout_fd(fd);
-	printf("\tnext_distance.x[%f] grid.x[%d]\n",
-		ray_cast.next_distance.x, ray_cast.grid.x);
-	printf("\tnext_distance.y[%f] grid.y[%d]\n",
-		ray_cast.next_distance.y, ray_cast.grid.y);
-	if (dup2(original_stdout_fd, STDOUT_FILENO) == -1)
-		handle_error("dup2");
-	close(original_stdout_fd);
+	double_to_string(ray_cast.next_distance.x, str, sizeof(str));
+	ft_dprintf(fd, "\tnext_distance.x[%s] grid.x[%d]", str, ray_cast.grid.x);
+	double_to_string(ray_cast.next_distance.y, str, sizeof(str));
+	ft_dprintf(fd, "\tnext_distance.y[%s] grid.y[%d]", str, ray_cast.grid.y);
 }
 
 /**

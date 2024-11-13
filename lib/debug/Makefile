@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/12 15:15:43 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/14 02:18:19 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRCS = \
 	   debug_moved_player.c \
 	   debug_texture_coordinate.c \
 	   debug_texture_y_coordinate_overflow.c \
-	   set_stdout_fd.c \
+	   double_to_string.c \
 	   init_debug_info.c \
 	   open_log.c
 

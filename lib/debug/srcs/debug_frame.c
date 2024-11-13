@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:41:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/14 02:29:06 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 static void	put_player(int fd, t_player player)
 {
-	int	original_stdout_fd;
+	char	str[SIZE_DOUBLE_TO_STR];
 
-	original_stdout_fd = set_stdout_fd(fd);
-	printf("\tview_point.x = [%f]\n", player.view_point.x);
-	printf("\tview_point.y = [%f]\n", player.view_point.y);
-	printf("\tray_dir.x    = [%f]\n", player.ray_dir.x);
-	printf("\tray_dir.y    = [%f]\n", player.ray_dir.y);
-	printf("\tcamera_forcal_plane.x = [%f]\n", player.camera_forcal_plane.x);
-	printf("\tcamera_forcal_plane.y = [%f]\n", player.camera_forcal_plane.y);
-	if (dup2(original_stdout_fd, STDOUT_FILENO) == -1)
-		handle_error("dup2");
-	close(original_stdout_fd);
+	double_to_string(player.view_point.x, str, sizeof(str));
+	ft_dprintf(fd, "\tview_point.x = [%s]\n", str);
+	double_to_string(player.view_point.y, str, sizeof(str));
+	ft_dprintf(fd, "\tview_point.y = [%s]\n", str);
+	double_to_string(player.ray_dir.x, str, sizeof(str));
+	ft_dprintf(fd, "\tray_dir.x    = [%s]\n", str);
+	double_to_string(player.ray_dir.y, str, sizeof(str));
+	ft_dprintf(fd, "\tray_dir.y    = [%s]\n", str);
+	double_to_string(player.camera_forcal_plane.x, str, sizeof(str));
+	ft_dprintf(fd, "\tcamera_forcal_plane.x = [%s]\n", str);
+	double_to_string(player.camera_forcal_plane.y, str, sizeof(str));
+	ft_dprintf(fd, "\tcamera_forcal_plane.y = [%s]\n", str);
 }
 
 void	debug_frame(t_game *game, const char *msg)
