@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 18:26:24 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/14 04:52:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char *argv[])
 	t_game	game;
 
 	if (init_game(&game, argc, argv) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	start_game(&game);
-	return (0);
+	return (EXIT_SUCCESS);
 }
