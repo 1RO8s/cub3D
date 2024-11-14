@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/15 00:32:58 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/15 00:57:52 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS = \
 	   \
 	   parse_general_func.c \
 	   put_error_msg.c \
+	   create_texture_images.c \
 	   get_type_element.c \
 	   find_next_element.c \
 	   \

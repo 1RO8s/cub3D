@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/12 15:23:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 00:54:11 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ void		init_tex_keys(const char *keys[], int size);
 
 // put_error_msg.c
 void		put_error_msg(const char *entry, const char *msg);
+
+// call by parse_tex()
+int	create_texture_images(const char *line, t_parse *parse);
 
 // srcs/init_utils/parse_cubfile_utils/
 // │
