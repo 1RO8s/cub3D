@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/08 14:47:54 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/15 00:32:58 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,6 @@ SRCS = \
 	   init_mlx_window.c \
 	   init_mlx_image.c \
 	   init_cub_contents.c\
-	   \
-	   ft_strjoin_nullable.c \
 	   \
 	   parse_tex.c \
 	   parse_fc.c \

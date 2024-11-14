@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/14 05:11:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 00:32:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,37 +55,6 @@ static int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 	}
 	return (EXIT_SUCCESS);
 }
-
-//static char	*get_file_contents(int fd)
-//{
-//	char	*map;
-//	char	*old;
-//	char	*line;
-//
-//	map = NULL;
-//	old = NULL;
-//	line = malloc(1);
-//	while (line != NULL)
-//	{
-//		line = ft_free(line);
-//		line = get_next_line(fd);
-//		if (line == NULL)
-//			break ;
-//		if (map != NULL)
-//			map = ft_free(map);
-//		map = ft_strjoin_nullable(old, line);
-//		if (map == NULL)
-//		{
-//			line = ft_free(line);
-//			break ;
-//		}
-//		if (old != NULL)
-//			old = ft_free(old);
-//		old = ft_strdup(map);
-//	}
-//	old = ft_free(old);
-//	return (map);
-//}
 
 static char	*get_file_contents(int fd)
 {
