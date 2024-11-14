@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:55:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 00:25:55 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 01:42:53 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ t_type_wall	get_texture_direction(
 	if (type_of_grid_line == 1)
 	{
 		if (ray_dir.y < 0)
-			return (NORTH);
+			return (ENUM_NORTH);
 		else
-			return (SOUTH);
+			return (ENUM_SOUTH);
 	}
 	else
 	{
 		if (ray_dir.x < 0)
-			return (WEST);
+			return (ENUM_WEST);
 		else
-			return (EAST);
+			return (ENUM_EAST);
 	}
 }
 // reference type_cub3d.h

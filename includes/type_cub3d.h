@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 15:26:09 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 01:42:08 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,10 +196,10 @@ typedef struct s_map {
 }	t_map;
 
 typedef enum e_type_wall {
-	NORTH,
-	WEST,
-	EAST,
-	SOUTH
+	ENUM_NORTH,
+	ENUM_WEST,
+	ENUM_EAST,
+	ENUM_SOUTH
 }	t_type_wall;
 
 /**

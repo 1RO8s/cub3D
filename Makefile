@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/15 00:57:52 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/15 02:04:29 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS_DIR = \
 		   ./srcs/init_utils \
 		   ./srcs/init_utils/read_cubfile_utils \
 		   ./srcs/init_utils/parse_cubfile_utils \
+		   ./srcs/init_utils/parse_cubfile_utils/parse_tex_utils \
 		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 00:51:23 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 02:28:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,50 +59,91 @@ bool	is_created_all_tex_image(int flag,
 	return (true);
 }
 
+static t_type_wall	get_dir_of_wall(const char *line, const char **key)
+{
+	t_type_wall	type;
+
+	type = ENUM_NORTH;
+	while (type < ENUM_SOUTH)
+	{
+		if (is_key_line(line, key[type]) != true)
+		{
+			type++;
+			continue ;
+		}
+		break ;
+	}
+	return (type);
+}
+// reference "type_cub3d.h"
+//typedef enum e_type_wall {
+//	ENUM_NORTH,
+//	ENUM_WEST,
+//	ENUM_EAST,
+//	ENUM_SOUTH
+//}	t_type_wall;
+
+bool	is_valid_texture_entry(t_type_wall type, const char *line)
+{
+	if (type > ENUM_SOUTH)
+	{
+		put_error_msg(line, EMSG_ENTRY_INVAL);
+		return (false);
+	}
+	return (true);
+}
+
+bool	is_duplicate_texture_entry(int flag, const int bit, const char *key)
+{
+	if ((flag & bit) > 0x0)
+	{
+		put_error_msg(key, EMSG_ENTRY_DUP);
+		return (false);
+	}
+	return (true);
+}
+
+bool	is_empty_value_texture_entry(const char first_char, const char *key)
+{
+	if (first_char == '\n' || first_char == '\0')
+	{
+		put_error_msg(key, EMSG_XPM_FILE);
+		return (false);
+	}
+	return (true);
+}
+
+int	check_texture_entry(t_type_wall type, const char *line, int flag, const int *bit_tex, const char **key)
+{
+	if (is_valid_texture_entry(type, line) != true)
+		return (EXIT_FAILURE);
+	if (is_duplicate_texture_entry(flag, bit_tex[type], key[type]) != true)
+		return (EXIT_FAILURE);
+	if (is_empty_value_texture_entry(line[3], key[type]) != true)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 int	create_texture_images(const char *line, t_parse *parse)
 {
 	const char	*key[4];
 	void		*mlx;
 	t_texture	*texture;
-	int			i;
-	int			status;
+	t_type_wall	type;
 	const int	bit_tex[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
 
 	init_tex_keys(key, 4);
 	mlx = parse->game->mlx;
 	texture = parse->game->texture;
-	while (line != NULL && *line != '\n' && *line != '\0')// parse->flag BIT_NO, WE, EA, WE ... may be ...
+	while (line != NULL && *line != '\n' && *line != '\0')
 	{
-		i = 0;
-		while (i < 4)
+		type = get_dir_of_wall(line, key);
+		if (check_texture_entry(type, line, parse->flag, bit_tex, key) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+		parse->flag |= bit_tex[type];
+		if (get_texture_image(mlx, &line[3], &texture[type]) != EXIT_SUCCESS)
 		{
-			if (is_key_line(line, key[i]) == false)
-			{
-				i++;
-				continue ;
-			}
-			if ((parse->flag & bit_tex[i]) > 0)
-			{
-				put_error_msg(key[i], EMSG_ENTRY_DUP);
-				return (EXIT_FAILURE);
-			}
-			parse->flag |= bit_tex[i];
-			if (line[3] == '\n' || line[3] == '\0')
-			{
-				put_error_msg(key[i], EMSG_XPM_FILE);
-				return (EXIT_FAILURE);
-			}
-			status = get_texture_image(mlx, &line[3], &texture[i]);
-			if (status != EXIT_SUCCESS)
-			{
-				destroy_texture_image(mlx, texture, i);
-				return (EXIT_FAILURE);
-			}
-			break ;
-		}
-		if (i == 4)
-		{
-			put_error_msg(line, EMSG_ENTRY_INVAL);
+			destroy_texture_image(mlx, texture, (int)type);
 			return (EXIT_FAILURE);
 		}
 		line = find_next_line(line);
