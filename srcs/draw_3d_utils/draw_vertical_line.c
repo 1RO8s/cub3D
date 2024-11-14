@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/20 02:57:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 00:26:30 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ static int	get_color_texture_pixel(t_frame *frame, int tex_x, int tex_y)
 
 	img_tex = frame->dda.texture.img_tex;
 	offset = (tex_y * img_tex.line_length) + (tex_x * (img_tex.bpp / 8));
-	color = *(int *)(img_tex.addr + offset);// compatibility ??
+	color = *(int *)(img_tex.addr + offset);
 	return (color);
 }
+//	color = *(int *)(img_tex.addr + offset);// compatibility ??
 
 int	get_texture_y_coordinate(t_frame *frame, int y)
 {

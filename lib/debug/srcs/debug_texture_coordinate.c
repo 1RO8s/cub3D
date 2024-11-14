@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:37:25 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/14 03:17:46 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 00:24:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	put_x_y_coordinate(int fd, int type_of_grid_line,
 	ft_dprintf(fd, "\ttype_of_grid_line[%d]\tview_point.y[%s]",
 		type_of_grid_line, str);
 	double_to_string(ray_dir.y, str, sizeof(str));
-	ft_dprintf(fd, "\tray_dir.y[%f]\n", str);
+	ft_dprintf(fd, "\tray_dir.y[%s]\n", str);
 	double_to_string(view_point.y, str, sizeof(str));
 	ft_dprintf(fd, "\ttype_of_grid_line[%d]\tview_point.y[%s]",
 		type_of_grid_line, str);

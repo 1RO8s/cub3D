@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:08:46 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/14 01:59:28 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 00:22:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	debug_ray_cast(t_frame *frame, const char *msg, int x)
 	ray_cast = frame->ray_cast;
 	ft_dprintf(fd, "\n>>> func debug_ray_cast() ... call by '%s' <<<\n", msg);
 	double_to_string((double)IMG_3D_WIDTH, str, sizeof(str));
-	ft_dprintf(fd, "\tx [%d], window_width / 2 [%f]\n", x, str);
+	ft_dprintf(fd, "\tx [%d], window_width / 2 [%s]\n", x, str);
 	ft_dprintf(fd, "---- ray_cast ----\n");
 	debug_camera_plane_and_ray_dir(fd, ray_cast);
 	debug_grid_and_next_distance(fd, ray_cast);

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:55:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 20:54:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 00:25:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ void	set_texture_x_coordinate(t_frame *frame, int x)
 	if (dda->type_of_grid_line == 1 && ray_dir.y < 0)
 		dda->tex_x = dda->texture.width - dda->tex_x - 1;
 	debug_texture_coordinate(frame->debug.fd, wall_x, frame,
-		"end set_texture_x_coordinage()");//debug
-	//debug_put_texture_image(frame);//debug
+		"end set_texture_x_coordinage()");
 	(void)x;
 }
+//	debug code
+//	debug_put_texture_image(frame);//debug
+//
 // reference cub3.h
 //typedef struct s_dda {
 //	int		type_of_grid_line;
