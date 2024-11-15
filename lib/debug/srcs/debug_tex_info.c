@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_error_msg.c                                    :+:      :+:    :+:   */
+/*   debug_tex_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 00:42:41 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 17:31:55 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/11/15 16:05:01 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/11/15 16:06:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	is_entry_char(const char c)
+void	debug_tex_info(int fd, t_tex_info tex_info)
 {
-	return (c != ' ' && c != '\0' && c != '\n');
-}
+	int		i;
+	char	*bit_str;
 
-void	put_error_msg(const char *entry, const char *msg)
-{
-	size_t	count;
-
-	ft_dprintf(STDERR_FILENO, ERR_PROMPT);
-	count = 0;
-	while (is_entry_char(*entry) == true)
-		count++;
-	write(STDERR_FILENO, entry, count);
-	ft_dprintf(STDERR_FILENO, ": %s\n", msg);
+	if (IS_DEBUG == false)
+		return ;
+	i = 0;
+	while (i < 4)
+	{
+		bit_str = ft_itoa_binary(tex_info.bit[i]);
+		if (bit_str == NULL)
+		{
+			ft_dprintf(STDERR_FILENO, "Error: ft_itoa_binary()\n");
+			return ;
+		}
+		ft_dprintf(fd, "\tkey[%s]", tex_info.key[i]);
+		ft_dprintf(fd, " bit[%s]\n", bit_str);
+		free(bit_str);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/15 00:54:11 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:50:10 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@
 # define ON_HORIZONTAL_LINE 1
 
 // -------------- function prototype ---------------
+
+/******************************
+ *			main
+ ******************************/
+
 // srcs/
 // call by main
 int			init_game(t_game *game, int argc, char *argv[]);
@@ -72,6 +77,9 @@ void		render_frame(t_game *game);
 int			handle_key_press(int keycode, t_game *game);
 int			handle_mouse(int button, int x, int y, t_game *game);
 
+/******************************
+ *			inittialize
+ ******************************/
 // srcs/
 // │
 // └ init_utils
@@ -101,13 +109,13 @@ char		*find_next_line(const char *contents);
 bool		is_key_line(const char *line, const char *key);
 char		*strdup_until_ch(const char *line, int until_ch);
 int			print_until_nl(int fd, const char *str);
-void		init_tex_keys(const char *keys[], int size);
 
 // put_error_msg.c
 void		put_error_msg(const char *entry, const char *msg);
 
 // call by parse_tex()
 int	create_texture_images(const char *line, t_parse *parse);
+int	check_texture_entry(t_type_wall type, const char *line, t_parse *parse);
 
 // srcs/init_utils/parse_cubfile_utils/
 // │
@@ -136,6 +144,9 @@ int			set_direction(char direction, t_player *player);
 # define BIT_INIT_TEX	0x100	// 0001 0000 0000
 # define BIT_INIT_MAP	0x200	// 0010 0000 0000
 
+/******************************
+ *			draw_3d
+ ******************************/
 // srcs/
 // │
 // └ draw_3d_utils
@@ -156,6 +167,9 @@ int			get_texture_y_coordinate(t_frame *frame, int y);
 t_type_wall	get_texture_direction(
 				int type_of_grid_line, t_vector ray_dir);
 
+/******************************
+ *			draw_2d
+ ******************************/
 // srcs/
 // │
 // └ draw_2d_utils
@@ -169,6 +183,9 @@ void		draw_line(t_img *img, t_line *line);
 void		init_plot(t_plot *plot, t_line *line);
 void		init_color(t_clr *color, int start_color, int end_color);
 
+/******************************
+ *			free
+ ******************************/
 // srcs/
 // │
 // └ free_utils
@@ -176,11 +193,17 @@ void		destroy_texture_image(void *mlx, t_texture *texture, int n);
 void		*ft_free(void *ptr);
 void		free_double_pointer(char **array);
 
+/******************************
+ *			mlx
+ ******************************/
 // srcs/
 // │
 // └ mlx utils
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
+/******************************
+ *			key handle
+ ******************************/
 // srcs/
 // │
 // └ keypress utils
@@ -195,6 +218,9 @@ void		set_rotate_right_flag(int keycode, t_game *game);
 void		invalid_key(int keycode, t_game *game);
 typedef void	(*t_handle_key_press)(int, t_game *);
 
+/******************************
+ *			Update player's position & direction
+ ******************************/
 // update utils
 // srcs/
 // │

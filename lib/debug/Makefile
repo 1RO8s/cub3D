@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/14 05:11:10 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/15 16:07:04 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS = \
 	   debug_texture_y_coordinate_overflow.c \
 	   double_to_string.c \
 	   debug_element_type.c \
+	   debug_tex_info.c \
 	   init_debug_info.c \
 	   open_log.c
 

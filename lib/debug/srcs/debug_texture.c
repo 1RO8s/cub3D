@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:45:40 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:51:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ void	debug_texture(char *file, t_texture texture,
 
 void	debug_img_tex(int fd, t_img img, int i, const char *msg)
 {
-	const char	*key[4];
+	const char	*key[4] = {"NO ", "WE ", "EA ", "SO "};
 
-	init_tex_keys(key, 4);
 	if (IS_DEBUG != true)
 		return ;
 	if (i == 0)

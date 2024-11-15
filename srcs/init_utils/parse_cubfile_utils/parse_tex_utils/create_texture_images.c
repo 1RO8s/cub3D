@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 02:28:04 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:32:40 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,22 @@ static int	get_texture_image(
 	return (EXIT_SUCCESS);
 }
 
-bool	is_created_all_tex_image(int flag,
-			const char *key[4], const int bit_tex[4])
+static bool	is_created_all_tex_image(t_parse *parse)
 {
-	int	i;
+	int			i;
+	int			flag;
+	const int	*bit;
+	const char	**key;
 
+	flag = parse->flag;
+	bit = parse->tex_info.bit;
+	key = parse->tex_info.key;
 	i = 0;
-	while (i < 4)
+	while (i < ENUM_SOUTH + 1)
 	{
-		if ((flag & bit_tex[i]) == 0x00)
+		if ((flag & bit[i]) == 0x00)
 		{
 			put_error_msg(key[i], EMSG_ENTRY_MISS);
-			//ft_dprintf(STDERR_FILENO, "%s%s: %s\n",
-			//	ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
 			return (false);
 		}
 		i++;
@@ -59,7 +62,12 @@ bool	is_created_all_tex_image(int flag,
 	return (true);
 }
 
-static t_type_wall	get_dir_of_wall(const char *line, const char **key)
+/**
+ * @brief get direction of wall
+ *
+ * @return ENUM_NORTH or ENUM_WEST or ENUM_EAST or ENUM_SOUTH
+ */
+static t_type_wall	get_dir_of_wall(const char *line, const char *key[])
 {
 	t_type_wall	type;
 
@@ -75,72 +83,32 @@ static t_type_wall	get_dir_of_wall(const char *line, const char **key)
 	}
 	return (type);
 }
-// reference "type_cub3d.h"
-//typedef enum e_type_wall {
-//	ENUM_NORTH,
-//	ENUM_WEST,
-//	ENUM_EAST,
-//	ENUM_SOUTH
-//}	t_type_wall;
 
-bool	is_valid_texture_entry(t_type_wall type, const char *line)
+/**
+ * @brief initialize tex_info structure
+ */
+static t_tex_info	create_tex_info(const char **key, const int *bit)
 {
-	if (type > ENUM_SOUTH)
-	{
-		put_error_msg(line, EMSG_ENTRY_INVAL);
-		return (false);
-	}
-	return (true);
-}
-
-bool	is_duplicate_texture_entry(int flag, const int bit, const char *key)
-{
-	if ((flag & bit) > 0x0)
-	{
-		put_error_msg(key, EMSG_ENTRY_DUP);
-		return (false);
-	}
-	return (true);
-}
-
-bool	is_empty_value_texture_entry(const char first_char, const char *key)
-{
-	if (first_char == '\n' || first_char == '\0')
-	{
-		put_error_msg(key, EMSG_XPM_FILE);
-		return (false);
-	}
-	return (true);
-}
-
-int	check_texture_entry(t_type_wall type, const char *line, int flag, const int *bit_tex, const char **key)
-{
-	if (is_valid_texture_entry(type, line) != true)
-		return (EXIT_FAILURE);
-	if (is_duplicate_texture_entry(flag, bit_tex[type], key[type]) != true)
-		return (EXIT_FAILURE);
-	if (is_empty_value_texture_entry(line[3], key[type]) != true)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return ((t_tex_info){.key = key, .bit = bit});
 }
 
 int	create_texture_images(const char *line, t_parse *parse)
 {
-	const char	*key[4];
 	void		*mlx;
 	t_texture	*texture;
 	t_type_wall	type;
-	const int	bit_tex[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
+	const char	*key[4] = {"NO ", "WE ", "EA ", "SO "};
+	const int	bit[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
 
-	init_tex_keys(key, 4);
+	parse->tex_info = create_tex_info(key, bit);
 	mlx = parse->game->mlx;
 	texture = parse->game->texture;
 	while (line != NULL && *line != '\n' && *line != '\0')
 	{
-		type = get_dir_of_wall(line, key);
-		if (check_texture_entry(type, line, parse->flag, bit_tex, key) != EXIT_SUCCESS)
+		type = get_dir_of_wall(line, parse->tex_info.key);
+		if (check_texture_entry(type, line, parse) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
-		parse->flag |= bit_tex[type];
+		parse->flag |= parse->tex_info.bit[type];
 		if (get_texture_image(mlx, &line[3], &texture[type]) != EXIT_SUCCESS)
 		{
 			destroy_texture_image(mlx, texture, (int)type);
@@ -148,7 +116,9 @@ int	create_texture_images(const char *line, t_parse *parse)
 		}
 		line = find_next_line(line);
 	}
-	if (is_created_all_tex_image(parse->flag, key, bit_tex) == false)
+	if (is_created_all_tex_image(parse) == false)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+// debug code
+//	debug_tex_info(parse->game->debug.fd, parse->tex_info);

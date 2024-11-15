@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_general_func.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 18:52:53 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/11/15 18:53:04 by kamitsui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	print_until_nl(int fd, const char *str)
@@ -40,18 +52,4 @@ char	*strdup_until_ch(const char *line, int until_ch)
 	len = ft_strchr(line, until_ch) - line;
 	file = ft_strndup(line, len);
 	return (file);
-}
-
-void	init_tex_keys(const char *keys[], int size)
-{
-	int					i;
-	static const char	*defaults[] = {
-		"NO ", "WE ", "EA ", "SO "};
-
-	i = 0;
-	while (i < size)
-	{
-		keys[i] = defaults[i];
-		i++;
-	}
 }

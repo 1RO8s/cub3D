@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:42:00 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 00:42:16 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:52:11 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 static bool	is_texture_element(const char *str)
 {
-	const char	*identifier[4];
+	const char	*identifier[4] = {"NO ", "WE ", "EA ", "SO "};
 	size_t		i;
 	size_t		len;
 
-	init_tex_keys(identifier, 4);
 	i = 0;
 	while (i < 4)
 	{
