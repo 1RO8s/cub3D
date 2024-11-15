@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:02 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/09/12 19:25:39 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:03:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	set_east_direction(
 	camera_forcal_plane->y = 0.66;
 }
 
-int	set_direction(char direction, t_player *player)
+void	set_direction(char direction, t_player *player)
 {
 	if (direction == 'N')
 		set_north_direction(&player->ray_dir, &player->camera_forcal_plane);
@@ -58,10 +58,4 @@ int	set_direction(char direction, t_player *player)
 		set_west_direction(&player->ray_dir, &player->camera_forcal_plane);
 	else if (direction == 'E')
 		set_east_direction(&player->ray_dir, &player->camera_forcal_plane);
-	else
-	{
-		// syntax error : invalid map
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
 }

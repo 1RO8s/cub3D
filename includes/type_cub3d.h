@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 18:43:39 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:34:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ typedef enum e_enum_elem {
 	ENUM_MAP,
 	ENUM_ELEMENT_ERR
 }	t_enum_elem;
+
+typedef struct s_map_size {
+	size_t	rows;
+	size_t	cols;
+}	t_map_size;
 
 /******************** raycasting *********************************/
 

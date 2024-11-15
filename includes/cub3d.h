@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/15 19:59:20 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 04:16:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define CUB3D_H
 
 // -------------- include ---------------
+// stadard libraries
+# include <unistd.h>
+# include <stddef.h>
+# include <stdio.h>
+# include <math.h>
+# include <unistd.h>
+# include <fcntl.h>
+
 // project specific header files
 # include "type_cub3d.h"
 # include "error_cub3d.h"
@@ -24,13 +32,6 @@
 # include "get_next_line.h"
 # include "ft_printf.h"
 # include "debug_cub3d.h"
-
-// stadard libraries
-# include <unistd.h>
-# include <stdio.h>
-# include <math.h>
-# include <unistd.h>
-# include <fcntl.h>
 
 // -------------- define ---------------
 // Cub3d game window
@@ -134,7 +135,13 @@ int			get_player_info(const char *line, t_parse *parse);
 int			check_enclosed_by_walls(const char *line, t_parse *parse);
 
 // call by get_player_info()
-int			set_direction(char direction, t_player *player);
+int			find_player_and_set(
+				char **data, t_point grid, t_parse *parse, t_player *player);
+void		set_direction(char direction, t_player *player);
+
+// call by check_enclosed_by_walls()
+bool		flood_fill(
+		t_map *map, int x, int y, bool visited[MAX_ROWS][MAX_COLS]);
 
 // parse->flag
 # define BIT_NORTH		0x01	// 0000 0000 0001

@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/15 16:08:05 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/16 03:30:20 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS = \
 	   parse_map.c \
 	   \
 	   get_map_data.c \
+	   find_player_and_set.c \
 	   set_direction.c \
 	   get_player_info.c \
 	   check_enclosed_by_walls.c \

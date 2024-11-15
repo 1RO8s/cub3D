@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 19:20:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:40:02 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	check_last_map(const char *line, t_parse *parse)
 	return (EXIT_SUCCESS);
 }
 
-static void	put_error_map_size_over(size_t cols, size_t rows)
+static void	put_error_map_size_over(int cols, int rows)
 {
 	ft_dprintf(STDERR_FILENO, "%s%s: ", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
-	ft_dprintf(STDERR_FILENO, "%zu x %zu", cols, rows);
+	ft_dprintf(STDERR_FILENO, "%d x %d", cols, rows);
 	ft_dprintf(STDERR_FILENO, " (within %d x %d)\n", MAX_COLS, MAX_ROWS);
 }
 
@@ -52,7 +52,7 @@ int	check_range_map(const char *line, t_parse *parse)
 	}
 	if (is_over_size == true)
 	{
-		put_error_map_size_over(cols, rows);
+		put_error_map_size_over((int)cols, (int)rows);
 		return (EXIT_FAILURE);
 	}
 	(void)parse;

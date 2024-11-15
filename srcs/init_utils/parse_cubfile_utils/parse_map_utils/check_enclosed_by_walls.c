@@ -6,62 +6,82 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 15:56:44 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 04:39:53 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define MAX_ROWS 100
-#define MAX_COLS 100
-
-// Function to perform flood-fill from a given position
-bool flood_fill(t_map *map, int x, int y, bool visited[MAX_ROWS][MAX_COLS])
+/**
+ * @brief flood-fill from a given position
+ *
+ * @return true(enclosed map) false(not enclosed map)
+ */
+bool	flood_fill(
+		t_map *map, int x, int y, bool visited[MAX_ROWS][MAX_COLS])
 {
-	// Base cases
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
+
 	if (x < 0 || x >= map->width || y < 0 || y >= map->height)
-	{
-		return false;  // Reached the map boundary, not enclosed
-	}
+		return (false);
 	if (map->data[y][x] == '1' || visited[y][x])
-	{
-		return (true);  // Reached a wall or already visited
-	}
+		return (true);
 	if (map->data[y][x] != '0' || visited[y][x])
 		return (false);
-	// Mark the current position as visited
 	visited[y][x] = true;
-	// Recursively flood-fill in all four directions
-	bool	up = flood_fill(map, x, y - 1, visited);
-	bool	down = flood_fill(map, x, y + 1, visited);
-	bool	left = flood_fill(map, x - 1, y, visited);
-	bool	right = flood_fill(map, x + 1, y, visited);
-	return (up && down && left && right);  // All directions must be enclosed
+	up = flood_fill(map, x, y - 1, visited);
+	down = flood_fill(map, x, y + 1, visited);
+	left = flood_fill(map, x - 1, y, visited);
+	right = flood_fill(map, x + 1, y, visited);
+	return (up && down && left && right);
 }
 
-void	put_visited(int fd, bool visited[MAX_ROWS][MAX_COLS], t_map *map)
-{
-	for (int r = 0; r < map->height; r++)
-	{
-		for (int c = 0; c < map->width; c++)
-		{
-			ft_dprintf(fd, "%d", visited[r][c]);
-		}
-		ft_dprintf(fd, "\n");
-	}
-}
+// debug
+//void	put_visited(int fd, bool visited[MAX_ROWS][MAX_COLS], t_map *map)
+//{
+//	for (int r = 0; r < map->height; r++)
+//	{
+//		for (int c = 0; c < map->width; c++)
+//		{
+//			ft_dprintf(fd, "%d", visited[r][c]);
+//		}
+//		ft_dprintf(fd, "\n");
+//	}
+//}
 
-// Improved function to check if the map is enclosed by walls
-int check_enclosed_by_walls(const char *line, t_parse *parse)
+// check small map size
+//#define CHECK_ROWS 150
+//#define CHECK_COLS 100
+//	bool	visited[CHECK_ROWS][CHECK_COLS];
+//	for (int i = 0; i < CHECK_ROWS; i++) {
+//    	for (int j = 0; j < CHECK_COLS; j++) {
+//    	    printf("%d", visited[i][j]);
+//    	}
+//		printf("\n");
+//	}
+
+/**
+ * @brief check if the map is enclosed by walls
+ *
+ * @param line is Not required (just to call the function pointer)
+ * @param parse
+ *
+ * @return EXIT_SUCCESS(0) or EXIT_FAILURE(1)
+ */
+int	check_enclosed_by_walls(const char *line, t_parse *parse)
 {
-	bool	visited[MAX_ROWS][MAX_COLS] = {false};
-	int start_x = -1, start_y = -1;
+	bool	visited[MAX_ROWS][MAX_COLS];
+	int		start_x;
+	int		start_y;
 	t_map	*map;
-	
+
+	ft_memset(visited, (int)false, sizeof(visited));
 	start_x = parse->player_grid.x;
 	start_y = parse->player_grid.y;
 	map = &parse->game->map;
-	// Perform flood-fill starting from the initial position
 	if (flood_fill(map, start_x, start_y, visited) != true)
 	{
 		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
