@@ -6,46 +6,80 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 21:37:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 00:15:28 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:02:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+typedef struct s_map_size {
+	size_t	rows;
+	size_t	cols;
+}	t_map_size;
+
+t_map_size	get_map_size(char **lines)
+{
+	size_t	rows;
+	size_t	cols;
+	size_t	tmp_len;
+
+	rows = 0;
+	cols = 0;
+	while (lines[rows] != NULL)
+	{
+		tmp_len = ft_strlen(lines[rows]);
+		// printf("max:%d len:%d\n",max_length, length);
+		if (tmp_len > cols)
+			cols = tmp_len;
+		rows++;
+	}
+	return ((t_map_size){.rows = rows, .cols = cols});
+}
+
+char	**allocate_map(t_map_size map_size)
+{
+	size_t	i;
+	size_t	rows;
+	size_t	cols;
+	char	**array;
+
+	rows = map_size.rows;
+	cols = map_size.cols;
+	array = (char **)malloc((rows + 1) * sizeof(char *));
+	if (array == NULL)
+		return (NULL);
+	i = 0;
+	while (i < rows)
+	{
+		array[i] = (char *)malloc((cols + 1) * sizeof(char));
+		if (array[i] == NULL)
+		{
+			free_double_pointer_n(array, i);
+			return (NULL);
+		}
+		i++;
+	}
+	return (array);
+}
+
 static char	**convert_str2array(const char *str_map)
 {
-	int		num_lines;
-	int		max_length;
-	int		length;
+	t_map_size	map_size;
 	char	**array;
 	char	**lines;
 	int		current_line;
-	int		i;
+	//int		i;
 
-	// 変数の初期化
-	num_lines = 0;
-	max_length = 0;
-	// int numLines;
 	lines = ft_split(str_map, '\n');
-	// 行数と最大行長を計算
-	num_lines = 0;
-	while (lines[num_lines] != NULL)
-	{
-		length = ft_strlen(lines[num_lines]);
-		// printf("max:%d len:%d\n",max_length, length);
-		if (length > max_length)
-			max_length = length;
-		num_lines++;
-	}
-	// 配列のメモリを確保
-	array = (char **)malloc((num_lines + 1) * sizeof(char *));
-	i = 0;
-	while (i < num_lines)
-	{
-		array[i] = (char *)malloc((max_length + 1) * sizeof(char));
-		i++;
-	}
+	if (lines == NULL)
+		return (NULL);
+	map_size = get_map_size(lines);
+	array = allocate_map(map_size);
+	if (array == NULL)
+		return (NULL);
 	// 配列に行をコピー
+	int	length;
+	int	max_length = map_size.cols;
 	current_line = 0;
 	while (lines[current_line] != NULL)
 	{

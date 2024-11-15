@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/15 18:50:10 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:59:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@
 # define IMG_2D_WIDTH 512
 # define IMG_2D_HEIGHT WIN_HEIGHT
 # define DISABLE_2D_MAP 0
+
+// limit of map
+# define MAX_ROWS 100
+# define MAX_COLS 100
 
 // Cub3d color
 # define COLOR_GREY 0xAAAAAA
@@ -192,6 +196,7 @@ void		init_color(t_clr *color, int start_color, int end_color);
 void		destroy_texture_image(void *mlx, t_texture *texture, int n);
 void		*ft_free(void *ptr);
 void		free_double_pointer(char **array);
+void		free_double_pointer_n(char **array, int n);
 
 /******************************
  *			mlx
