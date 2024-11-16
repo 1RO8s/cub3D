@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 19:56:59 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 21:33:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  */
 static int	atoi_0_to_255(char *str, const char *entry)
 {
-	int	result;
+	int		result;
 	char	*str_num;
 	int		status;
 
@@ -71,8 +71,6 @@ static int	atoi_0_to_255(char *str, const char *entry)
 		ft_dprintf(STDERR_FILENO, "\"%s\" %s\n", str_num, EMSG_RGB_RANGE_OUT);
 		return (-1);
 	}
-
-
 //	while (*str != '\0' && *str == ' ')
 //		str++;
 //	if (*str != '\0')
@@ -112,10 +110,10 @@ void	debug_get_rgb_color(int fd, t_enum_fc type, int rgb[3], const char *msg)
  */
 int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
 {
-	int	color;
-	int	rgb[3];
+	int			color;
+	int			rgb[3];
 	const char	*rgb_str[3] = {"R", "G", "B"};
-	int	i;
+	int			i;
 
 	color = 0;
 	i = 0;
@@ -123,7 +121,8 @@ int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
 	{
 		if (*str == ',')
 		{
-			ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *key, EMSG_RGB_MISS, rgb_str[i]);
+			ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
+				ERR_PROMPT, *key, EMSG_RGB_MISS, rgb_str[i]);
 			return (-1);
 		}
 		rgb[i] = atoi_0_to_255(str, key);
@@ -141,7 +140,8 @@ int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
 	}
 	if (i < 3)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n", ERR_PROMPT, *key, EMSG_RGB_MISS, rgb_str[i]);
+		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
+			ERR_PROMPT, *key, EMSG_RGB_MISS, rgb_str[i]);
 		return (-1);
 	}
 	debug_get_rgb_color(debug_fd, type, rgb, "get_rgb_color()");

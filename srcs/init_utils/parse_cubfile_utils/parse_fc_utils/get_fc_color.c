@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:51:51 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 19:58:50 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 21:30:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	parse_color_entry(const char *line, t_parse *parse)
 		free(color_str);
 		return (EXIT_FAILURE);
 	}
-	parse->entry.color[type] = get_rgb_color(type, parse->entry.key[type], color_str, parse->game->debug.fd);
+	parse->entry.color[type] = get_rgb_color(
+			type, parse->entry.key[type], color_str, parse->game->debug.fd);
 	if (parse->entry.color[type] == -1)
 		return (EXIT_FAILURE);
 	parse->flag |= parse->entry.bit[type];
