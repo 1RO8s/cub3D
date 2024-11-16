@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/16 04:16:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:02:23 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,11 @@ void		put_error_msg(const char *entry, const char *msg);
 // call by parse_tex()
 int	create_texture_images(const char *line, t_parse *parse);
 int	check_texture_entry(t_type_wall type, const char *line, t_parse *parse);
+
+// call by parse_fc()
+# define CONTINUE 2
+int			get_fc_color(const char *line, t_parse *parse);
+int			get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd);
 
 // srcs/init_utils/parse_cubfile_utils/
 // │

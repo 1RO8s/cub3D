@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/16 03:30:20 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/16 18:54:59 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS_DIR = \
 		   ./srcs/init_utils/read_cubfile_utils \
 		   ./srcs/init_utils/parse_cubfile_utils \
 		   ./srcs/init_utils/parse_cubfile_utils/parse_tex_utils \
+		   ./srcs/init_utils/parse_cubfile_utils/parse_fc_utils \
 		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
@@ -64,6 +65,9 @@ SRCS = \
 	   \
 	   create_texture_images.c \
 	   check_texture_entry.c \
+	   \
+	   get_fc_color.c \
+	   get_rgb_color.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \

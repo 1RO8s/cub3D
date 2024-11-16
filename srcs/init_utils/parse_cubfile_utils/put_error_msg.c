@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:42:41 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 17:31:55 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:37:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static bool	is_entry_char(const char c)
 
 void	put_error_msg(const char *entry, const char *msg)
 {
-	size_t	count;
+	size_t	len;
 
 	ft_dprintf(STDERR_FILENO, ERR_PROMPT);
-	count = 0;
-	while (is_entry_char(*entry) == true)
-		count++;
-	write(STDERR_FILENO, entry, count);
+	len = 0;
+	while (is_entry_char(entry[len]) == true)
+		len++;
+	write(STDERR_FILENO, entry, len);
 	ft_dprintf(STDERR_FILENO, ": %s\n", msg);
 }
