@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/18 05:27:11 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/18 05:39:24 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,16 @@ void	debug_get_rgb_color(int fd, t_enum_fc type, int rgb[3], const char *msg)
 		ft_dprintf(fd, "\n");
 }
 
+bool	is_rgb_miss(int i_rgb, char char_key, const char *rgb_str)
+{
+	if (i_rgb < 3)
+	{
+		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
+			ERR_PROMPT, char_key, EMSG_RGB_MISS, rgb_str);
+		return (false);
+	}
+	return (true);
+}
 /**
  * @brief 
  *
@@ -135,12 +145,8 @@ int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
 			break ;
 		str++;
 	}
-	if (i < 3)
-	{
-		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
-			ERR_PROMPT, *key, EMSG_RGB_MISS, rgb_str[i]);
+	if (is_rgb_miss(i, *key, rgb_str[i]) != true)
 		return (-1);
-	}
 	debug_get_rgb_color(debug_fd, type, rgb, "get_rgb_color()");
 	color = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
 	return (color);
