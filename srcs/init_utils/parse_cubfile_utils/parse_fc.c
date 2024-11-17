@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 20:00:36 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:55:48 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ int	parse_fc(const char *line, t_parse *parse)
 		type++;
 	}
 	set_fc_color(parse->game, color);
-	return (EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }

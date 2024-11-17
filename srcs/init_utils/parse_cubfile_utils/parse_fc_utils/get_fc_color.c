@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:51:51 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 21:30:36 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/18 02:58:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	get_fc_color_line(const char *line, t_parse *parse)
 			return (EXIT_FAILURE);
 		break ;
 	}
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	get_fc_color(const char *line, t_parse *parse)

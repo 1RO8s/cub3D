@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 21:33:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/18 03:00:50 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
  *
  * @return OK(0~255), Error: -1
  * @note error case:(str==NULL, empty string, over range, non-digit characters)
+ *  Put error message of each case
  */
 static int	atoi_0_to_255(char *str, const char *entry)
 {
@@ -117,7 +118,7 @@ int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
 
 	color = 0;
 	i = 0;
-	while (str != NULL && *str != '\0')
+	while (str != NULL && *str != '\0' && i < 3)
 	{
 		if (*str == ',')
 		{
@@ -127,11 +128,7 @@ int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
 		}
 		rgb[i] = atoi_0_to_255(str, key);
 		if (rgb[i] == -1)
-		{
-			//ft_dprintf(STDERR_FILENO, "%s%c: ",
-			//	ERR_PROMPT, *parse->entry);
 			return (-1);
-		}
 		i++;
 		str = ft_strchr(str, ',');
 		if (str == NULL)
