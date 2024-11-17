@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/18 03:00:50 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/18 05:27:11 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @note error case:(str==NULL, empty string, over range, non-digit characters)
  *  Put error message of each case
  */
-static int	atoi_0_to_255(char *str, const char *entry)
+static int	atoi_0_to_255(char *str, const char *entry, const char *rgb_str)
 {
 	int		result;
 	char	*str_num;
@@ -39,6 +39,12 @@ static int	atoi_0_to_255(char *str, const char *entry)
 		ft_dprintf(STDERR_FILENO, "%s%c: ",
 			ERR_PROMPT, *entry);
 		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
+		return (-1);
+	}
+	if (*str == ',')
+	{
+		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
+			ERR_PROMPT, *entry, EMSG_RGB_MISS, rgb_str);
 		return (-1);
 	}
 	str_num = str;
@@ -120,13 +126,7 @@ int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
 	i = 0;
 	while (str != NULL && *str != '\0' && i < 3)
 	{
-		if (*str == ',')
-		{
-			ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
-				ERR_PROMPT, *key, EMSG_RGB_MISS, rgb_str[i]);
-			return (-1);
-		}
-		rgb[i] = atoi_0_to_255(str, key);
+		rgb[i] = atoi_0_to_255(str, key, rgb_str[i]);
 		if (rgb[i] == -1)
 			return (-1);
 		i++;
