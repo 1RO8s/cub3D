@@ -6,13 +6,13 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:39 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/18 16:56:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:59:18 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	skip_blank_space(char *str, const char *entry)
+static char	*skip_blank_space(char *str, const char *entry)
 {
 	while (*str != '\0' && *str == ' ')
 		str++;
@@ -21,9 +21,73 @@ static int	skip_blank_space(char *str, const char *entry)
 		ft_dprintf(STDERR_FILENO, "%s%c: ",
 			ERR_PROMPT, *entry);
 		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
-		return (EXIT_FAILURE);
+		return (NULL);
 	}
-	return (EXIT_SUCCESS);
+	return (str);
+}
+
+static bool is_rgb_info_missing(char *str, const char *entry, const char *rgb_str)
+{
+	if (*str == ',')
+	{
+		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
+			ERR_PROMPT, *entry, EMSG_RGB_MISS, rgb_str);
+		return (true);
+	}
+	return (false);
+}
+
+static bool	is_not_number(char *str, const char entry)
+{
+	if (*str != '\0' && *str != ',')
+	{
+		ft_dprintf(STDERR_FILENO, "%s%c: ",
+			ERR_PROMPT, entry);
+		ft_dprintf(STDERR_FILENO, "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
+		return (false);
+	}
+	return (true);
+}
+
+static bool	is_range_number(bool is_range, char *start_str, const char entry)
+{
+	if (is_range == false)
+	{
+		ft_dprintf(STDERR_FILENO, "%s%c: ",
+			ERR_PROMPT, entry);
+		ft_dprintf(STDERR_FILENO, "\"%s\" %s\n", start_str, EMSG_RGB_RANGE_OUT);
+		printf("is_range_number() return[%d]\n", false);
+		return (false);
+	}
+	return (true);
+}
+
+static int	calculate_from_string(char *str, const char *entry)
+{
+	int		result;
+	bool	is_range;
+	char	*start_str;
+
+	is_range = true;
+	start_str = str;
+	//printf("str[%s]\n", str);
+	while (*str != '\0' && ft_isdigit(*str) == true)
+	{
+		while (result == 0 && *str == '0')
+			str++;
+		if (is_range == true)
+			result = result * 10 + (*str - '0');
+		if (result > 255)
+			is_range = false;
+		str++;
+	}
+	//printf("str[%s]\n", str);
+	if (is_not_number(str, *entry) == false)
+		return (-1);
+	//printf("num[%d] is_range[%d]\n", result, (int)is_range);
+	if (is_range_number(is_range, start_str, *entry) == false)
+		return (-1);
+	return (result);
 }
 
 /**
@@ -38,48 +102,15 @@ static int	skip_blank_space(char *str, const char *entry)
  */
 int	atoi_0_to_255(char *str, const char *entry, const char *rgb_str)
 {
-	int		result;
-	char	*str_num;
-	int		status;
-
-	result = 0;
-	status = 0;
 	if (str == NULL)
 		return (-1);
-	if (skip_blank_space(str, entry) != EXIT_SUCCESS)
+	str = skip_blank_space(str, entry);
+	if (str == NULL)
 		return (-1);
-	if (is_miss_rgb_
-	if (*str == ',')
-	{
-		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
-			ERR_PROMPT, *entry, EMSG_RGB_MISS, rgb_str);
+	if (is_rgb_info_missing(str, entry, rgb_str) == true)
 		return (-1);
-	}
-	str_num = str;
-	while (*str != '\0' && ft_isdigit(*str) == true)
-	{
-		while (result == 0 && *str == '0')
-			str++;
-		if (status != -1)
-			result = result * 10 + (*str - '0');
-		if (result > 255)
-			status = -1;
-		str++;
-	}
-	if (*str != '\0' && *str != ',')
-	{
-		ft_dprintf(STDERR_FILENO, "%s%c: ",
-			ERR_PROMPT, *entry);
-		ft_dprintf(STDERR_FILENO, "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
-		return (-1);
-	}
-	if (status == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "%s%c: ",
-			ERR_PROMPT, *entry);
-		*str = '\0';
-		ft_dprintf(STDERR_FILENO, "\"%s\" %s\n", str_num, EMSG_RGB_RANGE_OUT);
-		return (-1);
-	}
+	//return (calculate_from_string(str, entry));
+	int		result = calculate_from_string(str, entry);
+	//printf("result[%d]\n", result);
 	return (result);
 }

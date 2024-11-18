@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/16 18:54:59 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/18 18:45:59 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRCS = \
 	   \
 	   get_fc_color.c \
 	   get_rgb_color.c \
+	   atoi_0_to_255.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \
