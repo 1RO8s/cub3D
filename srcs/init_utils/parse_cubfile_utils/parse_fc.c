@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 01:30:20 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/19 04:12:27 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_fc_info	create_fc_info(const char **key, const int *bit, int *color)
 {
 	color[ENUM_F] = -1;
 	color[ENUM_C] = -1;
-	return ((t_fc_info){.key = key, .bit = bit, .type = ENUM_F, .color = color});
+	return ((t_fc_info)
+		{.key = key, .bit = bit, .type = ENUM_F, .color = color});
 }
 //typedef struct s_fc_info {
 //	const char	**key;

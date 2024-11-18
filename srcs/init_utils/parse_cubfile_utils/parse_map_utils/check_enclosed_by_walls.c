@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 04:39:53 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/19 04:13:21 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,33 @@ bool	flood_fill(
 //		printf("\n");
 //	}
 
+static void	put_error_msg_is_not_map_enclosed(void)
+{
+	ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
+}
+
+static bool	is_enclosed_on_remaining_area(
+		t_map *map, bool visited[MAX_ROWS][MAX_COLS])
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->data[y][x] == '0' && visited[y][x] == false)
+				if (flood_fill(map, x, y, visited) != true)
+					return (false);
+			x++;
+		}
+		y++;
+	}
+	return (true);
+}
+
 /**
  * @brief check if the map is enclosed by walls
  *
@@ -84,7 +111,12 @@ int	check_enclosed_by_walls(const char *line, t_parse *parse)
 	map = &parse->game->map;
 	if (flood_fill(map, start_x, start_y, visited) != true)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
+		put_error_msg_is_not_map_enclosed();
+		return (EXIT_FAILURE);
+	}
+	if (is_enclosed_on_remaining_area(map, visited) != true)
+	{
+		put_error_msg_is_not_map_enclosed();
 		return (EXIT_FAILURE);
 	}
 	(void)line;
