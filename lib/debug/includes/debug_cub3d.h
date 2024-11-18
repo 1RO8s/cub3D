@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:42:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 16:06:00 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:42:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	debug_texture(char *file, t_texture texture,
 void	debug_img_tex(int fd, t_img img, int i, const char *msg);
 void	debug_map_data(t_map map, const char *msg);
 void	debug_player(int fd, t_player player, const char *msg);
+void	debug_get_rgb_color(int fd,
+			t_enum_fc type, int rgb[3], const char *msg);
 
 // parse cubfile
 void	debug_tex_info(int fd, t_tex_info tex_info);

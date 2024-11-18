@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/15 16:07:04 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/18 16:40:15 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS = \
 	   double_to_string.c \
 	   debug_element_type.c \
 	   debug_tex_info.c \
+	   debug_get_rgb_color.c \
 	   init_debug_info.c \
 	   open_log.c
 
