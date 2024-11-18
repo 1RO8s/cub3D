@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 19:29:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/19 01:28:05 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ typedef enum e_enum_fc {
 	ENUM_C
 }	t_enum_fc;
 
-typedef struct s_entry {
+typedef struct s_fc_info {
 	const char	**key;
 	const int	*bit;
 	t_enum_fc	type;
 	int			*color;
-}	t_entry;
+}	t_fc_info;
 
 typedef struct s_tex_info {
 	const char	**key;
@@ -123,9 +123,8 @@ typedef struct s_tex_info {
 
 typedef struct s_parse {
 	int			flag;
-	//const char	*entry;
-	t_entry		entry;
-	t_tex_info	tex_info;// refact
+	t_fc_info	fc_info;
+	t_tex_info	tex_info;
 	t_point		player_grid;
 	t_game		*game;
 }	t_parse;

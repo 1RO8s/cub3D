@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/18 18:45:59 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/19 01:39:51 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ SRCS = \
 	   find_next_element.c \
 	   \
 	   create_texture_images.c \
-	   check_texture_entry.c \
+	   check_tex_info.c \
 	   \
 	   get_fc_color.c \
 	   get_rgb_color.c \

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 18:32:40 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/19 01:35:22 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ static int	get_texture_image(
 	file = strdup_until_ch(file_line, '\n');
 	if (file == NULL)
 		return (EXIT_FAILURE);
-	// if (is_exist_file(file) != true)
-	//{
-	//	put_error_msg(file, EMSG_NOT_EXIST_FILE);
-	//	return (EXIT_FAILURE);
-	//}
 	texture->img_tex.img = (void *)mlx_xpm_file_to_image(
 			mlx, file, &texture->width, &texture->height);
 	if (texture->img_tex.img == NULL)
@@ -106,7 +101,7 @@ int	create_texture_images(const char *line, t_parse *parse)
 	while (line != NULL && *line != '\n' && *line != '\0')
 	{
 		type = get_dir_of_wall(line, parse->tex_info.key);
-		if (check_texture_entry(type, line, parse) != EXIT_SUCCESS)
+		if (check_tex_info(type, line, parse) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		parse->flag |= parse->tex_info.bit[type];
 		if (get_texture_image(mlx, &line[3], &texture[type]) != EXIT_SUCCESS)

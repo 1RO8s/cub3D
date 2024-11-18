@@ -6,27 +6,14 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:39 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/18 18:59:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/19 01:31:16 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*skip_blank_space(char *str, const char *entry)
-{
-	while (*str != '\0' && *str == ' ')
-		str++;
-	if (*str == '\0')
-	{
-		ft_dprintf(STDERR_FILENO, "%s%c: ",
-			ERR_PROMPT, *entry);
-		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
-		return (NULL);
-	}
-	return (str);
-}
-
-static bool is_rgb_info_missing(char *str, const char *entry, const char *rgb_str)
+static bool	is_rgb_info_missing(
+		char *str, const char *entry, const char *rgb_str)
 {
 	if (*str == ',')
 	{
@@ -56,7 +43,6 @@ static bool	is_range_number(bool is_range, char *start_str, const char entry)
 		ft_dprintf(STDERR_FILENO, "%s%c: ",
 			ERR_PROMPT, entry);
 		ft_dprintf(STDERR_FILENO, "\"%s\" %s\n", start_str, EMSG_RGB_RANGE_OUT);
-		printf("is_range_number() return[%d]\n", false);
 		return (false);
 	}
 	return (true);
@@ -70,7 +56,7 @@ static int	calculate_from_string(char *str, const char *entry)
 
 	is_range = true;
 	start_str = str;
-	//printf("str[%s]\n", str);
+	result = 0;
 	while (*str != '\0' && ft_isdigit(*str) == true)
 	{
 		while (result == 0 && *str == '0')
@@ -81,10 +67,8 @@ static int	calculate_from_string(char *str, const char *entry)
 			is_range = false;
 		str++;
 	}
-	//printf("str[%s]\n", str);
 	if (is_not_number(str, *entry) == false)
 		return (-1);
-	//printf("num[%d] is_range[%d]\n", result, (int)is_range);
 	if (is_range_number(is_range, start_str, *entry) == false)
 		return (-1);
 	return (result);
@@ -104,13 +88,18 @@ int	atoi_0_to_255(char *str, const char *entry, const char *rgb_str)
 {
 	if (str == NULL)
 		return (-1);
-	str = skip_blank_space(str, entry);
+	while (*str != '\0' && *str == ' ')
+		str++;
+	if (*str == '\0')
+	{
+		ft_dprintf(STDERR_FILENO, "%s%c: ",
+			ERR_PROMPT, *entry);
+		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
+		return (-1);
+	}
 	if (str == NULL)
 		return (-1);
 	if (is_rgb_info_missing(str, entry, rgb_str) == true)
 		return (-1);
-	//return (calculate_from_string(str, entry));
-	int		result = calculate_from_string(str, entry);
-	//printf("result[%d]\n", result);
-	return (result);
+	return (calculate_from_string(str, entry));
 }
