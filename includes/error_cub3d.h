@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:26:28 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 15:27:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:08:27 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@
  */
 # define ERR_PROMPT "Error: "
 
+// init_game.c
 # define EMSG_ARG_COUNT	"One argument must be specified"
 # define EMSG_FILE_EXT	"Specify a file path with .cub extension"
+
+// init_cub_contents.c
+# define EMSG_OPEN_FAILED "File open failed"
+# define EMSG_READ_FAILED "File read failed"
+# define EMSG_EMPTY_CUB "Empty cub file"
 
 // parse_tex.c
 # define EMSG_XPM_FILE "Texture file"

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 00:32:09 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:43:06 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ static void	init_frame(t_game *game)
 	frame->flag = 0;
 }
 
+static bool	is_find_element(const char *element)
+{
+	if (element == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_EMPTY_CUB);
+		return (false);
+	}
+	return (true);
+}
+
 /**
  * @brief Parse the cub file contents
  */
@@ -34,6 +44,8 @@ static int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 
 	if (*element == '\n')
 		element = find_next_element(element);
+	if (is_find_element(element) == false)
+		return (EXIT_FAILURE);
 	while (element != NULL)
 	{
 		type = get_type_element(element);
@@ -89,9 +101,17 @@ static char	*read_cubfile(char *filepath)
 	char	*map;
 
 	fd = open(filepath, O_RDONLY);
-	if (fd == -1 && ft_dprintf(STDERR_FILENO, "Error: file open failed\n"))
+	if (fd == -1)
+	{
+		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_OPEN_FAILED);
 		return (NULL);
+	}
 	map = get_file_contents(fd);
+	if (map == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_READ_FAILED);
+		return (NULL);
+	}
 	close(fd);
 	return (map);
 }
