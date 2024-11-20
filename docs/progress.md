@@ -11,7 +11,7 @@ Commit ID: [618c1b5](https://github.com/1RO8s/cub3D/commit/618c1b5)
 1121 parse/cub_file
 
 Find bug : segmentation fault
-![game_image](segmentation_fault_20241121.gif)
+![game_image](movie/segmentation_fault_20241121.gif)
 
 ---
 1017 feat/move_and_rotate
