@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 16:43:06 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/21 02:09:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static char	*read_cubfile(char *filepath)
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_OPEN_FAILED);
+		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_OPEN_FAILED);
 		return (NULL);
 	}
 	map = get_file_contents(fd);

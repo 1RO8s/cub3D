@@ -1,11 +1,17 @@
 # Cub3D current progress
 ...
 
-Commit ID: [782038c](https://github.com/1RO8s/cub3D/commit/782038c)
+Commit ID: [618c1b5](https://github.com/1RO8s/cub3D/commit/618c1b5)
 
-10/17 by kamitsui
+11/21 by kamitsui
 
 ...
+
+---
+1121 parse/cub_file
+
+Find bug : segmentation fault
+![game_image](segmentation_fault_20241121.git)
 
 ---
 1017 feat/move_and_rotate
