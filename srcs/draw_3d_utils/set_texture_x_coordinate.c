@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:55:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 01:42:53 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/21 03:12:08 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	set_texture_x_coordinate(t_frame *frame, int x)
 	(void)x;
 }
 //	debug code
-//	debug_put_texture_image(frame);//debug
+//	debug_put_texture_image(frame);
+//	Note : comment out in source file because using forbidden function
 //
 // reference cub3.h
 //typedef struct s_dda {

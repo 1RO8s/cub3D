@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 18:02:12 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 18:51:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/21 03:13:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,23 @@ void	debug_img_tex(int fd, t_img img, int i, const char *msg)
 //	int		endian;
 //	t_debug	*debug;
 //}	t_img;
-
-void	debug_put_texture_image(t_frame *frame)
-{
-	void	*mlx;
-	void	*win;
-	void	*img;
-
-	mlx = frame->debug.game->mlx;
-	win = frame->debug.game->win;
-	img = frame->texture[0].img_tex.img;
-	mlx_put_image_to_window(mlx, win, img, 0, 0);
-	img = frame->texture[1].img_tex.img;
-	mlx_put_image_to_window(mlx, win, img, 200, 50);
-	img = frame->texture[2].img_tex.img;
-	mlx_put_image_to_window(mlx, win, img, 50, 200);
-	img = frame->texture[3].img_tex.img;
-	mlx_put_image_to_window(mlx, win, img, 250, 250);
-	sleep(10);
-}
+//
+// Note : Comment out because with using sleep (Forbidden function)
+//void	debug_put_texture_image(t_frame *frame)
+//{
+//	void	*mlx;
+//	void	*win;
+//	void	*img;
+//
+//	mlx = frame->debug.game->mlx;
+//	win = frame->debug.game->win;
+//	img = frame->texture[0].img_tex.img;
+//	mlx_put_image_to_window(mlx, win, img, 0, 0);
+//	img = frame->texture[1].img_tex.img;
+//	mlx_put_image_to_window(mlx, win, img, 200, 50);
+//	img = frame->texture[2].img_tex.img;
+//	mlx_put_image_to_window(mlx, win, img, 50, 200);
+//	img = frame->texture[3].img_tex.img;
+//	mlx_put_image_to_window(mlx, win, img, 250, 250);
+//	sleep(10);
+//}
