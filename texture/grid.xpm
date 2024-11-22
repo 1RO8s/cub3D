@@ -1,0 +1,12 @@
+/* XPM */
+static char *grid[] = {
+/* columns rows colors chars-per-pixel */
+"2 2 4 1",
+"a c #FF0000",
+"b c #00FF00",
+"c c #0000FF",
+"d c #FFFFFF",
+/* pixels */
+"ab",
+"cd"
+};

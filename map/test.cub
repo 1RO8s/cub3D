@@ -1,8 +1,8 @@
 
 NO ./texture/sonic.xpm
-SO ./texture/teapot.xpm
+SO ./texture/kamecci.xpm
 WE ./texture/tails.xpm
-EA ./texture/planks.xpm
+EA ./texture/42_logo.xpm
 
 F 43,139,87
 C 135,206,235
