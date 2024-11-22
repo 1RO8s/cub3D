@@ -9,10 +9,18 @@ Commit ID: [309cab8](https://github.com/1RO8s/cub3D/commit/309cab8)
 ...
 
 ---
+1123 parse/cub_file
+
+Find bug : Abort with using large map
+![game_image](movie/unsuccessful/large_map_20241123_before.gif)
+
+---
 1121 parse/cub_file
 
 Find bug : segmentation fault
-![game_image](movie/segumentation_fault_20241121/before.gif)
+![game_image](movie/unsuccessful/perp_wall_dist_overflow_20241121_before.gif)
+After
+![game_image](movie/unsuccessful/perp_wall_dist_overflow_20241123_after.gif)
 
 ---
 1017 feat/move_and_rotate

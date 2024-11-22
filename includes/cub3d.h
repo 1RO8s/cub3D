@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/19 01:41:46 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/23 01:08:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 # define DISABLE_2D_MAP 0
 
 // limit of map
-# define MAX_ROWS 100
-# define MAX_COLS 100
+# define MAX_ROWS 1000
+# define MAX_COLS 1000
 
 // Cub3d color
 # define COLOR_GREY 0xAAAAAA
