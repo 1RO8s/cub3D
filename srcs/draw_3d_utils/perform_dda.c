@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:33:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 03:37:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:02:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	perform_dda(t_frame *frame, int x)
 
 	hit = false;
 	type = START_POINT;
-	debug_dda(frame, type, "perform_dda() ... start");
+	//debug_dda(frame, type, "perform_dda() ... start");
 	while (hit == 0)
 	{
 		type = get_line_type(frame->ray_cast);
 		move_next_grid_line(&frame->ray_cast, type);
 		hit = is_hit_wall(frame->map, &frame->ray_cast);
-		debug_dda(frame, type, "perform_dda() ... loop until hit wall");
+		//debug_dda(frame, type, "perform_dda() ... loop until hit wall");
 	}
 	frame->dda.type_of_grid_line = type;
 	frame->dda.perp_wall_dist = calculate_distance(frame->ray_cast, type);

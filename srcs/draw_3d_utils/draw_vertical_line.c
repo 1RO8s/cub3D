@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 00:26:30 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:23:11 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_floor(t_frame *frame, int x, int floor_start)
 	int	y;
 
 	y = floor_start;
-	while (y < IMG_3D_HEIGHT)
+	while (y < IMG_3D_HEIGHT - 1)
 	{
 		my_mlx_pixel_put(frame->img_3d, x, y, *frame->floor_color);
 		y++;
@@ -85,10 +85,10 @@ void	draw_vertical_line(t_frame *frame, int x)
 	if (frame->wall_slice.draw_start < 0)
 		frame->wall_slice.draw_start = 0;
 	if (frame->wall_slice.draw_end >= IMG_3D_HEIGHT)
-		frame->wall_slice.draw_end = IMG_3D_HEIGHT - 1;
+		frame->wall_slice.draw_end = IMG_3D_HEIGHT;
 	y = frame->wall_slice.draw_start;
 	draw_ceiling(frame, x, y);
-	debug_texture_y_coordinate_overflow(frame, y);
+	//debug_texture_y_coordinate_overflow(frame, y);
 	while (y <= frame->wall_slice.draw_end)
 	{
 		tex_y = get_texture_y_coordinate(frame, y);
