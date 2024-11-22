@@ -1,9 +1,10 @@
 # Cub3D current progress
 ...
 
-Commit ID: []()
+Commit ID: [309cab8](https://github.com/1RO8s/cub3D/commit/309cab8)
 
-11/ by kamitsui
+11/23 by kamitsui
+![game_movie](movie/successful/20241123.gif)
 
 ...
 
