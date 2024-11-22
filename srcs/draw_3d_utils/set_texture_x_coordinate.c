@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:55:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/21 03:12:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:28:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ void	set_texture_x_coordinate(t_frame *frame, int x)
 	type_wall = get_texture_direction(dda->type_of_grid_line, ray_dir);
 	dda->texture = frame->texture[type_wall];
 	dda->tex_x = (int)(wall_x * (double)dda->texture.width);
-	if (dda->type_of_grid_line == 0 && ray_dir.x > 0)
+	if (dda->type_of_grid_line == 0 && ray_dir.x < 0)
 		dda->tex_x = dda->texture.width - dda->tex_x - 1;
-	if (dda->type_of_grid_line == 1 && ray_dir.y < 0)
-		dda->tex_x = dda->texture.width - dda->tex_x - 1;
+	//if (dda->type_of_grid_line == 0 && ray_dir.x > 0)
+	//	dda->tex_x = dda->texture.width - dda->tex_x - 1;
+	//if (dda->type_of_grid_line == 1 && ray_dir.y < 0)
+	//	dda->tex_x = dda->texture.width - dda->tex_x - 1;
 	debug_texture_coordinate(frame->debug.fd, wall_x, frame,
 		"end set_texture_x_coordinage()");
 	(void)x;
