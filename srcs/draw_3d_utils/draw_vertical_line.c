@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/22 14:23:11 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:43:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	get_texture_y_coordinate(t_frame *frame, int y)
 
 	line_height = frame->wall_slice.line_height;
 	tex_height = frame->dda.texture.height;
+	if (line_height == 0)
+		line_height = 1;
 	d = (y * 256) - (IMG_3D_HEIGHT * 128) + (line_height * 128);
 	if (d < 0)
 		d = 0;
@@ -88,7 +90,6 @@ void	draw_vertical_line(t_frame *frame, int x)
 		frame->wall_slice.draw_end = IMG_3D_HEIGHT;
 	y = frame->wall_slice.draw_start;
 	draw_ceiling(frame, x, y);
-	//debug_texture_y_coordinate_overflow(frame, y);
 	while (y <= frame->wall_slice.draw_end)
 	{
 		tex_y = get_texture_y_coordinate(frame, y);
@@ -98,3 +99,4 @@ void	draw_vertical_line(t_frame *frame, int x)
 	}
 	draw_floor(frame, x, frame->wall_slice.draw_end);
 }
+	//debug_texture_y_coordinate_overflow(frame, y);

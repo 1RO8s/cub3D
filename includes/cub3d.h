@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/30 13:45:34 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:00:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int			handle_mouse(int button, int x, int y, t_game *game);
 int			init_mlx_window(t_game *game);
 int			init_mlx_image(t_game *game);
 int			init_cub_contents(t_game *game, char *filename);
+int			parse_cubfile(t_parse *parse, t_game *game, const char *element);
 
 // srcs/init_utils/
 // │

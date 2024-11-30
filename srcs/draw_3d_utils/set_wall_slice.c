@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:34:03 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/22 12:07:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:44:24 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
 void	set_wall_slice(t_frame *frame, int x)
 {
 	t_wall_slice	wall_slice;
-	double safe_perp_wall_dist;
+	double			safe_perp_wall_dist;
 
-	//wall_slice.line_height = (int)(WIN_HEIGHT / frame->dda.perp_wall_dist);// overflow
 	safe_perp_wall_dist = frame->dda.perp_wall_dist;
 	if (frame->dda.perp_wall_dist < MIN_PERP_WALL_DIST)
 		safe_perp_wall_dist = MIN_PERP_WALL_DIST;
