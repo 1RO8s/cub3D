@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/11/30 16:01:21 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/01 03:22:50 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ SRCS = \
 	   set_direction.c \
 	   get_player_info.c \
 	   check_enclosed_by_walls.c \
+	   flood_fill.c \
+	   flood_fill_utils.c \
 	   \
 	   parse_general_func.c \
 	   put_error_msg.c \

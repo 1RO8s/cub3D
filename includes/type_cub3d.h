@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 01:28:05 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/01 02:47:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,13 @@ typedef struct s_map_size {
 	size_t	rows;
 	size_t	cols;
 }	t_map_size;
+
+// Dynamic t_tack
+typedef struct s_stack {
+	t_point	*data;
+	int		top;
+	int		capacity;
+}	t_stack;
 
 /******************** raycasting *********************************/
 
