@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 04:13:21 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/30 14:06:07 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @return true(enclosed map) false(not enclosed map)
  */
 bool	flood_fill(
-		t_map *map, int x, int y, bool visited[MAX_ROWS][MAX_COLS])
+		t_map *map, int x, int y, bool **visited)
 {
 	bool	up;
 	bool	down;
@@ -69,7 +69,7 @@ static void	put_error_msg_is_not_map_enclosed(void)
 }
 
 static bool	is_enclosed_on_remaining_area(
-		t_map *map, bool visited[MAX_ROWS][MAX_COLS])
+		t_map *map, bool **visited)
 {
 	int	x;
 	int	y;
@@ -81,7 +81,7 @@ static bool	is_enclosed_on_remaining_area(
 		while (x < map->width)
 		{
 			if (map->data[y][x] == '0' && visited[y][x] == false)
-				if (flood_fill(map, x, y, visited) != true)
+				if (flood_fill(map, x, y, (bool **)visited) != true)
 					return (false);
 			x++;
 		}
@@ -100,16 +100,25 @@ static bool	is_enclosed_on_remaining_area(
  */
 int	check_enclosed_by_walls(const char *line, t_parse *parse)
 {
-	bool	visited[MAX_ROWS][MAX_COLS];
+	bool	**visited;
+	//bool	visited[MAX_ROWS][MAX_COLS];
 	int		start_x;
 	int		start_y;
 	t_map	*map;
+	int		i;
 
+	visited = (bool **)malloc(sizeof(bool *) * MAX_ROWS);
+	i = 0;
+	while(i < MAX_ROWS)
+	{
+		visited[i] = (bool *)malloc(sizeof(bool) * MAX_COLS);
+		i++;
+	}
 	ft_memset(visited, (int)false, sizeof(visited));
 	start_x = parse->player_grid.x;
 	start_y = parse->player_grid.y;
 	map = &parse->game->map;
-	if (flood_fill(map, start_x, start_y, visited) != true)
+	if (flood_fill(map, start_x, start_y, (bool **)visited) != true)
 	{
 		put_error_msg_is_not_map_enclosed();
 		return (EXIT_FAILURE);

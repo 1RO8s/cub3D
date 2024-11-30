@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/11/23 01:08:34 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:45:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void		set_direction(char direction, t_player *player);
 
 // call by check_enclosed_by_walls()
 bool		flood_fill(
-				t_map *map, int x, int y, bool visited[MAX_ROWS][MAX_COLS]);
+				t_map *map, int x, int y, bool **visited);
 
 // parse->flag
 # define BIT_NORTH		0x01	// 0000 0000 0001
