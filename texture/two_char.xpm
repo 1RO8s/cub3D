@@ -1,0 +1,12 @@
+/* XPM */
+static char *example_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"4 3 2 2",
+/* colors */
+"aa c #FF0000",  /* Red */
+"bb c #0000FF",  /* Blue */
+/* pixels */
+"aaaaaabb",
+"bbbbbbaa",
+"aaaaaabb"
+};
