@@ -13,6 +13,7 @@ Commit ID: [309cab8](https://github.com/1RO8s/cub3D/commit/309cab8)
 
 Find bug : Abort with using large map
 ![game_image](movie/unsuccessful/large_map_20241123_before.gif)
+![game_image](movie/unsuccessful/large_map_20241130_fpe.gif)
 
 ---
 1121 parse/cub_file
