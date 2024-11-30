@@ -6,78 +6,120 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/30 19:40:27 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/01 01:04:58 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool flood_fill_iterative(t_map *map, int start_x, int start_y, bool **visited) {
-    // Ensure the start position is within bounds
-    if (start_x < 0 || start_x >= map->width || start_y < 0 || start_y >= map->height) {
-        return false;
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+// Define a Point structure for stack elements
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+// Define a Dynamic Stack
+typedef struct {
+    Point *data;
+    int top;
+    int capacity;
+} Stack;
+
+// Initialize the stack
+void init_stack(Stack *stack, int initial_capacity) {
+    stack->data = malloc(initial_capacity * sizeof(Point));
+    if (!stack->data) {
+        perror("Failed to allocate stack");
+        exit(EXIT_FAILURE);
     }
+    stack->top = 0;
+    stack->capacity = initial_capacity;
+}
 
-    // Allocate a stack for flood-fill
-	int	size = map->width * map->height;
-    t_point *stack = (t_point *)malloc(map->width * map->height * sizeof(t_point));
-    if (!stack) {
-        perror("Failed to allocate memory for flood-fill stack");
-        return false;
+// Push an element onto the stack
+void push(Stack *stack, Point value) {
+	int	old_size;
+
+    if (stack->top >= stack->capacity) {
+		old_size = stack->capacity * sizeof(Point);
+        stack->capacity *= 2; // Double the capacity
+        stack->data = (Point *)ft_realloc_tentative(stack->data, stack->capacity * sizeof(Point), old_size);
+		ft_printf("realloc\n");
+        if (!stack->data) {
+            perror("Failed to reallocate stack");
+            exit(EXIT_FAILURE);
+        }
     }
+    stack->data[stack->top++] = value;
+}
 
-    int stack_size = 0; // Stack pointer
+// Pop an element from the stack
+Point pop(Stack *stack) {
+    return stack->data[--stack->top];
+}
 
-    // Push the starting point onto the stack
-    stack[stack_size] = (t_point){start_x, start_y};
+// Check if the stack is empty
+bool is_empty(Stack *stack) {
+    return stack->top == 0;
+}
 
+// Free the stack memory
+void free_stack(Stack *stack) {
+    free(stack->data);
+}
+
+/**
+ * @brief flood_fill algorythm ( stack-based iteration )
+ *
+ * @param map
+ * @param start_x
+ * @param start_y
+ * @param visited
+ *
+ * @return 
+ */
+bool flood_fill_iterative(t_map *map, int start_x, int start_y, bool **visited)
+{
+    Stack stack;
+    init_stack(&stack, 100); // Start with an initial capacity of 100
+
+    push(&stack, (Point){start_x, start_y});
     bool is_surrounded = true;
 
-    // Direction vectors for moving in 4 directions
     int dx[4] = {0, 0, -1, 1};
     int dy[4] = {-1, 1, 0, 0};
 
-	stack_size = 1;
-    while (stack_size > 0) {
-        // Pop a point from the stack
-        t_point current = stack[--stack_size];
-
+    while (!is_empty(&stack)) {
+        Point current = pop(&stack);
         int x = current.x;
         int y = current.y;
 
-        // Check boundaries
+        // Boundary check
         if (x < 0 || x >= map->width || y < 0 || y >= map->height) {
             is_surrounded = false;
             continue;
         }
 
-        // Skip already visited cells or walls
-        if (map->data[y][x] == '1' || visited[y][x]) {
+        // Skip already visited or wall cells
+        if (visited[y][x] || map->data[y][x] == '1') {
             continue;
         }
 
-        // Check for invalid map cells
-        if (map->data[y][x] != '0') {
-            is_surrounded = false;
-            continue;
-        }
-
-        // Mark the cell as visited
         visited[y][x] = true;
 
-        // Push all valid neighbors onto the stack
-		int	i;
-		i = 0;
-		while (i < 4)
-		{
-        //for (int i = 0; i < 4; i++) {
-            stack[stack_size] = (t_point){x + dx[i], y + dy[i]};
-			stack_size++;
-			i++;
+        // Push neighbors onto the stack
+        for (int i = 0; i < 4; i++) {
+            int new_x = x + dx[i];
+            int new_y = y + dy[i];
+            push(&stack, (Point){new_x, new_y});
         }
     }
 
-    free(stack);
+    free_stack(&stack); // Free stack memory
     return is_surrounded;
 }
 
@@ -164,12 +206,11 @@ static bool	**init_visited(t_map *map)
 	bool	**visited;
 	size_t	i;
 
-	visited = (bool **)malloc(sizeof(bool *) * (size_t)map->height);
+	visited = (bool **)malloc((size_t)map->height * sizeof(bool *));
 	i = 0;
 	while (i < (size_t)map->height)
 	{
-		visited[i] = (bool *)malloc(sizeof(bool) * (size_t)map->width);
-		ft_memset(visited[i], (int)false, (size_t)map->width);
+		visited[i] = (bool *)ft_calloc((size_t)map->width, sizeof(bool));
 		i++;
 	}
 	printf("map size : rows[%d] cols[%d]\n", map->height, map->width);
