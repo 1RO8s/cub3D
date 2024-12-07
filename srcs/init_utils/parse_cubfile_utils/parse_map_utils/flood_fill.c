@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 02:42:15 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/01 03:41:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:21:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ static int	push_neighbors_onto_stack(int x, int y, t_stack *stack)
 bool	flood_fill_iterative(
 			t_map *map, int start_x, int start_y, bool **visited)
 {
-    t_stack stack;
-    bool	is_surrounded;
-	int 	x;
-	int 	y;
+	t_stack	stack;
+	bool	is_surrounded;
+	int		x;
+	int		y;
+	t_point	current;
 
-    init_stack(&stack, 100);
-    if (push(&stack, (t_point){start_x, start_y}) != EXIT_SUCCESS)
+	init_stack(&stack, 100);
+	if (push(&stack, (t_point){start_x, start_y}) != EXIT_SUCCESS)
 	{
 		free(stack.data);
 		return (false);
@@ -72,18 +73,22 @@ bool	flood_fill_iterative(
 	is_surrounded = true;
 	while (is_empty(&stack) == false)
 	{
-		t_point current = pop(&stack);
+		current = pop(&stack);
 		x = current.x;
 		y = current.y;
 		// Boundary check
+		//status = check_boundary_current_grid(x, y, map);
+		if (status == CONTINUE)
+			continue ;
 		if (x < 0 || x >= map->width || y < 0 || y >= map->height)
 		{
 			is_surrounded = false;
-			continue;
+			continue ;
 		}
 		// Skip already visited or wall cells
+		//status = check_boundary_current_grid(x, y, map);
 		if (visited[y][x] || map->data[y][x] == '1')
-			continue;
+			continue ;
 		visited[y][x] = true;
 		// Push neighbors onto the stack
 		if (push_neighbors_onto_stack(x, y, &stack) != EXIT_SUCCESS)
@@ -93,5 +98,5 @@ bool	flood_fill_iterative(
 		}
 	}
 	free(stack.data);
-	return is_surrounded;
+	return (is_surrounded);
 }
