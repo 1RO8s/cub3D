@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/01 03:30:32 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:42:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,6 @@ int			check_range_map(const char *line, t_parse *parse);
 int			get_map_data(const char *line, t_parse *parse);
 int			get_player_info(const char *line, t_parse *parse);
 int			check_enclosed_by_walls(const char *line, t_parse *parse);
-bool		flood_fill_iterative(
-				t_map *map, int start_x, int start_y, bool **visited);
 
 // call by flood_fill_iterative()
 int			push(t_stack *stack, t_point value);
@@ -156,8 +154,9 @@ int			find_player_and_set(
 void		set_direction(char direction, t_player *player);
 
 // call by check_enclosed_by_walls()
-bool		flood_fill(
-				t_map *map, int x, int y, bool **visited);
+t_bool		flood_fill(t_map *map, int start_x, int start_y, bool **visited);
+// stack in flood_fill
+# define DFLT_STACK_SIZE 100
 
 // parse->flag
 # define BIT_NORTH		0x01	// 0000 0000 0001

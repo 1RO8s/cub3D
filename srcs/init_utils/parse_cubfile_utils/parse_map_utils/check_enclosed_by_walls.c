@@ -6,12 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/01 02:40:54 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:44:22 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 // debug
 //void	put_visited(int fd, bool visited[MAX_ROWS][MAX_COLS], t_map *map)
@@ -44,13 +43,13 @@ static bool	is_enclosed_on_remaining_area(
 		while (x < map->width)
 		{
 			if (map->data[y][x] == '0' && visited[y][x] == false)
-				if (flood_fill_iterative(map, x, y, (bool **)visited) != true)
+				if (flood_fill(map, x, y, (bool **)visited) != true)
 					return (false);
 			x++;
 		}
 		y++;
 	}
-	return (true);
+	return (ENUM_TRUE);
 }
 
 static bool	**init_visited(t_map *map)
@@ -68,6 +67,13 @@ static bool	**init_visited(t_map *map)
 	return ((bool **)visited);
 }
 
+static t_bool	process_false_or_error(t_bool is_surrounded)
+{
+	if (is_surrounded == ENUM_FALSE)
+		put_error_msg_is_not_map_enclosed();
+	return (is_surrounded);
+}
+
 /**
  * @brief check if the map is enclosed by walls
  *
@@ -82,6 +88,7 @@ int	check_enclosed_by_walls(const char *line, t_parse *parse)
 	int		start_x;
 	int		start_y;
 	t_map	*map;
+	t_bool	is_surrounded;
 
 	visited = init_visited(&parse->game->map);
 	if (visited == NULL)
@@ -89,16 +96,13 @@ int	check_enclosed_by_walls(const char *line, t_parse *parse)
 	start_x = parse->player_grid.x;
 	start_y = parse->player_grid.y;
 	map = &parse->game->map;
-	if (flood_fill_iterative(map, start_x, start_y, (bool **)visited) != true)
-	{
-		put_error_msg_is_not_map_enclosed();
+	is_surrounded = ENUM_TRUE;
+	is_surrounded = flood_fill(map, start_x, start_y, visited);
+	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
 		return (EXIT_FAILURE);
-	}
-	if (is_enclosed_on_remaining_area(map, visited) != true)
-	{
-		put_error_msg_is_not_map_enclosed();
+	is_surrounded = is_enclosed_on_remaining_area(map, visited);
+	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
 		return (EXIT_FAILURE);
-	}
 	(void)line;
 	return (EXIT_SUCCESS);
 }

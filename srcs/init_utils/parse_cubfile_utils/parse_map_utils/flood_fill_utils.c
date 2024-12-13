@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:20:47 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/01 03:30:07 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:52:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	push(t_stack *stack, t_point value)
 				stack->data, stack->capacity * sizeof(t_point), old_size);
 		if (stack->data == NULL)
 		{
-			perror("Failed to reallocate stack");
+			perror("Failed to reallocate stack\n");
 			return (EXIT_FAILURE);
 		}
 	}
@@ -54,3 +54,10 @@ bool	is_empty(t_stack *stack)
 {
 	return (stack->top == 0);
 }
+
+// reference "type_cub3d.h"
+//typedef struct s_stack {
+//	t_point	*data;
+//	int		top;
+//	int		capacity;
+//}	t_stack;

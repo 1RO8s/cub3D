@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/01 02:47:36 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:38:10 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,12 @@ typedef struct s_stack {
 	int		top;
 	int		capacity;
 }	t_stack;
+
+typedef enum e_bool {
+	ENUM_ERROR = -1,
+	ENUM_FALSE = 0,
+	ENUM_TRUE = 1
+}	t_bool;
 
 /******************** raycasting *********************************/
 
