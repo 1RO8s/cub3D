@@ -1,0 +1,21 @@
+/* XPM */
+static char *grid[] = {
+/* columns rows colors chars-per-pixel */
+"13 13 2 1",
+"n c #None",
+"a c #cacfd2",
+/* pixels */
+"aaaaaaaaaaaaa",
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"annnnnnnnnnna",
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"annnnnnnnnnna"
+"aaaaaaaaaaaaa"
+};

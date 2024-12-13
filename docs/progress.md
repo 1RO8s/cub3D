@@ -1,11 +1,27 @@
 # Cub3D current progress
 ...
 
-Commit ID: [782038c](https://github.com/1RO8s/cub3D/commit/782038c)
+Commit ID: [309cab8](https://github.com/1RO8s/cub3D/commit/309cab8)
 
-10/17 by kamitsui
+11/23 by kamitsui
+![game_movie](movie/successful/20241123.gif)
 
 ...
+
+---
+1123 parse/cub_file
+
+Find bug : Abort with using large map
+![game_image](movie/unsuccessful/large_map_20241123_before.gif)
+![game_image](movie/unsuccessful/large_map_20241130_fpe.gif)
+
+---
+1121 parse/cub_file
+
+Find bug : segmentation fault
+![game_image](movie/unsuccessful/perp_wall_dist_overflow_20241121_before.gif)
+After
+![game_image](movie/unsuccessful/perp_wall_dist_overflow_20241123_after.gif)
 
 ---
 1017 feat/move_and_rotate

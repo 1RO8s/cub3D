@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/20 02:57:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:43:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_floor(t_frame *frame, int x, int floor_start)
 	int	y;
 
 	y = floor_start;
-	while (y < IMG_3D_HEIGHT)
+	while (y < IMG_3D_HEIGHT - 1)
 	{
 		my_mlx_pixel_put(frame->img_3d, x, y, *frame->floor_color);
 		y++;
@@ -44,9 +44,10 @@ static int	get_color_texture_pixel(t_frame *frame, int tex_x, int tex_y)
 
 	img_tex = frame->dda.texture.img_tex;
 	offset = (tex_y * img_tex.line_length) + (tex_x * (img_tex.bpp / 8));
-	color = *(int *)(img_tex.addr + offset);// compatibility ??
+	color = *(int *)(img_tex.addr + offset);
 	return (color);
 }
+//	color = *(int *)(img_tex.addr + offset);// compatibility ??
 
 int	get_texture_y_coordinate(t_frame *frame, int y)
 {
@@ -57,6 +58,8 @@ int	get_texture_y_coordinate(t_frame *frame, int y)
 
 	line_height = frame->wall_slice.line_height;
 	tex_height = frame->dda.texture.height;
+	if (line_height == 0)
+		line_height = 1;
 	d = (y * 256) - (IMG_3D_HEIGHT * 128) + (line_height * 128);
 	if (d < 0)
 		d = 0;
@@ -84,10 +87,9 @@ void	draw_vertical_line(t_frame *frame, int x)
 	if (frame->wall_slice.draw_start < 0)
 		frame->wall_slice.draw_start = 0;
 	if (frame->wall_slice.draw_end >= IMG_3D_HEIGHT)
-		frame->wall_slice.draw_end = IMG_3D_HEIGHT - 1;
+		frame->wall_slice.draw_end = IMG_3D_HEIGHT;
 	y = frame->wall_slice.draw_start;
 	draw_ceiling(frame, x, y);
-	debug_texture_y_coordinate_overflow(frame, y);
 	while (y <= frame->wall_slice.draw_end)
 	{
 		tex_y = get_texture_y_coordinate(frame, y);
@@ -97,3 +99,4 @@ void	draw_vertical_line(t_frame *frame, int x)
 	}
 	draw_floor(frame, x, frame->wall_slice.draw_end);
 }
+	//debug_texture_y_coordinate_overflow(frame, y);

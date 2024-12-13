@@ -1,4 +1,5 @@
-version: '3.8'
+#if use v1 Compose
+#version: '3.8'
 
 services:
   cub3d:

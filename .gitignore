@@ -15,6 +15,7 @@
 !*.txt
 !*.pdf
 !*.png
+!*.gif
 !*.xpm
 !*.zip
 !*.tgz

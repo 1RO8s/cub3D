@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 22:44:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/11 10:53:53 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:42:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	debug_map_data(t_map map, const char *msg)
 		ft_dprintf(fd, "\t\t%s\n", map.data[y]);
 		y++;
 	}
-	dprintf(fd, "\n\n");
+	ft_dprintf(fd, "\n\n");
 }

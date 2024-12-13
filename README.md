@@ -1,9 +1,15 @@
 # cub3D
 
-### if update submodules
-fetch all submodules
+### Clone main repository & submodules
 ```sh
-# Case of update libft
+# All repository
+git clone --recursive git@github.com:1RO8s/cub3D.git
+
+# or
+git clone git@github.com:1RO8s/cub3D.git
+git submodule update --init --recursive
+
+# if Case of update libft
 cd lib/libft
 git fetch
 git main
@@ -20,6 +26,9 @@ output the below message
 ### Run
 ```sh
 ./cub3D map/test.map
+# or
+source config/alias.zsh
+run
 ```
 -> [Current Progress](docs/progress.md)
 
@@ -43,6 +52,14 @@ tree -L 1 .
 ├── objs
 ├── resource
 └── srcs
+```
+
+### Test
+```sh
+ln -sf $PWD/cub3D $PWD/test/parse_test/cub3D_parseTest/cub3D
+cd test/parse_test/cub3D_parseTest
+chmod +x parse.sh
+./parse.sh
 ```
 
 ### About us

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:32:18 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 05:42:13 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:44:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,5 @@ void	init_ray(t_frame *frame, int x)
 	ray_cast.delta_distance = (t_vector)get_delta_distance(ray_cast);
 	set_direction_and_distance_for_dda(&ray_cast, &frame->player->view_point);
 	frame->ray_cast = ray_cast;
-	debug_ray_cast(frame, "after init_ray()", x);// debug
 }
+	//debug_ray_cast(frame, "after init_ray()", x);

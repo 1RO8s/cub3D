@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/20 02:54:50 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/11/18 16:40:15 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ endif
 # Source files
 SRCS = \
 	   debug_map_data.c \
+	   debug_player.c \
 	   debug_ray.c \
 	   debug_perform_dda.c \
 	   debug_wall_slice.c \
@@ -55,7 +56,12 @@ SRCS = \
 	   debug_keypress.c \
 	   debug_is_hit_flag.c \
 	   debug_moved_player.c \
+	   debug_texture_coordinate.c \
 	   debug_texture_y_coordinate_overflow.c \
+	   double_to_string.c \
+	   debug_element_type.c \
+	   debug_tex_info.c \
+	   debug_get_rgb_color.c \
 	   init_debug_info.c \
 	   open_log.c
 

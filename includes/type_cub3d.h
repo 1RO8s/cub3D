@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/19 14:45:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:38:10 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,58 @@ typedef struct s_texture {
 // texture[2] ... texture[EAST]
 // texture[3] ... texture[SOUTH]
 
+/******************** parse *********************************/
+
+typedef enum e_enum_fc {
+	ENUM_F,
+	ENUM_C
+}	t_enum_fc;
+
+typedef struct s_fc_info {
+	const char	**key;
+	const int	*bit;
+	t_enum_fc	type;
+	int			*color;
+}	t_fc_info;
+
+typedef struct s_tex_info {
+	const char	**key;
+	const int	*bit;
+}	t_tex_info;
+
+typedef struct s_parse {
+	int			flag;
+	t_fc_info	fc_info;
+	t_tex_info	tex_info;
+	t_point		player_grid;
+	t_game		*game;
+}	t_parse;
+
+typedef enum e_enum_elem {
+	ENUM_TEX,
+	ENUM_FC,
+	ENUM_MAP,
+	ENUM_ELEMENT_ERR
+}	t_enum_elem;
+
+typedef struct s_map_size {
+	size_t	rows;
+	size_t	cols;
+}	t_map_size;
+
+// Dynamic t_tack
+typedef struct s_stack {
+	t_point	*data;
+	int		top;
+	int		capacity;
+}	t_stack;
+
+typedef enum e_bool {
+	ENUM_ERROR = -1,
+	ENUM_FALSE = 0,
+	ENUM_TRUE = 1
+}	t_bool;
+
 /******************** raycasting *********************************/
 
 /*
@@ -180,10 +232,10 @@ typedef struct s_map {
 }	t_map;
 
 typedef enum e_type_wall {
-	NORTH,
-	WEST,
-	EAST,
-	SOUTH
+	ENUM_NORTH,
+	ENUM_WEST,
+	ENUM_EAST,
+	ENUM_SOUTH
 }	t_type_wall;
 
 /**

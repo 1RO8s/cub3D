@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/10/17 19:56:01 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/01 03:22:50 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,11 @@
 SRCS_DIR = \
 		   ./srcs \
 		   ./srcs/init_utils \
+		   ./srcs/init_utils/read_cubfile_utils \
 		   ./srcs/init_utils/parse_cubfile_utils \
+		   ./srcs/init_utils/parse_cubfile_utils/parse_tex_utils \
+		   ./srcs/init_utils/parse_cubfile_utils/parse_fc_utils \
+		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
@@ -40,17 +44,34 @@ SRCS = \
 	   init_game.c \
 	   render.c \
 	   \
-	   arg_check.c \
 	   init_mlx_window.c \
 	   init_mlx_image.c \
-	   init_cub_contents.c\
+	   init_cub_contents.c \
+	   parse_cubfile.c \
 	   \
-	   init_texture.c \
-	   init_floor_and_ceiling.c \
-	   init_map.c \
-	   is_enable_map.c \
-	   init_player.c \
+	   parse_tex.c \
+	   parse_fc.c \
+	   parse_map.c \
+	   \
+	   get_map_data.c \
+	   find_player_and_set.c \
 	   set_direction.c \
+	   get_player_info.c \
+	   check_enclosed_by_walls.c \
+	   flood_fill.c \
+	   flood_fill_utils.c \
+	   \
+	   parse_general_func.c \
+	   put_error_msg.c \
+	   get_type_element.c \
+	   find_next_element.c \
+	   \
+	   create_texture_images.c \
+	   check_tex_info.c \
+	   \
+	   get_fc_color.c \
+	   get_rgb_color.c \
+	   atoi_0_to_255.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \
@@ -65,6 +86,7 @@ SRCS = \
 	   init_line.c \
 	   \
 	   destroy_texture_image.c \
+	   free_double_pointer.c \
 	   \
 	   hook_functions.c \
 	   my_mlx_pixel_put.c \

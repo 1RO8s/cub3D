@@ -6,11 +6,21 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:52:26 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/12 03:08:01 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/11/14 02:22:03 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	put_ray_cast(int fd, t_ray_cast ray_cast)
+{
+	char	str[SIZE_DOUBLE_TO_STR];
+
+	double_to_string(ray_cast.next_distance.x, str, sizeof(str));
+	ft_dprintf(fd, "\tnext_distance.x[%s] grid.x[%d]", str, ray_cast.grid.x);
+	double_to_string(ray_cast.next_distance.y, str, sizeof(str));
+	ft_dprintf(fd, "\tnext_distance.y[%s] grid.y[%d]", str, ray_cast.grid.y);
+}
 
 /**
  * @brief print out next step through grid line
@@ -27,14 +37,11 @@ void	debug_dda(t_frame *frame, int type, const char *msg)
 	if (ray_cast.grid.x == (int)frame->player->view_point.x
 		&& ray_cast.grid.y == (int)frame->player->view_point.y)
 	{
-		dprintf(fd, "\n>>> func debug_dda() ... call by '%s' <<<\n", msg);
+		ft_dprintf(fd, "\n>>> func debug_dda() ... call by '%s' <<<\n", msg);
 	}
-	dprintf(fd,
+	ft_dprintf(fd,
 		"type[%d] ... 0:VERTICAL\t1:HORIZONTAL\t-1:START\n", type);
-	dprintf(fd, "\tnext_distance.x[%f] grid.x[%d]\n",
-		ray_cast.next_distance.x, ray_cast.grid.x);
-	dprintf(fd, "\tnext_distance.y[%f] grid.y[%d]\n",
-		ray_cast.next_distance.y, ray_cast.grid.y);
+	put_ray_cast(fd, ray_cast);
 }
 
 /**
@@ -53,6 +60,6 @@ void	debug_is_hit_wall(t_frame *frame)
 	map = (t_map *)frame->map;
 	ray_cast = (t_ray_cast)frame->ray_cast;
 	is_hit = (map->data[ray_cast.grid.y][ray_cast.grid.x] == '1');
-	dprintf(fd, "\tmap->data[%d][%d] = '%d'\n",
+	ft_dprintf(fd, "\tmap->data[%d][%d] = '%d'\n",
 		ray_cast.grid.y, ray_cast.grid.x, is_hit);
 }
