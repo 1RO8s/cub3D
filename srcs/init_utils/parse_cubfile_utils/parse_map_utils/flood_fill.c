@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 02:42:15 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 14:43:15 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:31:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ int	check_grid_is_not_visited(t_point current, t_map *map,
 	}
 	if (visited[current.y][current.x] == true
 		|| map->data[current.y][current.x] == '1')
+	{
+		if (map->data[current.y][current.x] != '0')
+			*is_surrounded = ENUM_FALSE;
 		return (CONTINUE);
+	}
 	return (EXIT_SUCCESS);
 }
 
