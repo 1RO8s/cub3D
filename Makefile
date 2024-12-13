@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/01 03:22:50 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/13 20:17:11 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -139,7 +139,7 @@ endif
 # To link internal Linux API
 ifeq ($(OS), Linux)
 LIBMLX := $(LIBMLX_DIR)/libmlx_Linux.a
-CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 endif
 
 # Makefile Option
