@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_error_msg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:42:41 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 13:37:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:07 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	put_error_msg(const char *entry, const char *msg)
 {
 	size_t	len;
 
-	ft_dprintf(STDERR_FILENO, ERR_PROMPT);
+	printf(ERR_PROMPT);
 	len = 0;
 	while (is_entry_char(entry[len]) == true)
 		len++;
 	write(STDERR_FILENO, entry, len);
-	ft_dprintf(STDERR_FILENO, ": %s\n", msg);
+	printf(": %s\n", msg);
 }

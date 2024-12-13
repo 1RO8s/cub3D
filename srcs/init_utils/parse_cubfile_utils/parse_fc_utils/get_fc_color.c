@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fc_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:51:51 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 01:33:49 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:11 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	parse_fc_color(const char *line, t_parse *parse)
 		return (EXIT_FAILURE);
 	if ((parse->flag & parse->fc_info.bit[type]) > 0)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%c: %s\n",
+		printf("%s%c: %s\n",
 			ERR_PROMPT, *parse->fc_info.key[type], EMSG_ENTRY_DUP);
 		free(color_str);
 		return (EXIT_FAILURE);

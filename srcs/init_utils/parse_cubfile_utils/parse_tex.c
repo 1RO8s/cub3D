@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:43:41 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 00:56:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:07 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	get_textures_addr(t_texture *texture)
 				img->img, &img->bpp, &img->line_length, &img->endian);
 		if (img->addr == NULL)
 		{
-			ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_IMG_DATA_ADDR);
+			printf("%s%s\n", ERR_PROMPT, EMSG_IMG_DATA_ADDR);
 			return (EXIT_FAILURE);
 		}
 		debug_img_tex(texture[i].debug.fd, texture[i].img_tex, i,

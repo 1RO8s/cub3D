@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_enclosed_by_walls.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 14:44:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:11 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 static void	put_error_msg_is_not_map_enclosed(void)
 {
-	ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
+	printf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
 }
 
 static bool	is_enclosed_on_remaining_area(
