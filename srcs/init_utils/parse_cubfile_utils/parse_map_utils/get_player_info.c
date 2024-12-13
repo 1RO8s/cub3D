@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_player_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 03:32:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:37 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_player_info(const char *line, t_parse *parse)
 		return (EXIT_FAILURE);
 	if ((parse->flag & BIT_PLAYER) == 0x00)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_PLAYER_MISS);
+		printf( "%s%s\n", ERR_PROMPT, EMSG_MAP_PLAYER_MISS);
 		return (EXIT_FAILURE);
 	}
 	player->move_speed = MOVE_SPEED;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 03:40:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:34 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_last_map(const char *line, t_parse *parse)
 	(void)parse;
 	if (find_next_element(line) != NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
+		printf( "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -25,9 +25,9 @@ int	check_last_map(const char *line, t_parse *parse)
 
 static void	put_error_map_size_over(int cols, int rows)
 {
-	ft_dprintf(STDERR_FILENO, "%s%s: ", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
-	ft_dprintf(STDERR_FILENO, "%d x %d", cols, rows);
-	ft_dprintf(STDERR_FILENO, " (within %d x %d)\n", MAX_COLS, MAX_ROWS);
+	printf( "%s%s: ", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
+	printf( "%d x %d", cols, rows);
+	printf( " (within %d x %d)\n", MAX_COLS, MAX_ROWS);
 }
 
 int	check_range_map(const char *line, t_parse *parse)

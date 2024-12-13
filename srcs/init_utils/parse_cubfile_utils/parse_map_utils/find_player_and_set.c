@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_player_and_set.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 03:27:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 03:28:46 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:36 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	find_player_and_set(
 	{
 		if ((parse->flag & BIT_PLAYER) > 0x00)
 		{
-			ft_dprintf(STDERR_FILENO, "%s%s",
+			printf( "%s%s",
 				ERR_PROMPT, EMSG_MAP_PLAYER_MULTI);
 			return (EXIT_FAILURE);
 		}
@@ -60,8 +60,8 @@ int	find_player_and_set(
 	{
 		if (is_valid_char(data[grid.y][grid.x]) != true)
 		{
-			ft_dprintf(STDERR_FILENO, "%s%s", ERR_PROMPT, EMSG_MAP_CHAR);
-			ft_dprintf(STDERR_FILENO, ": \"%c\"\n", data[grid.y][grid.x]);
+			printf( "%s%s", ERR_PROMPT, EMSG_MAP_CHAR);
+			printf( ": \"%c\"\n", data[grid.y][grid.x]);
 			return (EXIT_FAILURE);
 		}
 	}

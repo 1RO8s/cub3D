@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_texture_y_coordinate_overflow.c              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 02:53:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 15:14:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:32 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static void	check_min_overflow(t_frame *frame, int y)
 	tex_y_ng = get_texture_y_coordinate_ng(frame, y);
 	if (tex_y != tex_y_ng)
 	{
-		ft_dprintf(STDERR_FILENO,
+		printf(
 			"\toverflow min y[%4d] -> tex_y[%d] , tex_y_ng[%d]",
 			y, tex_y, tex_y_ng);
-		ft_dprintf(STDERR_FILENO,
+		printf(
 			"\ttexture.height[%d]\n", frame->texture->height);
 	}
 }
@@ -50,10 +50,10 @@ static void	check_max_overflow(t_frame *frame, int y)
 	tex_y_ng = get_texture_y_coordinate_ng(frame, y);
 	if (tex_y != tex_y_ng)
 	{
-		ft_dprintf(STDERR_FILENO,
+		printf(
 			"\toverflow max y[%4d] -> tex_y[%d] , tex_y_ng[%d]",
 			y, tex_y, tex_y_ng);
-		ft_dprintf(STDERR_FILENO,
+		printf(
 			"\ttexture.height[%d]\n", frame->texture->height);
 	}
 }

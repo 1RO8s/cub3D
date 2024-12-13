@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   atoi_0_to_255.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:39 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 01:31:16 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:36 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	is_rgb_info_missing(
 {
 	if (*str == ',')
 	{
-		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
+		printf( "%s%c: %s %s\n",
 			ERR_PROMPT, *entry, EMSG_RGB_MISS, rgb_str);
 		return (true);
 	}
@@ -28,9 +28,9 @@ static bool	is_not_number(char *str, const char entry)
 {
 	if (*str != '\0' && *str != ',')
 	{
-		ft_dprintf(STDERR_FILENO, "%s%c: ",
+		printf( "%s%c: ",
 			ERR_PROMPT, entry);
-		ft_dprintf(STDERR_FILENO, "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
+		printf( "\"%c\" %s\n", *str, EMSG_RGB_NOT_NUM);
 		return (false);
 	}
 	return (true);
@@ -40,9 +40,9 @@ static bool	is_range_number(bool is_range, char *start_str, const char entry)
 {
 	if (is_range == false)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%c: ",
+		printf( "%s%c: ",
 			ERR_PROMPT, entry);
-		ft_dprintf(STDERR_FILENO, "\"%s\" %s\n", start_str, EMSG_RGB_RANGE_OUT);
+		printf( "\"%s\" %s\n", start_str, EMSG_RGB_RANGE_OUT);
 		return (false);
 	}
 	return (true);
@@ -92,9 +92,9 @@ int	atoi_0_to_255(char *str, const char *entry, const char *rgb_str)
 		str++;
 	if (*str == '\0')
 	{
-		ft_dprintf(STDERR_FILENO, "%s%c: ",
+		printf( "%s%c: ",
 			ERR_PROMPT, *entry);
-		ft_dprintf(STDERR_FILENO, "%s\n", EMSG_RGB_EMPTY);
+		printf( "%s\n", EMSG_RGB_EMPTY);
 		return (-1);
 	}
 	if (str == NULL)

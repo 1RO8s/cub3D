@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_rgb_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/18 16:48:04 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:36 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	is_rgb_miss(int i_rgb, char char_key, const char *rgb_str)
 {
 	if (i_rgb < 3)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
+		printf( "%s%c: %s %s\n",
 			ERR_PROMPT, char_key, EMSG_RGB_MISS, rgb_str);
 		return (false);
 	}

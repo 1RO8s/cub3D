@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_is_hit_flag.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:48:47 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 14:41:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:30 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	debug_is_hit_flag(t_game *game, int bit)
 	bin_flag = ft_itoa_binary(game->frame.flag);
 	if (bin_flag == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "Error: in debug_is_hit_flag\n");
+		printf( "Error: in debug_is_hit_flag\n");
 		return ;
 	}
 	ft_dprintf(fd, "\tflag[%s]\n", bin_flag);
 	bin_bit = ft_itoa_binary(bit);
 	if (bin_bit == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "Error: in debug_is_hit_flag\n");
+		printf( "Error: in debug_is_hit_flag\n");
 		free(bin_bit);
 		return ;
 	}

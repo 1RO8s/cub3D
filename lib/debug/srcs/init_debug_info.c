@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_debug_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:37:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 11:32:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:32 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	init_debug_info(t_game *game)
 		fd = open_log(LOG_FILE, O_TRUNC);
 		if (fd == -1)
 		{
-			ft_dprintf(STDERR_FILENO, "Error\n");
+			printf( "Error\n");
 			return (EXIT_FAILURE);
 		}
 	}

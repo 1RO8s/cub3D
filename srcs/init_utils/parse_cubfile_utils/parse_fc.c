@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 04:12:27 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:34 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	parse_fc(const char *line, t_parse *parse)
 	{
 		if (color[type] == -1)
 		{
-			ft_dprintf(STDERR_FILENO, "%s%c: %s\n",
+			printf( "%s%c: %s\n",
 				ERR_PROMPT, *key[type], EMSG_ENTRY_MISS);
 			return (EXIT_FAILURE);
 		}

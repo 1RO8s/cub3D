@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_log.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:40:26 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/08/31 22:43:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:33 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	open_log(const char *file_name, int oflag)
 	else
 		fd = -1;
 	if (fd == -1)
-		ft_dprintf(STDERR_FILENO, "open");
+		printf( "open");
 	return (fd);
 }
