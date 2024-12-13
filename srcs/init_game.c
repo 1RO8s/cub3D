@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:33 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:05 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	arg_check(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf( "%s%s\n", ERR_PROMPT, EMSG_ARG_COUNT);
+		printf("%s%s\n", ERR_PROMPT, EMSG_ARG_COUNT);
 		return (EXIT_FAILURE);
 	}
 	filename = argv[1];
@@ -42,7 +42,7 @@ static int	arg_check(int argc, char *argv[])
 	ext = &filename[len - 4];
 	if (ft_strncmp(".cub", ext, 4))
 	{
-		printf( "%s%s\n", ERR_PROMPT, EMSG_FILE_EXT);
+		printf("%s%s\n", ERR_PROMPT, EMSG_FILE_EXT);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

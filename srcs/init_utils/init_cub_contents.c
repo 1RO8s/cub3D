@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:49:52 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:33 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:06 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static char	*read_cubfile(char *filepath)
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 	{
-		printf( "%s%s\n", ERR_PROMPT, EMSG_OPEN_FAILED);
+		printf("%s%s\n", ERR_PROMPT, EMSG_OPEN_FAILED);
 		return (NULL);
 	}
 	file_contents = get_file_contents(fd);
 	if (file_contents == NULL)
 	{
-		printf( "%s%s\n", ERR_PROMPT, EMSG_READ_FAILED);
+		printf("%s%s\n", ERR_PROMPT, EMSG_READ_FAILED);
 		return (NULL);
 	}
 	close(fd);

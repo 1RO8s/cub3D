@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 21:37:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:37 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:12 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	get_map_data(const char *line, t_parse *parse)
 	map->data = convert_str2array(line);
 	if (map->data == NULL)
 	{
-		printf( "Error: convert_str2array() fail\n");
+		printf("Error: convert_str2array() fail\n");
 		return (EXIT_FAILURE);
 	}
 	map->width = ft_strlen(map->data[0]);

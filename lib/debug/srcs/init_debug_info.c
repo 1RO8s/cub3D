@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:37:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:32 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:05 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	init_debug_info(t_game *game)
 		fd = open_log(LOG_FILE, O_TRUNC);
 		if (fd == -1)
 		{
-			printf( "Error\n");
+			printf("Error\n");
 			return (EXIT_FAILURE);
 		}
 	}

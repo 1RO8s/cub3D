@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:34 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:06 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	parse_fc(const char *line, t_parse *parse)
 	{
 		if (color[type] == -1)
 		{
-			printf( "%s%c: %s\n",
+			printf("%s%c: %s\n",
 				ERR_PROMPT, *key[type], EMSG_ENTRY_MISS);
 			return (EXIT_FAILURE);
 		}

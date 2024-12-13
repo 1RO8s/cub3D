@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:37 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:12 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_texture_image(
 			mlx, file, &texture->width, &texture->height);
 	if (texture->img_tex.img == NULL)
 	{
-		printf( "%s%s: %s\n",
+		printf("%s%s: %s\n",
 			ERR_PROMPT, EMSG_MLX_XPM_TO_IMG, file);
 		free(file);
 		return (EXIT_FAILURE);

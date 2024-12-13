@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:33 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:06 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	is_find_element(const char *element)
 {
 	if (element == NULL)
 	{
-		printf( "%s%s\n", ERR_PROMPT, EMSG_EMPTY_CUB);
+		printf("%s%s\n", ERR_PROMPT, EMSG_EMPTY_CUB);
 		return (false);
 	}
 	return (true);
