@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 14:38:10 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:33:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ typedef struct s_texture {
 
 typedef enum e_enum_fc {
 	ENUM_F,
-	ENUM_C
+	ENUM_C,
+	ENUM_FC_ERR
 }	t_enum_fc;
 
 typedef struct s_fc_info {
@@ -235,7 +236,8 @@ typedef enum e_type_wall {
 	ENUM_NORTH,
 	ENUM_WEST,
 	ENUM_EAST,
-	ENUM_SOUTH
+	ENUM_SOUTH,
+	ENUM_WALL_ERR
 }	t_type_wall;
 
 /**

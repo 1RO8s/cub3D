@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/19 01:35:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 10:23:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_type_wall	get_dir_of_wall(const char *line, const char *key[])
 	t_type_wall	type;
 
 	type = ENUM_NORTH;
-	while (type < ENUM_SOUTH)
+	while (type <= ENUM_SOUTH)
 	{
 		if (is_key_line(line, key[type]) != true)
 		{
