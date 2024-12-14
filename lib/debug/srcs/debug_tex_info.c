@@ -6,13 +6,13 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:05:01 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 16:06:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:38:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_tex_info(int fd, t_tex_info tex_info)
+void	debug_tex_info(int fd, t_info tex_info)
 {
 	int		i;
 	char	*bit_str;

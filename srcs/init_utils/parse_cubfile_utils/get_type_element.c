@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:42:00 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 18:52:11 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:40:36 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static bool	is_map_element(const char *str)
 	return (true);
 }
 
-t_enum_elem	get_type_element(const char *line)
+t_type_elem	get_type_element(const char *line)
 {
 	if (is_texture_element(line) == true)
 		return (ENUM_TEX);

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:13:03 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:52:35 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	is_not_number(char *str, const char entry)
  *
  * @return OK(0~255), Error: -1 ~ -4
  */
-t_resut	atoi_0_to_255(char *str)
+static t_resut	atoi_0_to_255(char *str)
 {
 	int		result;
 

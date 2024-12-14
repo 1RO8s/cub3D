@@ -6,41 +6,25 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 16:57:59 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/15 01:05:48 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-const char *find_next_word(const char *s)
-{
-	// move function -> ***_utils.c ??
-	if (s == NULL || *s == '\0' || *s == '\n')
-		return (NULL);
-	while (*s != ' ')
-	{
-		s++;
-		if (*s == '\0' || *s == '\n')
-			return (NULL);
-	}
-	while (*s == ' ')
-	{
-		s++;
-		if (*s == '\0' || *s == '\n')
-			return (NULL);
-	}
-	return (s);
-}
-
 static int	get_texture_image(
-		void *mlx, const char *file_line, t_texture *texture)
+		void *mlx, const char *first_word, t_texture *texture)
 {
-	char	*file;
+	const char	*next_word;
+	char		*file;
 
-	file_line = find_next_word(file_line);
-	if (file_line == NULL)
+	next_word = find_next_word(first_word);
+	if (next_word == NULL)
+	{
+		put_error_msg(first_word, EMSG_XPM_FILE);
 		return (EXIT_FAILURE);
-	file = strdup_until_ch(file_line, '\n');
+	}
+	file = strdup_until_ch(next_word, '\n');
 	if (file == NULL)
 		return (EXIT_FAILURE);
 	texture->img_tex.img = (void *)mlx_xpm_file_to_image(
@@ -119,18 +103,18 @@ int	create_texture_images(const char *line, t_parse *parse)
 	static const int	bit[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
 
 	//parse->tex_info = create_tex_info(key, bit);
-	parse->tex_info = (t_tex_info){.key = key, .bit = bit};
+	//parse->tex_info = (t_tex_info){.key = key, .bit = bit};
 	mlx = parse->game->mlx;
 	texture = parse->game->texture;
-	type = get_type_of_wall(line, parse->tex_info.key);
-	if (check_tex_info(type, line, parse) != EXIT_SUCCESS)
+	type = get_type_of_wall(line, key);
+	if (check_duplicate_info(bit[type], parse->flag, line) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (get_texture_image(mlx, line, &texture[type]) != EXIT_SUCCESS)
 	{
 		destroy_texture_image(mlx, texture, (int)type);// refactor ??
 		return (EXIT_FAILURE);
 	}
-	parse->flag |= parse->tex_info.bit[type];
+	parse->flag |= bit[type];
 	return (EXIT_SUCCESS);
 }
 // debug code

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 05:10:09 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/14 05:10:11 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:42:35 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	debug_element_type(int fd, const char *str, const char *msg)
 {
-	t_enum_elem	type;
+	t_type_elem	type;
 	static int	count = 0;
 
 	if (IS_DEBUG == false)

@@ -6,13 +6,13 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:36:28 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/18 16:41:14 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:37:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_get_rgb_color(int fd, t_enum_fc type, int rgb[3], const char *msg)
+void	debug_get_rgb_color(int fd, t_type_fc type, int rgb[3], const char *msg)
 {
 	const char	*s[3] = {"r", "g", "b"};
 	int			i;

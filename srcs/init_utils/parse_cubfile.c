@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:21:38 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:43:23 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	is_find_element(const char *element)
 }
 
 static int	parse_element(
-		const char *element, t_parse *parse, t_enum_elem type, t_game *game)
+		const char *element, t_parse *parse, t_type_elem type, t_game *game)
 {
 	static t_parse_elem	func[3] = {parse_tex, parse_fc, parse_map};
 
@@ -44,7 +44,7 @@ static int	parse_element(
  */
 int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 {
-	t_enum_elem			type;
+	t_type_elem			type;
 
 	if (*element == '\n')
 		element = find_next_element(element);

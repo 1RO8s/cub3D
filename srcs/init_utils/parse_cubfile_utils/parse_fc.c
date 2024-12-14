@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:15:54 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/15 01:08:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ int	get_fc_color(const char *first_word, int *color)
 	}
 	if (result.value == -2)
 	{
-		printf("%s%c: \"", ERR_PROMPT, first_world);
+		printf("%s%c: \"", ERR_PROMPT, *first_word);
 		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
 		printf("\" %s\n", EMSG_RGB_RANGE_OUT);
 		return (EXIT_FAILURE);
 	}
 	if (result.value == -3)
 	{
-		printf("%s%c: \"", ERR_PROMPT, first_world);
+		printf("%s%c: \"", ERR_PROMPT, *first_word);
 		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
 		printf("\" %s\n", EMSG_RGB_NOT_NUM);
 		return (EXIT_FAILURE);
@@ -110,46 +110,51 @@ int	get_fc_color(const char *first_word, int *color)
 	free(str);
 	return (EXIT_SUCCESS);
 }
-//// RGB
-//// If no the string for RGB					... not use result.value
+//Reference error_cub3d.h
 //# define EMSG_RGB_EMPTY		"Empty RGB component"
-//// example	"Error: F: Empty RGB component"			... F
+//// EX: "F"
+//// 		- result.value : not use
+//// 		- Out : "Error: F: Empty RGB component"
 //
-//// If no value in any of the RGB				... result.value == -1
 //# define EMSG_RGB_MISS		"Missing RGB component"
-//// example	"Error: F: Missing RGB component B" 	... "F 10, 10, ,"  &  "F 10, 10 "
+//// EX: "F 10, 10, ,", "F 10, 10 ", and more ...
+//// 		- result.value : -1
+//// 		- Out : "Error: F: Missing RGB component B"
 //
-//// If rgb value is range over					... result.value == -2
 //# define EMSG_RGB_RANGE_OUT	"Out of range (0 ~ 255)"
-//// example	"Error: F: "8523" Out of range"			... F 8523, 42, 42
+//// EX: "F 8523, 42, 42"
+//// 		- result.value : -2
+//// 		- Out : "Error: F: "8523" Out of range"
 //
-//// If the string of rgb value is not a number	... result.value == -3
 //# define EMSG_RGB_NOT_NUM	"is not a number"
-//// example	"Error: F: "i" is not a number"			...	F i, 42, 42
+//// EX: "F i, 42, 42"
+//// 		- result.value : -3
+//// 		- Out : "Error: F: "i" is not a number"
 //
-//// If rgb values are more three				... result.value == -4
 //# define EMSG_UP_TO_THREE_RGB	"Up to three RGB value"
-// example	"Error: F: Up to three RGB value"			... F 0,255,0,0
+//// EX: "F 0,255,0,0"
+//// 		- result.value : -4
+//// 		- Out : "Error: F: Up to three RGB value"
 
 int	parse_fc(const char *line, t_parse *parse)
 {
-	t_enum_fc	type;
+	t_type_fc	type;
 	const char	*key[2] = {"F ", "C "};
 	const int	bit[2] = {BIT_F, BIT_C};
 	static int	color[2] = {-1, -1};
 
 	//parse->fc_info = create_fc_info(key, bit, color);
-	parse->fc_info = (t_fc_info){.key = key, .bit = bit, .color = color};
+	parse->fc_info = (t_info){.key = key, .bit = bit};
 	type = get_type_of_fc(line, parse->fc_info.key);
-	if (check_fc_info(type, line, parse) != EXIT_SUCCESS)
+	if (check_duplicate_info(bit[type], parse->flag, line) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (get_fc_color(line, &color[type]) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	parse->flag |= parse->tex_info.bit[type];
+	parse->flag |= parse->fc_info.bit[type];
 	debug_parse_fc(parse->game->debug.fd, color, "parse_fc()");
 	if (check_flags(parse->flag, BIT_F | BIT_C) == 0)
 	{
-		set_fc_color(parse->game, color, type);
+		set_fc_color(parse->game, color);
 		parse->flag |= BIT_INIT_FC;
 	}
 	return (EXIT_SUCCESS);

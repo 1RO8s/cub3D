@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/14 21:53:55 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/15 01:07:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char		*ft_strjoin_nullable(char *s1, char *s2);
 
 // call by init_cub_contents()
 const char	*find_next_element(const char *line);
-t_enum_elem	get_type_element(const char *line);
+t_type_elem	get_type_element(const char *line);
 typedef int		(*t_parse_elem)(const char *, t_parse *);
 int			parse_tex(const char *line, t_parse *parse);
 int			parse_fc(const char *line, t_parse *parse);
@@ -112,26 +112,27 @@ int			parse_map(const char *line, t_parse *parse);
 
 // parse_general_func.c
 char		*find_next_line(const char *contents);
+const char	*find_next_word(const char *s);
 bool		is_key_line(const char *line, const char *key);
 char		*strdup_until_ch(const char *line, int until_ch);
 int			print_until_nl(int fd, const char *str);
 int			print_until_ch(int fd, const char *str, int c);
 int			check_flags(int variable, int flags_to_check);
+int			check_duplicate_info(int value, int flag_to_check, const char *line);
 
 // put_error_msg.c
 void		put_error_msg(const char *entry, const char *msg);
 
 // call by parse_tex()
 int			create_texture_images(const char *line, t_parse *parse);
-int			check_tex_info(t_type_wall type, const char *line, t_parse *parse);
+//int			check_tex_info(t_type_wall type, const char *line, t_parse *parse);
 
 // call by parse_fc()
 # define CONTINUE 2
 
-int			get_fc_color(const char *line, t_parse *parse);
-int			get_rgb_color(
-				t_enum_fc type, const char *key, char *str, int debug_fd);
-int			atoi_0_to_255(char *str, const char *entry, const char *rgb_str);
+int			get_fc_color(const char *first_word, int *color);
+t_result	get_rgb_color(char *str);
+//int			atoi_0_to_255(char *str, const char *entry, const char *rgb_str);
 
 // srcs/init_utils/parse_cubfile_utils/
 // │

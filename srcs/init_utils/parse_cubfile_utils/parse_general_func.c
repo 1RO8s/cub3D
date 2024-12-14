@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:52:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 21:52:58 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:51:16 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ int	print_until_nl(int fd, const char *str)
 	len = ft_strchr(str, '\n') - str;
 	write(fd, str, len);
 	return (EXIT_SUCCESS);
+}
+
+const char	*find_next_word(const char *s)
+{
+	// move function -> ***_utils.c ??
+	if (s == NULL || *s == '\0' || *s == '\n')
+		return (NULL);
+	while (*s != ' ')
+	{
+		s++;
+		if (*s == '\0' || *s == '\n')
+			return (NULL);
+	}
+	while (*s == ' ')
+	{
+		s++;
+		if (*s == '\0' || *s == '\n')
+			return (NULL);
+	}
+	return (s);
 }
 
 char	*find_next_line(const char *contents)

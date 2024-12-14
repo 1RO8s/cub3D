@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:26:28 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/21 02:49:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/15 00:21:46 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,36 @@
 // "Error: F: Missing entry"
 // "Error: BA: Invalid entry"
 
-// RGB
-// If rgb value is range over
-# define EMSG_RGB_RANGE_OUT	"Out of range (0 ~ 255)"
-// If the string of rgb value is not a number
-# define EMSG_RGB_NOT_NUM	"is not a number"
-// If no value in any of the RGB
-# define EMSG_RGB_MISS		"Missing RGB component"
-// If no the string for RGB
+/**
+ * @brief Error Message with result.value about RGB color in get_fc_color()
+ *
+ * @note result.value (-1 ~ -4 ) and without using result.value
+ */
+
 # define EMSG_RGB_EMPTY		"Empty RGB component"
-// example
-// "Error: F: "8523" Out of range"		... F 8523, 42, 42
-// "Error: F: "i" is not a number"		...	F i, 42, 42
-// "Error: F: Missing RGB component B" 	... F 10, 10, ,
-// "Error: F: Empty RGB component"		... F
+// EX: "F"
+// 		- result.value : not use
+// 		- Out : "Error: F: Empty RGB component"
+
+# define EMSG_RGB_MISS		"Missing RGB component"
+// EX: "F 10, 10, ,", "F 10, 10 ", and more ...
+// 		- result.value : -1
+// 		- Out : "Error: F: Missing RGB component B"
+
+# define EMSG_RGB_RANGE_OUT	"Out of range (0 ~ 255)"
+// EX: "F 8523, 42, 42"
+// 		- result.value : -2
+// 		- Out : "Error: F: "8523" Out of range"
+
+# define EMSG_RGB_NOT_NUM	"is not a number"
+// EX: "F i, 42, 42"
+// 		- result.value : -3
+// 		- Out : "Error: F: "i" is not a number"
+
+# define EMSG_UP_TO_THREE_RGB	"Up to three RGB value"
+// EX: "F 0,255,0,0"
+// 		- result.value : -4
+// 		- Out : "Error: F: Up to three RGB value"
 
 // MAP
 # define EMSG_MAP_CHAR			"MAP: Invalid characters found"
