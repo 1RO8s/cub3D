@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/13 14:42:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:53:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ char		*find_next_line(const char *contents);
 bool		is_key_line(const char *line, const char *key);
 char		*strdup_until_ch(const char *line, int until_ch);
 int			print_until_nl(int fd, const char *str);
+int			print_until_ch(int fd, const char *str, int c);
+int			check_flags(int variable, int flags_to_check);
 
 // put_error_msg.c
 void		put_error_msg(const char *entry, const char *msg);
@@ -168,7 +170,8 @@ t_bool		flood_fill(t_map *map, int start_x, int start_y, bool **visited);
 # define BIT_PLAYER		0x40	// 0000 0100 0000
 # define BIT_MAP		0x80	// 0000 1000 0000
 # define BIT_INIT_TEX	0x100	// 0001 0000 0000
-# define BIT_INIT_MAP	0x200	// 0010 0000 0000
+# define BIT_INIT_FC	0x200	// 0010 0000 0000
+# define BIT_INIT_MAP	0x400	// 0100 0000 0000
 
 /******************************
  *			draw_3d

@@ -6,12 +6,35 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:52:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 18:53:04 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:52:58 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	print_until_ch(int fd, const char *str, int c)
+{
+	size_t	len;
+
+	if (str == NULL)
+		return (EXIT_FAILURE);
+	p = ft_strchr(str, c);
+	if (p == NULL)
+		len = ft_strlen(str);
+	else
+		len = p - str;
+	write(fd, str, len);
+	return (EXIT_SUCCESS);
+}
+
+int	check_flags(int variable, int flags_to_check)
+{
+	if ((variable & flags_to_check) == flags_to_check)
+		return (0);
+	return (flags_to_check & ~variable);
+}
+
+// for debug
 int	print_until_nl(int fd, const char *str)
 {
 	size_t	len;

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:43:41 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 00:56:51 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:17:41 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	parse_tex(const char *line, t_parse *parse)
 		destroy_texture_image(mlx, texture, 4);
 		return (EXIT_FAILURE);
 	}
-	parse->flag |= BIT_INIT_TEX;
+	if (check_flags(parse->flag,
+			BIT_NORTH | BIT_SOUTH | BIT_EAST | BIT_WEST) == 0)
+		parse->flag |= BIT_INIT_TEX;
 	return (EXIT_SUCCESS);
 }

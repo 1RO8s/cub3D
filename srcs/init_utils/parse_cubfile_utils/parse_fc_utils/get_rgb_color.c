@@ -6,55 +6,82 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/18 16:48:04 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:13:03 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	is_rgb_miss(int i_rgb, char char_key, const char *rgb_str)
+static bool	is_not_number(char *str, const char entry)
 {
-	if (i_rgb < 3)
-	{
-		ft_dprintf(STDERR_FILENO, "%s%c: %s %s\n",
-			ERR_PROMPT, char_key, EMSG_RGB_MISS, rgb_str);
-		return (false);
-	}
-	return (true);
+	return (*str != '\0' && *str != ',');
 }
 
 /**
- * @brief 
+ * @brief convert a nurmeric string to intager value from RGB component 
+ * (EX : "0,255,42", "255,42", "42")
  *
- * @param first
- * @param parse
- * @param str
+ * @param str is containing RGB values
  *
- * @return (0x00~0xFFFFFF) ... OK,  (-1) ... Fail
+ * @return OK(0~255), Error: -1 ~ -4
  */
-int	get_rgb_color(t_enum_fc type, const char *key, char *str, int debug_fd)
+t_resut	atoi_0_to_255(char *str)
 {
-	int			color;
-	int			rgb[3];
-	const char	*rgb_str[3] = {"R", "G", "B"};
-	int			i;
+	int		result;
 
-	color = 0;
-	i = 0;
-	while (str != NULL && *str != '\0' && i < 3)
+	result = 0;
+	if (*str == ',')
+		return ((t_result){.value = -1, .err_msg = NULL);
+	while (*str != '\0' && ft_isdigit(*str) == true)
 	{
-		rgb[i] = atoi_0_to_255(str, key, rgb_str[i]);
-		if (rgb[i] == -1)
-			return (-1);
-		i++;
+		while (result == 0 && *str == '0')
+			str++;
+		result = result * 10 + (*str - '0');
+		if (result > 255)
+			return ((t_result){.value = -2, .err_msg = NULL)};
+		str++;
+	}
+	if (is_not_number(str) == true)
+		return ((t_result){.value = -3, .err_msg = str);
+	return ((t_result){.value = result, .err_msg = NULL});
+}
+
+/**
+ * @brief get RGB color value from F or C line
+ *
+ * @param str : F or C line
+ *
+ * @return 0x00~0xFFFFFF (Success),  -1 or -2 or -3 or -4 (Failure)
+ */
+t_result	get_rgb_color(char *str)
+{
+	t_result			result[3];
+	//int					rgb[3];
+	static const char	*rgb_str[3] = {"R", "G", "B"};// static ??
+	t_type_rgb			type;
+
+	i = 0;
+	while (str != NULL && *str != '\0' && type <= ENUM_B)
+	{
+		result = atoi_0_to_255(str);
+		if (result.value == -1)
+			return ((t_result){.value = -1, .err_msg = rgb_str[type]});
+		if (result.value == -2)
+			return ((t_result){.value = -2, .err_msg = str});
+		if (result.value == -3)
+			return ((t_result)result);
+		type++;
 		str = ft_strchr(str, ',');
 		if (str == NULL)
 			break ;
 		str++;
+		while (*str != '\0' && *str == ' ')
+			str++;
 	}
-	if (is_rgb_miss(i, *key, rgb_str[i]) != true)
-		return (-1);
+	if (type <= ENUM_B)
+		return ((t_result){.value = -1, .err_msg = rgb_str[type]});
+	if (str != NULL)
+		return ((t_result){.value = -4, .err_msg = --str});
 	debug_get_rgb_color(debug_fd, type, rgb, "get_rgb_color()");
-	color = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
-	return (color);
+	return ((t_result){(result.value[0] << 16) + (result.value[1] << 8) + result.value[2], NULL});
 }

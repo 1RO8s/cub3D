@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:30:31 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:33:20 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:48:10 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,38 @@ typedef struct s_texture {
 
 /******************** parse *********************************/
 
+typedef enum e_type_wall {
+	ENUM_NORTH,
+	ENUM_WEST,
+	ENUM_EAST,
+	ENUM_SOUTH
+}	t_type_wall;
+
 typedef enum e_enum_fc {
 	ENUM_F,
-	ENUM_C,
-	ENUM_FC_ERR
-}	t_enum_fc;
+	ENUM_C
+}	t_type_fc;
 
-typedef struct s_fc_info {
+typedef enum e_enum_rgb {
+	ENUM_R,
+	ENUM_G,
+	ENUM_B
+}	t_type_rgb;
+
+typedef struct s_result {
+	int			value;
+	const char	*err_msg;
+}	t_result;
+
+typedef struct s_info {
 	const char	**key;
 	const int	*bit;
-	t_enum_fc	type;
-	int			*color;
-}	t_fc_info;
-
-typedef struct s_tex_info {
-	const char	**key;
-	const int	*bit;
-}	t_tex_info;
+}	t_info;
 
 typedef struct s_parse {
 	int			flag;
-	t_fc_info	fc_info;
-	t_tex_info	tex_info;
+	t_info		fc_info;
+	t_info		tex_info;
 	t_point		player_grid;
 	t_game		*game;
 }	t_parse;
@@ -135,14 +145,13 @@ typedef enum e_enum_elem {
 	ENUM_FC,
 	ENUM_MAP,
 	ENUM_ELEMENT_ERR
-}	t_enum_elem;
+}	t_type_elem;
 
 typedef struct s_map_size {
 	size_t	rows;
 	size_t	cols;
 }	t_map_size;
 
-// Dynamic t_tack
 typedef struct s_stack {
 	t_point	*data;
 	int		top;
@@ -231,14 +240,6 @@ typedef struct s_map {
 	char	**data;
 	t_debug	debug;
 }	t_map;
-
-typedef enum e_type_wall {
-	ENUM_NORTH,
-	ENUM_WEST,
-	ENUM_EAST,
-	ENUM_SOUTH,
-	ENUM_WALL_ERR
-}	t_type_wall;
 
 /**
  * @brief single still image for render_frame
