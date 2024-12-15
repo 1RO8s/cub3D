@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:52:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:51:16 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 02:59:38 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,31 @@
 int	print_until_ch(int fd, const char *str, int c)
 {
 	size_t	len;
+	const char	*end;
 
 	if (str == NULL)
 		return (EXIT_FAILURE);
-	p = ft_strchr(str, c);
-	if (p == NULL)
+	end = ft_strchr(str, c);
+	if (end == NULL)
 		len = ft_strlen(str);
 	else
-		len = p - str;
+		len = end - str;
 	write(fd, str, len);
 	return (EXIT_SUCCESS);
 }
 
-int	check_flags(int variable, int flags_to_check)
+/**
+ * @brief Check for not matching bit
+ *
+ * @param variable is a value to be checked
+ * @param flags_is comparative value
+ *
+ * @return 0x00 : Bits match,  Bit over than 0x00 : Not match
+ */
+int	check_for_not_matching_bit(int variable, int flags_to_check)
 {
 	if ((variable & flags_to_check) == flags_to_check)
-		return (0);
+		return (0x00);
 	return (flags_to_check & ~variable);
 }
 

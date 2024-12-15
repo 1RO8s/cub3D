@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/15 01:08:47 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 04:11:07 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,13 +146,13 @@ int	parse_fc(const char *line, t_parse *parse)
 	//parse->fc_info = create_fc_info(key, bit, color);
 	parse->fc_info = (t_info){.key = key, .bit = bit};
 	type = get_type_of_fc(line, parse->fc_info.key);
-	if (check_duplicate_info(bit[type], parse->flag, line) != EXIT_SUCCESS)
+	if (check_duplicate_info(parse->flag, bit[type], line) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (get_fc_color(line, &color[type]) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	parse->flag |= parse->fc_info.bit[type];
 	debug_parse_fc(parse->game->debug.fd, color, "parse_fc()");
-	if (check_flags(parse->flag, BIT_F | BIT_C) == 0)
+	if (check_for_not_matching_bit(parse->flag, BIT_F | BIT_C) == 0x00)
 	{
 		set_fc_color(parse->game, color);
 		parse->flag |= BIT_INIT_FC;

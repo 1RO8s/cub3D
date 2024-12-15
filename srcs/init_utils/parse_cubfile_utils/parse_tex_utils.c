@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_texture_images.c                            :+:      :+:    :+:   */
+/*   parse_tex_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/15 01:05:48 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 03:13:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,6 @@ static int	get_texture_image(
 //	return (true);
 //}
 
-/**
- * @brief get direction of wall
- *
- * @return ENUM_NORTH or ENUM_WEST or ENUM_EAST or ENUM_SOUTH
- */
-static t_type_wall	get_type_of_wall(const char *line, const char *key[])
-{
-	t_type_wall	type;
-
-	type = ENUM_NORTH;
-	while (type < ENUM_SOUTH)
-	{
-		if (is_key_line(line, key[type]) == true)
-			break ;
-		type++;
-	}
-	return (type);
-}
-
 // Probably Unnessesary
 /**
  * @brief initialize tex_info structure
@@ -94,27 +75,20 @@ static t_type_wall	get_type_of_wall(const char *line, const char *key[])
 //	return ((t_tex_info){.key = key, .bit = bit});
 //}
 
-int	create_texture_images(const char *line, t_parse *parse)
+int	create_texture_image(const char *line, t_parse *parse, t_type_wall type)
 {
 	void		*mlx;
 	t_texture	*texture;
-	t_type_wall	type;
-	static const char	*key[4] = {"NO ", "WE ", "EA ", "SO "};
-	static const int	bit[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
 
 	//parse->tex_info = create_tex_info(key, bit);
 	//parse->tex_info = (t_tex_info){.key = key, .bit = bit};
 	mlx = parse->game->mlx;
 	texture = parse->game->texture;
-	type = get_type_of_wall(line, key);
-	if (check_duplicate_info(bit[type], parse->flag, line) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
 	if (get_texture_image(mlx, line, &texture[type]) != EXIT_SUCCESS)
 	{
-		destroy_texture_image(mlx, texture, (int)type);// refactor ??
+		destroy_texture_image(mlx, texture, parse->flag);// refactor ??
 		return (EXIT_FAILURE);
 	}
-	parse->flag |= bit[type];
 	return (EXIT_SUCCESS);
 }
 // debug code

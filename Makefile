@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/13 20:17:11 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/16 03:44:22 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,6 @@ SRCS_DIR = \
 		   ./srcs/init_utils \
 		   ./srcs/init_utils/read_cubfile_utils \
 		   ./srcs/init_utils/parse_cubfile_utils \
-		   ./srcs/init_utils/parse_cubfile_utils/parse_tex_utils \
-		   ./srcs/init_utils/parse_cubfile_utils/parse_fc_utils \
 		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
@@ -53,6 +51,14 @@ SRCS = \
 	   parse_fc.c \
 	   parse_map.c \
 	   \
+	   parse_general_func.c \
+	   put_error_msg.c \
+	   get_type_element.c \
+	   find_next_element.c \
+	   parse_tex_utils.c \
+	   parse_fc_utils.c \
+	   check_duplicate_info.c \
+	   \
 	   get_map_data.c \
 	   find_player_and_set.c \
 	   set_direction.c \
@@ -60,18 +66,6 @@ SRCS = \
 	   check_enclosed_by_walls.c \
 	   flood_fill.c \
 	   flood_fill_utils.c \
-	   \
-	   parse_general_func.c \
-	   put_error_msg.c \
-	   get_type_element.c \
-	   find_next_element.c \
-	   \
-	   create_texture_images.c \
-	   check_tex_info.c \
-	   \
-	   get_fc_color.c \
-	   get_rgb_color.c \
-	   atoi_0_to_255.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \

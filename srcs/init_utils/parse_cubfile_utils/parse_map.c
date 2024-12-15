@@ -6,20 +6,64 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/16 03:40:02 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 05:43:23 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static bool	is_map_element(const char *str)
+{
+	const char	*identifier = " 10NWES";
+	size_t		i;
+	size_t		len;
+
+	if (*str == '\n')
+		return (false);
+	len = ft_strlen(identifier);
+	while (*str != '\n')
+	{
+		i = 0;
+		while (i < len)
+		{
+			if (ft_strncmp(str, identifier + i, (size_t)1) == 0)
+				break ;
+			i++;
+		}
+		if (i == len)
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
 int	check_last_map(const char *line, t_parse *parse)
 {
-	(void)parse;
-	if (find_next_element(line) != NULL)
+	bool	is_checking_in_map_element;
+
+	while (line != NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
-		return (EXIT_FAILURE);
+		is_checking_in_map_element = false;
+		while (is_map_element(line) == true)
+		{
+			is_checking_in_map_element = true;
+			line = find_next_line(line);
+			if (line == NULL)
+				return (EXIT_SUCCESS);
+		}
+		if (is_checking_in_map_element == true && *line != '\n')
+		{
+			// NOT MAP ELEMENT ... print line
+			return (EXIT_FAILURE);
+		}
+		if (is_checking_in_map_element == false && *line != '\n')
+		{
+			printf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
+			return (EXIT_FAILURE);
+		}
+		line = find_next_line(line);
 	}
+	(void)parse;
 	return (EXIT_SUCCESS);
 }
 

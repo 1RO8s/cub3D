@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:43:23 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 05:47:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,20 @@ static int	parse_element(
 		const char *element, t_parse *parse, t_type_elem type, t_game *game)
 {
 	static t_parse_elem	func[3] = {parse_tex, parse_fc, parse_map};
+	static const int	bit[3] = {BIT_INIT_TEX, BIT_INIT_FC, BIT_INIT_MAP};
 
+	if (check_for_not_matching_bit(parse->flag, bit[type]) == 0x00)
+	{
+			printf("here?\n");
+		//Error handling
+		//printf("Duplicate XXX\n", type, element);
+		return (EXIT_FAILURE);
+	}
 	if (func[type](element, parse) != EXIT_SUCCESS)
 	{
 		// fix trigger
 		if (is_hit_flag(parse->flag, BIT_INIT_TEX) == true)
-			destroy_texture_image(game->mlx, game->texture, 4);
+			destroy_texture_image(game->mlx, game->texture, 4);// refactor func
 		if (is_hit_flag(parse->flag, BIT_INIT_MAP) == true)
 			free_double_pointer(game->map.data);
 		return (EXIT_FAILURE);
@@ -61,10 +69,12 @@ int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 		}
 		if (parse_element(element, parse, type, game) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
+		if (type == ENUM_MAP)
+			break ;
 		element = find_next_element(element);
 	}
 	//	nessesary ???
-//	if (check_flags(parse->flag, BIT_INIT_TEX | BIT_INIT_FC | BIT_INIT_MAP) != 0)
+//	if (check_for_not_matching_bit(parse->flag, BIT_INIT_TEX | BIT_INIT_FC | BIT_INIT_MAP) != 0x00)
 //		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
