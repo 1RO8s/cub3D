@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 05:47:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 07:12:50 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ static int	parse_element(
 	}
 	if (func[type](element, parse) != EXIT_SUCCESS)
 	{
+		printf("here?\n");
 		// fix trigger
 		if (is_hit_flag(parse->flag, BIT_INIT_TEX) == true)
-			destroy_texture_image(game->mlx, game->texture, 4);// refactor func
+			destroy_texture_image(game->mlx, game->texture, parse->flag);// refactor func
 		if (is_hit_flag(parse->flag, BIT_INIT_MAP) == true)
 			free_double_pointer(game->map.data);
 		return (EXIT_FAILURE);
