@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 13:51:09 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:40:44 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,11 @@ static int	parse_element(
 	static t_parse_elem	func[3] = {parse_tex, parse_fc, parse_map};
 	static const int	bit[3] = {BIT_INIT_TEX, BIT_INIT_FC, BIT_INIT_MAP};
 
-	if (check_for_not_matching_bit(parse->flag, bit[type]) == 0x00)
-	{
-		//Error handling
-		//printf("Duplicate XXX\n", type, element);
+	if (check_duplicate_info(parse->flag, bit[type], element) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	}
 	if (func[type](element, parse) != EXIT_SUCCESS)
 	{
-		ft_printf("here type[%d] element[%s]", type, element);
+		ft_printf("parse_element  func[%d] failure", type);// debug
 		// fix trigger
 		if (is_hit_flag(parse->flag, BIT_INIT_TEX) == true)
 			destroy_texture_image(game->mlx, game->texture, parse->flag);// refactor func
