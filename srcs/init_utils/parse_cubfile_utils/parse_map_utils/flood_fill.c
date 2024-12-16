@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 02:42:15 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 16:07:59 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 23:50:00 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ int	check_grid_is_not_visited(t_point current, t_map *map,
 			*is_surrounded = ENUM_FALSE;
 		return (CONTINUE);
 	}
+	int	x = current.x;
+	int	y = current.y;
+	ft_dprintf(map->debug.fd, "x[%d] y[%d] map->width[%d] map->height[%d] ",
+			x, y, map->width, map->height);
+	ft_dprintf(map->debug.fd, "visited[%d] data['%c']\n", visited[y][x], map->data[y][x]);
 	return (EXIT_SUCCESS);
 }
 
@@ -102,7 +107,7 @@ t_bool	flood_fill(t_map *map, int start_x, int start_y, bool **visited)
 	t_bool		is_surrounded;
 	t_point		current;
 
-	ft_printf(">> flood_fill <<\n");
+	ft_dprintf(map->debug.fd, ">> flood_fill <<\n");
 	if (initialize_for_flood_fill(&stack, start_x, start_y) != EXIT_SUCCESS)
 		return (ENUM_ERROR);
 	is_surrounded = ENUM_TRUE;
