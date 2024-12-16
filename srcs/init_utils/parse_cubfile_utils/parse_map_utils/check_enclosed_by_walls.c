@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 14:44:22 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:49:49 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,19 @@ static t_bool	process_false_or_error(t_bool is_surrounded)
 	return (is_surrounded);
 }
 
+void	free_visited(bool **visited, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < (size_t)size)
+	{
+		free(visited[i]);
+		i++;
+	}
+	free(visited);
+}
+
 /**
  * @brief check if the map is enclosed by walls
  *
@@ -103,6 +116,7 @@ int	check_enclosed_by_walls(const char *line, t_parse *parse)
 	is_surrounded = is_enclosed_on_remaining_area(map, visited);
 	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
 		return (EXIT_FAILURE);
+	free_visited(visited, (size_t)map->height);
 	(void)line;
 	return (EXIT_SUCCESS);
 }

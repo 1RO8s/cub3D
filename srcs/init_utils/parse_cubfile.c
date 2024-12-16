@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 07:12:50 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:24:12 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 			break ;
 		element = find_next_element(element);
 	}
-	//	nessesary ???
-//	if (check_for_not_matching_bit(parse->flag, BIT_INIT_TEX | BIT_INIT_FC | BIT_INIT_MAP) != 0x00)
-//		return (EXIT_FAILURE);
+	if (check_for_not_matching_bit(parse->flag, BIT_INIT_TEX | BIT_INIT_FC | BIT_INIT_MAP) != 0x00)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
