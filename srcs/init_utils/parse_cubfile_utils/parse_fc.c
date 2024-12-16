@@ -6,20 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 13:09:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 03:12:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	debug_parse_fc(int fd, int color[2], const char *msg)
-{
-	if (IS_DEBUG != true)
-		return ;
-	ft_dprintf(fd, ">>> func debug_get_rgb_color <<< ... call by %s\n", msg);
-	ft_dprintf(fd, "\tF color[%x]\n", color[0]);
-	ft_dprintf(fd, "\tC color[%x]\n", color[1]);
-}
 
 // Probably unnessesary ?
 //t_fc_info	create_fc_info(const char **key, const int *bit, int *color)
