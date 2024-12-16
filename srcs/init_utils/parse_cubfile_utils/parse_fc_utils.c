@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 03:16:00 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 02:47:13 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ static t_result	atoi_0_to_255(char *str)
 		return ((t_result){.value = -1, .err_msg = NULL});
 	while (*str != '\0' && ft_isdigit(*str) == true)
 	{
-		while (result == 0 && *str == '0')
+		while (result == 0 && *str == '0' && *str != '\0')
 			str++;
+		if (*str == '\0')
+			return ((t_result){.value = 0, .err_msg = NULL});
 		result = result * 10 + (*str - '0');
 		if (result > 255)
 			return ((t_result){.value = -2, .err_msg = NULL});

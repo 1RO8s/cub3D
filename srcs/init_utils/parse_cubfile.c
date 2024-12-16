@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 14:53:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 03:00:50 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,18 @@ static int	check_missing_cub_contents(int flag)
 {
 	int			missing_bit;
 	const int	success_bit = BIT_NORTH | BIT_WEST | BIT_EAST | BIT_SOUTH | BIT_F | BIT_C | BIT_MAP;
-	const char	*key[7] = {"NO", "WE", "EA", "SO", "F", "C", "MAP"};
+	const char	*key[8] = {"NO", "WE", "EA", "SO", "F", "C", NULL, "MAP"};
 	int			i;
 	int			bit;
 
 	missing_bit = check_for_not_matching_bit(flag, success_bit);
+	//char *bin = ft_itoa_binary(missing_bit);
+	//ft_printf("[%s] : missing_bit\n", bin);
+	//free(bin);
+	//bin = ft_itoa_binary(success_bit);
+	//ft_printf("[%s] : missing_bit\n", bin);
+	//free(bin);
+	//exit(0);
 	if (missing_bit != 0x00)
 	{
 		i = 0;
