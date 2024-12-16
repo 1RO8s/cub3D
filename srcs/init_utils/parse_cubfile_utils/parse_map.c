@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 05:43:23 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:05:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	is_map_element(const char *str)
 	if (*str == '\n')
 		return (false);
 	len = ft_strlen(identifier);
-	while (*str != '\n')
+	while (*str != '\n' && *str != '\0')
 	{
 		i = 0;
 		while (i < len)
@@ -43,6 +43,7 @@ int	check_last_map(const char *line, t_parse *parse)
 
 	while (line != NULL)
 	{
+		//ft_printf("first?? [%s]\n", line);
 		is_checking_in_map_element = false;
 		while (is_map_element(line) == true)
 		{
@@ -53,12 +54,13 @@ int	check_last_map(const char *line, t_parse *parse)
 		}
 		if (is_checking_in_map_element == true && *line != '\n')
 		{
+			ft_printf("last?? [%s]\n", line);// debug
 			// NOT MAP ELEMENT ... print line
 			return (EXIT_FAILURE);
 		}
 		if (is_checking_in_map_element == false && *line != '\n')
 		{
-			printf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
+			ft_printf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
 			return (EXIT_FAILURE);
 		}
 		line = find_next_line(line);

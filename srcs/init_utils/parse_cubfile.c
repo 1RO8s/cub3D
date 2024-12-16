@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 11:39:18 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:51:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	parse_element(
 	}
 	if (func[type](element, parse) != EXIT_SUCCESS)
 	{
+		ft_printf("here type[%d] element[%s]", type, element);
 		// fix trigger
 		if (is_hit_flag(parse->flag, BIT_INIT_TEX) == true)
 			destroy_texture_image(game->mlx, game->texture, parse->flag);// refactor func
@@ -62,7 +63,17 @@ static int	check_missing_cub_contents(int flag)
 		while (bit <= BIT_MAP)
 		{
 			if (missing_bit & bit)
-				printf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
+			{
+				// NG
+				//setvbuf(stdout, NULL, _IOLBF, 0);
+				//printf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
+				//fflush(stdout);
+				//perror("hello");// -> hello: Resource temporarily unavailable
+				// OK
+				//write(STDOUT_FILENO, "Error\n", ft_strlen("Error\n"));
+				//ft_dprintf(STDERR_FILENO, "%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
+				ft_printf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
+			}
 			i++;
 			bit <<= 1;
 		}
@@ -101,16 +112,3 @@ int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-// "Error: F: Missing entry"
-//# define EMSG_ENTRY_MISS	"Missing entry"
-//# define BIT_NORTH	0x01	// 0000 0000 0001
-//# define BIT_WEST		0x02	// 0000 0000 0010
-//# define BIT_EAST		0x04	// 0000 0000 0100
-//# define BIT_SOUTH	0x08	// 0000 0000 1000
-//# define BIT_F		0x10	// 0000 0001 0000
-//# define BIT_C		0x20	// 0000 0010 0000
-//# define BIT_PLAYER	0x40	// 0000 0100 0000
-//# define BIT_MAP		0x80	// 0000 1000 0000
-//# define BIT_INIT_TEX	0x100	// 0001 0000 0000
-//# define BIT_INIT_FC	0x200	// 0010 0000 0000
-//# define BIT_INIT_MAP	0x400	// 0100 0000 0000
