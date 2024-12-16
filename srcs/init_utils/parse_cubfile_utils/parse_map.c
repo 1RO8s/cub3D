@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 14:05:20 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:56:48 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_last_map(const char *line, t_parse *parse)
 
 	while (line != NULL)
 	{
-		//ft_printf("first?? [%s]\n", line);
 		is_checking_in_map_element = false;
 		while (is_map_element(line) == true)
 		{
@@ -54,8 +53,9 @@ int	check_last_map(const char *line, t_parse *parse)
 		}
 		if (is_checking_in_map_element == true && *line != '\n')
 		{
-			ft_printf("last?? [%s]\n", line);// debug
-			// NOT MAP ELEMENT ... print line
+			ft_printf("%s%s\nNG line: [", ERR_PROMPT, EMSG_MAP_CHAR);
+			print_until_ch(STDOUT_FILENO, line, '\n');
+			ft_printf("]\n");
 			return (EXIT_FAILURE);
 		}
 		if (is_checking_in_map_element == false && *line != '\n')
