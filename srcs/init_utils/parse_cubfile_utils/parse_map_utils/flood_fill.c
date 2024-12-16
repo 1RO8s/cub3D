@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 02:42:15 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 18:35:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:07:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ t_bool	flood_fill(t_map *map, int start_x, int start_y, bool **visited)
 	t_bool		is_surrounded;
 	t_point		current;
 
+	ft_printf(">> flood_fill <<\n");
 	if (initialize_for_flood_fill(&stack, start_x, start_y) != EXIT_SUCCESS)
 		return (ENUM_ERROR);
 	is_surrounded = ENUM_TRUE;

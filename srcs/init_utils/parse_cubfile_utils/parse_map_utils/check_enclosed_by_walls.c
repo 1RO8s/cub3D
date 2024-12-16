@@ -6,24 +6,24 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 10:49:49 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:16:20 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // debug
-//void	put_visited(int fd, bool visited[MAX_ROWS][MAX_COLS], t_map *map)
-//{
-//	for (int r = 0; r < map->height; r++)
-//	{
-//		for (int c = 0; c < map->width; c++)
-//		{
-//			ft_dprintf(fd, "%d", visited[r][c]);
-//		}
-//		ft_dprintf(fd, "\n");
-//	}
-//}
+void	put_visited(int fd, bool **visited, t_map *map)
+{
+	for (int r = 0; r < map->height; r++)
+	{
+		for (int c = 0; c < map->width; c++)
+		{
+			ft_dprintf(fd, "%d", visited[r][c]);
+		}
+		ft_dprintf(fd, "\n");
+	}
+}
 
 static void	put_error_msg_is_not_map_enclosed(void)
 {
@@ -110,12 +110,19 @@ int	check_enclosed_by_walls(const char *line, t_parse *parse)
 	start_y = parse->player_grid.y;
 	map = &parse->game->map;
 	is_surrounded = ENUM_TRUE;
+	put_visited(STDOUT_FILENO, visited, map);// debug
 	is_surrounded = flood_fill(map, start_x, start_y, visited);
+	ft_printf("enclosed[%d]\n", is_surrounded);
 	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
 		return (EXIT_FAILURE);
+	put_visited(STDOUT_FILENO, visited, map);// debug
 	is_surrounded = is_enclosed_on_remaining_area(map, visited);
+	ft_printf("enclosed[%d]\n", is_surrounded);
 	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
 		return (EXIT_FAILURE);
+	put_visited(STDOUT_FILENO, visited, map);// debug
+	exit(0);
+	//ft_printf("here?\n");
 	free_visited(visited, (size_t)map->height);
 	(void)line;
 	return (EXIT_SUCCESS);
