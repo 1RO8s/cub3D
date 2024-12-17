@@ -1,15 +1,15 @@
 
 
 
-NO ./TEXTURE/kita.xpm						
+NO ./texture/42_logo.xpm						
 
-WE ./TEXTURE/nishi.xpm     				    	
+WE ./texture/tails.xpm     				    	
 
-SO ./TEXTURE/minami.xpm							
+SO ./texture/kamecci.xpm							
 
 
 
-EA ./TEXTURE/higashi.xpm                          																
+EA ./texture/sonic.xpm                          																
 
 C 12,152,1          
 
@@ -26,7 +26,6 @@ F 1,8,77
    100001                
     1001
      11     
-
 
 
 

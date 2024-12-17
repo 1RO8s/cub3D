@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/16 03:42:25 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:56:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ char		*find_next_line(const char *contents);
 const char	*find_next_word(const char *s);
 bool		is_key_line(const char *line, const char *key);
 char		*strdup_until_ch(const char *line, int until_ch);
+char		*strdup_trimmed_line(const char *str);
 int			print_until_nl(int fd, const char *str);
 int			print_until_ch(int fd, const char *str, int c);
 int			check_for_not_matching_bit(int variable, int flags_to_check);

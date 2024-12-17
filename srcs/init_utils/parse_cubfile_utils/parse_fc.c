@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 03:12:04 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:59:29 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	get_fc_color(const char *first_word, int *color)
 			ERR_PROMPT, *first_word, EMSG_RGB_EMPTY);
 		return (EXIT_FAILURE);
 	}
-	str = strdup_until_ch(next_word, '\n');
+	str = strdup_trimmed_line(next_word);
+	//str = strdup_until_ch(next_word, '\n');
 	if (str == NULL)
 		return (EXIT_FAILURE);
 	result = get_rgb_color(str);
