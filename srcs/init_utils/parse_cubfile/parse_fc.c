@@ -6,26 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 15:59:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:38:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// Probably unnessesary ?
-//t_fc_info	create_fc_info(const char **key, const int *bit, int *color)
-//{
-//	color[ENUM_F] = -1;
-//	color[ENUM_C] = -1;
-//	return ((t_fc_info)
-//		{.key = key, .bit = bit, .type = ENUM_F, .color = color});
-//}
-//typedef struct s_fc_info {
-//	const char	**key;
-//	const int	*bit;
-//	t_enum_fc	type;
-//	int			*color;
-//}	t_fc_info;
 
 /**
  * @brief get infomation type (floor or ceiling)
@@ -46,12 +31,37 @@ static t_type_fc	get_type_of_fc(const char *line, const char *key[])
 	return (type);
 }
 
-void	set_fc_color(t_game *game, int *color)
+static void	set_fc_color(t_game *game, int *color)
 {
 	game->floor_color = color[ENUM_F];
 	game->ceiling_color = color[ENUM_C];
 	game->frame.ceiling_color = &game->ceiling_color;
 	game->frame.floor_color = &game->floor_color;
+}
+
+static int	check_error_rgb_value(t_result result, const char rgb_type)
+{
+	if (result.value >= 0)
+		return (EXIT_SUCCESS);
+	if (result.value == -1)
+		ft_printf("%s%c: %s %s\n",
+			ERR_PROMPT, rgb_type, EMSG_RGB_MISS, result.err_msg);
+	if (result.value == -2)
+	{
+		ft_printf("%s%c: \"", ERR_PROMPT, rgb_type);
+		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
+		ft_printf("\" %s\n", EMSG_RGB_RANGE_OUT);
+	}
+	if (result.value == -3)
+	{
+		ft_printf("%s%c: \"", ERR_PROMPT, rgb_type);
+		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
+		ft_printf("\" %s\n", EMSG_RGB_NOT_NUM);
+	}
+	if (result.value == -4)
+		ft_printf("%s%c: %s %s\n",
+			ERR_PROMPT, rgb_type, EMSG_UP_TO_THREE_RGB, result.err_msg);
+	return (EXIT_FAILURE);
 }
 
 int	get_fc_color(const char *first_word, int *color)
@@ -68,36 +78,11 @@ int	get_fc_color(const char *first_word, int *color)
 		return (EXIT_FAILURE);
 	}
 	str = strdup_trimmed_line(next_word);
-	//str = strdup_until_ch(next_word, '\n');
 	if (str == NULL)
 		return (EXIT_FAILURE);
 	result = get_rgb_color(str);
-	if (result.value == -1)
-	{
-		ft_printf("%s%c: %s %s\n",
-			ERR_PROMPT, *first_word, EMSG_RGB_MISS, result.err_msg);
+	if (check_error_rgb_value(result, *first_word) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	}
-	if (result.value == -2)
-	{
-		ft_printf("%s%c: \"", ERR_PROMPT, *first_word);
-		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
-		ft_printf("\" %s\n", EMSG_RGB_RANGE_OUT);
-		return (EXIT_FAILURE);
-	}
-	if (result.value == -3)
-	{
-		ft_printf("%s%c: \"", ERR_PROMPT, *first_word);
-		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
-		ft_printf("\" %s\n", EMSG_RGB_NOT_NUM);
-		return (EXIT_FAILURE);
-	}
-	if (result.value == -4)
-	{
-		ft_printf("%s%c: %s %s\n",
-			ERR_PROMPT, *first_word, EMSG_UP_TO_THREE_RGB, result.err_msg);
-		return (EXIT_FAILURE);
-	}
 	*color = result.value;
 	free(str);
 	return (EXIT_SUCCESS);
@@ -135,7 +120,6 @@ int	parse_fc(const char *line, t_parse *parse)
 	const int	bit[2] = {BIT_F, BIT_C};
 	static int	color[2] = {-1, -1};
 
-	//parse->fc_info = create_fc_info(key, bit, color);
 	parse->fc_info = (t_info){.key = key, .bit = bit};
 	type = get_type_of_fc(line, parse->fc_info.key);
 	if (check_duplicate_info(parse->flag, bit[type], line) != EXIT_SUCCESS)

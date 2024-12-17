@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:43:41 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 04:11:20 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:15:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ static t_type_wall	get_type_of_wall(const char *line, const char *key[])
 
 int	parse_tex(const char *line, t_parse *parse)
 {
-	void		*mlx;
-	t_texture	*texture;
-	t_type_wall	type;
+	void				*mlx;
+	t_texture			*texture;
+	t_type_wall			type;
 	static const char	*key[4] = {"NO ", "WE ", "EA ", "SO "};
 	static const int	bit[4] = {BIT_NORTH, BIT_WEST, BIT_EAST, BIT_SOUTH};
 
@@ -70,7 +70,7 @@ int	parse_tex(const char *line, t_parse *parse)
 		return (EXIT_FAILURE);
 	if (get_texture_addr(texture, type) != EXIT_SUCCESS)
 	{
-		destroy_texture_image(mlx, texture, parse->flag);// improve destroy_texture_image()
+		destroy_texture_image(mlx, texture, parse->flag);
 		return (EXIT_FAILURE);
 	}
 	parse->flag |= bit[type];

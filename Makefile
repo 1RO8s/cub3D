@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/17 17:56:08 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/17 19:22:28 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS = \
 	   parse_fc_utils.c \
 	   check_duplicate_info.c \
 	   \
+	   check_last_map.c \
 	   get_map_data.c \
 	   find_player_and_set.c \
 	   set_direction.c \
