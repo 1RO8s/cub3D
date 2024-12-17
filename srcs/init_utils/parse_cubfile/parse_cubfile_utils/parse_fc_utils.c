@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 22:14:26 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:54:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static t_result	atoi_0_to_255(char *str)
 			str++;
 		if (*str == '\0')
 			return ((t_result){.value = 0, .err_msg = NULL});
+		if (*str == ',')
+			str--;
 		result = result * 10 + (*str - '0');
 		if (result > 255)
 			return ((t_result){.value = -2, .err_msg = NULL});
@@ -50,6 +52,7 @@ static t_result	atoi_0_to_255(char *str)
 
 static int	check_error_atoi(t_result *result, const char *rgb_str, char *str)
 {
+	//ft_printf("error atoi value[%d]\n", result->value);
 	if (result->value >= 0)
 		return (EXIT_SUCCESS);
 	if (result->value == -1)
