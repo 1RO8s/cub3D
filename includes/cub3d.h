@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/17 18:44:58 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:51:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef int		(*t_parse_map)(const char *, t_parse *parse);
 int			check_last_map(const char *line, t_parse *parse);
 int			check_range_map(const char *line, t_parse *parse);
 int			get_map_data(const char *line, t_parse *parse);
+char		**split_lines(const char *str);
 int			get_player_info(const char *line, t_parse *parse);
 int			check_enclosed_by_walls(const char *line, t_parse *parse);
 

@@ -6,16 +6,11 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 03:19:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:15:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	put_error_msg_is_not_map_enclosed(void)
-{
-	ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
-}
 
 static bool	is_enclosed_on_remaining_area(
 		t_map *map, bool **visited)
@@ -57,7 +52,7 @@ static bool	**init_visited(t_map *map)
 static t_bool	process_false_or_error(t_bool is_surrounded)
 {
 	if (is_surrounded == ENUM_FALSE)
-		put_error_msg_is_not_map_enclosed();
+		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
 	return (is_surrounded);
 }
 

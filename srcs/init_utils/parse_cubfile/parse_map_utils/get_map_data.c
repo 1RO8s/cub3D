@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 21:37:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 01:07:29 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:49:21 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ t_map_size	get_map_size(char **lines)
 	}
 	return ((t_map_size){.rows = rows, .cols = cols});
 }
-
-// leak check for allocate_map()
-//void	*malloc_(size_t n)
-//{
-//	(void)n;
-//	return (NULL);
-//}
-// replace code
-//		if (i == 3)
-//			array[i] = (char *)malloc_((cols + 1) * sizeof(char));
-//		else
-//			array[i] = (char *)malloc((cols + 1) * sizeof(char));
 
 char	**allocate_map(t_map_size map_size)
 {
@@ -83,74 +71,6 @@ static void	copy_and_pad_lines(char **src, char **dst, size_t max_len)
 		i++;
 	}
 	dst[i] = NULL;
-}
-
-// leak check
-//char **ft_split_(const char *s, int c)
-//{
-//	(void)s;
-//	(void)c;
-//	return (NULL);
-//}
-
-size_t	count_lines(const char *str)
-{
-	size_t	lines;
-
-	lines= 0;
-	while (*str) 
-	{
-		if (*str == '\n')
-			lines++;
-		str++;
-	}
-	return (lines + 1);
-}
-
-char	*extract_next_line(const char **str)
-{
-	const char	*start;
-	size_t	len;
-	char	*line;
-
-	start = *str;
-	while (**str && **str != '\n')
-		(*str)++;
-	len = *str - start;
-	line = ft_strndup(start, len);
-	//line = malloc(len + 1);
-	if (line == NULL)
-	{
-		perror("ft_strndup");
-		exit(EXIT_FAILURE);
-	}
-	//strncpy(line, start, len);
-	//line[len] = '\0';
-	if (**str == '\n')
-		(*str)++;
-	return (line);
-}
-
-char	**split_lines(const char *str)
-{
-	size_t	line_count;
-	char	**lines;
-	size_t	i;
-
-	if (str == NULL)
-		return (NULL);
-	line_count = count_lines(str);
-	lines = (char **)malloc((line_count + 1) * sizeof(char *));
-	if (lines == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	i = 0;
-	while (*str != '\0')
-		lines[i++] = extract_next_line(&str);
-	lines[i] = NULL;
-	return lines;
 }
 
 static char	**convert_str2array(const char *str_map)

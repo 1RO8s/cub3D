@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:52:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 17:30:45 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:21:39 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_until_ch(int fd, const char *str, int c)
 {
-	size_t	len;
+	size_t		len;
 	const char	*end;
 
 	if (str == NULL)
@@ -41,38 +41,6 @@ int	check_for_not_matching_bit(int variable, int flags_to_check)
 	if ((variable & flags_to_check) == flags_to_check)
 		return (0x00);
 	return (flags_to_check & ~variable);
-}
-
-// for debug
-int	print_until_nl(int fd, const char *str)
-{
-	size_t	len;
-
-	if (str == NULL)
-		return (EXIT_FAILURE);
-	len = ft_strchr(str, '\n') - str;
-	write(fd, str, len);
-	return (EXIT_SUCCESS);
-}
-
-const char	*find_next_word(const char *s)
-{
-	// move function -> ***_utils.c ??
-	if (s == NULL || *s == '\0' || *s == '\n')
-		return (NULL);
-	while (*s != ' ')
-	{
-		s++;
-		if (*s == '\0' || *s == '\n')
-			return (NULL);
-	}
-	while (*s == ' ')
-	{
-		s++;
-		if (*s == '\0' || *s == '\n')
-			return (NULL);
-	}
-	return (s);
 }
 
 char	*find_next_line(const char *contents)

@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 03:00:50 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:08:55 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ static int	parse_element(
 		return (EXIT_FAILURE);
 	if (func[type](element, parse) != EXIT_SUCCESS)
 	{
-		//ft_printf("parse_element  func[%d] failure", type);// debug
-		// fix trigger
 		if (is_hit_flag(parse->flag, BIT_INIT_TEX) == true)
-			destroy_texture_image(game->mlx, game->texture, parse->flag);// refactor func
+			destroy_texture_image(game->mlx, game->texture, parse->flag);
 		if (is_hit_flag(parse->flag, BIT_INIT_MAP) == true)
 			free_double_pointer(game->map.data);
 		return (EXIT_FAILURE);
@@ -46,19 +44,13 @@ static int	parse_element(
 static int	check_missing_cub_contents(int flag)
 {
 	int			missing_bit;
-	const int	success_bit = BIT_NORTH | BIT_WEST | BIT_EAST | BIT_SOUTH | BIT_F | BIT_C | BIT_MAP;
+	const int	success_bit = BIT_NORTH | BIT_WEST | BIT_EAST | BIT_SOUTH
+		| BIT_F | BIT_C | BIT_MAP;
 	const char	*key[8] = {"NO", "WE", "EA", "SO", "F", "C", NULL, "MAP"};
 	int			i;
 	int			bit;
 
 	missing_bit = check_for_not_matching_bit(flag, success_bit);
-	//char *bin = ft_itoa_binary(missing_bit);
-	//ft_printf("[%s] : missing_bit\n", bin);
-	//free(bin);
-	//bin = ft_itoa_binary(success_bit);
-	//ft_printf("[%s] : missing_bit\n", bin);
-	//free(bin);
-	//exit(0);
 	if (missing_bit != 0x00)
 	{
 		i = 0;
@@ -66,17 +58,7 @@ static int	check_missing_cub_contents(int flag)
 		while (bit <= BIT_MAP)
 		{
 			if (missing_bit & bit)
-			{
-				// NG
-				//setvbuf(stdout, NULL, _IOLBF, 0);
-				//printf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
-				//fflush(stdout);
-				//perror("hello");// -> hello: Resource temporarily unavailable
-				// OK
-				//write(STDOUT_FILENO, "Error\n", ft_strlen("Error\n"));
-				//ft_dprintf(STDERR_FILENO, "%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
 				ft_printf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
-			}
 			i++;
 			bit <<= 1;
 		}

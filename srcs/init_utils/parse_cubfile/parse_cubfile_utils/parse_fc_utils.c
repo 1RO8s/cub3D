@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:17:19 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 02:47:13 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:14:26 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ static t_result	atoi_0_to_255(char *str)
 	return ((t_result){.value = result, .err_msg = NULL});
 }
 
+static int	check_error_atoi(t_result *result, const char *rgb_str, char *str)
+{
+	if (result->value >= 0)
+		return (EXIT_SUCCESS);
+	if (result->value == -1)
+		result->err_msg = rgb_str;
+	if (result->value == -2)
+		result->err_msg = str;
+	return (EXIT_FAILURE);
+}
+
 /**
  * @brief get RGB color value from F or C line
  *
@@ -58,20 +69,15 @@ static t_result	atoi_0_to_255(char *str)
 t_result	get_rgb_color(char *str)
 {
 	t_result			result[3];
-	//int					rgb[3];
-	static const char	*rgb_str[3] = {"R", "G", "B"};// static ??
+	static const char	*rgb_str[3] = {"R", "G", "B"};
 	t_type_rgb			type;
 
 	type = ENUM_R;
 	while (str != NULL && *str != '\0' && type <= ENUM_B)
 	{
 		result[type] = atoi_0_to_255(str);
-		if (result[type].value == -1)
-			return ((t_result){.value = -1, .err_msg = rgb_str[type]});
-		if (result[type].value == -2)
-			return ((t_result){.value = -2, .err_msg = str});
-		if (result[type].value == -3)
-			return ((t_result)result[type]);
+		if (check_error_atoi(&result[type], rgb_str[type], str) != EXIT_SUCCESS)
+			return (result[type]);
 		type++;
 		str = ft_strchr(str, ',');
 		if (str == NULL)
@@ -84,6 +90,7 @@ t_result	get_rgb_color(char *str)
 		return ((t_result){.value = -1, .err_msg = rgb_str[type]});
 	if (str != NULL)
 		return ((t_result){.value = -4, .err_msg = --str});
-	return ((t_result){(result[0].value << 16) + (result[1].value << 8) + result[2].value, NULL});
+	return ((t_result){(result[0].value << 16) + (result[1].value << 8)
+		+ result[2].value, NULL});
 }
 	//debug_get_rgb_color(debug_fd, type, rgb, "get_rgb_color()");

@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/17 19:22:28 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/17 22:18:26 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS = \
 	   parse_map.c \
 	   \
 	   parse_general_func.c \
+	   find_next_word.c \
 	   put_error_msg.c \
 	   get_type_element.c \
 	   find_next_element.c \
@@ -61,6 +62,7 @@ SRCS = \
 	   \
 	   check_last_map.c \
 	   get_map_data.c \
+	   split_lines.c \
 	   find_player_and_set.c \
 	   set_direction.c \
 	   get_player_info.c \
