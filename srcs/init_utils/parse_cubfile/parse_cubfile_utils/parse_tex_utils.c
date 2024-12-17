@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 15:56:16 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:33:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	get_texture_image(
 		return (EXIT_FAILURE);
 	}
 	file = strdup_trimmed_line(next_word);
-	//file = strdup_until_ch(next_word, '\n');
 	if (file == NULL)
 		return (EXIT_FAILURE);
 	texture->img_tex.img = (void *)mlx_xpm_file_to_image(
@@ -42,52 +41,21 @@ static int	get_texture_image(
 	return (EXIT_SUCCESS);
 }
 
-// fix and remove
-// is_complite_init() ... ***_utils.c
-//static bool	is_created_all_tex_image(t_parse *parse)
-//{
-//	int			i;
-//	int			flag;
-//	const int	*bit;
-//	const char	**key;
-//
-//	flag = parse->flag;
-//	bit = parse->tex_info.bit;
-//	key = parse->tex_info.key;
-//	i = 0;
-//	while (i < ENUM_SOUTH + 1)
-//	{
-//		if ((flag & bit[i]) == 0x00)
-//		{
-//			put_error_msg(key[i], EMSG_ENTRY_MISS);
-//			return (false);
-//		}
-//		i++;
-//	}
-//	return (true);
-//}
-
 // Probably Unnessesary
 /**
  * @brief initialize tex_info structure
  */
-//static t_tex_info	create_tex_info(const char **key, const int *bit)
-//{
-//	return ((t_tex_info){.key = key, .bit = bit});
-//}
 
 int	create_texture_image(const char *line, t_parse *parse, t_type_wall type)
 {
 	void		*mlx;
 	t_texture	*texture;
 
-	//parse->tex_info = create_tex_info(key, bit);
-	//parse->tex_info = (t_tex_info){.key = key, .bit = bit};
 	mlx = parse->game->mlx;
 	texture = parse->game->texture;
 	if (get_texture_image(mlx, line, &texture[type]) != EXIT_SUCCESS)
 	{
-		destroy_texture_image(mlx, texture, parse->flag);// refactor ??
+		destroy_texture_image(mlx, texture, parse->flag);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
