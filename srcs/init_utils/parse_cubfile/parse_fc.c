@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 19:38:25 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:54:17 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,22 @@ static int	check_error_rgb_value(t_result result, const char rgb_type)
 	if (result.value >= 0)
 		return (EXIT_SUCCESS);
 	if (result.value == -1)
-		ft_printf("%s%c: %s %s\n",
+		ft_eprintf("%s%c: %s %s\n",
 			ERR_PROMPT, rgb_type, EMSG_RGB_MISS, result.err_msg);
 	if (result.value == -2)
 	{
-		ft_printf("%s%c: \"", ERR_PROMPT, rgb_type);
-		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
-		ft_printf("\" %s\n", EMSG_RGB_RANGE_OUT);
+		ft_eprintf("%s%c: \"", ERR_PROMPT, rgb_type);
+		print_until_ch(STDERR_FILENO, result.err_msg, ',');
+		ft_eprintf("\" %s\n", EMSG_RGB_RANGE_OUT);
 	}
 	if (result.value == -3)
 	{
-		ft_printf("%s%c: \"", ERR_PROMPT, rgb_type);
-		print_until_ch(STDOUT_FILENO, result.err_msg, ',');
-		ft_printf("\" %s\n", EMSG_RGB_NOT_NUM);
+		ft_eprintf("%s%c: \"", ERR_PROMPT, rgb_type);
+		print_until_ch(STDERR_FILENO, result.err_msg, ',');
+		ft_eprintf("\" %s\n", EMSG_RGB_NOT_NUM);
 	}
 	if (result.value == -4)
-		ft_printf("%s%c: %s %s\n",
+		ft_eprintf("%s%c: %s %s\n",
 			ERR_PROMPT, rgb_type, EMSG_UP_TO_THREE_RGB, result.err_msg);
 	return (EXIT_FAILURE);
 }
@@ -73,7 +73,7 @@ int	get_fc_color(const char *first_word, int *color)
 	next_word = find_next_word(first_word);
 	if (next_word == NULL)
 	{
-		ft_printf("%s%c: %s\n",
+		ft_eprintf("%s%c: %s\n",
 			ERR_PROMPT, *first_word, EMSG_RGB_EMPTY);
 		return (EXIT_FAILURE);
 	}

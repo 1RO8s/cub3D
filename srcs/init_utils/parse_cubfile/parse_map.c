@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 23:05:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:11:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	put_error_map_size_over(int cols, int rows)
 {
-	printf("%s%s: ", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
-	printf("%d x %d", cols, rows);
-	printf(" (within %d x %d)\n", MAX_COLS, MAX_ROWS);
+	ft_eprintf("%s%s: ", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
+	ft_eprintf("%d x %d", cols, rows);
+	ft_eprintf(" (within %d x %d)\n", MAX_COLS, MAX_ROWS);
 }
 
 int	check_range_map(const char *line, t_parse *parse)

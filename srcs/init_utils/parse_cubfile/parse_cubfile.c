@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 22:55:32 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:09:10 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	is_find_element(const char *element)
 {
 	if (element == NULL)
 	{
-		printf("%s%s\n", ERR_PROMPT, EMSG_EMPTY_CUB);
+		ft_eprintf("%s%s\n", ERR_PROMPT, EMSG_EMPTY_CUB);
 		return (false);
 	}
 	return (true);
@@ -58,7 +58,7 @@ static int	check_missing_cub_contents(int flag)
 		while (bit <= BIT_MAP)
 		{
 			if (missing_bit & bit)
-				ft_printf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
+				ft_eprintf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
 			i++;
 			bit <<= 1;
 		}

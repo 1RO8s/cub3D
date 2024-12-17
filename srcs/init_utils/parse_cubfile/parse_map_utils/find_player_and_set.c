@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 03:27:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:19:11 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:12:48 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	find_player_and_set(
 	{
 		if ((parse->flag & BIT_PLAYER) > 0x00)
 		{
-			printf("%s%s",
+			ft_eprintf("%s%s",
 				ERR_PROMPT, EMSG_MAP_PLAYER_MULTI);
 			return (EXIT_FAILURE);
 		}
@@ -60,8 +60,8 @@ int	find_player_and_set(
 	{
 		if (is_valid_char(data[grid.y][grid.x]) != true)
 		{
-			printf("%s%s", ERR_PROMPT, EMSG_MAP_CHAR);
-			printf(": \"%c\"\n", data[grid.y][grid.x]);
+			ft_eprintf("%s%s", ERR_PROMPT, EMSG_MAP_CHAR);
+			ft_eprintf(": \"%c\"\n", data[grid.y][grid.x]);
 			return (EXIT_FAILURE);
 		}
 	}

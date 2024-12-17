@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 23:17:41 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:13:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	end_game(t_game *game)
 {
-	printf("quit cub3D\n");
+	ft_printf("quit cub3D\n");
 	destroy_texture_image(game->mlx, game->texture,
 		BIT_NORTH | BIT_SOUTH | BIT_EAST | BIT_WEST);
 	free_double_pointer(game->map.data);

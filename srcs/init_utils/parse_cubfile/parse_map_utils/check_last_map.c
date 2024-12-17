@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:20:57 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 21:46:07 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:12:23 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ static int	check_continue_of_map(bool is_map_line, const char *line)
 {
 	if (is_map_line == true && *line != '\n')
 	{
-		ft_printf("%s%s\nNG line: [", ERR_PROMPT, EMSG_MAP_CHAR);
+		ft_eprintf("%s%s\nNG line: [", ERR_PROMPT, EMSG_MAP_CHAR);
 		print_until_ch(STDOUT_FILENO, line, '\n');
-		ft_printf("]\n");
+		ft_eprintf("]\n");
 		return (EXIT_FAILURE);
 	}
 	if (is_map_line == false && *line != '\n')
 	{
-		ft_printf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
+		ft_eprintf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

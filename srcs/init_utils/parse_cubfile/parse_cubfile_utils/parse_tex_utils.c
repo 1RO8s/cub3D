@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 22:33:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:09:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static int	get_texture_image(
 			mlx, file, &texture->width, &texture->height);
 	if (texture->img_tex.img == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s: %s\n",
-			ERR_PROMPT, EMSG_MLX_XPM_TO_IMG, file);
+		ft_eprintf("%s%s: %s\n", ERR_PROMPT, EMSG_MLX_XPM_TO_IMG, file);
 		free(file);
 		return (EXIT_FAILURE);
 	}
