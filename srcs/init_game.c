@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/12 15:38:00 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:19:05 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	arg_check(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_ARG_COUNT);
+		printf("%s%s\n", ERR_PROMPT, EMSG_ARG_COUNT);
 		return (EXIT_FAILURE);
 	}
 	filename = argv[1];
@@ -42,7 +42,7 @@ static int	arg_check(int argc, char *argv[])
 	ext = &filename[len - 4];
 	if (ft_strncmp(".cub", ext, 4))
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_FILE_EXT);
+		printf("%s%s\n", ERR_PROMPT, EMSG_FILE_EXT);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
