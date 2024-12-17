@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:52:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 15:56:23 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:30:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,49 +96,20 @@ bool	is_key_line(const char *line, const char *key)
 	return (ft_strncmp(line, key, len) == 0);
 }
 
-// unnessesary ?
-char	*strdup_until_ch(const char *line, int until_ch)
-{
-	size_t	len;
-	char	*file;
-
-	len = ft_strchr(line, until_ch) - line;
-	file = ft_strndup(line, len);
-	return (file);
-}
-
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 char	*strdup_trimmed_line(const char *str)
 {
-    const char *start = str;
-    const char *end;
+	const char	*start;
+	const char	*end;
+	size_t		length;
+	char		*result;
 
-    // Find the position of the newline character or string termination
-    while (*str && *str != '\n') {
-        str++;
-    }
-    end = str - 1; // Start from the last character before newline
-
-    // Trim trailing non-printable characters (including spaces)
-    while (end >= start && (!isprint(*end) || isspace(*end))) {
-        end--;
-    }
-
-    // Calculate the length of the trimmed line
-    size_t length = (end >= start) ? (end - start + 1) : 0;
-
-    // Allocate memory for the duplicated string
-    char *result = (char *)malloc(length + 1);
-    if (!result) {
-        perror("malloc");
-        exit(EXIT_FAILURE);
-    }
-
-    // Copy the trimmed string into the new memory
-    strncpy(result, start, length);
-    result[length] = '\0'; // Null-terminate the string
-
-    return result;
+	start = str;
+	while (*str && *str != '\n')
+		str++;
+	end = str - 1;
+	while (end >= start && (!ft_isprint(*end) || ft_isspace(*end)))
+		end--;
+	length = (end >= start) * (end - start + 1);
+	result = ft_strndup(start, length);
+	return (result);
 }

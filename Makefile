@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/16 03:44:22 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/17 17:56:08 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@
 SRCS_DIR = \
 		   ./srcs \
 		   ./srcs/init_utils \
-		   ./srcs/init_utils/read_cubfile_utils \
-		   ./srcs/init_utils/parse_cubfile_utils \
-		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
+		   ./srcs/init_utils/parse_cubfile \
+		   ./srcs/init_utils/parse_cubfile/parse_cubfile_utils \
+		   ./srcs/init_utils/parse_cubfile/parse_map_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
@@ -45,8 +45,8 @@ SRCS = \
 	   init_mlx_window.c \
 	   init_mlx_image.c \
 	   init_cub_contents.c \
-	   parse_cubfile.c \
 	   \
+	   parse_cubfile.c \
 	   parse_tex.c \
 	   parse_fc.c \
 	   parse_map.c \

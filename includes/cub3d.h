@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/17 15:56:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:44:58 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,12 @@ int			parse_map(const char *line, t_parse *parse);
 char		*find_next_line(const char *contents);
 const char	*find_next_word(const char *s);
 bool		is_key_line(const char *line, const char *key);
-char		*strdup_until_ch(const char *line, int until_ch);
 char		*strdup_trimmed_line(const char *str);
 int			print_until_nl(int fd, const char *str);
 int			print_until_ch(int fd, const char *str, int c);
 int			check_for_not_matching_bit(int variable, int flags_to_check);
-int			check_duplicate_info(int value, int flag_to_check, const char *line);
+int			check_duplicate_info(
+				int value, int flag_to_check, const char *line);
 
 // put_error_msg.c
 void		put_error_msg(const char *entry, const char *msg);
@@ -127,14 +127,12 @@ void		put_error_msg(const char *entry, const char *msg);
 // call by parse_tex()
 int			create_texture_image(
 				const char *line, t_parse *parse, t_type_wall type);
-//int			check_tex_info(t_type_wall type, const char *line, t_parse *parse);
 
 // call by parse_fc()
 # define CONTINUE 2
 
 int			get_fc_color(const char *first_word, int *color);
 t_result	get_rgb_color(char *str);
-//int			atoi_0_to_255(char *str, const char *entry, const char *rgb_str);
 
 // srcs/init_utils/parse_cubfile_utils/
 // │
