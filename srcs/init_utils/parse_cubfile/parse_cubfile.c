@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:19:06 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:55:32 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,45 @@ static bool	is_find_element(const char *element)
 }
 
 static int	parse_element(
-		const char *element, t_parse *parse, t_enum_elem type, t_game *game)
+		const char *element, t_parse *parse, t_type_elem type, t_game *game)
 {
 	static t_parse_elem	func[3] = {parse_tex, parse_fc, parse_map};
+	static const int	bit[3] = {BIT_INIT_TEX, BIT_INIT_FC, BIT_INIT_MAP};
 
+	if (check_duplicate_info(parse->flag, bit[type], element) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	if (func[type](element, parse) != EXIT_SUCCESS)
 	{
 		if (is_hit_flag(parse->flag, BIT_INIT_TEX) == true)
-			destroy_texture_image(game->mlx, game->texture, 4);
+			destroy_texture_image(game->mlx, game->texture, parse->flag);
 		if (is_hit_flag(parse->flag, BIT_INIT_MAP) == true)
 			free_double_pointer(game->map.data);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	check_missing_cub_contents(int flag)
+{
+	int			missing_bit;
+	const int	success_bit = BIT_NORTH | BIT_WEST | BIT_EAST | BIT_SOUTH
+		| BIT_F | BIT_C | BIT_MAP;
+	const char	*key[8] = {"NO", "WE", "EA", "SO", "F", "C", NULL, "MAP"};
+	int			i;
+	int			bit;
+
+	missing_bit = check_for_not_matching_bit(flag, success_bit);
+	if (missing_bit != 0x00)
+	{
+		i = 0;
+		bit = 0x01;
+		while (bit <= BIT_MAP)
+		{
+			if (missing_bit & bit)
+				ft_printf("%s%s: %s\n", ERR_PROMPT, key[i], EMSG_ENTRY_MISS);
+			i++;
+			bit <<= 1;
+		}
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -43,7 +72,7 @@ static int	parse_element(
  */
 int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 {
-	t_enum_elem			type;
+	t_type_elem			type;
 
 	if (*element == '\n')
 		element = find_next_element(element);
@@ -60,7 +89,11 @@ int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 		}
 		if (parse_element(element, parse, type, game) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
+		if (type == ENUM_MAP)
+			break ;
 		element = find_next_element(element);
 	}
+	if (check_missing_cub_contents(parse->flag) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

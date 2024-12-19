@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_tex_info.c                                   :+:      :+:    :+:   */
+/*   debug_parse_fc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:05:01 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:38:36 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/12/17 03:11:18 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/12/17 03:11:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_tex_info(int fd, t_info tex_info)
+void	debug_parse_fc(int fd, int color[2], const char *msg)
 {
-	int		i;
-	char	*bit_str;
-
-	if (IS_DEBUG == false)
+	if (IS_DEBUG != true)
 		return ;
-	i = 0;
-	while (i < 4)
-	{
-		bit_str = ft_itoa_binary(tex_info.bit[i]);
-		if (bit_str == NULL)
-		{
-			ft_dprintf(STDERR_FILENO, "Error: ft_itoa_binary()\n");
-			return ;
-		}
-		ft_dprintf(fd, "\tkey[%s]", tex_info.key[i]);
-		ft_dprintf(fd, " bit[%s]\n", bit_str);
-		free(bit_str);
-		i++;
-	}
+	ft_dprintf(fd, ">>> func debug_get_rgb_color <<< ... call by %s\n", msg);
+	ft_dprintf(fd, "\tF color[%x]\n", color[0]);
+	ft_dprintf(fd, "\tC color[%x]\n", color[1]);
 }

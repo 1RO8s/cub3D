@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_tex_info.c                                   :+:      :+:    :+:   */
+/*   find_next_word.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:05:01 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:38:36 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/12/17 22:17:52 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/12/17 22:18:04 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_tex_info(int fd, t_info tex_info)
+const char	*find_next_word(const char *s)
 {
-	int		i;
-	char	*bit_str;
-
-	if (IS_DEBUG == false)
-		return ;
-	i = 0;
-	while (i < 4)
+	if (s == NULL || *s == '\0' || *s == '\n')
+		return (NULL);
+	while (*s != ' ')
 	{
-		bit_str = ft_itoa_binary(tex_info.bit[i]);
-		if (bit_str == NULL)
-		{
-			ft_dprintf(STDERR_FILENO, "Error: ft_itoa_binary()\n");
-			return ;
-		}
-		ft_dprintf(fd, "\tkey[%s]", tex_info.key[i]);
-		ft_dprintf(fd, " bit[%s]\n", bit_str);
-		free(bit_str);
-		i++;
+		s++;
+		if (*s == '\0' || *s == '\n')
+			return (NULL);
 	}
+	while (*s == ' ')
+	{
+		s++;
+		if (*s == '\0' || *s == '\n')
+			return (NULL);
+	}
+	return (s);
 }

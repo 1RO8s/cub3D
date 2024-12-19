@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_enclosed_by_walls.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:19:11 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:15:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// debug
-//void	put_visited(int fd, bool visited[MAX_ROWS][MAX_COLS], t_map *map)
-//{
-//	for (int r = 0; r < map->height; r++)
-//	{
-//		for (int c = 0; c < map->width; c++)
-//		{
-//			ft_dprintf(fd, "%d", visited[r][c]);
-//		}
-//		ft_dprintf(fd, "\n");
-//	}
-//}
-
-static void	put_error_msg_is_not_map_enclosed(void)
-{
-	printf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
-}
 
 static bool	is_enclosed_on_remaining_area(
 		t_map *map, bool **visited)
@@ -70,8 +52,21 @@ static bool	**init_visited(t_map *map)
 static t_bool	process_false_or_error(t_bool is_surrounded)
 {
 	if (is_surrounded == ENUM_FALSE)
-		put_error_msg_is_not_map_enclosed();
+		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
 	return (is_surrounded);
+}
+
+void	free_visited(bool **visited, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < (size_t)size)
+	{
+		free(visited[i]);
+		i++;
+	}
+	free(visited);
 }
 
 /**
@@ -103,9 +98,11 @@ int	check_enclosed_by_walls(const char *line, t_parse *parse)
 	is_surrounded = is_enclosed_on_remaining_area(map, visited);
 	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
 		return (EXIT_FAILURE);
+	free_visited(visited, (size_t)map->height);
 	(void)line;
 	return (EXIT_SUCCESS);
 }
 // debug code
 //printf("-- End flood_fill()\n");//debug
-//put_visited(parse->game->debug.fd, visited, map);
+//int	fd = parse->game->debug.fd;// for debug
+//put_visited(fd, visited, map);

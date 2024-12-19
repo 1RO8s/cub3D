@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_tex_info.c                                   :+:      :+:    :+:   */
+/*   put_visited.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:05:01 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 23:38:36 by kamitsui         ###   ########.fr       */
+/*   Created: 2024/12/17 03:14:24 by kamitsui          #+#    #+#             */
+/*   Updated: 2024/12/17 22:36:54 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_tex_info(int fd, t_info tex_info)
+void	put_visited(int fd, bool **visited, t_map *map)
 {
-	int		i;
-	char	*bit_str;
+	int	row;
+	int	col;
 
-	if (IS_DEBUG == false)
-		return ;
-	i = 0;
-	while (i < 4)
+	row = 0;
+	while (row < map->height)
 	{
-		bit_str = ft_itoa_binary(tex_info.bit[i]);
-		if (bit_str == NULL)
+		col = 0;
+		while (col < map->width)
 		{
-			ft_dprintf(STDERR_FILENO, "Error: ft_itoa_binary()\n");
-			return ;
+			ft_dprintf(fd, "%d", visited[row][col]);
+			col++;
 		}
-		ft_dprintf(fd, "\tkey[%s]", tex_info.key[i]);
-		ft_dprintf(fd, " bit[%s]\n", bit_str);
-		free(bit_str);
-		i++;
+		ft_dprintf(fd, "\n");
+		row++;
 	}
 }

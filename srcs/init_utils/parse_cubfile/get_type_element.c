@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:42:00 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/15 18:52:11 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/16 04:40:42 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static bool	is_floor_ceiling_element(const char *str)
 	return (false);
 }
 
-static bool	is_map_element(const char *str)
+static bool	is_first_map_element(const char *str)
 {
 	const char	*identifier = " 10";
 	size_t		i;
@@ -71,13 +71,13 @@ static bool	is_map_element(const char *str)
 	return (true);
 }
 
-t_enum_elem	get_type_element(const char *line)
+t_type_elem	get_type_element(const char *line)
 {
 	if (is_texture_element(line) == true)
 		return (ENUM_TEX);
 	if (is_floor_ceiling_element(line) == true)
 		return (ENUM_FC);
-	if (is_map_element(line) == true)
+	if (is_first_map_element(line) == true)
 		return (ENUM_MAP);
 	return (ENUM_ELEMENT_ERR);
 }

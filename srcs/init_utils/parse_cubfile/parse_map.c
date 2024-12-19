@@ -6,22 +6,11 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:19:07 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:05:56 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	check_last_map(const char *line, t_parse *parse)
-{
-	(void)parse;
-	if (find_next_element(line) != NULL)
-	{
-		printf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_LAST);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
 
 static void	put_error_map_size_over(int cols, int rows)
 {
@@ -57,13 +46,6 @@ int	check_range_map(const char *line, t_parse *parse)
 	}
 	(void)parse;
 	return (EXIT_SUCCESS);
-}
-
-static void	debug_parse_map_fail(int fd, int i)
-{
-	if (IS_DEBUG != true)
-		return ;
-	ft_dprintf(fd, "fail : parse_map func[%d]\n", i);
 }
 
 int	parse_map(const char *line, t_parse *parse)

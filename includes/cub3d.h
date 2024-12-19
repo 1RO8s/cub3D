@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/13 21:42:43 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:51:15 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char		*ft_strjoin_nullable(char *s1, char *s2);
 
 // call by init_cub_contents()
 const char	*find_next_element(const char *line);
-t_enum_elem	get_type_element(const char *line);
+t_type_elem	get_type_element(const char *line);
 typedef int		(*t_parse_elem)(const char *, t_parse *);
 int			parse_tex(const char *line, t_parse *parse);
 int			parse_fc(const char *line, t_parse *parse);
@@ -112,24 +112,27 @@ int			parse_map(const char *line, t_parse *parse);
 
 // parse_general_func.c
 char		*find_next_line(const char *contents);
+const char	*find_next_word(const char *s);
 bool		is_key_line(const char *line, const char *key);
-char		*strdup_until_ch(const char *line, int until_ch);
+char		*strdup_trimmed_line(const char *str);
 int			print_until_nl(int fd, const char *str);
+int			print_until_ch(int fd, const char *str, int c);
+int			check_for_not_matching_bit(int variable, int flags_to_check);
+int			check_duplicate_info(
+				int value, int flag_to_check, const char *line);
 
 // put_error_msg.c
 void		put_error_msg(const char *entry, const char *msg);
 
 // call by parse_tex()
-int			create_texture_images(const char *line, t_parse *parse);
-int			check_tex_info(t_type_wall type, const char *line, t_parse *parse);
+int			create_texture_image(
+				const char *line, t_parse *parse, t_type_wall type);
 
 // call by parse_fc()
 # define CONTINUE 2
 
-int			get_fc_color(const char *line, t_parse *parse);
-int			get_rgb_color(
-				t_enum_fc type, const char *key, char *str, int debug_fd);
-int			atoi_0_to_255(char *str, const char *entry, const char *rgb_str);
+int			get_fc_color(const char *first_word, int *color);
+t_result	get_rgb_color(char *str);
 
 // srcs/init_utils/parse_cubfile_utils/
 // │
@@ -140,6 +143,7 @@ typedef int		(*t_parse_map)(const char *, t_parse *parse);
 int			check_last_map(const char *line, t_parse *parse);
 int			check_range_map(const char *line, t_parse *parse);
 int			get_map_data(const char *line, t_parse *parse);
+char		**split_lines(const char *str);
 int			get_player_info(const char *line, t_parse *parse);
 int			check_enclosed_by_walls(const char *line, t_parse *parse);
 
@@ -168,7 +172,8 @@ t_bool		flood_fill(t_map *map, int start_x, int start_y, bool **visited);
 # define BIT_PLAYER		0x40	// 0000 0100 0000
 # define BIT_MAP		0x80	// 0000 1000 0000
 # define BIT_INIT_TEX	0x100	// 0001 0000 0000
-# define BIT_INIT_MAP	0x200	// 0010 0000 0000
+# define BIT_INIT_FC	0x200	// 0010 0000 0000
+# define BIT_INIT_MAP	0x400	// 0100 0000 0000
 
 /******************************
  *			draw_3d
@@ -260,7 +265,6 @@ typedef void	(*t_handle_key_press)(int, t_game *);
 # define BIT_STRAFE_RIGHT	0x08	// 0000 1000
 # define BIT_ROTATE_LEFT	0x10	// 0001 0000
 # define BIT_ROTATE_RIGHT	0x20	// 0010 0000
-
 void		move_forward(t_map *map, t_player *player);
 void		move_backward(t_map *map, t_player *player);
 void		strafe_left(t_map *map, t_player *player);

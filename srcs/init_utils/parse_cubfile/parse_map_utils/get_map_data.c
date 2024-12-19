@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 21:37:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/13 21:19:12 by hnagasak         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:15:31 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ t_map_size	get_map_size(char **lines)
 	}
 	return ((t_map_size){.rows = rows, .cols = cols});
 }
-
-// leak check for allocate_map()
-//void	*malloc_(size_t n)
-//{
-//	(void)n;
-//	return (NULL);
-//}
-// replace code
-//		if (i == 3)
-//			array[i] = (char *)malloc_((cols + 1) * sizeof(char));
-//		else
-//			array[i] = (char *)malloc((cols + 1) * sizeof(char));
 
 char	**allocate_map(t_map_size map_size)
 {
@@ -85,21 +73,13 @@ static void	copy_and_pad_lines(char **src, char **dst, size_t max_len)
 	dst[i] = NULL;
 }
 
-// leak check
-//char **ft_split_(const char *s, int c)
-//{
-//	(void)s;
-//	(void)c;
-//	return (NULL);
-//}
-
 static char	**convert_str2array(const char *str_map)
 {
 	t_map_size	map_size;
 	char		**array;
 	char		**lines;
 
-	lines = ft_split(str_map, '\n');
+	lines = split_lines(str_map);
 	if (lines == NULL)
 		return (NULL);
 	map_size = get_map_size(lines);

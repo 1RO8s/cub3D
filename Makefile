@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/01 03:22:50 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/17 22:18:26 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,9 @@
 SRCS_DIR = \
 		   ./srcs \
 		   ./srcs/init_utils \
-		   ./srcs/init_utils/read_cubfile_utils \
-		   ./srcs/init_utils/parse_cubfile_utils \
-		   ./srcs/init_utils/parse_cubfile_utils/parse_tex_utils \
-		   ./srcs/init_utils/parse_cubfile_utils/parse_fc_utils \
-		   ./srcs/init_utils/parse_cubfile_utils/parse_map_utils \
+		   ./srcs/init_utils/parse_cubfile \
+		   ./srcs/init_utils/parse_cubfile/parse_cubfile_utils \
+		   ./srcs/init_utils/parse_cubfile/parse_map_utils \
 		   ./srcs/draw_2d_utils \
 		   ./srcs/draw_3d_utils \
 		   ./srcs/draw_line_utils \
@@ -47,31 +45,30 @@ SRCS = \
 	   init_mlx_window.c \
 	   init_mlx_image.c \
 	   init_cub_contents.c \
-	   parse_cubfile.c \
 	   \
+	   parse_cubfile.c \
 	   parse_tex.c \
 	   parse_fc.c \
 	   parse_map.c \
 	   \
+	   parse_general_func.c \
+	   find_next_word.c \
+	   put_error_msg.c \
+	   get_type_element.c \
+	   find_next_element.c \
+	   parse_tex_utils.c \
+	   parse_fc_utils.c \
+	   check_duplicate_info.c \
+	   \
+	   check_last_map.c \
 	   get_map_data.c \
+	   split_lines.c \
 	   find_player_and_set.c \
 	   set_direction.c \
 	   get_player_info.c \
 	   check_enclosed_by_walls.c \
 	   flood_fill.c \
 	   flood_fill_utils.c \
-	   \
-	   parse_general_func.c \
-	   put_error_msg.c \
-	   get_type_element.c \
-	   find_next_element.c \
-	   \
-	   create_texture_images.c \
-	   check_tex_info.c \
-	   \
-	   get_fc_color.c \
-	   get_rgb_color.c \
-	   atoi_0_to_255.c \
 	   \
 	   draw_2d_player.c \
 	   draw_2d_wall.c \
@@ -139,7 +136,7 @@ endif
 # To link internal Linux API
 ifeq ($(OS), Linux)
 LIBMLX := $(LIBMLX_DIR)/libmlx_Linux.a
-CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 endif
 
 # Makefile Option
