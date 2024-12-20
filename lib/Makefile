@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/20 15:13:17 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/20 15:44:07 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ all: $(NAME)
 ifeq ($(DEBUG_ON), 1)
 LIB_DIRS += $(LIBDEBUG_DIR)
 NAME += debug
+LIBS += $(LIBDEBUG)
 endif
 
 debug:
@@ -121,16 +122,16 @@ submodules:
 ## Clean target
 clean:
 	@echo "${RED}Cleaning object files of Libraries...${NC}"
-	make -C $(LIBFT_DIR) clean
-	make -C $(LIBFTPRINTF_DIR) clean
+	@for name in $(LIB_DIRS); do \
+		make -C $$name clean; \
+	done
 	make -C $(LIBMLX_DIR) clean
-	make -C $(LIBDEBUG_DIR) clean
 .PHONY: clean
 
 # Clean and remove library target
 fclean: clean
 	@echo "${RED}Removing archive file...${NC}"
-	rm -f $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
+	rm -f $(LIBS)
 	@echo "${GREEN}All archive file removed.${NC}"
 .PHONY: fclean
 

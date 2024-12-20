@@ -6,6 +6,7 @@
 
 # Whitelist important files
 !Makefile
+!*.mk
 !*.c
 !*.h
 !*.cub
