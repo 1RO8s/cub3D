@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/20 13:14:19 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/20 15:13:17 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,22 +60,21 @@ NAME = start $(LIBMLX)
 include ../config/config.mk
 
 # Enable Develop mode
-DEV_MODE ?= 0  # Default value is 0 if not specified
+DEV_ON ?= 0  # Default value is 0 if not specified
 
-ifeq ($(DEV_MODE), 1)
+ifeq ($(DEV_ON), 1)
 NAME = start submodules $(LIBMLX)
 endif
 
 # Default target
 all: $(NAME)
-	@echo "DEV_MODE=$(DEV_MODE) : NAME=$(NAME)"
 	@for name in $(LIB_DIRS); do \
 		make -C $$name; \
 	done
 .PHONY: all
 
 # Enabel Debug mode
-ifdef WITH_DEBUG
+ifeq ($(DEBUG_ON), 1)
 LIB_DIRS += $(LIBDEBUG_DIR)
 NAME += debug
 endif

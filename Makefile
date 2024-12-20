@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/20 09:30:10 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/20 15:17:27 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CF_OPTIMIZE = -O3
 CF_ASAN = -g -fsanitize=address
-#CF_THSAN = -g -fsanitize=thread
 CF_GENERATE_DEBUG_INFO = -g
 CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
 	 -I$(LIBMLX_DIR) -I$(LIBDEBUG_DIR)/includes
@@ -156,6 +155,8 @@ all: start build_lib $(NAME) end display_art
 
 # Out starting message
 start:
+	@$(if $(filter 1, $(DEBUG_ON)), echo "Debug Mode ON : Enable build process for debug library.")
+	@$(if $(filter 1, $(DEV_ON)), echo "Develop mode ON : In the 'main' branch.")
 	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
 .PHONY: start
 
@@ -163,7 +164,9 @@ start:
 $(LIBS): build_lib
 
 build_lib:
-	make -C $(LIB_DIR) $(WITH_LIBDEBUG)
+	@$(if $(filter 1, $(DEBUG_ON)), \
+		make -C $(LIB_DIR) DEBUG_ON=$(DEBUG_ON), \
+		make -C $(LIB_DIR))
 	@echo "${YELLOW}Build process completed for '${LIBS}'.${NC}"
 .PHONY: build_lib
 
@@ -194,12 +197,6 @@ check: fclean
 	$(VALGRIND_USAGE)
 .PHONY: check
 
-# Debug mode: Includes lib/debug/Makefile execution
-debug:
-	@echo "Building in DEBUG mode..."
-	@make WITH_DEBUG=1
-.PHONY: debug
-
 # Clean target
 clean:
 	@echo "${RED}Cleaning object files of '${NAME}'...${NC}"
@@ -228,11 +225,18 @@ re: fclean all
 # Enable dependency file
 -include $(DEPS)
 
+# Selecte Build mode
+# Include configuration file
+include config/config.mk
+
+# Default value is 0 if not specified
+DEBUG_ON ?= 0
+DEV_ON ?= 0
+
 # Enabel Debug mode
-ifdef WITH_DEBUG
+ifeq ($(DEBUG_ON), 1)
 LIB_DIRS += $(LIBDEBUG_DIR)
 LIBS += $(LIBDEBUG)
-WITH_LIBDEBUG = WITH_DEBUG=1
 endif
 
 # Enabel Address sanitizer
