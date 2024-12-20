@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 21:09:57 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/17 19:18:27 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/20 08:09:06 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ endif
 
 # Source files
 SRCS = \
+	   ft_dprintf.c \
 	   put_visited.c \
 	   debug_parse_fc.c \
 	   debug_parse_map_fail.c \

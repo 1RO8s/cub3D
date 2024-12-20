@@ -6,14 +6,14 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/30 23:00:43 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/20 13:14:19 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Build Libraries : nest of Cub3D
 # target -> MiniLibX, Libft, ft_printf
 
-## Makefile Option
+# Makefile Option : Disable '--print-directory'
 MAKEFLAGS += --no-print-directory
 
 # Directories
@@ -24,6 +24,7 @@ LIBMLX_MAC_DIR = minilibx_mms_20200219
 LIBMLXOPENGL_DIR = libmlxopengl
 RESOURCE_DIR = ../resource
 LIBDEBUG_DIR = debug
+LIB_DIRS = $(LIBFT_DIR) $(LIBFTPRINTF_DIR)
 
 # Resource files
 RESOURCE_MLX_LINUX = minilibx-linux.tgz
@@ -50,16 +51,42 @@ LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
 LIBMLX = $(LIBMLX_DIR)/libmlx_Linux.a
 endif
 
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 
-NAME := start submodules $(LIBMLX)
+# Build target (Review)
+NAME = start $(LIBMLX)
+
+# Include configuration file
+include ../config/config.mk
+
+# Enable Develop mode
+DEV_MODE ?= 0  # Default value is 0 if not specified
+
+ifeq ($(DEV_MODE), 1)
+NAME = start submodules $(LIBMLX)
+endif
 
 # Default target
 all: $(NAME)
-	make -C $(LIBFT_DIR)
-	make -C $(LIBFTPRINTF_DIR)
-	make -C $(LIBDEBUG_DIR)
+	@echo "DEV_MODE=$(DEV_MODE) : NAME=$(NAME)"
+	@for name in $(LIB_DIRS); do \
+		make -C $$name; \
+	done
 .PHONY: all
+
+# Enabel Debug mode
+ifdef WITH_DEBUG
+LIB_DIRS += $(LIBDEBUG_DIR)
+NAME += debug
+endif
+
+debug:
+ifeq ($(shell test -d $(LIBDEBUG_DIR) && echo exist),)
+	@echo "Please clone the debug repository"
+	@exit 1
+endif
+	@echo "Building in debug mode..."
+	make -C lib/debug
 
 PROJECT_DIR = $(notdir $(CURDIR))
 start:
