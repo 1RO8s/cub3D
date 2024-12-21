@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/20 17:52:19 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:42:51 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ static int	parse_element(
 {
 	static t_parse_elem	func[3] = {parse_tex, parse_fc, parse_map};
 	static const int	bit[3] = {BIT_INIT_TEX, BIT_INIT_FC, BIT_INIT_MAP};
+	const int			tex_bit = BIT_NORTH | BIT_WEST | BIT_EAST | BIT_SOUTH;
 
 	if (check_duplicate_info(parse->flag, bit[type], element) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (func[type](element, parse) != EXIT_SUCCESS)
 	{
-		if (is_hit_flag(parse->flag, BIT_INIT_TEX) == true)
+		if (check_for_not_matching_bit(parse->flag, tex_bit) != 0x00)
 			destroy_texture_image(game->mlx, game->texture, parse->flag);
 		if (is_hit_flag(parse->flag, BIT_INIT_MAP) == true)
 			free_double_pointer(game->map.data);

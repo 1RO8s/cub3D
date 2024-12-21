@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/20 17:52:59 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:36:40 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ int	get_fc_color(const char *first_word, int *color)
 		return (EXIT_FAILURE);
 	result = get_rgb_color(str);
 	if (check_error_rgb_value(result, *first_word) != EXIT_SUCCESS)
+	{
+		free(str);
 		return (EXIT_FAILURE);
+	}
 	*color = result.value;
 	free(str);
 	return (EXIT_SUCCESS);
