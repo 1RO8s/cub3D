@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:01:38 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/16 07:43:08 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:00:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	destroy_texture_image(void *mlx, t_texture *texture, int flag)
 	i = 0;
 	while (i < 4)
 	{
-		bit = 0x01 < i;
+		bit = 0x01 << i;
 		if (flag & bit)
 			mlx_destroy_image(mlx, texture[i].img_tex.img);
 		i++;
