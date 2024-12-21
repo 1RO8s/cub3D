@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:47:33 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/30 15:43:43 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 12:08:33 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	draw_floor(t_frame *frame, int x, int floor_start)
 {
 	int	y;
 
-	y = floor_start;
-	while (y < IMG_3D_HEIGHT - 1)
+	y = floor_start + 1;
+	while (y < IMG_3D_HEIGHT)
 	{
 		my_mlx_pixel_put(frame->img_3d, x, y, *frame->floor_color);
 		y++;
