@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/20 15:17:27 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/21 11:33:26 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -201,19 +201,20 @@ check: fclean
 clean:
 	@echo "${RED}Cleaning object files of '${NAME}'...${NC}"
 	rm -rf $(OBJ_DIR) $(DEP_DIR)
-	make -C $(LIBFT_DIR) clean
-	make -C $(LIBFTPRINTF_DIR) clean
-	make -C $(LIBMLX_DIR) clean
-	make -C $(LIBDEBUG_DIR) clean
+	@for name in $(LIB_DIRS); do \
+		if [ -d "$$name" ]; then \
+			make -C $$name clean; \
+		else \
+			echo "Warning: $$name directory does not exist, skipping."; \
+		fi; \
+	done
 .PHONY: clean
+#		make -C $$name clean; \
 
 # Clean and remove library target
 fclean: clean
 	@echo "${RED}Removing archive file...${NC}"
-	rm -f $(LIBFT)
-	rm -f $(LIBFTPRINTF)
-	rm -f $(LIBMLX)
-	rm -f $(LIBDEBUG)
+	rm -f $(LIBS)
 	rm -f $(NAME)
 	@echo "${GREEN}Archive file removed.${NC}"
 .PHONY: fclean
@@ -237,6 +238,7 @@ DEV_ON ?= 0
 ifeq ($(DEBUG_ON), 1)
 LIB_DIRS += $(LIBDEBUG_DIR)
 LIBS += $(LIBDEBUG)
+CFLAGS += -DDEBUG
 endif
 
 # Enabel Address sanitizer

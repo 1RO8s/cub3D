@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:19:09 by hnagasak          #+#    #+#             */
-/*   Updated: 2024/12/17 21:51:15 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 11:07:45 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include "ft_printf.h"
+
+#ifdef DEBUG
 # include "debug_cub3d.h"
+#endif
 
 // -------------- define ---------------
 // Cub3d game window

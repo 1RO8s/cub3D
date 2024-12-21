@@ -6,7 +6,7 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/20 15:44:07 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/21 11:24:38 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,7 +125,11 @@ clean:
 	@for name in $(LIB_DIRS); do \
 		make -C $$name clean; \
 	done
-	make -C $(LIBMLX_DIR) clean
+	@if [ -d "$(LIBMLX_DIR)" ]; then \
+		make -C $(LIBMLX_DIR) clean; \
+	else \
+		echo "Warning: $(LIBMLX_DIR) directory does not exist, skipping."; \
+	fi
 .PHONY: clean
 
 # Clean and remove library target
