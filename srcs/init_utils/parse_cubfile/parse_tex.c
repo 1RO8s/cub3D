@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:43:41 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:13:23 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:00:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static int	get_texture_addr(t_texture *texture, t_type_wall type)
 		ft_eprintf("%s%s\n", ERR_PROMPT, EMSG_IMG_DATA_ADDR);
 		return (EXIT_FAILURE);
 	}
-	debug_img_tex(texture[type].debug.fd, texture[type].img_tex, type,
-		"after mlx_get_data_addr()");
 	return (EXIT_SUCCESS);
 }
+	//debug_img_tex(texture[type].debug.fd, texture[type].img_tex, type,
+	//	"after mlx_get_data_addr()");
 
 /**
  * @brief get direction of wall

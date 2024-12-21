@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:09:34 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:41:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static int	get_texture_image(
 		free(file);
 		return (EXIT_FAILURE);
 	}
-	debug_texture(file, *texture, "get_texture_image()");
 	free(file);
 	return (EXIT_SUCCESS);
 }
+	//debug_texture(file, *texture, "get_texture_image()");
 
 // Probably Unnessesary
 /**

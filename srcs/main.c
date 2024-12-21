@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:18:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:13:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:35:43 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	end_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->img_2d.img);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_loop_end(game->mlx);
-	if (game->debug.fd != STDOUT_FILENO)
-		close(game->debug.fd);
 	exit(0);
 }
-//	// SEGV
-//	free(game->mlx); // !!!!
+	//if (game->debug.fd != STDOUT_FILENO)
+	//	close(game->debug.fd);
+
+//	free(game->mlx); // don't use : SEGV !!!!
 
 static void	start_game(t_game *game)
 {

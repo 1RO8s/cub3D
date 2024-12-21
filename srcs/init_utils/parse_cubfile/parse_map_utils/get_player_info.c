@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:48 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:13:06 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:00:01 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	get_player_info(const char *line, t_parse *parse)
 	}
 	player->move_speed = MOVE_SPEED;
 	player->rotate_speed = ROTATE_SPEED;
-	debug_map_data(*map, "get_player_info()");
-	debug_player(map->debug.fd, *player, "get_player_info()");
 	return (EXIT_SUCCESS);
 }
+	//debug_map_data(*map, "get_player_info()");
+	//debug_player(map->debug.fd, *player, "get_player_info()");

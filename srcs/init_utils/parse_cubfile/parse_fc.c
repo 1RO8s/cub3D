@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:17:05 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:54:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:52:59 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int	parse_fc(const char *line, t_parse *parse)
 	if (get_fc_color(line, &color[type]) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	parse->flag |= parse->fc_info.bit[type];
-	debug_parse_fc(parse->game->debug.fd, color, "parse_fc()");
 	if (check_for_not_matching_bit(parse->flag, BIT_F | BIT_C) == 0x00)
 	{
 		set_fc_color(parse->game, color);
@@ -135,3 +134,4 @@ int	parse_fc(const char *line, t_parse *parse)
 	}
 	return (EXIT_SUCCESS);
 }
+	//debug_parse_fc(parse->game->debug.fd, color, "parse_fc()");

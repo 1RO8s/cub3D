@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:11:25 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:59:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ int	parse_map(const char *line, t_parse *parse)
 	{
 		status = func[i](line, parse);
 		if (status != EXIT_SUCCESS)
-		{
-			debug_parse_map_fail(parse->game->debug.fd, i);
 			return (EXIT_FAILURE);
-		}
 		i++;
 	}
 	parse->flag |= BIT_MAP;
 	return (EXIT_SUCCESS);
 }
+		//status = func[i](line, parse);
+		//if (status != EXIT_SUCCESS)
+		//{
+		//	debug_parse_map_fail(parse->game->debug.fd, i);
+		//	return (EXIT_FAILURE);
+		//}

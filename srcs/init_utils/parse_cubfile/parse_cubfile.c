@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:10 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:09:10 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:52:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 	while (element != NULL)
 	{
 		type = get_type_element(element);
-		debug_element_type(game->debug.fd, element, "parse_cubfile()");
 		if (type == ENUM_ELEMENT_ERR)
 		{
 			put_error_msg(element, EMSG_ENTRY_INVAL);
@@ -97,3 +96,4 @@ int	parse_cubfile(t_parse *parse, t_game *game, const char *element)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+		//debug_element_type(game->debug.fd, element, "parse_cubfile()");

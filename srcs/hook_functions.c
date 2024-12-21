@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 03:21:16 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:20:32 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 02:37:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	handle_mouse(int button, int x, int y, t_game *game)
 {
 	if (IS_DEBUG == false)
 		return (EXIT_FAILURE);
-	ft_dprintf(STDOUT_FILENO, "mouse[%d] x[%d] y[%d]\n", button, x, y);
+	ft_printf("mouse[%d] x[%d] y[%d]\n", button, x, y);
 	(void)game;
 	return (EXIT_SUCCESS);
 }

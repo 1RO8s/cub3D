@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 21:37:36 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:12:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:59:52 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	get_map_data(const char *line, t_parse *parse)
 	while (map->data[count] != NULL)
 		count++;
 	map->height = count;
-	debug_map_data(*map, "get_map_data()");
 	parse->flag |= BIT_INIT_MAP;
 	return (EXIT_SUCCESS);
 }
+	//debug_map_data(*map, "get_map_data()");

@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:50:44 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/18 02:08:36 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:42:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	destroy_and_free(t_game *game)
 	mlx_destroy_image(game->mlx, game->img_3d.img);
 	mlx_destroy_image(game->mlx, game->img_2d.img);
 	free(game->mlx);
-	close(game->debug.fd);
 }
+	//close(game->debug.fd);
 
 /**
  * @brief Check the number of arguments and the file extension.
@@ -55,18 +55,12 @@ int	init_game(t_game *game, int argc, char *argv[])
 {
 	if (arg_check(argc, argv) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (init_debug_info(game) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
 	if (init_mlx_window(game) != EXIT_SUCCESS)
-	{
-		close(game->debug.fd);
 		return (EXIT_FAILURE);
-	}
 	if (init_mlx_image(game) != EXIT_SUCCESS)
 	{
 		mlx_destroy_window(game->mlx, game->win);
 		free(game->mlx);
-		close(game->debug.fd);
 		return (EXIT_FAILURE);
 	}
 	if (init_cub_contents(game, argv[1]) != EXIT_SUCCESS)
@@ -76,3 +70,29 @@ int	init_game(t_game *game, int argc, char *argv[])
 	}
 	return (EXIT_SUCCESS);
 }
+// Debug ON
+//int	init_game(t_game *game, int argc, char *argv[])
+//{
+//	if (arg_check(argc, argv) != EXIT_SUCCESS)
+//		return (EXIT_FAILURE);
+//	if (init_debug_info(game) != EXIT_SUCCESS)
+//		return (EXIT_FAILURE);
+//	if (init_mlx_window(game) != EXIT_SUCCESS)
+//	{
+//		//close(game->debug.fd);
+//		return (EXIT_FAILURE);
+//	}
+//	if (init_mlx_image(game) != EXIT_SUCCESS)
+//	{
+//		mlx_destroy_window(game->mlx, game->win);
+//		free(game->mlx);
+//		//close(game->debug.fd);
+//		return (EXIT_FAILURE);
+//	}
+//	if (init_cub_contents(game, argv[1]) != EXIT_SUCCESS)
+//	{
+//		destroy_and_free(game);
+//		return (EXIT_FAILURE);
+//	}
+//	return (EXIT_SUCCESS);
+//}
