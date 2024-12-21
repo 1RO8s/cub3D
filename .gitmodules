@@ -7,3 +7,6 @@
 [submodule "test"]
 	path = test
 	url = git@github.com:kamitsui/cub3D_parse_test.git
+[submodule "lib/debug"]
+	path = lib/debug
+	url = git@github.com:kamitsui/libdebug_cub3D.git
