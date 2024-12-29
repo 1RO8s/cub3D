@@ -1,4 +1,3 @@
-export DISPLAY=':0.0 ./cub3D map/test.cub'
 DEBUG_ON=0
 
 alias run='./cub3D map/test.cub'
