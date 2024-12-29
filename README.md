@@ -1,66 +1,59 @@
 # cub3D
 
-### Clone main repository & submodules
+### How to use
 ```sh
-# All repository
-git clone --recursive git@github.com:1RO8s/cub3D.git
-
-# or
 git clone git@github.com:1RO8s/cub3D.git
-git submodule update --init --recursive
-
-# if Case of update libft
-cd lib/libft
-git fetch
-git main
-git ../..
+cd cub3d
+make
+./cub3D map/test.map
 ```
 
-### Build
+### Usefull alias
+```
+# set alias command
+source config/alias.zsh
+
+# execute './cub3D map/test.cub'
+run
+```
+
+
+### How to use Tester
+```
+# current directory is PROJECT_DIR/cub3d
+git clone git@github.com:kamitsui/cub3D_parse_test.git
+cd test
+
+# parse check
+./parse_check
+
+# run with select map
+./run_select_map.sh
+
+# leak check
+./leak_check.sh
+```
+
+### Example
 ```sh
 make
 ```
 output the below message
 ![build_image](docs/image/build_cub3D.png)
 
-### Run
 ```sh
 ./cub3D map/test.map
 # or
 source config/alias.zsh
 run
 ```
+
+### Note
 -> [Current Progress](docs/progress.md)
 
 > memo : paste the completed cub3D game image here
 >
 > note : [image_note](docs/pdf/kamitsui_note.pdf)
-
-
-### Directories and Files
-```sh
-tree -L 1 .
-.
-├── Makefile
-├── README.md
-├── cub3D
-├── docker
-├── docs
-├── includes
-├── lib
-├── map
-├── objs
-├── resource
-└── srcs
-```
-
-### Test
-```sh
-ln -sf $PWD/cub3D $PWD/test/parse_test/cub3D_parseTest/cub3D
-cd test/parse_test/cub3D_parseTest
-chmod +x parse.sh
-./parse.sh
-```
 
 ### About us
 * [hnagasak](https://profile.intra.42.fr/users/hnagasak) : github[1R08s](https://github.com/1RO8s)
