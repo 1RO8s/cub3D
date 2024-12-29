@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/21 09:41:25 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/29 19:54:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ static int	get_texture_image(
  * @brief initialize tex_info structure
  */
 
+static void	clear_flag_of_texture(t_parse *parse)
+{
+	int	clear_flag;
+
+	clear_flag = ~(BIT_NORTH | BIT_WEST | BIT_EAST | BIT_SOUTH);
+	parse->flag = parse->flag & clear_flag;
+}
+
 int	create_texture_image(const char *line, t_parse *parse, t_type_wall type)
 {
 	void		*mlx;
@@ -55,6 +63,7 @@ int	create_texture_image(const char *line, t_parse *parse, t_type_wall type)
 	if (get_texture_image(mlx, line, &texture[type]) != EXIT_SUCCESS)
 	{
 		destroy_texture_image(mlx, texture, parse->flag);
+		clear_flag_of_texture(parse);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
