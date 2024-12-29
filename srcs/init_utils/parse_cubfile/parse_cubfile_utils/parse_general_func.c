@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:52:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 22:21:39 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/29 17:31:34 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	print_until_ch(int fd, const char *str, int c)
 {
 	size_t		len;
+	ssize_t		result;
 	const char	*end;
 
 	if (str == NULL)
@@ -24,7 +25,19 @@ int	print_until_ch(int fd, const char *str, int c)
 		len = ft_strlen(str);
 	else
 		len = end - str;
-	write(fd, str, len);
+
+	result = write(fd, str, len);
+	if (result == -1)
+	{
+	    perror("write failed");
+	    exit(EXIT_FAILURE);
+	}
+	else if ((size_t)result != len)
+	{
+	    ft_eprintf("Partial write. Only %lu bytes out of %lu were written.\n",
+			(size_t)result, len);
+	    exit(EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
