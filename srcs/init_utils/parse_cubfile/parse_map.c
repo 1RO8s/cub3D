@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:31:30 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 23:05:56 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:59:28 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	put_error_map_size_over(int cols, int rows)
 {
-	printf("%s%s: ", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
-	printf("%d x %d", cols, rows);
-	printf(" (within %d x %d)\n", MAX_COLS, MAX_ROWS);
+	ft_eprintf("%s%s: ", ERR_PROMPT, EMSG_MAP_TOO_LARGE);
+	ft_eprintf("%d x %d", cols, rows);
+	ft_eprintf(" (within %d x %d)\n", MAX_COLS, MAX_ROWS);
 }
 
 int	check_range_map(const char *line, t_parse *parse)
@@ -61,12 +61,15 @@ int	parse_map(const char *line, t_parse *parse)
 	{
 		status = func[i](line, parse);
 		if (status != EXIT_SUCCESS)
-		{
-			debug_parse_map_fail(parse->game->debug.fd, i);
 			return (EXIT_FAILURE);
-		}
 		i++;
 	}
 	parse->flag |= BIT_MAP;
 	return (EXIT_SUCCESS);
 }
+		//status = func[i](line, parse);
+		//if (status != EXIT_SUCCESS)
+		//{
+		//	debug_parse_map_fail(parse->game->debug.fd, i);
+		//	return (EXIT_FAILURE);
+		//}

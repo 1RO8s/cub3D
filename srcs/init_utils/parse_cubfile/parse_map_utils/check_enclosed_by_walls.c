@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:51:35 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 21:15:33 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/29 20:19:14 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ static bool	**init_visited(t_map *map)
 	return ((bool **)visited);
 }
 
-static t_bool	process_false_or_error(t_bool is_surrounded)
-{
-	if (is_surrounded == ENUM_FALSE)
-		ft_dprintf(STDERR_FILENO, "%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
-	return (is_surrounded);
-}
-
 void	free_visited(bool **visited, size_t size)
 {
 	size_t	i;
@@ -67,6 +60,17 @@ void	free_visited(bool **visited, size_t size)
 		i++;
 	}
 	free(visited);
+}
+
+static t_bool	process_false_or_error(t_bool is_surrounded,
+		bool **visited, size_t size)
+{
+	if (is_surrounded == ENUM_FALSE)
+	{
+		free_visited(visited, size);
+		ft_eprintf("%s%s\n", ERR_PROMPT, EMSG_MAP_NOT_ENCLOSED);
+	}
+	return (is_surrounded);
 }
 
 /**
@@ -93,10 +97,12 @@ int	check_enclosed_by_walls(const char *line, t_parse *parse)
 	map = &parse->game->map;
 	is_surrounded = ENUM_TRUE;
 	is_surrounded = flood_fill(map, start_x, start_y, visited);
-	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
+	if (process_false_or_error(is_surrounded, visited, (size_t)map->height)
+		!= ENUM_TRUE)
 		return (EXIT_FAILURE);
 	is_surrounded = is_enclosed_on_remaining_area(map, visited);
-	if (process_false_or_error(is_surrounded) != ENUM_TRUE)
+	if (process_false_or_error(is_surrounded, visited, (size_t)map->height)
+		!= ENUM_TRUE)
 		return (EXIT_FAILURE);
 	free_visited(visited, (size_t)map->height);
 	(void)line;

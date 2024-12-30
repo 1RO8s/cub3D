@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:35:54 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/05 18:38:52 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:39:09 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ void	quit_game(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 	{
-		debug_keypress(game->debug.fd, ENUM_ESC, keycode);
 		end_game(game);
 	}
 }
+	//	debug_keypress(game->debug.fd, ENUM_ESC, keycode);
 
 void	invalid_key(int keycode, t_game *game)
 {
-	if (game->frame.flag == 0x00)
-		debug_keypress(game->debug.fd, ENUM_OTHER, keycode);
+	(void)keycode;
+	(void)game;
 }
+	//if (game->frame.flag == 0x00)
+	//	debug_keypress(game->debug.fd, ENUM_OTHER, keycode);

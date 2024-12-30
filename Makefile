@@ -6,11 +6,14 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 17:56:56 by kamitsui          #+#    #+#              #
-#    Updated: 2024/12/17 22:18:26 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/21 11:46:43 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Build Cub3D : Top level build
+
+# Makefile Option : Disable '--print-directory'
+MAKEFLAGS += --no-print-directory
 
 # Directories
 SRCS_DIR = \
@@ -35,6 +38,7 @@ LIBFT_DIR = $(LIB_DIR)/libft
 LIBFTPRINTF_DIR = $(LIB_DIR)/ft_printf
 LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 LIBDEBUG_DIR = $(LIB_DIR)/debug
+LIB_DIRS = $(LIBFT_DIR) $(LIBFTPRINTF_DIR) $(LIBMLX_DIR)
 
 # Source files
 SRCS = \
@@ -97,8 +101,6 @@ SRCS = \
 	   move_and_strafe.c \
 	   rotate.c
 
-	   #debug.c
-
 # Object files and dependency files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
@@ -107,7 +109,7 @@ DEPS = $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 LIBDEBUG = $(LIBDEBUG_DIR)/libdebug.a
-LIBS = $(LIBDEBUG) $(LIBFT) $(LIBFTPRINTF) $(LIBMLX)
+LIBS = $(LIBFT) $(LIBFTPRINTF) $(LIBMLX)
 
 # Build target
 NAME = cub3D
@@ -120,7 +122,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CF_OPTIMIZE = -O3
 CF_ASAN = -g -fsanitize=address
-#CF_THSAN = -g -fsanitize=thread
 CF_GENERATE_DEBUG_INFO = -g
 CF_INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBFTPRINTF_DIR)/includes \
 	 -I$(LIBMLX_DIR) -I$(LIBDEBUG_DIR)/includes
@@ -139,9 +140,6 @@ LIBMLX := $(LIBMLX_DIR)/libmlx_Linux.a
 CF_API = -L$(LIBMLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 endif
 
-# Makefile Option
-MAKEFLAGS += --no-print-directory
-
 # Rules for building object files
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
@@ -157,6 +155,8 @@ all: start build_lib $(NAME) end display_art
 
 # Out starting message
 start:
+	@$(if $(filter 1, $(DEBUG_ON)), echo "Debug Mode ON : Enable build process for debug library.")
+	@$(if $(filter 1, $(DEV_ON)), echo "Develop mode ON : In the 'main' branch.")
 	@echo "${YELLOW}Starting build process for '${NAME}'...${NC}"
 .PHONY: start
 
@@ -164,7 +164,9 @@ start:
 $(LIBS): build_lib
 
 build_lib:
-	make -C $(LIB_DIR)
+	@$(if $(filter 1, $(DEBUG_ON)), \
+		make -C $(LIB_DIR) DEBUG_ON=$(DEBUG_ON), \
+		make -C $(LIB_DIR))
 	@echo "${YELLOW}Build process completed for '${LIBS}'.${NC}"
 .PHONY: build_lib
 
@@ -199,19 +201,20 @@ check: fclean
 clean:
 	@echo "${RED}Cleaning object files of '${NAME}'...${NC}"
 	rm -rf $(OBJ_DIR) $(DEP_DIR)
-	make -C $(LIBFT_DIR) clean
-	make -C $(LIBFTPRINTF_DIR) clean
-	make -C $(LIBMLX_DIR) clean
-	make -C $(LIBDEBUG_DIR) clean
+	@for name in $(LIB_DIRS); do \
+		if [ -d "$$name" ]; then \
+			make -C $$name clean; \
+		else \
+			echo "Warning: $$name directory does not exist, skipping."; \
+		fi; \
+	done
 .PHONY: clean
+#		make -C $$name clean; \
 
 # Clean and remove library target
 fclean: clean
 	@echo "${RED}Removing archive file...${NC}"
-	rm -f $(LIBFT)
-	rm -f $(LIBFTPRINTF)
-	rm -f $(LIBMLX)
-	rm -f $(LIBDEBUG)
+	rm -f $(LIBS)
 	rm -f $(NAME)
 	@echo "${GREEN}Archive file removed.${NC}"
 .PHONY: fclean
@@ -222,6 +225,21 @@ re: fclean all
 
 # Enable dependency file
 -include $(DEPS)
+
+# Selecte Build mode
+# Include configuration file
+include config/config.mk
+
+# Default value is 0 if not specified
+DEBUG_ON ?= 0
+DEV_ON ?= 0
+
+# Enabel Debug mode
+ifeq ($(DEBUG_ON), 1)
+LIB_DIRS += $(LIBDEBUG_DIR)
+LIBS += $(LIBDEBUG)
+CFLAGS += -DDEBUG
+endif
 
 # Enabel Address sanitizer
 ifdef WITH_ASAN
@@ -268,8 +286,9 @@ define VALGRIND_USAGE
 @echo " __________________________________________________________________________"
 @echo "< Vargrind Usage :                                                         >"
 @echo "<  valgrind --leak-check=full ./cub3D map/*.cub                            >"
+@echo "<  valgrind --leak-check=full --show-leak-kinds=all ./cub3D map/*.cub      >"
 @echo "<  or                                                                      >"
 @echo "<  $$ source config/alias.zsh                                               >"
-@echo "<  $$ leak_check                                                           >"
+@echo "<  $$ leak_check or leak_check_all                                          >"
 @echo "---------------------------------------------------------------------------"
 endef

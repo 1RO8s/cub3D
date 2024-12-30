@@ -1,0 +1,9 @@
+*
+!*/
+!Makefile
+!*.c
+!*.h
+!*.sh
+!*.md
+!.gitignore
+!doxyfile

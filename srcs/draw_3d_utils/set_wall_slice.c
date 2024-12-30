@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 22:34:03 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/11/30 15:44:24 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:49:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_wall_slice(t_frame *frame, int x)
 	if (wall_slice.draw_end >= WIN_HEIGHT)
 		wall_slice.draw_end = WIN_HEIGHT - 1;
 	frame->wall_slice = wall_slice;
-	debug_wall_slice(frame->debug.fd,
-		frame->dda.perp_wall_dist, wall_slice, "set_wall_slice()");
 	(void)x;
 }
+	//debug_wall_slice(frame->debug.fd,
+	//	frame->dda.perp_wall_dist, wall_slice, "set_wall_slice()");

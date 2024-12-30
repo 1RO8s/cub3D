@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:42:53 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/10/15 14:23:53 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:38:25 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,34 @@ void	set_move_forward_flag(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
 	{
-		debug_keypress(STDOUT_FILENO, ENUM_W, keycode);
 		game->frame.flag |= BIT_MOVE_FORWARD;
 	}
 }
+	//	debug_keypress(STDOUT_FILENO, ENUM_W, keycode);
 
 void	set_move_backward_flag(int keycode, t_game *game)
 {
 	if (keycode == KEY_S)
 	{
-		debug_keypress(STDOUT_FILENO, ENUM_S, keycode);
 		game->frame.flag |= BIT_MOVE_BACKWARD;
 	}
 }
+	//	debug_keypress(STDOUT_FILENO, ENUM_S, keycode);
 
 void	set_strafe_left_flag(int keycode, t_game *game)
 {
 	if (keycode == KEY_A)
 	{
-		debug_keypress(STDOUT_FILENO, ENUM_A, keycode);
 		game->frame.flag |= BIT_STRAFE_LEFT;
 	}
 }
+	//	debug_keypress(STDOUT_FILENO, ENUM_A, keycode);
 
 void	set_strafe_right_flag(int keycode, t_game *game)
 {
 	if (keycode == KEY_D)
 	{
-		debug_keypress(STDOUT_FILENO, ENUM_D, keycode);
 		game->frame.flag |= BIT_STRAFE_RIGHT;
 	}
 }
+	//	debug_keypress(STDOUT_FILENO, ENUM_D, keycode);

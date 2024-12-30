@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:55:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/14 10:43:57 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:43:19 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	set_texture_x_coordinate(t_frame *frame, int x)
 		dda->tex_x = dda->texture.width - dda->tex_x - 1;
 	if (dda->type_of_grid_line == 1 && ray_dir.y >= 0)
 		dda->tex_x = dda->texture.width - dda->tex_x - 1;
-	debug_texture_coordinate(frame->debug.fd, wall_x, frame,
-		"end set_texture_x_coordinage()");
 	(void)x;
 }
 //	debug code
+	//debug_texture_coordinate(frame->debug.fd, wall_x, frame,
+	//	"end set_texture_x_coordinage()");
 //	debug_put_texture_image(frame);
 //	Note : comment out in source file because using forbidden function
 //

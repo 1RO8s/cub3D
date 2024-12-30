@@ -6,14 +6,14 @@
 #    By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 22:03:00 by kamitsui          #+#    #+#              #
-#    Updated: 2024/09/30 23:00:43 by kamitsui         ###   ########.fr        #
+#    Updated: 2024/12/21 11:24:38 by kamitsui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Build Libraries : nest of Cub3D
 # target -> MiniLibX, Libft, ft_printf
 
-## Makefile Option
+# Makefile Option : Disable '--print-directory'
 MAKEFLAGS += --no-print-directory
 
 # Directories
@@ -24,6 +24,7 @@ LIBMLX_MAC_DIR = minilibx_mms_20200219
 LIBMLXOPENGL_DIR = libmlxopengl
 RESOURCE_DIR = ../resource
 LIBDEBUG_DIR = debug
+LIB_DIRS = $(LIBFT_DIR) $(LIBFTPRINTF_DIR)
 
 # Resource files
 RESOURCE_MLX_LINUX = minilibx-linux.tgz
@@ -50,16 +51,42 @@ LIBMLX_DIR = $(LIBMLX_LINUX_DIR)
 LIBMLX = $(LIBMLX_DIR)/libmlx_Linux.a
 endif
 
-LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
+LIBS = $(LIBMLX) $(LIBFT) $(LIBFTPRINTF)
 
-NAME := start submodules $(LIBMLX)
+# Build target (Review)
+NAME = start $(LIBMLX)
+
+# Include configuration file
+include ../config/config.mk
+
+# Enable Develop mode
+DEV_ON ?= 0  # Default value is 0 if not specified
+
+ifeq ($(DEV_ON), 1)
+NAME = start submodules $(LIBMLX)
+endif
 
 # Default target
 all: $(NAME)
-	make -C $(LIBFT_DIR)
-	make -C $(LIBFTPRINTF_DIR)
-	make -C $(LIBDEBUG_DIR)
+	@for name in $(LIB_DIRS); do \
+		make -C $$name; \
+	done
 .PHONY: all
+
+# Enabel Debug mode
+ifeq ($(DEBUG_ON), 1)
+LIB_DIRS += $(LIBDEBUG_DIR)
+NAME += debug
+LIBS += $(LIBDEBUG)
+endif
+
+debug:
+ifeq ($(shell test -d $(LIBDEBUG_DIR) && echo exist),)
+	@echo "Please clone the debug repository"
+	@exit 1
+endif
+	@echo "Building in debug mode..."
+	make -C lib/debug
 
 PROJECT_DIR = $(notdir $(CURDIR))
 start:
@@ -95,16 +122,20 @@ submodules:
 ## Clean target
 clean:
 	@echo "${RED}Cleaning object files of Libraries...${NC}"
-	make -C $(LIBFT_DIR) clean
-	make -C $(LIBFTPRINTF_DIR) clean
-	make -C $(LIBMLX_DIR) clean
-	make -C $(LIBDEBUG_DIR) clean
+	@for name in $(LIB_DIRS); do \
+		make -C $$name clean; \
+	done
+	@if [ -d "$(LIBMLX_DIR)" ]; then \
+		make -C $(LIBMLX_DIR) clean; \
+	else \
+		echo "Warning: $(LIBMLX_DIR) directory does not exist, skipping."; \
+	fi
 .PHONY: clean
 
 # Clean and remove library target
 fclean: clean
 	@echo "${RED}Removing archive file...${NC}"
-	rm -f $(LIBFT) $(LIBFTPRINTF) $(LIBDEBUG)
+	rm -f $(LIBS)
 	@echo "${GREEN}All archive file removed.${NC}"
 .PHONY: fclean
 

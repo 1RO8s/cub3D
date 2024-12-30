@@ -6,7 +6,7 @@
 /*   By: kamitsui <kamitsui@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 00:51:06 by kamitsui          #+#    #+#             */
-/*   Updated: 2024/12/17 22:33:17 by kamitsui         ###   ########.fr       */
+/*   Updated: 2024/12/29 19:54:47 by kamitsui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,27 @@ static int	get_texture_image(
 			mlx, file, &texture->width, &texture->height);
 	if (texture->img_tex.img == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "%s%s: %s\n",
-			ERR_PROMPT, EMSG_MLX_XPM_TO_IMG, file);
+		ft_eprintf("%s%s: %s\n", ERR_PROMPT, EMSG_MLX_XPM_TO_IMG, file);
 		free(file);
 		return (EXIT_FAILURE);
 	}
-	debug_texture(file, *texture, "get_texture_image()");
 	free(file);
 	return (EXIT_SUCCESS);
 }
+	//debug_texture(file, *texture, "get_texture_image()");
 
 // Probably Unnessesary
 /**
  * @brief initialize tex_info structure
  */
+
+static void	clear_flag_of_texture(t_parse *parse)
+{
+	int	clear_flag;
+
+	clear_flag = ~(BIT_NORTH | BIT_WEST | BIT_EAST | BIT_SOUTH);
+	parse->flag = parse->flag & clear_flag;
+}
 
 int	create_texture_image(const char *line, t_parse *parse, t_type_wall type)
 {
@@ -56,6 +63,7 @@ int	create_texture_image(const char *line, t_parse *parse, t_type_wall type)
 	if (get_texture_image(mlx, line, &texture[type]) != EXIT_SUCCESS)
 	{
 		destroy_texture_image(mlx, texture, parse->flag);
+		clear_flag_of_texture(parse);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

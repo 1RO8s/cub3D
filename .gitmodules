@@ -1,9 +1,0 @@
-[submodule "lib/libft"]
-	path = lib/libft
-	url = git@github.com:kamitsui/libft.git
-[submodule "lib/ft_printf"]
-	path = lib/ft_printf
-	url = git@github.com:kamitsui/ft_printf.git
-[submodule "test"]
-	path = test
-	url = git@github.com:kamitsui/cub3D_parse_test.git
