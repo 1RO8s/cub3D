@@ -1,8 +1,11 @@
 # cub3D
 
 ### Score
-2024/12/30
-![image](docs/image/1230_success.png)
+
+<div style="text-align: center;">
+	<img src="docs/image/1230_success.png" alt="img" width="200" />
+	<p> 2024/12/30 </p>
+</div>
 
 
 ### How to use
