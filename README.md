@@ -1,5 +1,10 @@
 # cub3D
 
+### Score
+2024/12/30
+![image](docs/image/1230_success.png)
+
+
 ### How to use
 ```sh
 git clone git@github.com:1RO8s/cub3D.git
