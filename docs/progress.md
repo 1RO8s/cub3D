@@ -1,12 +1,13 @@
-# Cub3D current progress
-...
+# Bug History
+
+\page bug_history Bug History
+
+---
 
 Commit ID: [309cab8](https://github.com/1RO8s/cub3D/commit/309cab8)
 
 11/23 by kamitsui
-![game_movie](movie/successful/20241123.gif)
-
-...
+![game_movie](docs/movie/successful/20241123.gif)
 
 ---
 1123 parse/cub_file

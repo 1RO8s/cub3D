@@ -1,4 +1,6 @@
-# cub3D
+# README.md
+
+\page readme README.md
 
 ### Score
 
@@ -56,8 +58,8 @@ source config/alias.zsh
 run
 ```
 
-### Note
--> [Current Progress](docs/progress.md)
+### Bug History
+* [docs/progress.md](\ref bug_history)
 
 > memo : paste the completed cub3D game image here
 >

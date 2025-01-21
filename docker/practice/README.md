@@ -1,4 +1,7 @@
-# usage
+# Docker practice
+
+\page docker_xeyes Docker xeyes
+
 ```
 docker build . -t xeyes
 

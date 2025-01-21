@@ -1,4 +1,7 @@
-### how to convert the video to GIF
+# ffmpeg ( command to convert Gif from videw )
+
+\page ffmpeg ffmpeg
+
 ```sh
 # Capture video file on mac
 ffmpeg -i game_video.mov -vf "fps=10,scale=640:-1:flags=lanczos" -c:v gif output.gif
@@ -6,11 +9,9 @@ ffmpeg -i game_video.mov -vf "fps=10,scale=640:-1:flags=lanczos" -c:v gif output
 ffmpeg -i game_video.webm -vf "fps=10,scale=640:-1:flags=lanczos" -c:v gif output.gif
 ```
 
-```sh
-```
-
 ### what is ffmpeg
 Play, record, convert, and stream audio and video
+
 [https://ffmpeg.org/](https://ffmpeg.org/)
 ```sh
 brew install ffmpeg
