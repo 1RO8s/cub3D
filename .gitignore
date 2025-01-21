@@ -5,6 +5,7 @@
 !*/
 
 # Whitelist important files
+!.gitignore
 !Makefile
 !*.mk
 !*.c
@@ -23,10 +24,14 @@
 !*.dox
 !*.zsh
 !Dockerfile
+
+# doxygen
 !doxygen-awesome-css
 !Doxyfile
-!.gitignore
-!*.yml
+!*.html
+!*.css
+!*.js
+!*.svg
 
 # Ignore specific directories
 lib/minilibx-linux/
