@@ -9,10 +9,17 @@
 )
 -->
 
+![](docs/image/1230_success_w200.png)
+
 <div align="center">
-	![](docs/image/1230_success_w200.png)
 	2024/12/30
 </div>
+
+<!---
+<div align="center">
+	![2024/12/30](docs/image/1230_success_w200.png)
+</div>
+-->
 
 ![](docs/movie/successful/20241123.gif)
 
