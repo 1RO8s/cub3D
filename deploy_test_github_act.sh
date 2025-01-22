@@ -8,5 +8,6 @@ if [[ $1 == "dry" ]]; then
 	act -n --container-architecture linux/amd64
 else
 	# Flag to ensure compatibility (My PC chip is ARM, but may require x86_64(AMD64))
-	act -j build --verbose --container-architecture linux/amd64
+	act --container-architecture linux/amd64
+	#act -j build --verbose --container-architecture linux/amd64 # debug
 fi

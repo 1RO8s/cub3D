@@ -15,11 +15,27 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: true  # Ensure submodules are checked out
 
       - name: Install Doxygen
         run: |
           sudo apt update
           sudo apt-get install -y doxygen graphviz rsync
+
+      - name: Configure Doxygen with Doxygen Awesome CSS
+        run: |
+          # Ensure the CSS theme is properly linked
+          cp docs/doxygen-awesome-css/doxygen-awesome.css .
+          cp docs/doxygen-awesome-css/doxygen-awesome-sidebar-only.css .
+          cp docs/doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js .
+
+          # Modify the Doxyfile to use the theme
+          sed -i 's|HTML_EXTRA_STYLESHEET.*|HTML_EXTRA_STYLESHEET = doxygen-awesome.css doxygen-awesome-sidebar-only.css|' Doxyfile
+          sed -i 's|HTML_EXTRA_FILES.*|HTML_EXTRA_FILES = doxygen-awesome-darkmode-toggle.js|' Doxyfile
+          
+          # Ensure OUTPUT_DIRECTORY is set to 'html' for deployment consistency
+          sed -i 's|^OUTPUT_DIRECTORY.*|OUTPUT_DIRECTORY = html|' Doxyfile
 
       - name: Generate Documentation
         run: doxygen Doxyfile
