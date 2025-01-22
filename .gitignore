@@ -6,6 +6,7 @@
 
 # Whitelist important files
 !.gitignore
+!*.yml
 !Makefile
 !*.mk
 !*.c
