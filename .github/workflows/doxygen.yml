@@ -35,7 +35,8 @@ jobs:
           sed -i 's|HTML_EXTRA_FILES.*|HTML_EXTRA_FILES = doxygen-awesome-darkmode-toggle.js|' Doxyfile
           
           # Ensure OUTPUT_DIRECTORY is set to 'html' for deployment consistency
-          sed -i 's|^OUTPUT_DIRECTORY.*|OUTPUT_DIRECTORY = html|' Doxyfile
+          sed -i 's|^OUTPUT_DIRECTORY.*|OUTPUT_DIRECTORY = ./|' Doxyfile
+HTML_OUTPUT
 
       - name: Generate Documentation
         run: doxygen Doxyfile
