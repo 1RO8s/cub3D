@@ -17,9 +17,14 @@ Cub3D project in 42 Cursus	{#mainpage}
 * mathライブラリを活用して、浮動小数点の計算や、オーバーフロー対策。
 * ゲームマップを解析するためのエラーハンドリングやアルゴリズム。
 
-## 目次
-- \ref readme "README.md"
+## ノート
+- [README.md](@ref readme)
 - \ref bug_history "Bug_History"
 - \ref ffmpeg "ffmpeg"
-- \ref docker_ubuntu "Docker Ubuntu 23.04"
-- \ref docker_xeyes "Docker xeyes"
+- \ref docker "Develop environ with docker"
+- \ref docker_prac "Docker practice : xeyes"
+- [note.pdf](https://github.com/kamitsui/cub3D/blob/main/docs/pdf/kamitsui_note.pdf)
+
+## 開発リポジトリ
+* [1RO8s/cub3D](https://github.com/1RO8s/cub3D)
+* [kamitsui/cub3D](https://github.com/kamitsui/cub3D)

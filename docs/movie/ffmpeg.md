@@ -1,7 +1,10 @@
-# ffmpeg ( command to convert Gif from videw )
+# ffmpeg {#ffmpeg}
 
-\page ffmpeg ffmpeg
+Convert media file formats.
 
+- ex : .gif -> .webm or .mov
+
+### How to use
 ```sh
 # Capture video file on mac
 ffmpeg -i game_video.mov -vf "fps=10,scale=640:-1:flags=lanczos" -c:v gif output.gif

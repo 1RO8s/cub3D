@@ -1,17 +1,23 @@
-# README.md
-
-\page readme README.md
+# README.md {#readme}
 
 ### Score
 
+
+<!---
+![Caption text](1230_success.jpg)
+![Caption text](/docs/image/1230_success.jpg)
+)
+-->
+
 <div align="center">
-	<img src="docs/image/1230_success.png" alt="img" width="200" />
-	<p> 2024/12/30 </p>
+	![](docs/image/1230_success_w200.png)
+	2024/12/30
 </div>
 
+![](docs/movie/successful/20241123.gif)
 
 ### How to use
-```sh
+```{.sh}
 git clone git@github.com:1RO8s/cub3D.git
 cd cub3d
 make
@@ -25,6 +31,24 @@ source config/alias.zsh
 
 # execute './cub3D map/test.cub'
 run
+
+# leack
+make check
+leak_check # or leak_check_all
+
+# abort
+make asan
+run
+
+# norminette
+norm # output to norm_result.txt
+
+# forbidden function
+nm_cub # output to nm_cub.txt
+nm_obj # output to nm_obj.txt
+
+# ctags for jump function
+ctags_cub3d
 ```
 
 
@@ -42,32 +66,20 @@ cd test
 
 # leak check
 ./leak_check.sh
+
+# output to trace/*.log
 ```
 
-### Example
+### Enjoy Makefile
 ```sh
 make
 ```
-output the below message
-![build_image](docs/image/build_cub3D.png)
 
-```sh
-./cub3D map/test.map
-# or
-source config/alias.zsh
-run
-```
-
-### Bug History
-* [docs/progress.md](\ref bug_history)
-
-> memo : paste the completed cub3D game image here
->
-> note : [image_note](docs/pdf/kamitsui_note.pdf)
+![cowsay command](docs/image/build_cub3D.png)
 
 ### About us
-* [hnagasak](https://profile.intra.42.fr/users/hnagasak) : github[1R08s](https://github.com/1RO8s)
-* [kamitsui](https://profile.intra.42.fr/users/kamitsui) : github[kamitsui](https://github.com/kamitsui)
+* Intra:[hnagasak](https://profile.intra.42.fr/users/hnagasak) / GitHub:[1R08s](https://github.com/1RO8s) / [Repository](https://github.com/1RO8s/cub3D)
+* Intra name : [kamitsui](https://profile.intra.42.fr/users/kamitsui) / GitHub : [kamitsui](https://github.com/kamitsui) / [Repository](https://github.com/kamitsui/cub3D)
 
 Joined the 42Tokyo in the same year (2023.1)
 

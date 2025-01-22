@@ -1,6 +1,4 @@
-# Docker container as 42 PC environ
-
-\page docker_ubuntu Docker Ubuntu 23.04
+# Develop environ with docker {#docker}
 
 ```sh
 # Build and Run container (Cub3D develop environment)
@@ -49,5 +47,5 @@ docker-compose build --parallel
 docker-compose build service_name
 ```
 
-### Built Check
-[docker build check](https://www.docker.com/ja-jp/blog/introducing-docker-build-checks/)
+### Refer
+docker.com : [build check](https://www.docker.com/ja-jp/blog/introducing-docker-build-checks/)
