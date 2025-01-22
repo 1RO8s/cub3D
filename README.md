@@ -75,4 +75,4 @@ Start this project at 2024.8
 
 ---
 ### Cub3D project documents
-[document page](https://kamitsui.github.io/cub3D/html/index.html)
+[document page](https://kamitsui.github.io/cub3D/)
