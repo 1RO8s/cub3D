@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,15 +17,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Doxygen
-        run: sudo apt-get install -y doxygen graphviz
+        run: |
+          sudo apt update
+          sudo apt-get install -y doxygen graphviz rsync
 
       - name: Generate Documentation
         run: doxygen Doxyfile
 
       - name: Deploy to GitHub Pages
+        if: github.actor != 'nektos/act' # Skip deployment locally
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: html
+          token: ${{ secrets.GITHUB_TOKEN }}
           clean: true
-
