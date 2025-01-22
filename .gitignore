@@ -33,6 +33,7 @@
 !*.css
 !*.js
 !*.svg
+docs/html
 
 # Ignore specific directories
 lib/minilibx-linux/
