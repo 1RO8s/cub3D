@@ -9,13 +9,19 @@
 )
 -->
 
-![](docs/image/1230_success_w200.png)
+<div align="center">
+	![](docs/image/1230_success_w200.png)
+</div>
 
 <div align="center">
 	2024/12/30
 </div>
 
-<!---
+<!--- NG : left side
+![](docs/image/1230_success_w200.png)
+-->
+
+<!--- NG : not display image
 <div align="center">
 	![2024/12/30](docs/image/1230_success_w200.png)
 </div>
