@@ -2,13 +2,14 @@
 
 ### Score
 
-
-<!---
-![Caption text](1230_success.jpg)
-![Caption text](/docs/image/1230_success.jpg)
-)
+<!--- github ok , but doxygen ?
 -->
+<div align="center">
+	<img src="docs/image/1230_success_w200.png" alt="img" />
+	<p> 2024/12/30 </p>
+</div>
 
+<!--- github ng , but doxygen ok
 <div align="center">
 	![](docs/image/1230_success_w200.png)
 </div>
@@ -16,12 +17,13 @@
 <div align="center">
 	2024/12/30
 </div>
+-->
 
-<!--- NG : left side
+<!--- github NG : left side
 ![](docs/image/1230_success_w200.png)
 -->
 
-<!--- NG : not display image
+<!--- github NG : not display image
 <div align="center">
 	![2024/12/30](docs/image/1230_success_w200.png)
 </div>
